@@ -1,0 +1,4 @@
+---@class MyTemplateScript:SceneScriptBase
+MyTemplateScript = Class("MyTemplateScript",SceneScriptBase)
+
+return MyTemplateScript

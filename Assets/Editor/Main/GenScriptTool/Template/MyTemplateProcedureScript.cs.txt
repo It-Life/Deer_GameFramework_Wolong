@@ -1,0 +1,22 @@
+﻿using GameFramework;
+using UnityGameFramework.Runtime;
+using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
+
+namespace Deer
+{
+    public class MyTemplateScript : ProcedureBase
+    {
+        public override bool UseNativeDialog
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        protected override void OnEnter(ProcedureOwner procedureOwner)
+        {
+            base.OnEnter(procedureOwner);
+        }
+    }
+}

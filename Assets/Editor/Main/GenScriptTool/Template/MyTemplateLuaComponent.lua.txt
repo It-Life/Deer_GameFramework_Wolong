@@ -1,0 +1,12 @@
+---@class MyTemplateScript:LuaComponentBase
+MyTemplateScript= Class("MyTemplateScript",LuaComponentBase)
+
+function MyTemplateScript:__init()
+    
+end
+
+function MyTemplateScript:__delete()
+end
+
+
+return MyTemplateScript 

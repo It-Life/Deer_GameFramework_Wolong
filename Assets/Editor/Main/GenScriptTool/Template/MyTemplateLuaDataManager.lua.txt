@@ -1,0 +1,12 @@
+---@class MyTemplateScript:DataUserBase
+MyTemplateScript= Class("MyTemplateScript",DataUserBase)
+
+function MyTemplateScript:__init()
+ 
+end
+
+function MyTemplateScript:__delete()
+
+end
+
+return MyTemplateScript 

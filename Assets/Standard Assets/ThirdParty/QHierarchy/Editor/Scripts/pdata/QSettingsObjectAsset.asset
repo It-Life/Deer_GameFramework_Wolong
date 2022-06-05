@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9eba1ecab4c43c41869985e270bbe09, type: 3}
+  m_Name: QSettingsObjectAsset
+  m_EditorClassIdentifier: 
+  settingStringNames:
+  - QTools.QHierarchy_Light_TreeMapColor
+  - QTools.QHierarchy_MonoBehaviourIconColor
+  - QTools.QHierarchy_Light_SeparatorColor
+  - QTools.QHierarchy_Light_SeparatorEvenRowShadingColor
+  - QTools.QHierarchy_Light_SeparatorOddRowShadingColor
+  - QTools.QHierarchy_ErrorIgnoreString
+  - QTools.QHierarchy_Light_TagAndLayerTagLabelColor
+  - QTools.QHierarchy_Light_TagAndLayerLayerLabelColor
+  - QTools.QHierarchy_TagIconList
+  - QTools.QHierarchy_LayerIconList
+  - QTools.QHierarchy_Light_ChildrenCountLabelColor
+  - QTools.QHierarchy_Light_VerticesAndTrianglesVerticesLabelColor
+  - QTools.QHierarchy_Light_VerticesAndTrianglesTrianglesLabelColor
+  - QTools.QHierarchy_ComponentsIgnore
+  - QTools.QHierarchy_ComponentsOrder
+  - QTools.QHierarchy_Light_AdditionalBackgroundColor
+  - QTools.QHierarchy_Light_AdditionalActiveColor
+  - QTools.QHierarchy_Light_AdditionalInactiveColor
+  - QTools.QHierarchy_Light_AdditionalSpecialColor
+  - QTools.QHierarchy_Dark_TreeMapColor
+  - QTools.QHierarchy_Dark_SeparatorColor
+  - QTools.QHierarchy_Dark_SeparatorEvenRowShadingColor
+  - QTools.QHierarchy_Dark_SeparatorOddRowShadingColor
+  - QTools.QHierarchy_Dark_TagAndLayerTagLabelColor
+  - QTools.QHierarchy_Dark_TagAndLayerLayerLabelColor
+  - QTools.QHierarchy_Dark_ChildrenCountLabelColor
+  - QTools.QHierarchy_Dark_VerticesAndTrianglesVerticesLabelColor
+  - QTools.QHierarchy_Dark_VerticesAndTrianglesTrianglesLabelColor
+  - QTools.QHierarchy_Dark_AdditionalBackgroundColor
+  - QTools.QHierarchy_Dark_AdditionalActiveColor
+  - QTools.QHierarchy_Dark_AdditionalInactiveColor
+  - QTools.QHierarchy_Dark_AdditionalSpecialColor
+  settingStringValues:
+  - 905D5D5D
+  - A01B6DBB
+  - 48666666
+  - 08000000
+  - 00FFFFFF
+  - 
+  - FF333333
+  - FF333333
+  - Respawn;Resources/unity_builtin_extra;
+  - 
+  - FF333333
+  - FF333333
+  - FF333333
+  - 
+  - 0;1;2;3;4;5;6;7;8;9;10;11;12
+  - 00C2C2C2
+  - CF363636
+  - 1E000000
+  - FF1D78D5
+  - 39FFFFFF
+  - FF303030
+  - 13000000
+  - 00000000
+  - FFCCCCCC
+  - FFCCCCCC
+  - FFCCCCCC
+  - FFE41F1F
+  - FFCCCCCC
+  - 00383838
+  - FFFFFF80
+  - FF4F4F4F
+  - FF2CA8CA
+  settingFloatNames:
+  - QTools.QHierarchy_TagAndLayerSizeValuePercent
+  - QTools.QHierarchy_TagAndLayerLabelAlpha
+  settingFloatValues:
+  - 0.25
+  - 0.35
+  settingIntNames:
+  - QTools.QHierarchy_TagAndLayerSizeShowType
+  - QTools.QHierarchy_TagAndLayerType
+  - QTools.QHierarchy_TagAndLayerAligment
+  - QTools.QHierarchy_TagAndLayerSizeValueType
+  - QTools.QHierarchy_TagAndLayerSizeValuePixel
+  - QTools.QHierarchy_TagAndLayerLabelSize
+  - QTools.QHierarchy_GameObjectIconSize
+  - QTools.QHierarchy_TagIconSize
+  - QTools.QHierarchy_LayerIconSize
+  - QTools.QHierarchy_ChildrenCountLabelSize
+  - QTools.QHierarchy_VerticesAndTrianglesLabelSize
+  - QTools.QHierarchy_ComponentsIconSize
+  - QTools.QHierarchy_AdditionalIdentation
+  settingIntValues: 000000000100000000000000000000003d0000000000000000000000020000000000000000000000010000000200000000000000
+  settingBoolNames:
+  - QTools.QHierarchy_TreeMapShow
+  - QTools.QHierarchy_TreeMapEnhanced
+  - QTools.QHierarchy_TreeMapTransparentBackground
+  - QTools.QHierarchy_MonoBehaviourIconShow
+  - QTools.QHierarchy_MonoBehaviourIconShowDuringPlayMode
+  - QTools.QHierarchy_MonoBehaviourIconIgnoreUnityMonobehaviour
+  - QTools.QHierarchy_SeparatorShow
+  - QTools.QHierarchy_SeparatorShowRowShading
+  - QTools.QHierarchy_VisibilityShow
+  - QTools.QHierarchy_VisibilityShowDuringPlayMode
+  - QTools.QHierarchy_LockShow
+  - QTools.QHierarchy_LockShowDuringPlayMode
+  - QTools.QHierarchy_LockPreventSelectionOfLockedObjects
+  - QTools.QHierarchy_StaticShow
+  - QTools.QHierarchy_StaticShowDuringPlayMode
+  - QTools.QHierarchy_ErrorShow
+  - QTools.QHierarchy_ErrorShowDuringPlayMode
+  - QTools.QHierarchy_ErrorShowIconOnParent
+  - QTools.QHierarchy_ErrorShowScriptIsMissing
+  - QTools.QHierarchy_ErrorShowReferenceIsNull
+  - QTools.QHierarchy_ErrorShowReferenceIsMissing
+  - QTools.QHierarchy_ErrorShowStringIsEmpty
+  - QTools.QHierarchy_ErrorShowMissingEventMethod
+  - QTools.QHierarchy_ErrorShowWhenTagOrLayerIsUndefined
+  - QTools.QHierarchy_ErrorShowForDisabledComponents
+  - QTools.QHierarchy_ErrorShowForDisabledGameObjects
+  - QTools.QHierarchy_RendererShow
+  - QTools.QHierarchy_RendererShowDuringPlayMode
+  - QTools.QHierarchy_PrefabShow
+  - QTools.QHierarchy_PrefabShowBreakedPrefabsOnly
+  - QTools.QHierarchy_TagAndLayerShow
+  - QTools.QHierarchy_TagAndLayerShowDuringPlayMode
+  - QTools.QHierarchy_ColorShow
+  - QTools.QHierarchy_ColorShowDuringPlayMode
+  - QTools.QHierarchy_GameObjectIconShow
+  - QTools.QHierarchy_GameObjectIconShowDuringPlayMode
+  - QTools.QHierarchy_TagIconShow
+  - QTools.QHierarchy_TagIconShowDuringPlayMode
+  - QTools.QHierarchy_TagIconListFoldout
+  - QTools.QHierarchy_LayerIconShow
+  - QTools.QHierarchy_LayerIconShowDuringPlayMode
+  - QTools.QHierarchy_LayerIconListFoldout
+  - QTools.QHierarchy_ChildrenCountShow
+  - QTools.QHierarchy_ChildrenCountShowDuringPlayMode
+  - QTools.QHierarchy_VerticesAndTrianglesShow
+  - QTools.QHierarchy_VerticesAndTrianglesShowDuringPlayMode
+  - QTools.QHierarchy_VerticesAndTrianglesCalculateTotalCount
+  - QTools.QHierarchy_VerticesAndTrianglesShowTriangles
+  - QTools.QHierarchy_VerticesAndTrianglesShowVertices
+  - QTools.QHierarchy_ComponentsShow
+  - QTools.QHierarchy_ComponentsShowDuringPlayMode
+  - QTools.QHierarchy_AdditionalShowObjectListContent
+  - QTools.QHierarchy_AdditionalShowHiddenQHierarchyObjectList
+  - QTools.QHierarchy_AdditionalHideIconsIfNotFit
+  - QTools.QHierarchy_AdditionalShowModifierWarning
+  settingBoolValues: 00010100010100010001010000010000000101010101010101010000000100010001000100010100010000010000010101000001010101

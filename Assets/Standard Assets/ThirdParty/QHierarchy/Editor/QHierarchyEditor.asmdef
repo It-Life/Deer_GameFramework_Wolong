@@ -1,0 +1,13 @@
+{
+    "name": "QHierarchyEditor",
+    "references": [
+        "QHierarchyNullable",
+        "QHierarchyRuntime"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

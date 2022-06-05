@@ -1,0 +1,15 @@
+---@class MyTemplateScript:ProcedureBase
+MyTemplateScript= Class("MyTemplateScript",ProcedureBase)
+
+function MyTemplateScript:OnEnter(csProcedure)
+    self.super.OnEnter(self,csProcedure)
+    self.csProcedure = csProcedure
+   
+end
+
+function MyTemplateScript:OnLeave()
+    self.super.OnLeave(self)
+
+end
+
+return MyTemplateScript 

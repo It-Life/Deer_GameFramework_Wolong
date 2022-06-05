@@ -1,0 +1,21 @@
+{
+    "name": "Main.Edtior",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:6546d7765b4165b40850b3667f981c26",
+        "GUID:f1cc7bad6466cb144a32792adbc44ec6",
+        "GUID:43b47c7afe53ff144af0a914f0f30bb6",
+        "GUID:a2d8a19598eca814496b089021d08d60",
+        "GUID:363c5eb08ff8e6a439b85e37b8c20d96"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

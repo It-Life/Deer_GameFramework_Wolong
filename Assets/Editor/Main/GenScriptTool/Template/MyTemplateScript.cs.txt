@@ -1,0 +1,19 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// Please modify the description.
+/// </summary>
+public class MyTemplateScript : MonoBehaviour
+{
+	void Start()
+	{
+        
+	}
+
+	void Update()
+	{
+        
+	}
+}

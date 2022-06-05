@@ -1,0 +1,18 @@
+{
+    "name": "HotfixBusiness",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1fa870703d1928149882949ff9440a9a",
+        "GUID:f1cc7bad6466cb144a32792adbc44ec6",
+        "GUID:7ef7d012d9d92d341926d99b50cdde6a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

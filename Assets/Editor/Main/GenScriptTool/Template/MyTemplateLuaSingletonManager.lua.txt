@@ -1,0 +1,12 @@
+---@class MyTemplateScript:SingletonClass
+MyTemplateScript= Class("MyTemplateScript",SingletonClass)
+
+function MyTemplateScript:__init()
+    
+end
+
+function MyTemplateScript:__delete()
+end
+
+
+return MyTemplateScript 

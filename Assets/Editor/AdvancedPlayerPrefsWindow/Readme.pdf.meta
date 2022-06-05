@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 06823bdfb795ce04088db044236677ea
+labels:
+- playerPrefs
+- PlayerPrefsWindow
+- Utility
+- Save
+- Rejected
+- Editor
+- PlayerPrefsManager
+- PlayerPrefsEditor
+- Manager
+- Window
+- Persistent
+- Levels
+- Experience
+- Highscores
+- Highscore
+- Prefs
+- Player
+- PlayerPrefs
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 1e4a7654ecb2b324888519c352bbf2bf
+labels:
+- playerPrefs
+- PlayerPrefsWindow
+- Utility
+- Save
+- Rejected
+- Editor
+- PlayerPrefsManager
+- PlayerPrefsEditor
+- Manager
+- Window
+- Persistent
+- Levels
+- Experience
+- Highscores
+- Highscore
+- Prefs
+- Player
+- PlayerPrefs
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
