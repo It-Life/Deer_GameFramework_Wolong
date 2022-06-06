@@ -28,7 +28,7 @@ namespace Deer
                 Log.Info("Skip load assemblies.");
                 foreach (var asm in System.AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    if (string.Compare(HotfixDefine.LogicMainDllName, $"{asm.GetName().Name}.dll",
+                    if (string.Compare(HuaTuoHotfixData.LogicMainDllName, $"{asm.GetName().Name}.dll",
                             StringComparison.Ordinal) == 0)
                     {
                         _mainBusinessLogicAsm = asm;
@@ -47,13 +47,13 @@ namespace Deer
                 Log.Fatal("Main business logic assembly missing.");
                 return;
             }
-            var appType = _mainBusinessLogicAsm.GetType("GameEntry");
+            var appType = _mainBusinessLogicAsm.GetType("AppMain");
             if (null == appType)
             {
                 Log.Fatal("Main business logic type 'App' missing.");
                 return;
             }
-            var entryMethod = appType.GetMethod("MainApp");
+            var entryMethod = appType.GetMethod("Entrance");
             if (null == entryMethod)
             {
                 Log.Fatal("Main business logic entry method 'Entry' missing.");

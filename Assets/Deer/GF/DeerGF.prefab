@@ -93,30 +93,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[0]
-      value: Deer.ProcedureCheckVersion
+      value: Deer.ProcedureBattle
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[1]
-      value: Deer.ProcedureInitResources
+      value: Deer.ProcedureCheckVersion
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[2]
-      value: Deer.ProcedureLogin
+      value: Deer.ProcedureInitResources
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[3]
-      value: Deer.ProcedureMain
+      value: Deer.ProcedureLogin
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[4]
-      value: Deer.ProcedurePreload
+      value: Deer.ProcedureMain
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[5]
+      value: Deer.ProcedurePreload
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[6]
       value: Deer.ProcedureSplash
       objectReference: {fileID: 0}
     m_RemovedComponents: []
