@@ -1,19 +1,21 @@
-﻿// ================================================
-//描 述 :  
-//作 者 : 杜鑫 
-//创建时间 : 2021-10-06 16-05-46  
-//修改作者 : 杜鑫 
-//修改时间 : 2021-10-06 16-05-46  
-//版 本 : 0.1 
+// ================================================
+//描 述:
+//作 者:杜鑫
+//创建时间:2022-06-07 22-52-13
+//修改作者:杜鑫
+//修改时间:2022-06-07 22-52-13
+//版 本:0.1 
 // ===============================================
-
-using System.IO;
 using GameFramework;
+using System.IO;
 using UnityEngine;
 using UnityGameFramework.Editor;
 using UnityGameFramework.Editor.ResourceTools;
 
-public static class GameFrameworkConfigs
+/// <summary>
+/// Please modify the description.
+/// </summary>
+public class GFPathConfig
 {
     [BuildSettingsConfigPath]
     public static string BuildSettingsConfig = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "Deer/GameConfigs/BuildSettings.xml"));
@@ -26,5 +28,4 @@ public static class GameFrameworkConfigs
 
     [ResourceBuilderConfigPath]
     public static string ResourceBuilderConfig = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "Deer/GameConfigs/ResourceBuilder.xml"));
-    
 }

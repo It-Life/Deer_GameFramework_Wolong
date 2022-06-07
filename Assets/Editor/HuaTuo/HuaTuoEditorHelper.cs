@@ -49,7 +49,7 @@ namespace HuaTuo
             return s.Substring(s.IndexOf("Assets/"));
         }
 
-        private static void CompileDll(string buildDir, BuildTarget target)
+        public static void CompileDll(string buildDir, BuildTarget target)
         {
             var group = BuildPipeline.GetBuildTargetGroup(target);
 
@@ -201,42 +201,42 @@ namespace HuaTuo
             }
         }
 
-        [MenuItem("HuaTuo/BuildBundles/ActiveBuildTarget")]
+        //[MenuItem("HuaTuo/BuildBundles/ActiveBuildTarget")]
         public static void BuildSeneAssetBundleActiveBuildTarget()
         {
             var target = EditorUserBuildSettings.activeBuildTarget;
             BuildAssetBundles(GetAssetBundleTempDirByTarget(target), GetAssetBundleOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/BuildBundles/Win64")]
+        //[MenuItem("HuaTuo/BuildBundles/Win64")]
         public static void BuildSeneAssetBundleWin64()
         {
             var target = BuildTarget.StandaloneWindows64;
             BuildAssetBundles(GetAssetBundleTempDirByTarget(target), GetAssetBundleOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/BuildBundles/OSX")]
+        //[MenuItem("HuaTuo/BuildBundles/OSX")]
         public static void BuildSeneAssetBundleOSX64()
         {
             var target = BuildTarget.StandaloneOSX;
             BuildAssetBundles(GetAssetBundleTempDirByTarget(target), GetAssetBundleOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/BuildBundles/Linux64")]
+        //[MenuItem("HuaTuo/BuildBundles/Linux64")]
         public static void BuildSeneAssetBundleLinux64()
         {
             var target = BuildTarget.StandaloneLinux64;
             BuildAssetBundles(GetAssetBundleTempDirByTarget(target), GetAssetBundleOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/BuildBundles/Android")]
+        //[MenuItem("HuaTuo/BuildBundles/Android")]
         public static void BuildSeneAssetBundleAndroid()
         {
             var target = BuildTarget.Android;
             BuildAssetBundles(GetAssetBundleTempDirByTarget(target), GetAssetBundleOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/BuildBundles/IOS")]
+        //[MenuItem("HuaTuo/BuildBundles/IOS")]
         public static void BuildSeneAssetBundleIOS()
         {
             var target = BuildTarget.iOS;

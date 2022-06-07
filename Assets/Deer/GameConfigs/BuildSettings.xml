@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnityGameFramework>
+  <BuildSettings>
+    <DefaultScenes>
+      <DefaultScene Path="Assets/Deer/Scenes/DeerLauncher.unity" />
+    </DefaultScenes>
+    <SearchScenePaths>
+      <SearchScenePath Path="Assets/Deer/Scenes" />
+      <SearchScenePath Path="Assets/Deer/AssetsHotfix/Scenes" />
+    </SearchScenePaths>
+  </BuildSettings>
+</UnityGameFramework>
