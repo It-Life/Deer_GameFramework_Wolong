@@ -12,7 +12,7 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace Deer
 {
-    public class ProcedureMain : GameFramework.Procedure.ProcedureBase
+    public class ProcedureMain : ProcedureBase
     {
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

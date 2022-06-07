@@ -1,4 +1,6 @@
 ﻿using Deer;
+using GameFramework.Resource;
+using System;
 using UGFExtensions.SpriteCollection;
 using UGFExtensions.Texture;
 using UGFExtensions.Timer;
@@ -64,11 +66,24 @@ public partial class GameEntry
     /// </summary>
     private static void LoadCustomComponent() 
     {
+        Resource.LoadAsset("Assets/Deer/AssetsHotfix/GF/Customs.prefab", new GameFramework.Resource.LoadAssetCallbacks(loadAssetSuccessCallback,loadAssetFailureCallback));
+    }
+
+    private static void loadAssetFailureCallback(string assetName, LoadResourceStatus status, string errorMessage, object userData)
+    {
         
+    }
+
+    private static void loadAssetSuccessCallback(string assetName, object asset, float duration, object userData)
+    {
+        GameObject gameObject = UnityEngine.Object.Instantiate((GameObject)asset);
+        gameObject.name = "Customs";
+        gameObject.transform.parent = GameObject.Find("DeerGF").transform;
     }
 
     public static void Entrance(object[] objects) 
     {
+        LoadCustomComponent();
         // 初始化自定义调试器
         InitCustomDebuggers();
         InitComponentsSet();

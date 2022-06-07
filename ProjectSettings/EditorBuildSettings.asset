@@ -4,5 +4,178 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Deer/AssetsHotfix/Scenes/Login.unity
+    guid: 17ec5b8f543c59345bc1257ec50c7228
+  - enabled: 1
+    path: Assets/Deer/Scenes/DeerLauncher.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Editor/ToolbarExtender/Example/SceneSwitcher/Scenes/ToolbarExtenderExampleScene1.unity
+    guid: 382c814799c8741e2953d4a50ef9f425
+  - enabled: 1
+    path: Assets/Editor/ToolbarExtender/Example/SceneSwitcher/Scenes/ToolbarExtenderExampleScene2.unity
+    guid: fab7a2155986e414188d345f96238ce2
+  - enabled: 1
+    path: Assets/Scripts/HotFix/HotFixCommon/Searchable/SerializableDictionary/Example/SerializableDicitonary
+      Example.unity
+    guid: 6c0758ade4ba74b7493ce3806fa2f38b
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example2_Terrain/Example2.unity
+    guid: b04e6b995408741cf8dc427c6173f5f8
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example3_Recast_Navmesh1/RecastExample.unity
+    guid: d90ceba0148a049e3b56fcde2b55cec1
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example4_Recast_Navmesh2/RecastExample2.unity
+    guid: 757111aeb0299444fab42dbe5e942d01
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example5_PointGraph/PointGraphExample.unity
+    guid: 1cd57dbb745d9402f97fa830e41cd128
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example6_Navmesh/NavmeshExample.unity
+    guid: 32536486e77cc4002ae78cd83c90bb2b
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example6_Navmesh_RichAI/NavmeshExample.unity
+    guid: 9a53e5250bc0e4774ac2f3cd06ea3ab6
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example7_Door1/Door1.unity
+    guid: 4ef3a2c6ad3674f4c97fa92f889eea7e
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example7_Door1/Door2.unity
+    guid: 02d7ab370529f4607810c3a9f9a2610d
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example8_PathTypes/PathTypes.unity
+    guid: 17802ed4e8ff748eb86de7d011c02eca
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example9_Penalties/PenaltiesExample.unity
+    guid: af5549f83cd6e498dbe788615aa953da
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example10_LayeredGridGraph/Example10.unity
+    guid: a466d8d94f39e48f39b1afecb4985632
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example11_RVO/RVO.unity
+    guid: a72d110e16b2e46b58db5ecb9717f37f
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example11_RVO/RVOLightweight.unity
+    guid: 6bfac68e208594c79a32892bbc28dc1e
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example12_Procedural/Procedural.unity
+    guid: 9df9f020877fb4842b75396ddf708b69
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example13_Moving/Moving.unity
+    guid: 4b00c6f950101422fa5468a704bece11
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example14_TurnBased_Hexagon/Turnbased.unity
+    guid: ad444a8ba62b9452ba70e38f4767f0e7
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example15_2D/2D.unity
+    guid: 15c1a00768b91406da1023481bb6b04e
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/AstarPathfindingProject/ExampleScenes/Example16_RVO
+      2D/RVO 2D.unity
+    guid: 05f4cef9e16814ff3908457d37cdcb33
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/GridView/GridView_TopLeftToBottomRight.unity
+    guid: b7aa6333dd21cc0489e016233f0746de
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/GridView/GridView_TopRightToBottomLeft.unity
+    guid: d1ad794bf39956843b7f446c33e2d515
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/GridView/GridViewDeleteItemDemo2.unity
+    guid: cf68aad9d0070994091921ea8ff78534
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/BottomToTopDemo.unity
+    guid: 7c22583d215d9ea45a50bc523009aad3
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/ChangeItemHeightDemo.unity
+    guid: 2e76e5d3148356d4c8f1809766f54370
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/ChangeViewPortHeightDemo.unity
+    guid: f10fd68be241bed4d8c60f5b9f0e7354
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/ChatMsgListViewDemo.unity
+    guid: ab7922930d4d5d54191b5c5364e44dc7
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/ClickAndLoadMoreDemo.unity
+    guid: b7aa49f5e965c774e9c8006d6c63cc97
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/DeleteItemDemo.unity
+    guid: af2fb8e91b229624d8a85bec9bd3943f
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/GridViewDeleteItemDemo.unity
+    guid: b5c59fbe6ce3d8b47913f8402a2e994d
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/GridViewDemo.unity
+    guid: 76bd584ed1c609a43919fc5daf15942b
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/GridViewSampleDemo.unity
+    guid: 219650a2657dbff428aaa9cb047dde43
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/HorizontalGalleryDemo.unity
+    guid: bc8d1b9aa98e46047964801132e4dbc8
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/LeftToRightDemo.unity
+    guid: 345e0ab59f2a63f438db9f98697efaab
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/PageViewDemo.unity
+    guid: a10f1c7e83b5a2c4889e691bb737a3fc
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/PullAndLoadMoreDemo.unity
+    guid: 53dc44f8dde86f54ab1868eacd11189d
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/PullAndRefreshDemo.unity
+    guid: 05073e3fb1749f94fb1c7901cb2a6a01
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/ResponsiveGridViewDemo.unity
+    guid: f694da1ffbb316a4d9a5ceb857cd89c9
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/ResponsiveGridViewDemo2.unity
+    guid: 4887a81c58d3b274794e604709897281
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/RightToLeftDemo.unity
+    guid: fa578aa508c93c147904627c02ff8532
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/SpinDatePickerDemo.unity
+    guid: 033218d8ab4cc3f4db395621b44aea7a
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/TopToBottomDemo.unity
+    guid: f3a60495689fc9d47a9e8c6180587baa
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/TopToBottomFilterSampleDemo.unity
+    guid: 72bbc7fb249b06c4c8587a0f2ec8c3a6
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/TopToBottomSampleDemo.unity
+    guid: 1f5623b06be635a448b9e2e096b9dc56
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/TreeViewDemo.unity
+    guid: 1816413322ff311499101779e48ec1bc
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/TreeViewWithChildrenIndentDemo.unity
+    guid: 200cfc88402d5a240847fa1b14b5efca
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/TreeViewWithStickyHeadDemo.unity
+    guid: acb57af279d5d5f40b7665dc2d748a95
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/ListView/VerticalGalleryDemo.unity
+    guid: b59d86672095cde45804cea7e548b2bf
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/Menu.unity
+    guid: 29634dc35083d4245b01ba83c95f4b0d
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/StaggeredGridView/StaggeredGridView_BottomToTop.unity
+    guid: 5fc505a26834ce64d85de03cb16b5b5d
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/StaggeredGridView/StaggeredGridView_LeftToRight.unity
+    guid: 0854a32405864ed41b7fbfdaf2dd003f
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/StaggeredGridView/StaggeredGridView_RightToLeft.unity
+    guid: d11dda1c450a75149b1617ed317bbc9f
+  - enabled: 1
+    path: Assets/Standard Assets/ThirdParty/SuperScrollView/Demo/Scenes/StaggeredGridView/StaggeredGridView_TopToBottom.unity
+    guid: 3b81352ba3a6cb7408ecbcdc899e7231
+  - enabled: 1
+    path: Packages/com.autodesk.fbx/Tests/Runtime/BuildTestsAssets/BuildTestScene.unity
+    guid: 20a588fa79797e944baae5de2e674b61
   m_configObjects: {}
