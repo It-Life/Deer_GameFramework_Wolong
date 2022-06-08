@@ -15,7 +15,7 @@ using UnityGameFramework.Editor.ResourceTools;
 /// <summary>
 /// Please modify the description.
 /// </summary>
-public class GFPathConfig
+public static class GFPathConfig
 {
     [BuildSettingsConfigPath]
     public static string BuildSettingsConfig = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "Deer/GameConfigs/BuildSettings.xml"));

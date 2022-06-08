@@ -235,14 +235,17 @@ namespace UGFExtensions.SpriteCollection
 #else
     public class SpriteCollection : ScriptableObject
     {
-        [SerializeField] private StringSpriteDictionary m_Sprites;
+        private StringSpriteDictionary m_Sprites;
 
         public Sprite GetSprite(string path)
         {
             m_Sprites.TryGetValue(path, out Sprite sprite);
             return sprite;
         }
-
+        public StringSpriteDictionary GetSprites()
+        { 
+            return m_Sprites; 
+        }
 #if UNITY_EDITOR
         [SerializeField] private List<Object> m_Objects;
 
