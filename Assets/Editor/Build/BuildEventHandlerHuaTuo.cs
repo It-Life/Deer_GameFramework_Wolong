@@ -36,7 +36,6 @@ public static class BuildEventHandlerHuaTuo
                 //{Platform.WebGL, BuildTarget.WebGL}
         };
 
-    public static string HotfixAssemblyPath = $"{Application.dataPath}/Deer/AssetsHotfix/Assembly";
     public static void OnPreprocessPlatform(Platform platform) 
     {
         if (Platform2BuildTargetDic.TryGetValue(platform, out BuildTarget buildTarget))
@@ -45,7 +44,7 @@ public static class BuildEventHandlerHuaTuo
             foreach (var dll in HuaTuoHotfixData.AllHotUpdateDllNames)
             {
                 string dllPath = $"{HuaTuoEditorHelper.GetDllBuildOutputDirByTarget(buildTarget)}/{dll}";
-                string dllBytesPath = $"{HotfixAssemblyPath}/{dll}.bytes";
+                string dllBytesPath = $"{HuaTuoHotfixData.AssemblyTextAssetFullPath}/{dll}{HuaTuoHotfixData.AssemblyTextAssetExtension}";
                 Log.ColorInfo(ColorType.brown,$"当前拷贝路径：{dllPath}");
                 File.Copy(dllPath, dllBytesPath, true);
             }

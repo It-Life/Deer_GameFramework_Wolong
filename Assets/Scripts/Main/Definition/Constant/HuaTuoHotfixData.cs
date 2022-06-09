@@ -47,12 +47,14 @@ public static class HuaTuoHotfixData
     /// <summary>
     /// 程序集文本资产打包Asset后缀名
     /// </summary>
-    public static readonly string AssemblyTextAssetExtension = "txt";
+    public static readonly string AssemblyTextAssetExtension = ".bytes";
 
     /// <summary>
     /// 程序集文本资产资源目录
     /// </summary>
-    public static readonly string AssemblyTextAssetResPath = "Assets/Res/ResHotfix/Assembly";
+    public static readonly string AssemblyTextAssetPath = "Assets/Deer/AssetsHotfix/Assembly";
+
+    public static readonly string AssemblyTextAssetFullPath = $"{Application.dataPath}/Deer/AssetsHotfix/Assembly";
 
     // #if UNITY_EDITOR
     public static readonly string DllBuildOutputDir = "{0}/../Temp/HuaTuo/build";

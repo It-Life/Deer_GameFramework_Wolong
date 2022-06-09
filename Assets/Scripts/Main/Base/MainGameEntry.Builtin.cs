@@ -133,4 +133,10 @@ public class GameEntryMain
     public static WebRequestComponent WebRequest => _webRequest ??= GameEntry.GetComponent<WebRequestComponent>();
     private static WebRequestComponent _webRequest;
 
+    /// <summary>
+    /// 事件。
+    /// </summary>
+    public static MessengerComponent Messenger => _messenger ??= GameEntry.GetComponent<MessengerComponent>();
+    private static MessengerComponent _messenger;
+    
 }

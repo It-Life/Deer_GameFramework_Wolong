@@ -6,7 +6,7 @@ using System.Text;
 using GameFramework;
 using UnityEditor;
 using UnityEngine;
-
+using UnityGameFramework.Runtime;
 
 public class FileUtils
 {
@@ -152,7 +152,7 @@ public class FileUtils
     {
         if (isReadWritePath)
         {
-            filePath = Path.Combine(GameEntry.Resource.ReadWritePath, filePath);
+            filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, filePath);
             if (!File.Exists(filePath))
             {
                 Log.Error("filepath:" + filePath + " not exists");
@@ -164,9 +164,9 @@ public class FileUtils
         else
         {
             filePath = GetStreamingAssetsPlatformPathUrl(filePath);
-            GameEntry.Config.ReadConfigWithStreamingAssets(filePath, delegate (bool isRead, byte[] result) {
+/*            GameEntry.Config.ReadConfigWithStreamingAssets(filePath, delegate (bool isRead, byte[] result) {
                 action?.Invoke(isRead, result);
-            });
+            });*/
         }
     }
     public static string GetStreamingAssetsPlatformPathUrl(string filePath) 
@@ -196,7 +196,7 @@ public class FileUtils
 
     public static bool CanConfigReadWritePath() 
     {
-        if (GameEntry.Resource.ResourceMode == GameFramework.Resource.ResourceMode.Package)
+        if (GameEntryMain.Resource.ResourceMode == GameFramework.Resource.ResourceMode.Package)
         {
             return false;
         }

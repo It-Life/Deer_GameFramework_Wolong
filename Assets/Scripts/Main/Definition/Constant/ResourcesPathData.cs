@@ -1,24 +1,30 @@
-﻿// ================================================
-//描 述 :  
-//作 者 : 杜鑫 
-//创建时间 : 2021-07-11 16-04-52  
-//修改作者 : 杜鑫 
-//修改时间 : 2021-07-11 16-04-52  
-//版 本 : 0.1 
+// ================================================
+//描 述:
+//作 者:杜鑫
+//创建时间:2022-06-09 00-37-09
+//修改作者:杜鑫
+//修改时间:2022-06-09 00-37-09
+//版 本:0.1 
 // ===============================================
-
+using GameFramework;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// Please modify the description.
+/// </summary>
 public class ResourcesPathData
 {
     public static string AppResourcePathConfig = "Deer/Asset/GameConfigs/ResourcePathCollection.txt";
-    
+
     public static string ResourceVersionFile = "ResourceVersion.txt";
     /// <summary>
     /// 资源路径配置
     /// </summary>
-    public static string ResourcePathConfig = Path.Combine(Application.dataPath, AppResourcePathConfig);
+    public static string ResourcePathConfig =
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, AppResourcePathConfig));
 
     #region app 下载地址
 

@@ -79,17 +79,32 @@ public partial class GameEntry
         GameObject gameObject = UnityEngine.Object.Instantiate((GameObject)asset);
         gameObject.name = "Customs";
         gameObject.transform.parent = GameObject.Find("DeerGF").transform;
+        ChangeState();
     }
 
+    private static ProcedureBase m_ProcedureBase;
+    private static ProcedureOwner m_ProcedureOwner;
+    private static void ChangeState() 
+    {
+        //切换到下一流程
+        if (GameEntryMain.Base.EditorResourceMode)
+        {
+            // 可更新模式
+            Log.Info("Updatable resource mode detected.");
+            m_ProcedureBase.ChangeStateByType(m_ProcedureOwner, typeof(ProcedurePreload));
+        }
+        else
+        {
+            m_ProcedureBase.ChangeStateByType(m_ProcedureOwner, typeof(ProcedureReadResourcePath));
+        }
+    }
     public static void Entrance(object[] objects) 
     {
         LoadCustomComponent();
         // 初始化自定义调试器
         InitCustomDebuggers();
         InitComponentsSet();
-        var procedureBase = (ProcedureBase)objects[0];
-        ProcedureOwner procedureOwner = (ProcedureOwner)objects[1];
-        //切换到下一流程
-        procedureBase.ChangeStateByType(procedureOwner,typeof(ProcedureLogin));
+        m_ProcedureBase = (ProcedureBase)objects[0];
+        m_ProcedureOwner = (ProcedureOwner)objects[1];
     }
 }
