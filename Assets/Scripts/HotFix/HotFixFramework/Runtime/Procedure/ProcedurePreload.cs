@@ -16,12 +16,20 @@ namespace Deer
 {
     public class ProcedurePreload : ProcedureBase
     {
-        private Assembly _mainBusinessLogicAsm;
         private ProcedureOwner m_procedureOwner = null;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             m_procedureOwner = procedureOwner;
+        }
+        protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+            ChangeState<ProcedureLogin>(procedureOwner);
+        }
+        protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
+        {
+            base.OnLeave(procedureOwner, isShutdown);
         }
     }
 }

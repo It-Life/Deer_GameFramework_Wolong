@@ -15,6 +15,7 @@ using GameFramework;
 using GameFramework.Event;
 using GameFramework.Network;
 using Google.Protobuf;
+using UnityGameFramework.Runtime;
 
 public class NetworkChannelHelper : INetworkChannelHelper, IReference
 {

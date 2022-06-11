@@ -9,7 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class DataLoginInfoManager : Singleton<DataLoginInfoManager>, IDataInfoManager
+public class DataLoginInfoManager : Singleton<DataLoginInfoManager>
 {
 	private DataLoginInfoManager() { }
 

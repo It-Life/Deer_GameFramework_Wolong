@@ -100,45 +100,73 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11402440, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_ConsoleWindow.m_LockScroll
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_EntranceProcedureTypeName
-      value: Deer.ProcedureSplash
+      value: Deer.ProcedureLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.size
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[0]
-      value: Deer.ProcedureBattle
-      objectReference: {fileID: 0}
-    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
-      propertyPath: m_AvailableProcedureTypeNames.Array.data[1]
-      value: Deer.ProcedureChangeScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
-      propertyPath: m_AvailableProcedureTypeNames.Array.data[2]
       value: Deer.ProcedureCheckVersion
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
-      propertyPath: m_AvailableProcedureTypeNames.Array.data[3]
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[1]
       value: Deer.ProcedureInitResources
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[2]
+      value: Deer.ProcedureLauncher
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[3]
+      value: Deer.ProcedureLoadAssembly
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[4]
-      value: Deer.ProcedureLogin
+      value: Deer.ProcedureSplash
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[5]
-      value: Deer.ProcedureMain
+      value: Deer.ProcedureUpdateResources
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[6]
-      value: Deer.ProcedurePreload
+      value: Deer.ProcedureLogin
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[7]
+      value: Deer.ProcedureMain
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[8]
+      value: Deer.ProcedurePreload
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[9]
       value: Deer.ProcedureSplash
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[10]
+      value: Deer.ProcedureUpdateResources
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_AvailableProcedureTypeNames.Array.data[11]
+      value: Deer.ProcedureUpdateResources
+      objectReference: {fileID: 0}
+    - target: {fileID: 11413340, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_AudioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: bffaf314b40e5bb40a48261d0bbcedca, type: 2}
+    - target: {fileID: 11499388, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_EditorResourceMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}

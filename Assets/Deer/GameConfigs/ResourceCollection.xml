@@ -2,17 +2,17 @@
 <UnityGameFramework>
   <ResourceCollection>
     <Resources>
-      <Resource Name="Assembly" LoadType="0" Packed="False" />
-      <Resource Name="GF" LoadType="0" Packed="False" />
-      <Resource Name="Scenes/Login" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Assembly" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/GF/Customs" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Scenes/Login" LoadType="0" Packed="False" />
     </Resources>
     <Assets>
-      <Asset Guid="17ec5b8f543c59345bc1257ec50c7228" ResourceName="Scenes/Login" />
-      <Asset Guid="31f7644b51d867c43b1840e43ff6ae87" ResourceName="Assembly" />
-      <Asset Guid="4fc8e0637becb184ab7e870fff766199" ResourceName="Assembly" />
-      <Asset Guid="be4550f60ef06a945901153a6cfa8a71" ResourceName="Assembly" />
-      <Asset Guid="e851deae30f19cf4e9ab04b1b4d7b1c8" ResourceName="Assembly" />
-      <Asset Guid="f3ab0d53e9c425d4da9724fab4bfd7d9" ResourceName="GF" />
+      <Asset Guid="17ec5b8f543c59345bc1257ec50c7228" ResourceName="AssetsHotfix/Scenes/Login" />
+      <Asset Guid="31f7644b51d867c43b1840e43ff6ae87" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="4fc8e0637becb184ab7e870fff766199" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="be4550f60ef06a945901153a6cfa8a71" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="e851deae30f19cf4e9ab04b1b4d7b1c8" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="f3ab0d53e9c425d4da9724fab4bfd7d9" ResourceName="AssetsHotfix/GF/Customs" />
     </Assets>
   </ResourceCollection>
 </UnityGameFramework>

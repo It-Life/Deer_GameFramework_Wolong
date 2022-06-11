@@ -12,7 +12,9 @@ using ConfigData;
 using Deer;
 using LuaInterface;
 using UnityEngine;
-public class SoundsConfigDataInfo : ConfigBase<SoundsConfigDataInfo>
+using UnityGameFramework.Runtime;
+
+/*public class SoundsConfigDataInfo : ConfigBase<SoundsConfigDataInfo>
 {
 	public Sounds_Config_Data data;
 	public override string Name => "Sounds_Config";
@@ -20,7 +22,7 @@ public class SoundsConfigDataInfo : ConfigBase<SoundsConfigDataInfo>
 
 	public override IEnumerator LoadConfig(bool isReadWritePath)
 	{
-		AnalyseConfig<Sounds_Config_Data>(Name, isReadWritePath, delegate (Sounds_Config_Data tempData) {
+*//*		AnalyseConfig<Sounds_Config_Data>(Name, isReadWritePath, delegate (Sounds_Config_Data tempData) {
 			data = tempData;
 			if (data != null)
 			{
@@ -33,7 +35,7 @@ public class SoundsConfigDataInfo : ConfigBase<SoundsConfigDataInfo>
 			{
 				Log.Error("loadconfig data is null");
 			}
-		});
+		});*//*
 		yield return null;
 	}
 
@@ -52,4 +54,4 @@ public class SoundsConfigDataInfo : ConfigBase<SoundsConfigDataInfo>
 	{
 		data = null;
 	}
-}
+}*/

@@ -13,6 +13,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Editor.ResourceTools;
+using UnityGameFramework.Runtime;
 
 /// <summary>
 /// Please modify the description.
@@ -45,7 +46,7 @@ public static class BuildEventHandlerHuaTuo
             {
                 string dllPath = $"{HuaTuoEditorHelper.GetDllBuildOutputDirByTarget(buildTarget)}/{dll}";
                 string dllBytesPath = $"{HuaTuoHotfixData.AssemblyTextAssetFullPath}/{dll}{HuaTuoHotfixData.AssemblyTextAssetExtension}";
-                Log.ColorInfo(ColorType.brown,$"当前拷贝路径：{dllPath}");
+                LogEx.ColorInfo(ColorType.brown,$"当前拷贝路径：{dllPath}");
                 File.Copy(dllPath, dllBytesPath, true);
             }
             AssetDatabase.SaveAssets();

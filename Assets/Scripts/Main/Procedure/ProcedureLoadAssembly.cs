@@ -9,6 +9,7 @@
 using GameFramework;
 using GameFramework.Resource;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
@@ -25,21 +26,23 @@ namespace Deer
         private bool m_LoadAssemblyComplete;
         private bool m_LoadAssemblyWait;
         private Assembly m_MainLogicAssembly;
-        private ProcedureOwner m_procedureOwner;
+        private List<Assembly> m_HotfixAssemblys;
+        private bool m_RunMainFun;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            m_procedureOwner = procedureOwner;
             m_LoadAssemblyComplete = false;
+            m_HotfixAssemblys = new List<Assembly>();
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 Log.Info("Skip load assemblies.");
-                foreach (var asm in System.AppDomain.CurrentDomain.GetAssemblies())
+                foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
                 {
                     if (string.Compare(HuaTuoHotfixData.LogicMainDllName, $"{asm.GetName().Name}.dll",
                             StringComparison.Ordinal) == 0)
                     {
                         m_MainLogicAssembly = asm;
+                        m_HotfixAssemblys.AddRange(AppDomain.CurrentDomain.GetAssemblies());
                         break;
                     }
                 }
@@ -62,7 +65,7 @@ namespace Deer
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            if (!m_LoadAssemblyComplete)
+            if (!m_LoadAssemblyComplete || m_RunMainFun)
             {
                 // 未完成则继续等待
                 return;
@@ -82,9 +85,11 @@ namespace Deer
 
             try
             {
-                var asm = System.Reflection.Assembly.Load(textAsset.bytes);
+                var asm = Assembly.Load(textAsset.bytes);
                 if (string.Compare(HuaTuoHotfixData.LogicMainDllName, userData as string, StringComparison.Ordinal) == 0)
                     m_MainLogicAssembly = asm;
+
+                m_HotfixAssemblys.Add(asm);
                 Log.Debug($"Assembly [ {asm.GetName().Name} ] loaded");
             }
             catch (Exception e)
@@ -125,7 +130,8 @@ namespace Deer
                 Log.Fatal("Main logic entry method 'Entrance' missing.");
                 return;
             }
-            object[] objects = new object[] { new object[] { this, m_procedureOwner } };
+            m_RunMainFun = true;
+            object[] objects = new object[] { new object[] { m_HotfixAssemblys } };
             entryMethod.Invoke(appType, objects);
         }
 

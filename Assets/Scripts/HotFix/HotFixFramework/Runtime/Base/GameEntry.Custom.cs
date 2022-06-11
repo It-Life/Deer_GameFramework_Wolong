@@ -1,10 +1,13 @@
 ﻿using Deer;
 using GameFramework.Resource;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UGFExtensions.SpriteCollection;
 using UGFExtensions.Texture;
 using UGFExtensions.Timer;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 /// <summary>
 /// 游戏入口。
@@ -66,7 +69,7 @@ public partial class GameEntry
     /// </summary>
     private static void LoadCustomComponent() 
     {
-        Resource.LoadAsset("Assets/Deer/AssetsHotfix/GF/Customs.prefab", new GameFramework.Resource.LoadAssetCallbacks(loadAssetSuccessCallback,loadAssetFailureCallback));
+        GameEntryMain.Resource.LoadAsset("Assets/Deer/AssetsHotfix/GF/Customs.prefab", new LoadAssetCallbacks(loadAssetSuccessCallback,loadAssetFailureCallback));
     }
 
     private static void loadAssetFailureCallback(string assetName, LoadResourceStatus status, string errorMessage, object userData)
@@ -76,35 +79,63 @@ public partial class GameEntry
 
     private static void loadAssetSuccessCallback(string assetName, object asset, float duration, object userData)
     {
+        if (GameObject.Find("DeerGF/Customs")!= null)
+        {
+            Resource.UnloadAsset(asset);
+            return;
+        }
         GameObject gameObject = UnityEngine.Object.Instantiate((GameObject)asset);
         gameObject.name = "Customs";
         gameObject.transform.parent = GameObject.Find("DeerGF").transform;
-        ChangeState();
+        ResetProcedure();
     }
-
-    private static ProcedureBase m_ProcedureBase;
-    private static ProcedureOwner m_ProcedureOwner;
-    private static void ChangeState() 
+    private static List<Assembly> m_HotfixAssemblys;
+    private static ProcedureBase m_EntranceProcedureBase;
+    private static string m_EntranceProcedureTypeName = "Deer.ProcedurePreload";
+    private static void ResetProcedure() 
     {
-        //切换到下一流程
-        if (GameEntryMain.Base.EditorResourceMode)
+        //卸载流程
+        Fsm.DestroyFsm<GameFramework.Procedure.IProcedureManager>();
+        GameFramework.Procedure.IProcedureManager procedureManager = GameFramework.GameFrameworkEntry.GetModule<GameFramework.Procedure.IProcedureManager>();
+        //创建新的流程 HotFixFramework.Runtime
+        var m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), m_HotfixAssemblys);
+        ProcedureBase[] procedures = new ProcedureBase[m_ProcedureTypeNames.Length];
+        for (int i = 0; i < m_ProcedureTypeNames.Length; i++)
         {
-            // 可更新模式
-            Log.Info("Updatable resource mode detected.");
-            m_ProcedureBase.ChangeStateByType(m_ProcedureOwner, typeof(ProcedurePreload));
+            Type procedureType = GameFramework.Utility.Assembly.GetType(m_ProcedureTypeNames[i]);
+            if (procedureType == null)
+            {
+                Log.Error("Can not find procedure type '{0}'.", m_ProcedureTypeNames[i]);
+                return;
+            }
+
+            procedures[i] = (ProcedureBase)Activator.CreateInstance(procedureType);
+            if (procedures[i] == null)
+            {
+                Log.Error("Can not create procedure instance '{0}'.", m_ProcedureTypeNames[i]);
+                return;
+            }
+
+            if (m_EntranceProcedureTypeName == m_ProcedureTypeNames[i])
+            {
+                m_EntranceProcedureBase = procedures[i];
+            }
         }
-        else
+
+        if (m_EntranceProcedureBase == null)
         {
-            m_ProcedureBase.ChangeStateByType(m_ProcedureOwner, typeof(ProcedureReadResourcePath));
+            Log.Error("Entrance procedure is invalid.");
+            return;
         }
+        procedureManager.Initialize(GameFramework.GameFrameworkEntry.GetModule<GameFramework.Fsm.IFsmManager>(), procedures);
+        procedureManager.StartProcedure(m_EntranceProcedureBase.GetType());
     }
     public static void Entrance(object[] objects) 
     {
-        LoadCustomComponent();
-        // 初始化自定义调试器
+        m_HotfixAssemblys = (List<Assembly>)objects[0];
+        //初始化自定义调试器
         InitCustomDebuggers();
         InitComponentsSet();
-        m_ProcedureBase = (ProcedureBase)objects[0];
-        m_ProcedureOwner = (ProcedureOwner)objects[1];
+        LoadCustomComponent();
     }
 }

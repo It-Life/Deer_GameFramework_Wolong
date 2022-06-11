@@ -2,9 +2,9 @@
 <UnityGameFramework>
   <ResourceEditor>
     <Settings>
-      <SourceAssetRootPath>Assets/Deer/AssetsHotfix</SourceAssetRootPath>
+      <SourceAssetRootPath>Assets/Deer</SourceAssetRootPath>
       <SourceAssetSearchPaths>
-        <SourceAssetSearchPath RelativePath="" />
+        <SourceAssetSearchPath RelativePath="AssetsHotfix" />
       </SourceAssetSearchPaths>
       <SourceAssetUnionTypeFilter>
         t:Scene t:Prefab t:Shader t:Model t:Material t:Texture t:AudioClip t:AnimationClip t:AnimatorController t:Font t:TextAsset t:ScriptableObject

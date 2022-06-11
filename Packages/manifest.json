@@ -1,8 +1,6 @@
 {
   "dependencies": {
-    "com.unity.collab-proxy": "1.15.17",
-    "com.unity.feature.characters-animation": "1.0.0",
-    "com.unity.feature.development": "1.0.1",
+    "com.unity.collab-proxy": "1.15.18",
     "com.unity.ide.rider": "3.0.14",
     "com.unity.ide.visualstudio": "2.0.15",
     "com.unity.ide.vscode": "1.2.5",

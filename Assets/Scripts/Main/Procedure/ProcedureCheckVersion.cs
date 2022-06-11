@@ -89,9 +89,12 @@ namespace Deer
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
-            GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
-            GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
             base.OnLeave(procedureOwner, isShutdown);
+            if (!GameEntryMain.Base.EditorResourceMode)
+            {
+                GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
+                GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
+            }
         }
 
         /// <summary>

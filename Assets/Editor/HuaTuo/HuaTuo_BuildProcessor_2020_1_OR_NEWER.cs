@@ -37,6 +37,24 @@ namespace HuaTuo
             "HotFix.dll",
         };
 
+        /// <summary>
+        /// 所有热更新dll列表
+        /// </summary>
+        public static List<string> s_allHotUpdateDllNames = s_monoHotUpdateDllNames.Concat(new List<string>
+        {
+            // 这里放除了s_monoHotUpdateDllNames以外的脚本不需要挂到资源上的dll列表
+            "HotFix2.dll",
+        }).ToList();
+
+        /// <summary>
+        /// 需要拷贝的裁剪dll，在裁剪完成后自动拷贝到 Assets/StreamingAssets 目录，这样在打包时即会包含这些dll
+        /// </summary>
+        static List<string> s_copyDllName = new List<string>
+        {
+            "mscorlib.dll",
+        };
+
+
         public int callbackOrder => 0;
 
         public void OnPreprocessBuild(BuildReport report)
@@ -64,13 +82,21 @@ namespace HuaTuo
             // 由于 Android 平台在 OnPostprocessBuild 调用时已经生成完 apk 文件，因此需要提前调用
             AddBackHotFixAssembliesToJson(null, path);
         }
-#else
-        public void OnPostprocessBuild(BuildReport report)
-        {
-            AddBackHotFixAssembliesToJson(report, report.summary.outputPath);
-        }
 #endif
 
+        public void OnPostprocessBuild(BuildReport report)
+        {
+#if !UNITY_ANDROID
+
+            AddBackHotFixAssembliesToJson(report, report.summary.outputPath);
+#endif
+            var projectProject = Path.GetFullPath(".");
+            foreach(var name in s_copyDllName)
+            {
+                File.Delete(Path.Combine(projectProject, "Assets", "StreamingAssets", name));
+            }
+        }
+        
         private void AddBackHotFixAssembliesToJson(BuildReport report, string path)
         {
             /*
@@ -104,7 +130,6 @@ namespace HuaTuo
             }
         }
 
-
         public void OnProcessScene(Scene scene, BuildReport report)
         {
 
@@ -112,7 +137,19 @@ namespace HuaTuo
 
         public void OnPostBuildPlayerScriptDLLs(BuildReport report)
         {
-
+            var projectProject = Path.GetFullPath(".");
+            foreach (var name in s_copyDllName)
+            {
+                var dllPath = Path.Combine(projectProject, "Temp", "StagingArea", "Data", "Managed", name);
+                if (File.Exists(dllPath))
+                {
+                    File.Copy(dllPath, Path.Combine(projectProject, "Assets", "StreamingAssets", name), true);
+                }
+                else
+                {
+                    Debug.LogWarning($"can not find the strip dll, path = {dllPath}");
+                }
+            }
         }
 
         public string GenerateAdditionalLinkXmlFile(BuildReport report, UnityLinkerBuildPipelineData data)

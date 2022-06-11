@@ -12,10 +12,12 @@ using System.Collections;
 using System.IO;
 using System.Reflection;
 using GameFramework;
+using UnityGameFramework.Runtime;
+
 namespace Deer
 {
-    [Config]
-    public abstract class ConfigBase<T> : IConfig where T : class, new()
+    //[Config]
+/*    public abstract class ConfigBase<T> : IConfig where T : class, new()
     {
         private static T m_Instance;
         
@@ -58,7 +60,7 @@ namespace Deer
         /// <typeparam name="T"></typeparam>
         /// <param name="csvName"></param>
         /// <returns></returns>
-        protected U AnalyseConfig<U>(string excelName,string rootPath) 
+*//*        protected U AnalyseConfig<U>(string excelName,string rootPath) 
         {
             U config = default(U);
             string path = Path.Combine(rootPath, Utility.Text.Format("Config/{0}.bin", excelName));
@@ -106,6 +108,6 @@ namespace Deer
                 }
             }
             return excelConfig;
-        }
-    }
+        }*//*
+    }*/
 }

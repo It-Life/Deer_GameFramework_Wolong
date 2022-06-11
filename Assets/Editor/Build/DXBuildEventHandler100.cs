@@ -18,6 +18,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
     public bool ContinueOnFailure => false;
 
     private string CommitResourcesPath = Application.dataPath + "/../CommitResources/100/";
+    private string StreamingAssetsHotfixPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix"));
     private Deer.VersionInfo m_VersionInfo = new Deer.VersionInfo();
 
     /// <summary>
@@ -53,9 +54,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath)
     {
         m_VersionInfo.InternalResourceVersion = internalResourceVersion;
-        string streamingAssetsPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "Asset"));
-        FolderUtils.ClearFolder(streamingAssetsPath);
-        Utility.Path.RemoveEmptyDirectory(streamingAssetsPath);
+        FolderUtils.ClearFolder(StreamingAssetsHotfixPath);
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
     }
     /// <summary>
@@ -155,10 +154,9 @@ public class DXBuildEventHandler100 : IBuildEventHandler
     public void OnPostprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath,
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, bool isSuccess)
     {
-        string streamingAssetsPath = Path.Combine(Application.dataPath, "StreamingAssets");
-        if (!Directory.Exists(streamingAssetsPath))
+        if (!Directory.Exists(StreamingAssetsHotfixPath))
         {
-            Directory.CreateDirectory(streamingAssetsPath);
+            Directory.CreateDirectory(StreamingAssetsHotfixPath);
         }
         if (outputPackedSelected || outputPackageSelected)
         {
@@ -173,7 +171,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
             }
             foreach (string fileName in fileNames)
             {
-                string destFileName = streamingAssetsPath + fileName.Substring(outputPackedPath.Length);
+                string destFileName = Application.streamingAssetsPath + fileName.Substring(outputPackedPath.Length);
                 FileInfo destFileInfo = new FileInfo(destFileName);
                 if (destFileInfo.Directory != null && !destFileInfo.Directory.Exists)
                 {

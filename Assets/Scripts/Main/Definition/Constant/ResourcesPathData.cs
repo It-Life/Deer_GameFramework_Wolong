@@ -17,14 +17,8 @@ using UnityEngine;
 /// </summary>
 public class ResourcesPathData
 {
-    public static string AppResourcePathConfig = "Deer/Asset/GameConfigs/ResourcePathCollection.txt";
 
     public static string ResourceVersionFile = "ResourceVersion.txt";
-    /// <summary>
-    /// 资源路径配置
-    /// </summary>
-    public static string ResourcePathConfig =
-        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, AppResourcePathConfig));
 
     #region app 下载地址
 
