@@ -24,8 +24,6 @@ namespace UnityGameFramework.Editor
             "Assembly-CSharp",
 
             "Main.Runtime",
-            "HotFixMain",
-            "HotFixFramework.Runtime",
         };
 
         private static readonly string[] RuntimeOrEditorAssemblyNames =
@@ -40,7 +38,7 @@ namespace UnityGameFramework.Editor
             "Assembly-CSharp-Editor",
 
             "Main.Editor",
-            "HotFixFramework.Editor",
+
         };
 
         /// <summary>
