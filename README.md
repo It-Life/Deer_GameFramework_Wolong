@@ -1,6 +1,11 @@
 # Deer_GameFramework_HuaTuo
 基于GameFramework框架衍生的一个huatuo热更框架，实现除GameFramework库底层代码以及更新流程逻辑层代码，其余流程及义务层代码全部热更。
 
+### 版本
+
+- Unity 2020.3.33f1
+- Microsoft Visual Studio Professional 2022 
+
 ### 热更框架流程图
 
 ![流程](https://github.com/It-Life/Deer_GameFramework_HuaTuo/blob/main/DescDocu/%E6%B5%81%E7%A8%8B.png)
