@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityGameFramework.Runtime;
 /// <summary>
 /// 游戏入口。
@@ -182,6 +183,31 @@ public class GameEntryMain : MonoBehaviour
                 int err = Huatuo.HuatuoApi.LoadMetadataForAOTAssembly((IntPtr)ptr, dllBytes.Length);
                 Debug.Log("LoadMetadataForAOTAssembly. ret:" + err);
             }
+        }
+    }
+    /// <summary>
+    /// 通过UnityWebRequest获取本地StreamingAssets文件夹中的文件
+    /// </summary>
+    /// <param name="path">StreamingAssets文件夹中文件名字加后缀</param>
+    /// <returns></returns>
+    public static byte[] GetTextForStreamingAssets(string path)
+    {
+        var uri = new System.Uri(Path.Combine(Application.streamingAssetsPath, path));
+        UnityWebRequest request = UnityWebRequest.Get(uri);
+        request.SendWebRequest();//读取数据
+        if (request.error == null)
+        {
+            while (true)
+            {
+                if (request.downloadHandler.isDone)//是否读取完数据
+                {
+                    return request.downloadHandler.data;
+                }
+            }
+        }
+        else
+        {
+            return null;
         }
     }
 }

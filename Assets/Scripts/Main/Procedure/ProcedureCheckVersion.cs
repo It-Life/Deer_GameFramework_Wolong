@@ -47,35 +47,26 @@ namespace Deer
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            if (GameEntryMain.Base.EditorResourceMode)
+            //检查设备是否能够访问互联网
+            if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
             {
-                // 编辑器模式
-                Log.Info("Editor resource mode detected.");
-                ChangeState<ProcedureLoadAssembly>(procedureOwner);
+                Log.Info("The device is not connected to the network");
+                return;
             }
-            else 
-            {
-                //检查设备是否能够访问互联网
-                if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
-                {
-                    Log.Info("The device is not connected to the network");
-                    return;
-                }
-                m_UpdateVersionListCallbacks = new UpdateVersionListCallbacks(OnUpdateResourcesVersionListSuccess, OnUpdateResourcesVersionListFailure);
-                m_CurrDownLoadResourceVersionCount = 0;
-                m_CurrDownLoadConfigVersionCount = 0;
+            m_UpdateVersionListCallbacks = new UpdateVersionListCallbacks(OnUpdateResourcesVersionListSuccess, OnUpdateResourcesVersionListFailure);
+            m_CurrDownLoadResourceVersionCount = 0;
+            m_CurrDownLoadConfigVersionCount = 0;
 
-                m_LatestResourceComplete = false;
-                m_LatestConfigComplete = false;
+            m_LatestResourceComplete = false;
+            m_LatestConfigComplete = false;
 
-                m_UpdateConfigVersionFlag = false;
-                m_UpdateResourceVersionFlag = false;
-                GameEntryMain.Resource.UpdatePrefixUri = "";//GameEntry.GameSettings.GetResourcesDownLoadPath();
-                GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
-                GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
-                DownLoadConfigVersion();
-                DownLoadResourcesVersion();
-            }
+            m_UpdateConfigVersionFlag = false;
+            m_UpdateResourceVersionFlag = false;
+            GameEntryMain.Resource.UpdatePrefixUri = "";//GameEntry.GameSettings.GetResourcesDownLoadPath();
+            GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
+            GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
+            DownLoadConfigVersion();
+            DownLoadResourcesVersion();
         }
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {

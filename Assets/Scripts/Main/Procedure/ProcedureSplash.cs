@@ -24,7 +24,7 @@ namespace Deer
             {
                 // 可更新模式
                 Log.Info("Updatable resource mode detected.");
-                ChangeState<ProcedureCheckVersion>(procedureOwner);
+                ChangeState<ProcedureLoadAssembly>(procedureOwner);
             }
             else if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
             {

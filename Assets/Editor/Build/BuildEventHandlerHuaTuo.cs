@@ -36,25 +36,93 @@ public static class BuildEventHandlerHuaTuo
                 //{Platform.WindowsStore, BuildTarget.WSAPlayer},
                 //{Platform.WebGL, BuildTarget.WebGL}
         };
-
+    public static bool IsPlatformSelected(Platform platforms, Platform platform)
+    {
+        return (platforms & platform) != 0;
+    }
+    public static void OnPreprocessAllPlatforms(Platform platforms) 
+    {
+        foreach (var item in Platform2BuildTargetDic)
+        {
+            if (IsPlatformSelected(platforms,item.Key))
+            {
+                HuaTuoEditorHelper.CompileDll(HuaTuoEditorHelper.GetDllBuildOutputDirByTarget(item.Value), item.Value);
+                CopyDllBuildFiles(item.Value);
+            }
+        }
+    }
     public static void OnPreprocessPlatform(Platform platform) 
     {
         if (Platform2BuildTargetDic.TryGetValue(platform, out BuildTarget buildTarget))
         {
-            HuaTuoEditorHelper.CompileDll(HuaTuoEditorHelper.GetDllBuildOutputDirByTarget(buildTarget), buildTarget);
-            foreach (var dll in HuaTuoHotfixData.AllHotUpdateDllNames)
-            {
-                string dllPath = $"{HuaTuoEditorHelper.GetDllBuildOutputDirByTarget(buildTarget)}/{dll}";
-                string dllBytesPath = $"{HuaTuoHotfixData.AssemblyTextAssetFullPath}/{dll}{HuaTuoHotfixData.AssemblyTextAssetExtension}";
-                LogEx.ColorInfo(ColorType.brown,$"当前拷贝路径：{dllPath}");
-                File.Copy(dllPath, dllBytesPath, true);
-            }
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            CopyDllBuildFiles(buildTarget);
         }
         else 
         {
             Log.Warning($"Cannot be generated on the current platform:{platform}");
+        }
+    }
+
+    private static void CopyDllBuildFiles(BuildTarget buildTarget) 
+    {
+        foreach (var dll in HuaTuoHotfixData.AllHotUpdateDllNames)
+        {
+            string dllPath = $"{HuaTuoEditorHelper.GetDllBuildOutputDirByTarget(buildTarget)}/{dll}";
+            string dllBytesPath = $"{HuaTuoHotfixData.AssemblyTextAssetFullPath}/{dll}{HuaTuoHotfixData.AssemblyTextAssetExtension}";
+            if (!Directory.Exists(HuaTuoHotfixData.AssemblyTextAssetFullPath))
+            {
+                Directory.CreateDirectory(HuaTuoHotfixData.AssemblyTextAssetFullPath);
+            }
+            File.Copy(dllPath, dllBytesPath, true);
+        }
+        AddHotfixDllToResourceCollection();
+        AssetDatabase.Refresh();
+    }
+
+    private static ResourceCollection resourceCollection;
+    private static string resourcesName = "AssetsHotfix/Assembly";
+    private static List<string> guids = new List<string>();
+    //[MenuItem("HuaTuo/AddResources/FindGuids")]
+    private static string[] FindAddHotfixDllGuids() 
+    {
+        guids.Clear();
+        //AssetDatabase.AssetPathToGUID
+        List<string> files = FileUtils.FindFiles(Path.Combine((Application.dataPath),"Deer", resourcesName),false);
+        for (int i = 0; i < files.Count; i++)
+        {
+            if (!files[i].Contains(".meta"))
+            {
+                string guid = AssetDatabase.AssetPathToGUID(Path.Combine("Assets", files[i].Replace("\\", "/").Replace(Application.dataPath + "/", "")));
+                guids.Add(guid);
+            }
+        }
+        return guids.ToArray();
+
+    }
+    //[MenuItem("HuaTuo/AddResources/SaveGuids")]
+    public static void AddHotfixDllToResourceCollection() 
+    {
+        resourceCollection = new ResourceCollection();
+        if (resourceCollection.Load())
+        {
+            if (!resourceCollection.HasResource(resourcesName, null))
+            {
+                resourceCollection.AddResource(resourcesName, null, null, LoadType.LoadFromFile, false);
+            }
+            string[] guids = FindAddHotfixDllGuids();
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string guid = guids[i];
+                if (!resourceCollection.HasAsset(guid))
+                {
+                    resourceCollection.AssignAsset(guid, resourcesName, null);
+                }
+            }
+            resourceCollection.Save();
+        }
+        else 
+        {
+            Log.Error("ResourceCollection load fail.");
         }
     }
     //[MenuItem("HuaTuo/CompileDllTest/ActiveBuildTarget")]

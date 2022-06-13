@@ -56,6 +56,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
         m_VersionInfo.InternalResourceVersion = internalResourceVersion;
         FolderUtils.ClearFolder(StreamingAssetsHotfixPath);
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
+        BuildEventHandlerHuaTuo.OnPreprocessAllPlatforms(platforms);
     }
     /// <summary>
     /// 某个平台生成开始前的预处理事件。

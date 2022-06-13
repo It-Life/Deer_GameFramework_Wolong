@@ -72,42 +72,42 @@ namespace HuaTuo
             return $"{DllBuildOutputDir}/{target}";
         }
 
-        [MenuItem("HuaTuo/CompileDll/ActiveBuildTarget")]
+        //[MenuItem("HuaTuo/CompileDll/ActiveBuildTarget")]
         public static void CompileDllActiveBuildTarget()
         {
             var target = EditorUserBuildSettings.activeBuildTarget;
             CompileDll(GetDllBuildOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/CompileDll/Win64")]
+        //[MenuItem("HuaTuo/CompileDll/Win64")]
         public static void CompileDllWin64()
         {
             var target = BuildTarget.StandaloneWindows64;
             CompileDll(GetDllBuildOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/CompileDll/Linux64")]
+        //[MenuItem("HuaTuo/CompileDll/Linux64")]
         public static void CompileDllLinux()
         {
             var target = BuildTarget.StandaloneLinux64;
             CompileDll(GetDllBuildOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/CompileDll/OSX")]
+        //[MenuItem("HuaTuo/CompileDll/OSX")]
         public static void CompileDllOSX()
         {
             var target = BuildTarget.StandaloneOSX;
             CompileDll(GetDllBuildOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/CompileDll/Android")]
+        //[MenuItem("HuaTuo/CompileDll/Android")]
         public static void CompileDllAndroid()
         {
             var target = BuildTarget.Android;
             CompileDll(GetDllBuildOutputDirByTarget(target), target);
         }
 
-        [MenuItem("HuaTuo/CompileDll/IOS")]
+        //[MenuItem("HuaTuo/CompileDll/IOS")]
         public static void CompileDllIOS()
         {
             //var target = EditorUserBuildSettings.activeBuildTarget;
