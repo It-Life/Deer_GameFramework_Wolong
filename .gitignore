@@ -6,4 +6,8 @@ Library
 Logs
 obj
 *.sln
+*.xmind
 Temp
+BuildPackage
+BuildPackageVS
+ResourcesFiles

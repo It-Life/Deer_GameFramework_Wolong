@@ -3,7 +3,7 @@
 
 ### 热更框架流程图
 
-![流程](D:\Working\GitHub\Deer_GameFramework_HuaTuo\DescDocu\流程.png)
+![流程](https://github.com/It-Life/Deer_GameFramework_HuaTuo/blob/main/DescDocu/%E6%B5%81%E7%A8%8B.png)
 
 ### 热更程序集
 
