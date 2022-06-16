@@ -10,48 +10,48 @@ using System.Collections;
 using System.Collections.Generic;
 using ConfigData;
 using Deer;
-using LuaInterface;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-/*public class SoundsConfigDataInfo : ConfigBase<SoundsConfigDataInfo>
+public class SoundsConfigDataInfo : ConfigBase<SoundsConfigDataInfo>
 {
-	public Sounds_Config_Data data;
-	public override string Name => "Sounds_Config";
-	private Dictionary<uint, Sounds_Config> m_Infos = new Dictionary<uint, Sounds_Config>();
+    public Sounds_Config_Data data;
+    public override string Name => "Sounds_Config";
+    private Dictionary<uint, Sounds_Config> m_Infos = new Dictionary<uint, Sounds_Config>();
 
-	public override IEnumerator LoadConfig(bool isReadWritePath)
-	{
-*//*		AnalyseConfig<Sounds_Config_Data>(Name, isReadWritePath, delegate (Sounds_Config_Data tempData) {
-			data = tempData;
-			if (data != null)
-			{
-				foreach (var t in data.Items)
-				{
-					m_Infos.Add(t.Id, t);
-				}
-			}
-			else
-			{
-				Log.Error("loadconfig data is null");
-			}
-		});*//*
-		yield return null;
-	}
+    public override IEnumerator LoadConfig(bool isReadWritePath)
+    {
+        AnalyseConfig<Sounds_Config_Data>(Name, isReadWritePath, delegate (Sounds_Config_Data tempData)
+        {
+            data = tempData;
+            if (data != null)
+            {
+                foreach (var t in data.Items)
+                {
+                    m_Infos.Add(t.Id, t);
+                }
+            }
+            else
+            {
+                Log.Error("loadconfig data is null");
+            }
+        });
+        yield return null;
+    }
 
-	public Sounds_Config GetConfigById(uint soundId)
-	{
-		Sounds_Config config;
-		if (m_Infos.TryGetValue(soundId, out config))
-		{
-			return config;
-		}
+    public Sounds_Config GetConfigById(uint soundId)
+    {
+        Sounds_Config config;
+        if (m_Infos.TryGetValue(soundId, out config))
+        {
+            return config;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public override void Clear()
-	{
-		data = null;
-	}
-}*/
+    public override void Clear()
+    {
+        data = null;
+    }
+}

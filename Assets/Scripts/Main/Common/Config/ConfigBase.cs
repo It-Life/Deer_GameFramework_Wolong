@@ -16,11 +16,11 @@ using UnityGameFramework.Runtime;
 
 namespace Deer
 {
-    //[Config]
-/*    public abstract class ConfigBase<T> : IConfig where T : class, new()
+    [Config]
+    public abstract class ConfigBase<T> : IConfig where T : class, new()
     {
         private static T m_Instance;
-        
+
         public ConfigBase()
         {
             m_Instance = this as T;
@@ -31,7 +31,7 @@ namespace Deer
         /// <returns></returns>
         public static T Instance
         {
-            get 
+            get
             {
                 if (m_Instance == null)
                 {
@@ -60,7 +60,7 @@ namespace Deer
         /// <typeparam name="T"></typeparam>
         /// <param name="csvName"></param>
         /// <returns></returns>
-*//*        protected U AnalyseConfig<U>(string excelName,string rootPath) 
+        protected U AnalyseConfig<U>(string excelName, string rootPath)
         {
             U config = default(U);
             string path = Path.Combine(rootPath, Utility.Text.Format("Config/{0}.bin", excelName));
@@ -71,7 +71,7 @@ namespace Deer
             }
 
             byte[] content = File.ReadAllBytes(path);
-        
+
             //反序列化
             config = Deserialize<U>(content, excelName);
 
@@ -80,7 +80,8 @@ namespace Deer
         protected void AnalyseConfig<U>(string excelName, bool isReadWritePath, Action<U> action)
         {
             U config = default(U);
-            FileUtils.FileReadAllBytes(Utility.Text.Format("Config/{0}.bin", excelName), isReadWritePath, delegate (bool isRead,byte[] result) {
+            FileUtils.FileReadAllBytes(Utility.Text.Format("Config/{0}.bin", excelName), isReadWritePath, delegate (bool isRead, byte[] result)
+            {
                 //反序列化
                 config = Deserialize<U>(result, excelName);
                 action?.Invoke(config);
@@ -98,8 +99,8 @@ namespace Deer
                     if (parserField != null)
                     {
                         object objParser = parserField.GetValue(null);
-                        MethodInfo method = parserField.FieldType.GetMethod("ParseFrom", new Type[] { typeof(byte[])});
-                        if (method != null) excelConfig = (U) method.Invoke(objParser, new object[] {content});
+                        MethodInfo method = parserField.FieldType.GetMethod("ParseFrom", new Type[] { typeof(byte[]) });
+                        if (method != null) excelConfig = (U)method.Invoke(objParser, new object[] { content });
                     }
                 }
                 catch (Exception ex)
@@ -108,6 +109,6 @@ namespace Deer
                 }
             }
             return excelConfig;
-        }*//*
-    }*/
+        }
+    }
 }

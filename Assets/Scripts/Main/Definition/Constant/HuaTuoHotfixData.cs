@@ -24,19 +24,19 @@ public static class HuaTuoHotfixData
     /// </summary>
     public static readonly List<string> MonoHotUpdateDllNames = new List<string>()
         {
-            "HotfixBusiness.dll",
             "HotFixFramework.Runtime.dll",
+            "HotfixBusiness.dll",
         };
-
-    /// <summary>
-    /// 所有热更新dll列表
-    /// </summary>
-    public static readonly List<string> AllHotUpdateDllNames = MonoHotUpdateDllNames.Concat(new List<string>
+    public static readonly List<string> HotUpdateDllNames = new List<string>()
         {
             // 这里放除了s_monoHotUpdateDllNames以外的脚本不需要挂到资源上的dll列表
             "HotfixCommon.dll",
             "HotfixMain.dll",
-        }).ToList();
+        };
+    /// <summary>
+    /// 所有热更新dll列表
+    /// </summary>
+    public static readonly List<string> AllHotUpdateDllNames = HotUpdateDllNames.Concat(MonoHotUpdateDllNames).ToList();
 
 
     /// <summary>

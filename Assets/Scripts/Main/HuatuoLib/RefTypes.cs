@@ -1,5 +1,10 @@
+using Google.Protobuf;
+using Google.Protobuf.Collections;
+using Google.Protobuf.Reflection;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -42,6 +47,7 @@ public class RefTypes : MonoBehaviour
             new Dictionary<int, int>(),
             new Dictionary<int, long>(),
             new Dictionary<int, object>(),
+            new Dictionary<uint, object>(),
             new Dictionary<long, int>(),
             new Dictionary<long, long>(),
             new Dictionary<long, object>(),
@@ -63,6 +69,7 @@ public class RefTypes : MonoBehaviour
             new ValueTuple<int, int>(1, 1),
             new ValueTuple<long, long>(1, 1),
             new ValueTuple<object, object>(1, 1),
+            new SingletonMono<MonoBehaviour>(),
         };
     }
 
@@ -78,7 +85,6 @@ public class RefTypes : MonoBehaviour
             throw new NotImplementedException();
         }
     }
-
     void RefAsyncMethod()
     {
         var stateMachine = new RefStateMachine();
@@ -144,5 +150,75 @@ public class RefTypes : MonoBehaviour
         c9.SetException(null);
         c9.SetResult();
         Debug.Log(b);
+    }
+
+    class RefMessage : IMessage<RefMessage>
+    {
+        public MessageDescriptor Descriptor => throw new NotImplementedException();
+
+        public UnknownFieldSet _unknownFields;
+
+        public int CalculateSize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public RefMessage Clone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Equals(RefMessage other)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MergeFrom(RefMessage message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MergeFrom(CodedInputStream input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteTo(CodedOutputStream output)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    void RefMessageMethod() 
+    {
+        IMessage message = new RefMessage();
+        message.Equals((RefMessage)message);
+        MessageParser<RefMessage> messageParser = new MessageParser<RefMessage>(() => new RefMessage());
+        messageParser.ParseFrom(new byte[0]);
+        messageParser.ParseFrom(new byte[0],0,0);
+        messageParser.ParseFrom(ByteString.Empty);
+        messageParser.ParseFrom(Stream.Null);
+        messageParser.ParseDelimitedFrom(Stream.Null);
+        messageParser.ParseJson(String.Empty);
+        messageParser.WithDiscardUnknownFields(false);
+        messageParser.WithExtensionRegistry(new ExtensionRegistry());
+        Lists.Equals(new List<object>(),new List<object>());
+        ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(0, 0);
+        ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(0);
+        RepeatedField<RefMessage> refMessages = new RepeatedField<RefMessage>();
+    }
+    public void RefGoogleProtobuf()
+    {
+        var o = new object[]
+        {
+            new MapField<int, int>(),
+            new MapField<int,int>.Codec(default, default, default),
+            new MapField<string, object>(),
+            new MapField<string, object>.Codec(default, default, default),
+        };
+/*        IBsonSerializer<object> s = null;
+        BsonSerializer.RegisterSerializer<object>(s);
+        BsonSerializer.Serialize(null, typeof(void), null);
+        BsonSerializer.Serialize<string>(null, "");*/
     }
 }

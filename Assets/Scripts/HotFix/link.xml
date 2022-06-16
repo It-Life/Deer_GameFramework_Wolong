@@ -128,12 +128,14 @@
   <assembly fullname="GameFramework" preserve="all" />  
   <assembly fullname="UnityGameFramework.Runtime" preserve="all" />
   <assembly fullname="UnityGameFramework.Editor" preserve="all" />
+  <!-- <assembly fullname="Google.Protobuf" preserve="all" /> -->
+  <!-- <assembly fullname="System.Buffers" preserve="all" /> -->
+  <!-- <assembly fullname="System.Memory" preserve="all" /> -->
+  <!-- <assembly fullname="System.Runtime.CompilerServices.Unsafe" preserve="all" /> -->
   
-  <assembly fullname="HotfixMain" preserve="all" />  
-  <assembly fullname="HotFixFramework.Runtime" preserve="all" />
-  <assembly fullname="HotfixCommon" />
-  <assembly fullname="Google.Protobuf">
-  	<type fullname="Google.Protobuf.Reflection.FileDescriptor" preserve="all" />
-  </assembly>
+  <!-- <assembly fullname="HotfixBusiness" preserve="all" /> -->
+  <!-- <assembly fullname="HotfixCommon" preserve="all" /> -->
+  <!-- <assembly fullname="HotFixFramework.Runtime" preserve="all" /> -->
+  
 </linker>
 

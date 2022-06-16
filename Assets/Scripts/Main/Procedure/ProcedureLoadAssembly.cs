@@ -46,7 +46,7 @@ namespace Deer
                         break;
                     }
                 }
-            }
+            } 
             else 
             {
                 m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);

@@ -9,8 +9,6 @@
 using GameFramework;
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using LuaInterface;
-
 
 public class EntityLogicBase : EntityLogic
 {
