@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089caf30d869f954eb91eb065677f71c, type: 3}
+  m_Name: AutoBindGlobalSetting
+  m_EditorClassIdentifier: 
+  m_CodePath: D:/Working/GitHub/Deer_GameFramework_HuaTuo/Assets/Scripts/HotFix/HotFixBusiness/UI/BindComponents
+  m_Namespace: Deer.UI
+  m_CodeRelativePath: /Scripts/HotFix/HotFixBusiness/UI/BindComponents

@@ -7,8 +7,10 @@
 //版 本 : 0.1 
 // ===============================================
 
+using System.Collections.Generic;
 using System.IO;
 using GameFramework;
+using Main.Runtime;
 using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Editor.ResourceTools;
@@ -17,8 +19,19 @@ public class DXBuildEventHandler100 : IBuildEventHandler
 {
     public bool ContinueOnFailure => false;
 
-    private string CommitResourcesPath = Application.dataPath + "/../CommitResources/100/";
+    private string CommitResourcesPath = Application.dataPath + "/../CommitResources/HuaTuo_100/";
     private string StreamingAssetsHotfixPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix"));
+    private string StreamingAssetsNativePath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsNative"));
+    private List<string> StreamingAssetsPaths = new List<string>()
+    {
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix")),
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsNative")),
+    };
+    private List<string> StreamingAssetsFilePaths = new List<string>()
+    {
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkList.dat")),
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkVersion.dat")),
+    };
     private Deer.VersionInfo m_VersionInfo = new Deer.VersionInfo();
 
     /// <summary>
@@ -54,7 +67,17 @@ public class DXBuildEventHandler100 : IBuildEventHandler
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath)
     {
         m_VersionInfo.InternalResourceVersion = internalResourceVersion;
-        FolderUtils.ClearFolder(StreamingAssetsHotfixPath);
+        foreach (var item in StreamingAssetsPaths)
+        {
+            FolderUtils.ClearFolder(item);
+        }
+        foreach (var item in StreamingAssetsFilePaths)
+        {
+            if (File.Exists(item))
+            {
+                File.Delete(item);
+            }
+        }
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
         BuildEventHandlerHuaTuo.OnPreprocessAllPlatforms(platforms);
     }
@@ -155,38 +178,25 @@ public class DXBuildEventHandler100 : IBuildEventHandler
     public void OnPostprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath,
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, bool isSuccess)
     {
-        if (!Directory.Exists(StreamingAssetsHotfixPath))
+        foreach (var item in StreamingAssetsPaths)
         {
-            Directory.CreateDirectory(StreamingAssetsHotfixPath);
+            if (!Directory.Exists(item))
+            {
+                Directory.CreateDirectory(item);
+            }
         }
-        if (outputPackedSelected || outputPackageSelected)
+        if (outputPackageSelected)
         {
-            string[] fileNames;
-            if (outputPackedSelected)
-            {
-                fileNames = Directory.GetFiles(outputPackedPath, "*", SearchOption.AllDirectories);
-            }
-            else 
-            {
-                fileNames = Directory.GetFiles(outputPackagePath, "*", SearchOption.AllDirectories);
-            }
-            foreach (string fileName in fileNames)
-            {
-                string destFileName = Application.streamingAssetsPath + fileName.Substring(outputPackedPath.Length);
-                FileInfo destFileInfo = new FileInfo(destFileName);
-                if (destFileInfo.Directory != null && !destFileInfo.Directory.Exists)
-                {
-                    destFileInfo.Directory.Create();
-                }
-                File.Copy(fileName, destFileName, true);
-            }
-            if (outputPackedSelected)
-            {
-                Debug.Log("拷贝资源文件成功！");
-            }
-            else 
+            if (FolderUtils.CopyFiles(outputPackagePath, Application.streamingAssetsPath, SearchOption.AllDirectories))
             {
                 Debug.Log("拷贝单机资源文件成功！");
+            }
+        }
+        if (!outputPackageSelected && outputPackedSelected)
+        {
+            if (FolderUtils.CopyFiles(outputPackedPath, Application.streamingAssetsPath, SearchOption.AllDirectories))
+            {
+                Debug.Log("拷贝包体资源文件成功！");
             }
         }
         //更新包文件
@@ -196,7 +206,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
             m_VersionInfo.GameUpdateUrl = "";
             m_VersionInfo.LatestGameVersion = "";
             string versionInfoJson = JsonUtility.ToJson(m_VersionInfo);
-            FileUtils.CreateFile(Path.Combine(outputFullPath,ResourcesPathData.ResourceVersionFile),versionInfoJson);
+            Main.Runtime.FileUtils.CreateFile(Path.Combine(outputFullPath,ResourcesPathData.ResourceVersionFile),versionInfoJson);
             string commitPath = CommitResourcesPath + "/" + platform;
             string[] fileNames = Directory.GetFiles(outputFullPath, "*", SearchOption.AllDirectories);
             foreach (string fileName in fileNames)
@@ -209,8 +219,6 @@ public class DXBuildEventHandler100 : IBuildEventHandler
                 }
                 File.Copy(fileName, destFileName, true);
             }
-            /*string path = Path.GetFullPath(CommitResourcesPath).Replace("1.0", "100.0");
-            System.Diagnostics.Process.Start("explorer.exe", path);*/
             Application.OpenURL(CommitResourcesPath);
             Debug.Log("更新资源文件拷贝完毕！");
         }

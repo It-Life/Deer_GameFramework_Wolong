@@ -1,4 +1,0 @@
----@class MyTemplateScript
-MyTemplateScript = Class("MyTemplateScript")
-
-return MyTemplateScript

@@ -6,7 +6,7 @@
 //修改时间:2022-06-07 23-38-12
 //版 本:0.1 
 // ===============================================
-using HuaTuo;
+using Main.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -46,7 +46,7 @@ public static class BuildEventHandlerHuaTuo
         {
             if (IsPlatformSelected(platforms,item.Key))
             {
-                HuaTuoEditorHelper.CompileDll(HuaTuoEditorHelper.GetDllBuildOutputDirByTarget(item.Value), item.Value);
+                Huatuo.EditorHelper.CompileDll(Huatuo.EditorHelper.GetDllBuildOutputDirByTarget(item.Value), item.Value);
                 CopyDllBuildFiles(item.Value);
             }
         }
@@ -67,7 +67,18 @@ public static class BuildEventHandlerHuaTuo
     {
         foreach (var dll in HuaTuoHotfixData.AllHotUpdateDllNames)
         {
-            string dllPath = $"{HuaTuoEditorHelper.GetDllBuildOutputDirByTarget(buildTarget)}/{dll}";
+            string dllPath = $"{Huatuo.EditorHelper.GetDllBuildOutputDirByTarget(buildTarget)}/{dll}";
+            string dllBytesPath = $"{HuaTuoHotfixData.AssemblyTextAssetFullPath}/{dll}{HuaTuoHotfixData.AssemblyTextAssetExtension}";
+            if (!Directory.Exists(HuaTuoHotfixData.AssemblyTextAssetFullPath))
+            {
+                Directory.CreateDirectory(HuaTuoHotfixData.AssemblyTextAssetFullPath);
+            }
+            File.Copy(dllPath, dllBytesPath, true);
+        }
+
+        foreach (var dll in HuaTuoHotfixData.HotUpdateAotDllNames)
+        {
+            string dllPath = $"{Huatuo.EditorHelper.GetAssembliesPostIl2CppStripByTarget(buildTarget)}/{dll}";
             string dllBytesPath = $"{HuaTuoHotfixData.AssemblyTextAssetFullPath}/{dll}{HuaTuoHotfixData.AssemblyTextAssetExtension}";
             if (!Directory.Exists(HuaTuoHotfixData.AssemblyTextAssetFullPath))
             {
@@ -87,7 +98,7 @@ public static class BuildEventHandlerHuaTuo
     {
         guids.Clear();
         //AssetDatabase.AssetPathToGUID
-        List<string> files = FileUtils.FindFiles(Path.Combine((Application.dataPath),"Deer", resourcesName),false);
+        List<string> files = Main.Runtime.FileUtils.FindFiles(Path.Combine((Application.dataPath),"Deer", resourcesName),false);
         for (int i = 0; i < files.Count; i++)
         {
             if (!files[i].Contains(".meta"))

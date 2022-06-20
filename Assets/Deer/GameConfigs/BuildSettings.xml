@@ -2,7 +2,7 @@
 <UnityGameFramework>
   <BuildSettings>
     <DefaultScenes>
-      <DefaultScene Path="Assets/Deer/Scenes/DeerLauncher.unity" />
+      <DefaultScene Name="Assets/Deer/Scenes/DeerLauncher.unity" />
     </DefaultScenes>
     <SearchScenePaths>
       <SearchScenePath Path="Assets/Deer/Scenes" />
