@@ -1,0 +1,23 @@
+/**
+* @file:   Language_Config
+* @author: Triniti Interactive Limited 
+* @brief:  这个文件是通过工具自动生成的，建议不要手动修改
+*/
+syntax = "proto3";
+
+option java_package ="com.deer.server.protobuf.proto";
+
+package ConfigData;
+
+message Language_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 英文 */ 
+    string english = 3;
+    /** 简体中文 */ 
+    string schinese = 4;
+}
+
+message Language_Config_Data {
+    repeated Language_Config items = 1;
+}

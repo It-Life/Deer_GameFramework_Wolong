@@ -1,0 +1,31 @@
+/**
+* @file:   Sounds_Config
+* @author: Triniti Interactive Limited 
+* @brief:  这个文件是通过工具自动生成的，建议不要手动修改
+*/
+syntax = "proto3";
+
+option java_package ="com.deer.server.protobuf.proto";
+
+package ConfigData;
+
+message Sounds_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 音效名字 */ 
+    string sound_name = 2;
+    /** 音效优先级 */ 
+    string sound_priority = 3;
+    /** 音量大小 */ 
+    float sound_volume = 4;
+    /** 是否循环 */ 
+    uint32 loop = 5;
+    /** 空间混合 */ 
+    uint32 spatial_blend = 6;
+    /** 最大距离 */ 
+    float distance = 7;
+}
+
+message Sounds_Config_Data {
+    repeated Sounds_Config items = 1;
+}

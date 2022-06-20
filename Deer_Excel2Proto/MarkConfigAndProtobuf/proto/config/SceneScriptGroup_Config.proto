@@ -1,0 +1,23 @@
+/**
+* @file:   SceneScriptGroup_Config
+* @author: Triniti Interactive Limited 
+* @brief:  这个文件是通过工具自动生成的，建议不要手动修改
+*/
+syntax = "proto3";
+
+option java_package ="com.deer.server.protobuf.proto";
+
+package ConfigData;
+
+message SceneScriptGroup_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 表名 */ 
+    string script_name = 2;
+    /** 说明 */ 
+    string remark = 3;
+}
+
+message SceneScriptGroup_Config_Data {
+    repeated SceneScriptGroup_Config items = 1;
+}

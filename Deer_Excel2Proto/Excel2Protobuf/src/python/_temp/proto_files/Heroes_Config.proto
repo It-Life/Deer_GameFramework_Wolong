@@ -1,0 +1,392 @@
+/**
+* @file:   Heroes_Config
+* @author: Triniti Interactive Limited 
+* @brief:  这个文件是通过工具自动生成的，建议不要手动修改
+*/
+syntax = "proto3";
+
+option java_package ="com.trinitigames.server.conf.auto";
+
+package ConfigData;
+
+message Appearance_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 资源包名 */ 
+    string folder_name = 2;
+    /** 模型路径 */ 
+    string mesh = 3;
+    /** 贴图材质名 */ 
+    string texture = 4;
+    /** 动作表ID(索引GeneralAnimations_Config) */ 
+    uint32 anim_id = 5;
+    /** 是否烘焙模型 */ 
+    bool bake_mesh = 6;
+    /** 世界地图模型缩放 */ 
+    float scale_map = 7;
+    /** loading界面模型缩放 */ 
+    float scale_loading = 8;
+    /** 打击音效 */ 
+    string atk_sound = 9;
+    /** 远程发射音效 */ 
+    string range_sound = 10;
+    /** 远程击中音效 */ 
+    string range_hit_sound = 11;
+    /** 单个冲锋音效 */ 
+    string charge_sound = 12;
+    /** 死亡特效 */ 
+    string death_effect = 13;
+}
+
+message Appearance_Config_Data {
+    repeated Appearance_Config items = 1;
+}
+
+message Heroes_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 名称或描述 */ 
+    string desc = 2;
+    /** 调试等级 */ 
+    uint32 debug_level = 3;
+    /** 调试突破(之后删除） */ 
+    uint32 debug_floor = 4;
+    /** 小兵调试等级 */ 
+    uint32 debug_pawn_count_level = 5;
+    /** 调试星级 */ 
+    uint32 debug_rank = 6;
+    /** 调试天赋技能 */ 
+    repeated uint32 debug_talent = 7;
+    /** 英雄名称语言包 */ 
+    string hero_name_global = 8;
+    /** 英雄战前布阵头像 */ 
+    string icon_formation = 9;
+    /** 英雄战斗中旗帜头像 */ 
+    string icon_flag = 10;
+    /** 旗帜高度 */ 
+    int32 team_banner_height = 11;
+    /** 英雄类型配置 */ 
+    uint32 classify = 12;
+    /** 英雄战斗定位类型（用来显示icon，索引Hero_Tpye页） */ 
+    uint32 hero_type = 13;
+    /** 品质（1绿色，2蓝色、3紫色，4橙色） */ 
+    uint32 quality = 14;
+    /** 飞行功能ID */ 
+    uint32 projectile_id = 15;
+    /** 队伍逻辑(索引TeamLogical_Config) */ 
+    uint32 teamloigic_id = 16;
+    /** 可拥有技能 */ 
+    repeated uint32 skills = 17;
+    /** 质量 */ 
+    float mass = 18;
+    /** 物理碰撞范围（敌方|队友|友方） */ 
+    repeated float physic_radius = 19;
+    /** 模型缩放比例 */ 
+    float scale = 20;
+    /** 影子缩放比例（长|宽） */ 
+    repeated float shadow_scale = 21;
+    /** 英雄是否可以被捕获 */ 
+    bool can_capture = 22;
+    /** 英雄短语音 */ 
+    string hero_sound_short = 23;
+    /** 近战攻击 */ 
+    float melee_dps = 24;
+    /** 近战攻击速度
+(单位:秒) */ 
+    float melee_speed = 25;
+    /** 近战范围攻击半径 */ 
+    float melee_radius = 26;
+    /** 近战击中特效 */ 
+    repeated string melee_hit_effect = 27;
+    /** 远程攻击力 */ 
+    float range_dps = 28;
+    /** 远程攻击速度(单位:秒) */ 
+    float range_speed = 29;
+    /** 远程伤害半径 */ 
+    float range_radius = 30;
+    /** 远程击中特效 */ 
+    repeated string range_hit_effect = 31;
+    /** 冲锋伤害 */ 
+    float charge_dmg = 32;
+    /** 冲锋特效 */ 
+    string charge_anim_effect = 33;
+    /** 冲锋击中特效 */ 
+    string charge_anim_effect_hit = 34;
+    /** 聚焦后的镜头高度 */ 
+    float focus_altitude = 35;
+    /** 暴击伤害加成 */ 
+    float cri_damage = 36;
+    /** 是否天赋全开 */ 
+    bool full_talent = 37;
+    /** 悬赏掉落包 */ 
+    uint32 catch_reward = 38;
+    /** 英雄偏向 */ 
+    string hero_deviation = 39;
+    /** 英雄列传 */ 
+    string hero_profile = 40;
+    /** 最大行动点数 */ 
+    uint32 max_action_point = 41;
+    /** 初始士气 */ 
+    uint32 morale = 42;
+    /** 士气攻击力 */ 
+    uint32 morale_atk = 43;
+    /** 士气防御力 */ 
+    uint32 morale_def = 44;
+    /** 英雄死亡扣除士气 */ 
+    uint32 dead_morale = 45;
+}
+
+message Heroes_Config_Data {
+    repeated Heroes_Config items = 1;
+}
+
+message Heros_Words_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 开场说的话 */ 
+    repeated string battle_start_words = 2;
+    /** 冲锋说的话 */ 
+    repeated string charge_words = 3;
+    /** 放技能说的话 */ 
+    repeated string cast_spell_words = 4;
+    /** 遗言 */ 
+    repeated string last_words = 5;
+}
+
+message Heros_Words_Config_Data {
+    repeated Heros_Words_Config items = 1;
+}
+
+message Heroes_Data_Config{
+    /** ID */ 
+    uint32 id = 1;
+    /**  */ 
+    uint32 hero_id = 2;
+    /** 阶数 */ 
+    int32 floor = 3;
+    /** 血量 */ 
+    float hp_base = 4;
+    /** 血量成长系数 */ 
+    float hp_growth = 5;
+    /** 攻击值 */ 
+    float attack_base = 6;
+    /** 攻击成长系数 */ 
+    float attack_growth = 7;
+    /** 真实伤害 */ 
+    float real_attack_base = 8;
+    /** 真实伤害成长 */ 
+    float real_attack_growth = 9;
+    /** 防御 */ 
+    float defence_base = 10;
+    /** 防御成长洗漱 */ 
+    float defence_growth = 11;
+    /** 闪避值 */ 
+    float dodge_base = 12;
+    /** 闪避成长系数 */ 
+    float dodge_growth = 13;
+    /** 暴击值 */ 
+    float critical_base = 14;
+    /** 暴击成长系数 */ 
+    float critical_growth = 15;
+    /** 基础征服时间 */ 
+    float conquer_time_base = 16;
+    /** 征服时间成长 */ 
+    float conquer_time_growth = 17;
+    /** 最大等级 */ 
+    int32 max_level = 18;
+    /** 突破材料列表 */ 
+    repeated uint32 up_materials = 19;
+    /** 突破所需的玩家等级 */ 
+    int32 player_lv = 20;
+}
+
+message Heroes_Data_Config_Data {
+    repeated Heroes_Data_Config items = 1;
+}
+
+message Heroes_Skill_Config{
+    /** ID */ 
+    uint32 id = 1;
+    /**  */ 
+    uint32 hero_id = 2;
+    /** 技能格子 */ 
+    uint32 skill_slot = 3;
+    /** 格子品质色 */ 
+    uint32 quality = 4;
+    /** 所需等级 */ 
+    uint32 need_level = 5;
+    /** 所需星级 */ 
+    int32 need_rank = 6;
+    /** 技能表 */ 
+    repeated uint32 skill_table = 7;
+    /** 刷技能材料 */ 
+    repeated uint32 materials = 8;
+    /** 格子升级材料 */ 
+    repeated uint32 up_materials = 9;
+}
+
+message Heroes_Skill_Config_Data {
+    repeated Heroes_Skill_Config items = 1;
+}
+
+message Heroes_Rank_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 英雄ID */ 
+    uint32 hero_id = 2;
+    /** 星阶 */ 
+    uint32 rank = 3;
+    /** 升级经验 */ 
+    uint32 exp = 4;
+    /** 最低等级限制 */ 
+    uint32 level_limit = 5;
+    /** 血量倍率 */ 
+    float hp = 6;
+    /** 攻击倍率 */ 
+    float attack = 7;
+    /** 真实伤害倍率 */ 
+    float real_attack = 8;
+    /** 防御倍率 */ 
+    float defence = 9;
+    /** 闪避倍率 */ 
+    float dodge = 10;
+    /** 暴击倍率 */ 
+    float critical = 11;
+    /** 英雄模型资源配置ID
+（索引Apperance_Config） */ 
+    uint32 hero_appear_id = 12;
+    /** 士兵ID（索引SoldierAttribute_Config） */ 
+    uint32 solider_id = 13;
+    /** 主动技能释放次数 */ 
+    uint32 spell_count = 14;
+}
+
+message Heroes_Rank_Config_Data {
+    repeated Heroes_Rank_Config items = 1;
+}
+
+message Solo_Hero_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 摇杆模式 */ 
+    uint32 joystick_mode = 2;
+    /** 能量上限 */ 
+    uint32 power_max = 3;
+    /** 每击获得能量 */ 
+    repeated float power_recover = 4;
+    /** 连击数增加提升攻击力 */ 
+    repeated float combo_atk = 5;
+    /** 移动速度倍数 */ 
+    float speed_rate = 6;
+    /** 攻击范围，射程 */ 
+    float atk_range = 7;
+    /** 伤害范围 */ 
+    repeated float dmg_range = 8;
+    /** 伤害角度 */ 
+    repeated float dmg_angle = 9;
+    /** 开始特效 */ 
+    repeated string solo_shake_effect = 10;
+    /** 触发特效 */ 
+    repeated string solo_trigger_effect = 11;
+    /** 击飞参数 */ 
+    repeated string solo_hit_fly = 12;
+    /** 触发音效 */ 
+    repeated string solo_shake_sound = 13;
+    /** 击中音效 */ 
+    string solo_trigger_sound = 14;
+    /** 连击后额外硬直 */ 
+    repeated float cooldown_delay = 15;
+    /** 闪避距离 */ 
+    float evade_dis = 16;
+    /** 镜头震动 */ 
+    repeated string camera_shake = 17;
+}
+
+message Solo_Hero_Config_Data {
+    repeated Solo_Hero_Config items = 1;
+}
+
+message Solo_Heroes_Data_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 英雄测试等级(如果填X则用玩家数据，填了数字则用数字覆盖玩家数据） */ 
+    uint32 debug_level = 2;
+    /** 血量 */ 
+    float hp_base = 3;
+    /** 血量成长系数 */ 
+    float hp_growth = 4;
+    /** 攻击值 */ 
+    float attack_base = 5;
+    /** 攻击成长系数 */ 
+    float attack_growth = 6;
+    /** 真实伤害 */ 
+    float real_attack_base = 7;
+    /** 真实伤害成长 */ 
+    float real_attack_growth = 8;
+    /** 防御 */ 
+    float defence_base = 9;
+    /** 防御成长洗漱 */ 
+    float defence_growth = 10;
+    /** 闪避值 */ 
+    float dodge_base = 11;
+    /** 闪避成长系数 */ 
+    float dodge_growth = 12;
+    /** 暴击值 */ 
+    float critical_base = 13;
+    /** 暴击成长系数 */ 
+    float critical_growth = 14;
+}
+
+message Solo_Heroes_Data_Config_Data {
+    repeated Solo_Heroes_Data_Config items = 1;
+}
+
+message UI_Heroes_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 英雄描述语言(索引多语言表) */ 
+    string hero_epic_global = 2;
+    /** 英雄定位说明(索引多语言表) */ 
+    string Type = 3;
+    /** 是否隐藏 */ 
+    bool hide = 4;
+    /** 缩放比例 */ 
+    float scale = 5;
+    /** 旋转 */ 
+    string rot = 6;
+    /** 偏移 */ 
+    string position = 7;
+    /** 装备ID(用|隔开) */ 
+    string equip = 8;
+    /** 英雄碎片ID */ 
+    uint32 card_id = 9;
+    /** 英雄合成(召唤)需要碎片数 */ 
+    uint32 summon_cost = 10;
+    /** 英雄升级花费 */ 
+    uint32 levelup_gold = 11;
+    /** 英雄语音 */ 
+    string hero_sound = 12;
+    /** 天赋消耗基础返还率 */ 
+    float talent_cost_rrate = 13;
+    /** 返还率成长 */ 
+    float rrate_grow = 14;
+    /** 抽将展示动画场景名 */ 
+    string sfx = 15;
+}
+
+message UI_Heroes_Config_Data {
+    repeated UI_Heroes_Config items = 1;
+}
+
+message Heroes_Type_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 图标资源 */ 
+    string Hero_Icon = 2;
+    /** 多语言key */ 
+    string global_string_id = 3;
+}
+
+message Heroes_Type_Config_Data {
+    repeated Heroes_Type_Config items = 1;
+}

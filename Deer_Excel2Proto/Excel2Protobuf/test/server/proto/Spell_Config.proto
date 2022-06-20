@@ -1,0 +1,283 @@
+/**
+* @file:   Spell_Config
+* @author: Triniti Interactive Limited 
+* @brief:  这个文件是通过工具自动生成的，建议不要手动修改
+*/
+syntax = "proto3";
+
+option java_package ="com.trinitigames.server.conf.auto";
+
+package ConfigData;
+
+message ActiveSpell_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 冷却 */ 
+    int32 cd = 2;
+    /** 能量消耗 */ 
+    int32 cost = 3;
+    /** 技能释放条件 */ 
+    string pre_condition_type = 4;
+    /** 技能释放条件参数 */ 
+    string pre_condition_data = 5;
+    /** 【特效名-延迟到动画的第几帧触发特效】触发阶段动画特效(-X表示第几帧触发该特效) */ 
+    string trigger_anim_effect = 6;
+    /** 【id1-id2..|id3..】触发的功能索引（id1,id2|id3,id4) */ 
+    repeated string trigger_func_id = 7;
+    /** 触发技能对目标产生效果同时对自身再触发X个效果，每个效果使用|分割 */ 
+    repeated string trigger_on_me_func_id = 8;
+    /** 技能范围特效 */ 
+    string range_eff = 9;
+    /** 技能范围持续时间 */ 
+    float range_eff_time = 10;
+    /** 队伍的buff特效 */ 
+    repeated string team_buff_effect = 11;
+    /** 传染时间间隔|传染持续时间|传染半径|每次传染最大人数|最大传播代数 */ 
+    repeated float infection = 12;
+    /** 子弹id */ 
+    string bullet_id = 13;
+    /** 子弹延迟释放时间 */ 
+    string bullet_launch_delay = 14;
+    /** 子弹飞行特效 */ 
+    string bullet_effect = 15;
+    /** 子弹命中特效 */ 
+    string bullet_hit = 16;
+    /** 延迟触发效果时间 */ 
+    string trigger_delay = 17;
+    /** 伤害数字在hit后延迟x秒触发 */ 
+    float damage_num_delay = 18;
+    /** 连锁特效名（用于士兵上的表现） */ 
+    string chain_effect = 19;
+    /** 连锁命中特效（用于士兵上的表现） */ 
+    string chain_effect_hit = 20;
+    /** 连锁特效的速度 */ 
+    float chain_speed = 21;
+    /** 特写场景名 */ 
+    string sfx = 22;
+    /** 持续时间 */ 
+    float sfx_time = 23;
+    /** 子弹跟随镜头 */ 
+    uint32 cam_bullet = 24;
+    /** 子弹爆炸镜头 */ 
+    uint32 cam_bullet_hit = 25;
+    /** 子弹目标 */ 
+    string bullet_target = 26;
+    /** 子弹目标选中后影响的范围 */ 
+    string data_target = 27;
+    /** 特写镜头 */ 
+    uint32 cam_feature = 28;
+    /** 触发镜头 */ 
+    uint32 cam_trigger = 29;
+    /**  */ 
+    string data_param_speed = 30;
+    /** 触发效果的生命周期 */ 
+    float trigger_life_time = 31;
+    /** 触发效果的时间间隔 */ 
+    float trigger_delta_time = 32;
+    /** 技能动画中是否可动 */ 
+    repeated string spell_anim_can_move = 33;
+    /** 技能范围特效后段 */ 
+    string range_eff_post = 34;
+    /** 技能释放音效 */ 
+    string spell_sound = 35;
+    /** 技能击中音效 */ 
+    string spell_trigger_sound = 36;
+    /** 特写音效 */ 
+    string sfx_sound = 37;
+    /** 技能释放条件额外数据 */ 
+    string pre_condition_dataex = 38;
+    /** 预备阶段动画名 */ 
+    string pre_anim = 39;
+    /** 预备阶段动画特效 */ 
+    string pre_anim_effect = 40;
+    /** 收尾阶段动画名 */ 
+    string post_anim = 41;
+    /** 收尾阶段动画特效 */ 
+    string post_anim_effect = 42;
+    /** 公共冷却 */ 
+    float public_cd = 43;
+    /** 技能范围特效后段时间 */ 
+    float range_eff_post_time = 44;
+    /** 技能影响目标数量成长
+A2(A1的基础值在前面配置了，B1B2在这里不用，默认为0，只和等级成长） */ 
+    string targetmax_growth = 45;
+}
+
+message ActiveSpell_Config_Data {
+    repeated ActiveSpell_Config items = 1;
+}
+
+message SkillData_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 天赋名称索引 */ 
+    string name_global_id = 2;
+    /** 天赋说明索引 */ 
+    string des_global_id = 3;
+    /** 技能图标 */ 
+    string icon = 4;
+    /** 主动技能ID */ 
+    uint32 active_id = 5;
+    /** 被动技能ID */ 
+    uint32 passive_id = 6;
+    /** 技能最高等级 */ 
+    int32 level_max = 7;
+    /** 技能战力系数1 */ 
+    float strength_rate1 = 8;
+    /** 技能战力系数2 */ 
+    float strength_rate2 = 9;
+    /** 技能战力系数3 */ 
+    float strength_rate3 = 10;
+    /**  */ 
+    int32 debug_level = 11;
+    /** 激活英雄等级 */ 
+    int32 active_level = 12;
+}
+
+message SkillData_Config_Data {
+    repeated SkillData_Config items = 1;
+}
+
+message DataChangeFunc_Config{
+    /** 变值索引 */ 
+    uint32 id = 1;
+    /** 值种类 */ 
+    string type = 2;
+    /** 二次增长 */ 
+    float k1 = 3;
+    /** 一次增长 */ 
+    float k2 = 4;
+    /** 初始值 */ 
+    float k3 = 5;
+    /** 值的格式(0表示数值1表示百分比) */ 
+    uint32 data_type = 6;
+    /** 额外值 */ 
+    string dataex = 7;
+    /** 技能附带字幕 */ 
+    string dataex2 = 8;
+    /** 开始特效 */ 
+    string data_start_eff = 9;
+    /** 变值带的特效 */ 
+    string data_eff = 10;
+    /**  */ 
+    string data_end_eff = 11;
+    /** 特效出现概率 */ 
+    float data_eff_prob = 12;
+    /** 变值持续时间 */ 
+    float data_time = 13;
+    /** 击飞 概率|横向速度|纵向速度(正常击飞)+击飞 概率|横向速度|纵向速度(死亡击飞) */ 
+    string data_hit_fly = 14;
+    /** -1 负面效果 0 中性 1 正面效果（标记buff，用以驱散技能） */ 
+    int32 buff_nature = 15;
+    /** 效果在UI上的icon */ 
+    string icon = 16;
+    /** buff效果（默认是0，新效果覆盖旧效果、1新效果叠加旧效果） */ 
+    int32 superposition = 17;
+    /** icon显示位置（0是负面，1是正面） */ 
+    string icon_position = 18;
+    /** 附带标签 */ 
+    string mark = 19;
+    /** 0 影响时间 1 影响效果 */ 
+    int32 mark_affected_rate = 20;
+    /** 成长主属性 */ 
+    string growth_prop = 21;
+}
+
+message DataChangeFunc_Config_Data {
+    repeated DataChangeFunc_Config items = 1;
+}
+
+message PassiveSpell_Config{
+    /** 被动技能id */ 
+    uint32 id = 1;
+    /** 激活条件 */ 
+    string active_condition = 2;
+    /** 满足激活条件后的有效时间 */ 
+    float active_time = 3;
+    /** 被动技能效果发生的条件 */ 
+    string trigger_condition = 4;
+    /** 触发参数 */ 
+    string trigger_condition_param = 5;
+    /** 触发概率 */ 
+    float trigger_probability = 6;
+    /** 触发CD时间（属性放在team上） */ 
+    int32 trigger_cd = 7;
+    /** 被动技能影响的目标team|hero|members */ 
+    string command_target = 8;
+    /** 技能命令 */ 
+    string command = 9;
+    /** 触发调用的DataId或参数 */ 
+    uint32 data = 10;
+    /**  */ 
+    int32 override_data_k1 = 11;
+    /**  */ 
+    int32 override_data_k2 = 12;
+    /**  */ 
+    int32 override_data_k3 = 13;
+    /**  */ 
+    int32 override_data_time = 14;
+    /** 触发特效 */ 
+    string effect = 15;
+    /** 被动技能评分 */ 
+    int32 score = 16;
+}
+
+message PassiveSpell_Config_Data {
+    repeated PassiveSpell_Config items = 1;
+}
+
+message CreateBullet_Config{
+    /** 子弹索引 */ 
+    uint32 id = 1;
+    /** 子弹发出点 */ 
+    string point = 2;
+    /** 横向速度 */ 
+    float horizon_speed = 3;
+    /** 水平飞行无目标的最大距离 */ 
+    float horizontal_range = 4;
+    /**  */ 
+    float trace_missile = 5;
+    /** 抛物线高度 */ 
+    float parabola_height = 6;
+    /**  */ 
+    repeated float parabola_src = 7;
+    /**  */ 
+    repeated float parabola_ctrl_1 = 8;
+    /**  */ 
+    repeated float parabola_ctrl_2 = 9;
+    /**  */ 
+    repeated float parabola_des = 10;
+    /**  */ 
+    float height_offset_min = 11;
+    /**  */ 
+    float height_offset_max = 12;
+    /**  */ 
+    float des_range_offset = 13;
+    /** 导弹追踪计算精准度 */ 
+    float ballistic_calc_rate = 14;
+}
+
+message CreateBullet_Config_Data {
+    repeated CreateBullet_Config items = 1;
+}
+
+message Skill_Level_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 技能ID */ 
+    uint32 skill_id = 2;
+    /** 等级 */ 
+    int32 level_start = 3;
+    /** 本阶等级（仅供显示，无逻辑） */ 
+    int32 level_end = 4;
+    /** 消耗材料 */ 
+    repeated uint32 materials = 5;
+    /** 技能升阶段，英雄等级需要大于等于限制等级 */ 
+    int32 level_limit = 6;
+    /** 技能升级时星级限制 */ 
+    int32 rank_limit = 7;
+}
+
+message Skill_Level_Config_Data {
+    repeated Skill_Level_Config items = 1;
+}

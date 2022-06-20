@@ -1,0 +1,80 @@
+/**
+* @file:   SceneScript_Config
+* @author: Triniti Interactive Limited 
+* @brief:  这个文件是通过工具自动生成的，建议不要手动修改
+*/
+syntax = "proto3";
+
+option java_package ="com.deer.server.protobuf.proto";
+
+package ConfigData;
+
+message template{
+    /** 唯一标识 */ 
+    string script_stage = 1;
+    /** 下个阶段 */ 
+    string next_stage = 2;
+    /** 说明 */ 
+    string remark = 3;
+    /** 脚本选项1 */ 
+    string options = 4;
+    /** 脚本选项2 */ 
+    string options2 = 5;
+    /** 是否跳过 */ 
+    int32 is_repeat = 6;
+    /** 启动延时 */ 
+    float delay_time = 7;
+    /** 脚本类型 */ 
+    int32 type = 8;
+    /** 参数1 */ 
+    string num1 = 9;
+    /** 参数2 */ 
+    string num2 = 10;
+    /** 参数3 */ 
+    string num3 = 11;
+    /** 参数4 */ 
+    string num4 = 12;
+    /** 参数5 */ 
+    string num5 = 13;
+    /** 参数6 */ 
+    string num6 = 14;
+}
+
+message template_Data {
+    repeated template items = 1;
+}
+
+message Module_Level_GameStart{
+    /** 唯一标识 */ 
+    string script_stage = 1;
+    /** 下个阶段 */ 
+    string next_stage = 2;
+    /** 说明 */ 
+    string remark = 3;
+    /** 脚本选项1 */ 
+    string options = 4;
+    /** 脚本选项2 */ 
+    string options2 = 5;
+    /** 是否跳过 */ 
+    int32 is_repeat = 6;
+    /** 启动延时 */ 
+    float delay_time = 7;
+    /** 脚本类型 */ 
+    int32 type = 8;
+    /** 参数1 */ 
+    string num1 = 9;
+    /** 参数2 */ 
+    string num2 = 10;
+    /** 参数3 */ 
+    string num3 = 11;
+    /** 参数4 */ 
+    string num4 = 12;
+    /** 参数5 */ 
+    string num5 = 13;
+    /** 参数6 */ 
+    string num6 = 14;
+}
+
+message Module_Level_GameStart_Data {
+    repeated Module_Level_GameStart items = 1;
+}

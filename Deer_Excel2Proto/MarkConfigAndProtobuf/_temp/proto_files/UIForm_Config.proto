@@ -1,0 +1,27 @@
+/**
+* @file:   UIForm_Config
+* @author: Triniti Interactive Limited 
+* @brief:  这个文件是通过工具自动生成的，建议不要手动修改
+*/
+syntax = "proto3";
+
+option java_package ="com.deer.server.protobuf.proto";
+
+package ConfigData;
+
+message UIForm_Config{
+    /** 唯一标识 */ 
+    uint32 id = 1;
+    /** 资源名字 */ 
+    string assetName = 2;
+    /** 界面组名字 */ 
+    string uiGroupName = 3;
+    /** 是否允许多个界面实例 */ 
+    bool allowMultiInstance = 4;
+    /** 是否暂停被其覆盖的界面 */ 
+    bool pauseCoveredUIForm = 5;
+}
+
+message UIForm_Config_Data {
+    repeated UIForm_Config items = 1;
+}
