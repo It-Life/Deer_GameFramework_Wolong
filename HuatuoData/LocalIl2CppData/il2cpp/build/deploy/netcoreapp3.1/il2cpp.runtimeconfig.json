@@ -1,0 +1,15 @@
+{
+  "runtimeOptions": {
+    "tfm": "netcoreapp3.1",
+    "includedFrameworks": [
+      {
+        "name": "Microsoft.NETCore.App",
+        "version": "3.1.7"
+      }
+    ],
+    "configProperties": {
+      "System.GC.Server": true,
+      "System.Runtime.TieredCompilation.QuickJit": false
+    }
+  }
+}
