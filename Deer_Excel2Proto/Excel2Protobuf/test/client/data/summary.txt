@@ -1,2 +1,0 @@
-Heroes_Config.bin
-Spell_Config.bin

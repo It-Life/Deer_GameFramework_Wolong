@@ -1,9 +1,0 @@
-SceneScriptGroup_Config.bin
-SceneScript_Config.bin
-Item_Config.bin
-Heroes_Config.bin
-Heroes_Config.bin
-UIForm_Config.bin
-Sounds_Config.bin
-Spell_Config.bin
-Language_Config.bin
