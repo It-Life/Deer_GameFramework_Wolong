@@ -7,10 +7,11 @@
 //版 本:0.1 
 // ===============================================
 using GameFramework;
+using Main.Runtime;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace Deer
+namespace HotfixFramework.Runtime
 {
     public class ProcedureLogin : ProcedureBase
     {
@@ -25,7 +26,10 @@ namespace Deer
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            GameEntry.UI.CloseUIForm((int)m_UIFormSerialId);
+            if (m_UIFormSerialId!=0)
+            {
+                GameEntry.UI.CloseUIForm((int)m_UIFormSerialId);
+            }
         }
         public void ChangeState() 
         {

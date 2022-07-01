@@ -6,9 +6,11 @@
 //修改时间:2022-06-16 19-26-59
 //版 本:0.1 
 // ===============================================
+using cfg.Deer;
 using Deer;
 using GameFramework;
 using GameFramework.UI;
+using Main.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -95,7 +97,7 @@ public static class UIExtension
 
     public static bool HasUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
     {
-        var uIForm_Config = UIFormsConfigDataInfo.Instance.GetConfigById((uint)uiFormId);
+        UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get(uiFormId);
         if (uIForm_Config == null)
         {
             return false;
@@ -123,7 +125,7 @@ public static class UIExtension
 
     public static UIBaseForm GetUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
     {
-        var uIForm_Config = UIFormsConfigDataInfo.Instance.GetConfigById((uint)uiFormId);
+        UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get(uiFormId);
         if (uIForm_Config == null)
         {
             return null;
@@ -168,7 +170,7 @@ public static class UIExtension
 
     public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
     {
-        var uIForm_Config = UIFormsConfigDataInfo.Instance.GetConfigById((uint)uiFormId);
+        UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get(uiFormId);
         if (uIForm_Config == null)
         {
             Log.Warning("Can not load UI form '{0}' from data table.", uiFormId.ToString());

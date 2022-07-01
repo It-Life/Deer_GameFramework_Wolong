@@ -7,6 +7,7 @@
 //版 本 : 0.1 
 // ===============================================
 
+using cfg;
 using Deer;
 using System;
 using UnityEngine;
@@ -17,6 +18,7 @@ using UnityGameFramework.Runtime;
 public class ConfigComponent : GameFrameworkComponent
 {
     private ConfigManager m_ConfigManager;
+    public Tables Tables { get; set; }
 
     protected override void Awake()
     {
@@ -25,7 +27,7 @@ public class ConfigComponent : GameFrameworkComponent
     }
     public void LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
     {
-        StartCoroutine(m_ConfigManager.LoadAllUserConfig(loadConfigCompleteCallback));
+        Tables = m_ConfigManager.LoadAllUserConfig(loadConfigCompleteCallback);
     }
     /// <summary>
     /// 检查配置表更新
@@ -44,5 +46,9 @@ public class ConfigComponent : GameFrameworkComponent
     public void ReadConfigWithStreamingAssets(string filePath, Action<bool, byte[]> results) 
     {
         m_ConfigManager.ReadConfigWithStreamingAssets(filePath, results);
+    }
+    public void MoveOnlyReadPathConfigVersionFile(MoveConfigToReadWriteCallback moveConfigToReadWriteCallback = null)
+    {
+        m_ConfigManager.AsynLoadOnlyReadPathConfigVersionFile(moveConfigToReadWriteCallback);
     }
 }

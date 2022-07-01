@@ -30,7 +30,6 @@ namespace HotfixFramework.Runtime
             if (isReadWritePath)
             {
                 filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, filePath);
-                Logger.Info("filePath:" + filePath);
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
@@ -42,7 +41,6 @@ namespace HotfixFramework.Runtime
             else
             {
                 filePath = Main.Runtime.FileUtils.GetStreamingAssetsPlatformPathUrl(filePath);
-                Logger.Info("filePath:" + filePath);
                 GameEntry.Config.ReadConfigWithStreamingAssets(filePath, delegate (bool isRead, byte[] result)
                 {
                     action?.Invoke(isRead, result);

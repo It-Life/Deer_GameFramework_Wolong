@@ -8,6 +8,7 @@
   <assembly fullname="System" preserve="all">
   	<type fullname="System.Collections.Generic" preserve="all" />
   	<type fullname="System.Collections.Generic.Queue" preserve="all" />
+  	<type fullname="System.Xml.XmlDocument" preserve="all" />
   </assembly>
   
   <assembly fullname="UnityEngine" preserve="all" />

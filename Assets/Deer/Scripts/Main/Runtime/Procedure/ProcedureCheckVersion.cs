@@ -9,13 +9,12 @@
 using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
-using Main.Runtime.UI;
 using System.IO;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace Deer
+namespace Main.Runtime
 {
     public class ProcedureCheckVersion : ProcedureBase
     {

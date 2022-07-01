@@ -1,4 +1,3 @@
-using Deer;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
 using Google.Protobuf.Reflection;
@@ -23,7 +22,16 @@ enum IntEnum : int
 
 public class RefTypes : MonoBehaviour
 {
-
+    void RefLuban() 
+    {
+        
+    }
+    void RefXml() 
+    {
+        System.Xml.XmlDocument xmlDocument = new System.Xml.XmlDocument();
+        System.Xml.XmlElement configRoot = xmlDocument.DocumentElement;
+        System.Xml.XmlNode node = xmlDocument.SelectSingleNode("Root");
+    }
     void RefUnityEngine()
     {
         GameObject.Instantiate<GameObject>(null);
@@ -33,7 +41,6 @@ public class RefTypes : MonoBehaviour
         Instantiate<GameObject>(null, new Vector3(), new Quaternion(), null);
         this.gameObject.AddComponent<RefTypes>();
         gameObject.AddComponent(typeof(RefTypes));
-        object[] objects = typeof(RefTypes).GetCustomAttributes(typeof(ConfigAttribute), true);
     }
 
     void RefNullable()

@@ -19,20 +19,21 @@ public class DXBuildEventHandler100 : IBuildEventHandler
 {
     public bool ContinueOnFailure => false;
 
-    private string CommitResourcesPath = Application.dataPath + "/../CommitResources/HuaTuo_100/";
-    private string StreamingAssetsHotfixPath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix"));
-    private string StreamingAssetsNativePath = Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsNative"));
+    private string CommitResourcesPath = Application.dataPath + "/../CommitResources/Huatuo_100/";
+    private bool IsCleanCommitPathConfig = false;
     private List<string> StreamingAssetsPaths = new List<string>()
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsNative")),
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "LubanConfig")),
     };
     private List<string> StreamingAssetsFilePaths = new List<string>()
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkList.dat")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkVersion.dat")),
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "ConfigVersion.xml")),
     };
-    private Deer.VersionInfo m_VersionInfo = new Deer.VersionInfo();
+    private VersionInfo m_VersionInfo = new VersionInfo();
 
     /// <summary>
     /// 所有平台生成开始前的预处理事件。
@@ -80,6 +81,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
         }
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
         BuildEventHandlerHuaTuo.OnPreprocessAllPlatforms(platforms);
+        BuildEventHandlerLuban.OnPreprocessAllPlatforms(platforms, outputFullSelected);
     }
     /// <summary>
     /// 某个平台生成开始前的预处理事件。
@@ -187,14 +189,14 @@ public class DXBuildEventHandler100 : IBuildEventHandler
         }
         if (outputPackageSelected)
         {
-            if (FolderUtils.CopyFiles(outputPackagePath, Application.streamingAssetsPath, SearchOption.AllDirectories))
+            if (FolderUtils.CopyFilesToRootPath(outputPackagePath, Application.streamingAssetsPath, SearchOption.AllDirectories))
             {
                 Debug.Log("拷贝单机资源文件成功！");
             }
         }
         if (!outputPackageSelected && outputPackedSelected)
         {
-            if (FolderUtils.CopyFiles(outputPackedPath, Application.streamingAssetsPath, SearchOption.AllDirectories))
+            if (FolderUtils.CopyFilesToRootPath(outputPackedPath, Application.streamingAssetsPath, SearchOption.AllDirectories))
             {
                 Debug.Log("拷贝包体资源文件成功！");
             }
@@ -208,19 +210,40 @@ public class DXBuildEventHandler100 : IBuildEventHandler
             string versionInfoJson = JsonUtility.ToJson(m_VersionInfo);
             Main.Runtime.FileUtils.CreateFile(Path.Combine(outputFullPath,ResourcesPathData.ResourceVersionFile),versionInfoJson);
             string commitPath = CommitResourcesPath + "/" + platform;
-            string[] fileNames = Directory.GetFiles(outputFullPath, "*", SearchOption.AllDirectories);
-            foreach (string fileName in fileNames)
+
+            if (IsCleanCommitPathConfig)
             {
-                string destFileName = Path.Combine(commitPath, fileName.Substring(outputFullPath.Length));
-                FileInfo destFileInfo = new FileInfo(destFileName);
-                if (destFileInfo.Directory != null && !destFileInfo.Directory.Exists)
+                FolderUtils.ClearFolder(commitPath);
+            }
+            else 
+            {
+                List<string> commitAssetsPaths = new List<string>()
                 {
-                    destFileInfo.Directory.Create();
+                    Utility.Path.GetRegularPath(Path.Combine(commitPath, "AssetsHotfix")),
+                    Utility.Path.GetRegularPath(Path.Combine(commitPath, "AssetsNative")),
+                };
+                foreach (var item in commitAssetsPaths)
+                {
+                    FolderUtils.ClearFolder(item);
                 }
-                File.Copy(fileName, destFileName, true);
+                List<string> files = new List<string>(Directory.GetFiles(commitPath));
+                foreach (var file in files)
+                {
+                    if (file.Contains("GameFrameworkVersion"))
+                    {
+                        if (File.Exists(file))
+                        {
+                            File.Delete(file);
+                        }
+                    }
+                }
+            }
+            if (FolderUtils.CopyFilesToRootPath(outputFullPath, commitPath, SearchOption.AllDirectories))
+            {
+                Debug.Log("更新资源文件拷贝完毕！");
             }
             Application.OpenURL(CommitResourcesPath);
-            Debug.Log("更新资源文件拷贝完毕！");
         }
+        BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
     }
 }

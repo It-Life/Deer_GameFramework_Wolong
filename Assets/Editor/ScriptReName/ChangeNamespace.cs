@@ -181,7 +181,7 @@ public class ChangeNamespace : EditorWindow
             return;
         }
 
-        string namespaceStr = "namespace ";
+        //string namespaceStr = "namespace ";
         string InsertStr = "namespace " + NameSpace;
         unAddPaths.Clear();
         for (int i = 0; flags != null && i < flags.Length; i++)

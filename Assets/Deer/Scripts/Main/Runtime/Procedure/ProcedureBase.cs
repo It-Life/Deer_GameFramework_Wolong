@@ -6,13 +6,10 @@
 //修改时间:2022-06-05 18-33-08
 //版 本:0.1 
 // ===============================================
-using GameFramework;
-using GameFramework.Fsm;
 using System;
-using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace Deer
+namespace Main.Runtime
 {
     public abstract class ProcedureBase : GameFramework.Procedure.ProcedureBase
     {

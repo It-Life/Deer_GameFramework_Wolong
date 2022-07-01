@@ -55,7 +55,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -366,7 +366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_EntranceProcedureTypeName
-      value: Deer.ProcedureLauncher
+      value: Main.Runtime.ProcedureLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.size
@@ -374,27 +374,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[0]
-      value: Deer.ProcedureCheckVersion
+      value: Main.Runtime.ProcedureCheckVersion
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[1]
-      value: Deer.ProcedureInitResources
+      value: Main.Runtime.ProcedureInitResources
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[2]
-      value: Deer.ProcedureLauncher
+      value: Main.Runtime.ProcedureLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[3]
-      value: Deer.ProcedureLoadAssembly
+      value: Main.Runtime.ProcedureLoadAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[4]
-      value: Deer.ProcedureSplash
+      value: Main.Runtime.ProcedureSplash
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[5]
-      value: Deer.ProcedureUpdateResources
+      value: Main.Runtime.ProcedureUpdateResources
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[6]

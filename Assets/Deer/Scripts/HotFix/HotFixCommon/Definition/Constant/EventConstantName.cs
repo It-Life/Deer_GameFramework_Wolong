@@ -77,6 +77,9 @@ public static class EventName
     /// 实体触发
     /// </summary>
     public const uint EVENT_CS_GAME_ENTITY_TRIGGER = 0x020006;
+
+    public const uint EVENT_CS_GAME_START_JUMP = 0x020007;
+    
     #endregion
     #region AR 30000-39999
     public const uint EVENT_CS_AR_START = 0x030000;

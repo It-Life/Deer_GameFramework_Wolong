@@ -65,6 +65,7 @@ public static class BuildEventHandlerHuaTuo
 
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
+        FolderUtils.ClearFolder(HuaTuoHotfixData.AssemblyTextAssetFullPath);
         foreach (var dll in HuaTuoHotfixData.AllHotUpdateDllNames)
         {
             string dllPath = $"{Huatuo.EditorHelper.GetDllBuildOutputDirByTarget(buildTarget)}/{dll}";

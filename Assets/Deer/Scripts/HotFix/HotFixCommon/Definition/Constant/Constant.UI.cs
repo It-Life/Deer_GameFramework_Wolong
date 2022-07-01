@@ -16,7 +16,7 @@ public static partial class Constant
     {
         public static Dictionary<string, int> UIGroups = new Dictionary<string, int>() {
             {"AlwaysBottom",100},
-            {"BG",200 },
+            {"Background",200 },
             {"Common",300 },
             {"AnimationOn",400 },
             {"PopUI",500 },

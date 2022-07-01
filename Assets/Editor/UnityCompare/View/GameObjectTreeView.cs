@@ -161,8 +161,6 @@ namespace UnityCompare
 
             Rect rect = args.rowRect;
 
-            var iconSize = 20;
-
             Rect iconRect = new Rect(rect.x + GetContentIndent(item), rect.y, rect.height, rect.height);
 
             if (info.missType == MissType.allExist && !info.AllEqual())

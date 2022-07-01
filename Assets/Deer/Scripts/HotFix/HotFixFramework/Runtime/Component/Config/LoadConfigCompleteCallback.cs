@@ -10,4 +10,5 @@ namespace Deer
 {
     public delegate void LoadConfigCompleteCallback(bool result,string resultMessage = "");
     public delegate void LoadConfigUpdateCallback(int totalNum,int completeNum);
+    public delegate void MoveConfigToReadWriteCallback(bool isComplete, int totalNum,int completeNum);
 }

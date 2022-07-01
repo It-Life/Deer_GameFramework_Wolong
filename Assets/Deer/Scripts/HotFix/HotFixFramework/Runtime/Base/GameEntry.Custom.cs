@@ -2,15 +2,14 @@
 using GameFramework;
 using GameFramework.Resource;
 using GameFramework.UI;
+using Main.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UGFExtensions.SpriteCollection;
 using UGFExtensions.Texture;
-using UGFExtensions.Timer;
 using UnityEngine;
 using UnityGameFramework.Runtime;
-using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 /// <summary>
 /// 游戏入口。
 /// </summary>
@@ -94,13 +93,13 @@ public partial class GameEntry
     }
     private static List<Assembly> m_HotfixAssemblys;
     private static ProcedureBase m_EntranceProcedureBase;
-    private static string m_EntranceProcedureTypeName = "Deer.ProcedurePreload";
+    private static string m_EntranceProcedureTypeName = "HotfixFramework.Runtime.ProcedurePreload";
     private static void ResetProcedure() 
     {
         //卸载流程
         Fsm.DestroyFsm<GameFramework.Procedure.IProcedureManager>();
         GameFramework.Procedure.IProcedureManager procedureManager = GameFramework.GameFrameworkEntry.GetModule<GameFramework.Procedure.IProcedureManager>();
-        //创建新的流程 HotFixFramework.Runtime
+        //创建新的流程 HotfixFramework.Runtime
         var m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), m_HotfixAssemblys);
         ProcedureBase[] procedures = new ProcedureBase[m_ProcedureTypeNames.Length];
         for (int i = 0; i < m_ProcedureTypeNames.Length; i++)
@@ -137,7 +136,7 @@ public partial class GameEntry
     private static UIFormHelperBase m_CustomUIFormHelper = null;
     private static void ResetUIFormHelper() 
     {
-         IUIManager uIManager = GameFrameworkEntry.GetModule<IUIManager>();
+        IUIManager uIManager = GameFrameworkEntry.GetModule<IUIManager>();
         if (uIManager == null)
         {
             Log.Fatal("UI manager is invalid.");

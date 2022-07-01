@@ -6,7 +6,6 @@
 //修改时间:2022-06-16 19-26-59
 //版 本:0.1 
 // ===============================================
-using Deer;
 using GameFramework;
 using GameFramework.UI;
 using System.Collections;

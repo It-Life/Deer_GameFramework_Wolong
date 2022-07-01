@@ -7,13 +7,14 @@
 //版 本:0.1 
 // ===============================================
 using Deer;
+using HotfixFramework.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace HotFixBusiness.UI 
+namespace HotfixBusiness.UI 
 {
     /// <summary>
     /// Please modify the description.
@@ -30,6 +31,12 @@ namespace HotFixBusiness.UI
             base.OnInit(userData);
             m_Btn_Login.onClick.AddListener(OnClickLoginBtn);
             m_Btn_Login1.onClick.AddListener(OnClickLoginBtn1);
+            m_Btn_UIButtonTest.onClick.AddListener(OnClickLoginBtnText);
+        }
+
+        private void OnClickLoginBtnText()
+        {
+            Logger.Info("我是ButtonTestttt");
         }
 
         private void OnClickLoginBtn1()

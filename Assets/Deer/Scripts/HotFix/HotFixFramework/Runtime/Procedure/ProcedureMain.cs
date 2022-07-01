@@ -7,10 +7,11 @@
 //版 本:0.1 
 // ===============================================
 using GameFramework;
+using Main.Runtime;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace Deer
+namespace HotfixFramework.Runtime
 {
     public class ProcedureMain : ProcedureBase
     {

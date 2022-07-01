@@ -7,7 +7,7 @@
 //版 本 : 0.1 
 // ===============================================
 
-using ConfigData;
+using cfg.Deer;
 using GameFramework;
 using GameFramework.Sound;
 using UnityGameFramework.Runtime;
@@ -21,7 +21,7 @@ public static class SoundComponentExtension
     public static int? PlayMusic(this SoundComponent soundComponent, int musicId, object userData = null)
     {
         //在表里获取音乐名字
-        Sounds_Config config = SoundsConfigDataInfo.Instance.GetConfigById((uint)musicId);
+        Sounds_Config config = GameEntry.Config.Tables.TbSounds_Config.Get(musicId);
         if (config == null)
         {
             Log.Warning("Can not load sound '{0}' from data table.", musicId.ToString());
@@ -51,7 +51,7 @@ public static class SoundComponentExtension
     public static int? PlaySound(this SoundComponent soundComponent, int soundId, EntityLogic bindingEntity = null, object userData = null)
     {
         //在表里获取音乐名字
-        Sounds_Config config = SoundsConfigDataInfo.Instance.GetConfigById((uint)soundId);
+        Sounds_Config config = GameEntry.Config.Tables.TbSounds_Config.Get(soundId);
         if (config == null)
         {
             Log.Warning("Can not load sound '{0}' from data table.", soundId.ToString());
@@ -68,7 +68,7 @@ public static class SoundComponentExtension
     public static int? PlayCommonSound(this SoundComponent soundComponent, int soundId, EntityLogic bindingEntity = null, object userData = null)
     {
         //在表里获取音乐名字
-        Sounds_Config config = SoundsConfigDataInfo.Instance.GetConfigById((uint)soundId);
+        Sounds_Config config = GameEntry.Config.Tables.TbSounds_Config.Get(soundId);
         if (config == null)
         {
             Log.Warning("Can not load sound '{0}' from data table.", soundId.ToString());
@@ -87,7 +87,7 @@ public static class SoundComponentExtension
     public static int? PlayUISound(this SoundComponent soundComponent, int uiSoundId, object userData = null)
     {
         //获取表数据
-        Sounds_Config config = SoundsConfigDataInfo.Instance.GetConfigById((uint)uiSoundId);
+        Sounds_Config config = GameEntry.Config.Tables.TbSounds_Config.Get(uiSoundId);
         if (config == null)
         {
             Log.Warning("Can not load UI sound '{0}' from data table.", uiSoundId.ToString());

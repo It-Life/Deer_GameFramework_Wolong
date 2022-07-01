@@ -24,7 +24,7 @@ public static class TypeUtils
     public static string[] GetRuntimeTypeNames(System.Type typeBase, List<Assembly> assemblys) 
     {
         string[] runtimeAssemblyNames = new string[] { "Main.Runtime" };
-        //string assemblyName = "HotFixFramework.Runtime";
+        //string assemblyName = "HotfixFramework.Runtime";
         List<string> typeNames = new List<string>();
         typeNames.AddRange(GetTypeNames(typeBase, runtimeAssemblyNames));
         typeNames.AddRange(GetTypeNames(typeBase, assemblys));

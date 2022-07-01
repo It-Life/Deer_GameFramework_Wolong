@@ -7,13 +7,15 @@
 //版 本:0.1 
 // ===============================================
 using GameFramework;
+using GameFramework.Resource;
+using Main.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace Deer
+namespace HotfixFramework.Runtime
 {
     public class ProcedurePreload : ProcedureBase
     {
@@ -56,9 +58,20 @@ namespace Deer
         {
             m_LoadConfigFlag.Clear();
             m_LoadConfigFlag.Add("Config");
-            GameEntry.Config.LoadAllUserConfig(OnLoadConfigComplete);
+            //移动StreamingAssets 目录 LubanConfig 到沙盒目录
+            if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
+            {
+                //单机包模式
+                GameEntry.Config.MoveOnlyReadPathConfigVersionFile((bool result, int t, int c) => {
+                    if (result)
+                    {
+                        GameEntry.Config.LoadAllUserConfig(OnLoadConfigComplete);
+                    }
+                });
+            }
+            else
+                GameEntry.Config.LoadAllUserConfig(OnLoadConfigComplete);
         }
-
         private void OnLoadConfigComplete(bool result, string resultMessage)
         {
             if (result)

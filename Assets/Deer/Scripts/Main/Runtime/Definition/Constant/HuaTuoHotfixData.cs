@@ -24,7 +24,7 @@ public static class HuaTuoHotfixData
     /// </summary>
     public static readonly List<string> MonoHotUpdateDllNames = new List<string>()
         {
-            "HotFixFramework.Runtime.dll",
+            "HotfixFramework.Runtime.dll",
             "HotfixBusiness.dll",
         };
     public static readonly List<string> HotUpdateDllNames = new List<string>()
@@ -43,8 +43,9 @@ public static class HuaTuoHotfixData
             "mscorlib.dll",
             "System.dll",
             "System.Core.dll", // 如果使用了Linq，需要这个
-            // "Newtonsoft.Json.dll",
-            // "protobuf-net.dll",
+            "Main.Runtime.dll",
+            "Gameframework.dll",
+            "UnityGameFramework.Runtime.dll",
             "Google.Protobuf.dll",
             // "MongoDB.Bson.dll",
             // "DOTween.Modules.dll",

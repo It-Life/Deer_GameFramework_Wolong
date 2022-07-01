@@ -16,7 +16,7 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace Deer
+namespace Main.Runtime
 {
     public class ProcedureLoadAssembly : ProcedureBase
     {
@@ -42,7 +42,6 @@ namespace Deer
             m_UINativeLoadingFormserialid = GameEntryMain.UI.OpenUIForm(Main.Runtime.AssetUtility.UI.GetUIFormAsset("UINativeLoadingForm"), "Default", this);
             if (GameEntryMain.Base.EditorResourceMode)
             {
-                Log.Info("Skip load assemblies.");
                 foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
                 {
                     if (string.Compare(HuaTuoHotfixData.LogicMainDllName, $"{asm.GetName().Name}.dll",
@@ -62,8 +61,8 @@ namespace Deer
                         break;
                     }
                 }
-            } 
-            else 
+            }
+            else
             {
                 m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);
                 foreach (var hotUpdateDllName in HuaTuoHotfixData.AllHotUpdateDllNames)

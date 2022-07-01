@@ -8,13 +8,13 @@
         <SourceAssetSearchPath RelativePath="AssetsNative" />
       </SourceAssetSearchPaths>
       <SourceAssetUnionTypeFilter>
-        t:Scene t:Prefab t:Shader t:Model t:Material t:Texture t:AudioClip t:AnimationClip t:AnimatorController t:Font t:TextAsset t:ScriptableObject
+        t:Scene t:Prefab t:Shader t:Model t:Material t:Texture t:AudioClip t:AnimationClip t:AnimatorController t:TextAsset t:ScriptableObject
       </SourceAssetUnionTypeFilter>
       <SourceAssetUnionLabelFilter>
         l:AssetBundleInclusive
       </SourceAssetUnionLabelFilter>
       <SourceAssetExceptTypeFilter>
-        t:Script
+        t:Script t:Font t:ttf
       </SourceAssetExceptTypeFilter>
       <SourceAssetExceptLabelFilter>
         l:AssetBundleExclusive

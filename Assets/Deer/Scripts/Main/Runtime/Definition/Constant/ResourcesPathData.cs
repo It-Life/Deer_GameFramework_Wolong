@@ -20,6 +20,10 @@ public class ResourcesPathData
 
     public static string ResourceVersionFile = "ResourceVersion.txt";
 
+    public static string ConfigVersionFile = "ConfigVersion.xml";
+
+    public static string ConfigPathName = "LubanConfig";
+
     #region app 下载地址
 
     public const string WindowsAppUrl = "";

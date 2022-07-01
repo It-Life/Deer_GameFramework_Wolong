@@ -13,8 +13,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
+using Bright.Serialization;
+using cfg;
 using GameFramework;
 using GameFramework.Event;
+using GameFramework.Resource;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityGameFramework.Runtime;
@@ -24,13 +27,10 @@ namespace Deer
 {
     public class ConfigManager:MonoBehaviour
     {
-
-        private const string m_ConfigVersionFileName = "ConfigVersion.xml";
         private CheckConfigCompleteCallback m_CheckConfigCompleteCallback;
         private UpdateConfigCompleteCallback m_UpdateConfigCompleteCallback;
         private bool m_FailureFlag = false;
         private int m_UpdateRetryCount;
-        private Dictionary<string, IConfig> m_LoadConfigs = new Dictionary<string, IConfig>();
 
         private Dictionary<string, Action<bool, byte[]>> m_ReadStreamingAssetCompletes = new Dictionary<string, Action<bool, byte[]>>();
         /// <summary>
@@ -69,13 +69,11 @@ namespace Deer
         }
         private IEnumerator StartReadConfigWithStreamingAssets(string filePath) 
         {
-            Logger.Info("filePath:" + filePath);
             UnityWebRequest webRequest = UnityWebRequest.Get(filePath);
             yield return webRequest.SendWebRequest();
             if (webRequest.isDone)
             {
                 byte[] bytes = webRequest.downloadHandler.data;
-                Logger.Info("bytes:"+ bytes.Length);
                 Action<bool, byte[]> readStreamingAssetComplete;
                 m_ReadStreamingAssetCompletes.TryGetValue(filePath, out readStreamingAssetComplete);
                 readStreamingAssetComplete?.Invoke(true, bytes);
@@ -86,7 +84,6 @@ namespace Deer
             }
             else 
             {
-                Logger.Error("can not read file :"+ filePath);
                 Action<bool, byte[]> readStreamingAssetComplete;
                 m_ReadStreamingAssetCompletes.TryGetValue(filePath, out readStreamingAssetComplete);
                 readStreamingAssetComplete?.Invoke(false, null);
@@ -99,42 +96,37 @@ namespace Deer
         }
 
         #region 读表逻辑
-        public void FindAllUserConfig()
+        public Tables LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
         {
-/*            Assembly assembly = typeof(GameEntry).Assembly;
-            Type[] types = assembly.GetTypes();*/
-            foreach (Type type in HotfixFramework.Runtime.DataConfig.Names)
-            {
-                Logger.Info("11111111111");
-/*                object[] objects = type.GetCustomAttributes(typeof(ConfigAttribute), true);
-                Logger.Info("2222222222");
-                if (objects.Length == 0)
-                {
-                    continue;
-                }
-
-                if (type.IsAbstract || type.IsInterface)
-                {
-                    continue;
-                }*/
-
-                IConfig config = (IConfig)Activator.CreateInstance(type);
-                m_LoadConfigs.Add(config.GetType().FullName ?? string.Empty, config);
-            }
+            Tables tables = new Tables(ConfigLoader);
+            loadConfigCompleteCallback(true);
+            return tables;
         }
 
-        public IEnumerator LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback, LoadConfigUpdateCallback loadConfigUpdateCallback = null)
+        private ByteBuf ConfigLoader(string file)
         {
-            FindAllUserConfig();
-            int finishNum = 0;
-            foreach (var config in m_LoadConfigs)
+            string filePath = string.Empty;
+            if (GameEntryMain.Base.EditorResourceMode)
             {
-                yield return config.Value.LoadConfig(HotfixFramework.Runtime.FileUtils.CanConfigReadWritePath());
-                finishNum++;
-                loadConfigUpdateCallback?.Invoke(m_LoadConfigs.Count, finishNum);
+                //编辑器模式
+                filePath = $"{Application.dataPath}/../LubanTools/GenerateDatas/{file}.bytes";
+                if (!File.Exists(filePath))
+                {
+                    Logger.Error("filepath:" + filePath + " not exists");
+                    return null;
+                }
             }
-            loadConfigCompleteCallback(true);
-            yield return null;
+            else
+            {
+                //单机包模式和热更模式 读取沙盒目录
+                filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, ResourcesPathData.ConfigPathName, $"{file}.bytes");
+                if (!File.Exists(filePath))
+                {
+                    Logger.Error("filepath:" + filePath + " not exists");
+                    return null;
+                }
+            }
+            return new ByteBuf(File.ReadAllBytes(filePath));
         }
         #endregion
         #region 表资源更新逻辑
@@ -147,10 +139,19 @@ namespace Deer
         public void CheckConfigVersion(CheckConfigCompleteCallback configCompleteCallback)
         {
             m_CheckConfigCompleteCallback = configCompleteCallback;
-            string configXmlPath = Path.Combine(GameEntry.Resource.ReadWritePath, m_ConfigVersionFileName);
+            string configXmlPath = Path.Combine(GameEntry.Resource.ReadWritePath, ResourcesPathData.ConfigVersionFile);
             byte[] configBytes = File.ReadAllBytes(configXmlPath);
             string xml = HotfixFramework.Runtime.FileUtils.BinToUtf8(configBytes);
+            Analysisanalysis(xml, (f,t,c) => {
+                if (f)
+                {
+                    CheckNeedUpdateConfig();
+                }
+            });
+        }
 
+        private void Analysisanalysis(string xml,MoveConfigToReadWriteCallback moveConfigToReadWriteCallback = null) 
+        {
             XmlDocument doc = new XmlDocument();
             try
             {
@@ -197,21 +198,60 @@ namespace Deer
                     }
                 }
             }
-            StartCoroutine(MoveConfigFileToReadWritePath());
+            StartCoroutine(IEMoveConfigFileToReadWritePath(moveConfigToReadWriteCallback));
+        }
+
+        public void AsynLoadOnlyReadPathConfigVersionFile(MoveConfigToReadWriteCallback moveConfigToReadWriteCallback) 
+        {
+            StartCoroutine(IELoadOnlyReadPathConfigVersionFile(moveConfigToReadWriteCallback));
+        }
+
+        private IEnumerator IELoadOnlyReadPathConfigVersionFile(MoveConfigToReadWriteCallback moveConfigToReadWriteCallback) 
+        {
+            UnityWebRequest webRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, ResourcesPathData.ConfigVersionFile));
+            if (webRequest == null)
+            {
+                Logger.Error($"load {ResourcesPathData.ConfigVersionFile} file error.");
+                yield return null;
+            }
+            yield return webRequest.SendWebRequest();
+            if (webRequest.isDone)
+            {
+                var configBytes = webRequest.downloadHandler.data;
+                string xml = HotfixFramework.Runtime.FileUtils.BinToUtf8(configBytes);
+                Analysisanalysis(xml, moveConfigToReadWriteCallback);
+            }
+            webRequest.Dispose();
         }
         /// <summary>
         /// 把ConfigFile移到 读写路径上
         /// </summary>
         /// <returns></returns>
-        private IEnumerator MoveConfigFileToReadWritePath()
+        private IEnumerator IEMoveConfigFileToReadWritePath(MoveConfigToReadWriteCallback moveConfigToReadWriteCallback)
         {
             string filePath = string.Empty;
+            int completeNum = 0;
             foreach (var config in m_Configs)
             {
-                filePath = Path.Combine(GameEntry.Resource.ReadWritePath + config.Key);
-                if (PlayerPrefs.GetInt(PrefsKey.FIRST_MOVE_READWRITE_PATH,0) == 0 && !File.Exists(filePath))
+                filePath = Path.Combine(GameEntry.Resource.ReadWritePath, ResourcesPathData.ConfigPathName, config.Value.Name);
+                bool canMove = false;
+                if (File.Exists(filePath))
                 {
-                    UnityWebRequest webRequest = UnityWebRequest.Get(Application.streamingAssetsPath + config.Key);
+                    string readWritePathFileMd5 = Main.Runtime.FileUtils.Md5ByPathName(filePath);
+
+                    if (config.Value.MD5 != readWritePathFileMd5)
+                    {
+                        canMove = true;
+                    }
+                }
+                else 
+                {
+                    canMove = true;
+                }
+                if (canMove) 
+                {
+                    string fileOnlyReadPath = Path.Combine(Application.streamingAssetsPath, ResourcesPathData.ConfigPathName, config.Value.Name);
+                    UnityWebRequest webRequest = UnityWebRequest.Get(fileOnlyReadPath);
                     if (webRequest == null)
                     {
                         continue;
@@ -238,9 +278,9 @@ namespace Deer
                     }
                     webRequest.Dispose();
                 }
+                completeNum++;
+                moveConfigToReadWriteCallback?.Invoke(m_Configs.Count == completeNum, m_Configs.Count, completeNum);
             }
-            PlayerPrefs.SetInt(PrefsKey.FIRST_MOVE_READWRITE_PATH,1);
-            CheckNeedUpdateConfig();
         }
         /// <summary>
         /// 检查需要更新的配置表文件
