@@ -1,4 +1,4 @@
-# Deer_GameFramework_HuaTuo
+# Deer_GameFramework_hybridclr_huatuo
 - 基于GameFramework框架衍生的一个huatuo热更框架，实现除GameFramework库底层代码以及更新流程逻辑层代码，其余流程及义务层代码全部热更。
 
 - 游戏配表Config接入Luban，实现热更资源和Config表分离Hotfix处理，方便配表人员频繁更新Config表。
@@ -36,8 +36,8 @@
 
 [EllanJiang](https://github.com/EllanJiang)/**[GameFramework](https://github.com/EllanJiang/GameFramework)**
 
-[focus-creative-games](https://github.com/focus-creative-games)/**[huatuo](https://github.com/focus-creative-games/huatuo)**
+[focus-creative-games](https://github.com/focus-creative-games)/**[hybridclr](https://github.com/focus-creative-games/hybridclr)**
 
-[pirunxi](https://github.com/pirunxi)/**[il2cpp_huatuo](https://github.com/pirunxi/il2cpp_huatuo)**
+[focus-creative-games](https://github.com/focus-creative-games)/**[il2cpp_plus](https://github.com/pirunxi/il2cpp_plus)**
 
 [focus-creative-games](https://github.com/focus-creative-games)/**[luban_examples](https://github.com/focus-creative-games/luban_examples)**
