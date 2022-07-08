@@ -25,9 +25,9 @@ public class ConfigComponent : GameFrameworkComponent
         base.Awake();
         m_ConfigManager = gameObject.GetOrAddComponent<ConfigManager>();
     }
-    public void LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
+    public async void LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
     {
-        Tables = m_ConfigManager.LoadAllUserConfig(loadConfigCompleteCallback);
+        Tables = await m_ConfigManager.LoadAllUserConfig(loadConfigCompleteCallback);
     }
     /// <summary>
     /// 检查配置表更新

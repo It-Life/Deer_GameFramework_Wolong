@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Xml;
 using Bright.Serialization;
 using cfg;
@@ -96,20 +97,21 @@ namespace Deer
         }
 
         #region 读表逻辑
-        public Tables LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
+        public async Task<Tables> LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
         {
-            Tables tables = new Tables(ConfigLoader);
+            Tables tables = new Tables();
+            await tables.LoadAsync(file => ConfigLoader(file));
             loadConfigCompleteCallback(true);
             return tables;
         }
 
-        private ByteBuf ConfigLoader(string file)
+        private static async Task<ByteBuf> ConfigLoader(string file)
         {
             string filePath = string.Empty;
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 //编辑器模式
-                filePath = $"{Application.dataPath}/../LubanTools/GenerateDatas/{file}.bytes";
+                filePath = $"{Application.dataPath}/../LubanTools/GenerateDatas/{ResourcesPathData.ConfigPathName}/{file}.bytes";
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
@@ -126,7 +128,9 @@ namespace Deer
                     return null;
                 }
             }
-            return new ByteBuf(File.ReadAllBytes(filePath));
+            UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
+            await unityWebRequest.SendWebRequest();
+            return new ByteBuf(unityWebRequest.downloadHandler.data);
         }
         #endregion
         #region 表资源更新逻辑
