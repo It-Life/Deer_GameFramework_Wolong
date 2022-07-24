@@ -15,3 +15,6 @@ StreamingAssets
 LocalIl2CppData
 hybridclr_repo
 il2cpp_plus_repo
+AssembliesPostIl2CppStrip
+HotFixDlls
+Wolong_100

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Root ClientVersion="1.0.0.0">
-  <FileVersion name="common_tbglobalconfig.bytes" file="common_tbglobalconfig.bytes" md5="3a47fb9cb20f3270a83b7fee75c980a9" size="1" />
-  <FileVersion name="deer_tblanguage_config.bytes" file="deer_tblanguage_config.bytes" md5="6b423c9255740e161d2fb6afe295380b" size="1" />
-  <FileVersion name="deer_tbsounds_config.bytes" file="deer_tbsounds_config.bytes" md5="39392ad4843f5a22b73b127cc2ccefbe" size="1" />
-  <FileVersion name="deer_tbuiform_config.bytes" file="deer_tbuiform_config.bytes" md5="d1d6931a8d23c3333f41c6c6e983a793" size="1" />
-  <FileVersion name="error_tbcodeinfo.bytes" file="error_tbcodeinfo.bytes" md5="59696553d110634f5abe194d8c524dae" size="1" />
-  <FileVersion name="error_tberrorinfo.bytes" file="error_tberrorinfo.bytes" md5="bcd4d5b6099f80e25ad584d86c1a8114" size="3" />
-</Root>

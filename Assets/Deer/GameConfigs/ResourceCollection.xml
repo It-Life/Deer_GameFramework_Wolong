@@ -20,8 +20,8 @@
       <Resource Name="AssetsHotfix/UI/UITemplate/UIModel" LoadType="0" Packed="False" />
       <Resource Name="AssetsHotfix/UI/UITemplate/UISpriteAnimation" LoadType="0" Packed="False" />
       <Resource Name="AssetsHotfix/UI/UITemplate/UIToggle" LoadType="0" Packed="False" />
-      <Resource Name="AssetsNative/Font/wryhSDF" LoadType="0" Packed="False" />
-      <Resource Name="AssetsNative/Font/zh-cn_Commonly_used" LoadType="0" Packed="False" />
+      <Resource Name="AssetsNative/Font/wryhSDF" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/Font/zh-cn_Commonly_used" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIArt/Atlas/jindut" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIArt/Atlas/jindut_di" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIArt/Texture/loading_bg" LoadType="0" Packed="True" />
