@@ -1,5 +1,5 @@
 # Deer_GameFramework_Wolong
-- 基于GameFramework框架衍生的一个wolong热更框架，实现除GameFramework库底层代码以及更新流程逻辑层代码，其余流程及义务层代码全部热更。
+- 基于GameFramework框架衍生的一个wolong热更框架（以由之前的huatuo升级为HybridCLR(wolong)），实现除GameFramework库底层代码以及更新流程逻辑层代码，其余流程及义务层代码全部热更。
 
 - 游戏配表Config接入Luban,采用异步加载Config，实现热更资源和Config表分离Hotfix处理，方便配表人员频繁更新Config表。
 
@@ -31,6 +31,10 @@
 - HotfixBusinessB.dll 业务程序集B
 
 程序集打AssetBundle（AB），遵循GameFramework（GF）资源管理,以及集成到GF，AB自动生成程序集，并打出ab资源。
+
+### 使用教程
+
+* [Deer_GameFramework_Wolong/框架使用教程.md at main · It-Life/Deer_GameFramework_Wolong (github.com)](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/main/DescDocu/框架使用教程.md)
 
 **致谢仓库**
 
