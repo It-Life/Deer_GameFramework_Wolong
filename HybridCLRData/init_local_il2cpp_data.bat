@@ -1,7 +1,7 @@
 @echo off
 
 rem set default branch
-set IL2CPP_BRANCH=2020.3.33
+set IL2CPP_BRANCH=2021.3.1
 
 rd /s /q hybridclr_repo
 rem git clone https://github.com/focus-creative-games/hybridclr
@@ -13,7 +13,7 @@ git clone --depth=1 -b %IL2CPP_BRANCH% https://gitee.com/focus-creative-games/il
 
 
 rem replace with right Unity Editor Install path
-set IL2CPP_PATH=D:\Program Files\Unity\2020.3.33f1c2\Editor\Data\il2cpp
+set IL2CPP_PATH=D:\Program Files\Unity\2021.3.1f1c1\Editor\Data\il2cpp
 
 if not exist "%IL2CPP_PATH%" (
     echo "please set correct IL2CPP_PATH value"
