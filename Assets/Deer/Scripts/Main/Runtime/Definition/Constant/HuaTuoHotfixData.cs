@@ -38,7 +38,7 @@ public static class HuaTuoHotfixData
     /// </summary>
     public static readonly List<string> AllHotUpdateDllNames = HotUpdateDllNames.Concat(MonoHotUpdateDllNames).ToList();
 
-    public static readonly List<string> HotUpdateAotDllNames = new List<string>()
+    public static readonly List<string> AOTMetaDlls = new List<string>()
         {
             "mscorlib.dll",
             "System.dll",

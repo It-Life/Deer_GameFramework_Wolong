@@ -11,3 +11,7 @@ Temp
 BuildPackage
 BuildPackageVS
 ResourcesFiles
+StreamingAssets
+LocalIl2CppData
+hybridclr_repo
+il2cpp_plus_repo

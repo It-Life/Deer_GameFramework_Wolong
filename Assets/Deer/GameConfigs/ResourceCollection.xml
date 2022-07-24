@@ -35,27 +35,29 @@
       <Asset Guid="1933ea8013f08d644bac0beabf442d59" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
       <Asset Guid="1a8a6ac861a929f4890ec128197888cf" ResourceName="AssetsNative/UI/UIArt/Atlas/jindut" />
       <Asset Guid="24f9961372fb6c2439df9fbc7f4c0f79" ResourceName="AssetsHotfix/Scenes/Main" />
-      <Asset Guid="2de8830a794600843b66b1c27da49bcd" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="2d788261a4802cc4489eb4d5d0f3026a" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="31f7644b51d867c43b1840e43ff6ae87" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="33d3db6cf512e4a438e03c37f636236d" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="3a167958501248244b32b366584337c3" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="3c31266dd0ae57c468b36845e0397b6a" ResourceName="AssetsNative/Font/wryhSDF" />
       <Asset Guid="4fb975ee8aa9f164cb540e72e026b3ea" ResourceName="AssetsNative/UI/UIArt/Texture/loading_bg" />
       <Asset Guid="4fc8e0637becb184ab7e870fff766199" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="56c3b222b5f9329408e788cb5f734add" ResourceName="AssetsHotfix/UI/UIArt/Texture/loading_bg" />
       <Asset Guid="688b7c1c26ccd2a4bb857aadcce68ecb" ResourceName="AssetsNative/UI/UIArt/Atlas/jindut_di" />
       <Asset Guid="6a059a129e1575d4fb9a6b8abce19c6e" ResourceName="AssetsHotfix/UI/UITemplate/UIButton" />
+      <Asset Guid="6cc01cb6d9e77604faec1cad51a34ae7" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="7128120a2b527eb46be1db4cdba62ff8" ResourceName="AssetsNative/UI/UIForms/UINativeLoading/UINativeLoadingForm" />
       <Asset Guid="7247e1fea0760b54caa253020097fcdf" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
       <Asset Guid="745e65d5ee916dd47944050290a22205" ResourceName="AssetsHotfix/UI/UITemplate/Joystick/Joystick" />
-      <Asset Guid="8cfc8d4eff7fcfd4cb792d9ac7e0a715" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="76180d3566b36d242b5ab6008fdd4057" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="975d78522d5bdca42a5af541a724aef2" ResourceName="AssetsHotfix/UI/UITemplate/Progress" />
+      <Asset Guid="9a032cd9acc6429478adbcb8e12d2c66" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="a493fd7876190a04b972bf7b3f90d962" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
-      <Asset Guid="a5f1aede4ee7ae04bb9cd1a9e2cddd9c" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="a9bb0d5df7af0c840935b6ee51debd27" ResourceName="AssetsHotfix/UI/UIArt/Texture/login_bg" />
-      <Asset Guid="b5e9a9ee1f0e9c54282fa844e3386bb3" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="be4550f60ef06a945901153a6cfa8a71" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="d021a4349078f974ca8eb3f903f1fbd6" ResourceName="AssetsHotfix/UI/UITemplate/UIToggle" />
       <Asset Guid="d5ac5cc365a9d7f469a91f84c485f9f2" ResourceName="AssetsHotfix/UI/UITemplate/UIModel" />
-      <Asset Guid="d8e7d37450cf40d44a4a371c116e04ff" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="d815e11ad9a2fb141bd05a3a594d052d" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="e41de5d16c3cfa04da3d39b8aebad451" ResourceName="AssetsHotfix/UI/UIForms/UIDialog/UIDialogForm" />
       <Asset Guid="e827f6256d45d1a4c8936370bebe2973" ResourceName="AssetsHotfix/UI/UITemplate/UISpriteAnimation" />
       <Asset Guid="e851deae30f19cf4e9ab04b1b4d7b1c8" ResourceName="AssetsHotfix/Assembly" />
@@ -64,8 +66,6 @@
       <Asset Guid="ee434b8e75f92804ca01e3be759e7c7f" ResourceName="AssetsHotfix/UI/UITemplate/UIForm" />
       <Asset Guid="f3ab0d53e9c425d4da9724fab4bfd7d9" ResourceName="AssetsHotfix/GF/Customs" />
       <Asset Guid="f4fa68baee1efc34e801c1853c42e375" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
-      <Asset Guid="f845272ac1e1ae646b27489453b199d9" ResourceName="AssetsHotfix/Assembly" />
-      <Asset Guid="ffc0d2672eff648448189e00d14d39b4" ResourceName="AssetsHotfix/Assembly" />
     </Assets>
   </ResourceCollection>
 </UnityGameFramework>

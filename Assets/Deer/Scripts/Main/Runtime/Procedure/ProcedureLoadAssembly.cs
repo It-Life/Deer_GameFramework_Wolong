@@ -168,27 +168,19 @@ namespace Main.Runtime
         /// </summary>
         public unsafe void LoadMetadataForAOTAssembly()
         {
-            // 可以加载任意aot assembly的对应的dll。但要求dll必须与unity build过程中生成的裁剪后的dll一致，而不能直接使用
-            // 原始dll。
-            // 这些dll可以在目录 Temp\StagingArea\Il2Cpp\Managed 下找到。
-            // 对于Win Standalone，也可以在 build目录的 {Project}/Managed目录下找到。
-            // 对于Android及其他target, 导出工程中并没有这些dll，因此还是得去 Temp\StagingArea\Il2Cpp\Managed 获取。
-            //
-            // 这里以最常用的mscorlib.dll举例
-            //
-            // 加载打包时 unity在build目录下生成的 裁剪过的 mscorlib，注意，不能为原始mscorlib
-            //
-            //string mscorelib = @$"{Application.dataPath}/../Temp/StagingArea/Il2Cpp/Managed/mscorlib.dll";
+            // 可以加载任意aot assembly的对应的dll。但要求dll必须与unity build过程中生成的裁剪后的dll一致，而不能直接使用原始dll。
+            // 我们在BuildProcessor_xxx里添加了处理代码，这些裁剪后的dll在打包时自动被复制到 {项目目录}/HybridCLRData/AssembliesPostIl2CppStrip/{Target} 目录。
 
             /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
             /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
-            if (HuaTuoHotfixData.HotUpdateAotDllNames.Count == 0)
+            /// 
+            if (HuaTuoHotfixData.AOTMetaDlls.Count == 0)
             {
                 m_LoadMetadataAssemblyComplete = true;
                 return;
             }
             m_LoadMetadataAssetCallbacks ??= new LoadAssetCallbacks(LoadMetadataAssetSuccess, LoadMetadataAssetFailure);
-            foreach (var aotDllName in HuaTuoHotfixData.HotUpdateAotDllNames)
+            foreach (var aotDllName in HuaTuoHotfixData.AOTMetaDlls)
             {
                 var assetPath = Utility.Path.GetRegularPath(Path.Combine(HuaTuoHotfixData.AssemblyTextAssetPath, $"{aotDllName}{HuaTuoHotfixData.AssemblyTextAssetExtension}"));
                 Log.Debug($"LoadMetadataAsset: [ {assetPath} ]");
@@ -214,7 +206,7 @@ namespace Main.Runtime
                 fixed (byte* ptr = dllBytes)
                 {
                     // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
-                    int err = Huatuo.HuatuoApi.LoadMetadataForAOTAssembly((IntPtr)ptr, dllBytes.Length);
+                    int err = HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly((IntPtr)ptr, dllBytes.Length);
                     Debug.Log($"LoadMetadataForAOTAssembly:{userData as string}. ret:{err}");
                 }
             }
