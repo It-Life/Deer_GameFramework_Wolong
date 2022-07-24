@@ -18,7 +18,7 @@ using UnityGameFramework.Runtime;
 /// <summary>
 /// Please modify the description.
 /// </summary>
-public static class BuildEventHandlerHuaTuo
+public static class BuildEventHandlerWolong
 {
     /// <summary>
     /// Convert UGF platform to Unity platform define
@@ -65,19 +65,19 @@ public static class BuildEventHandlerHuaTuo
 
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
-        FolderUtils.ClearFolder(HuaTuoHotfixData.AssemblyTextAssetFullPath);
-        foreach (var dll in HuaTuoHotfixData.AllHotUpdateDllNames)
+        FolderUtils.ClearFolder(WolongHotfixData.AssemblyTextAssetFullPath);
+        foreach (var dll in WolongHotfixData.AllHotUpdateDllNames)
         {
             string dllPath = $"{HybridCLR.BuildConfig.GetHotFixDllsOutputDirByTarget(buildTarget)}/{dll}";
-            string dllBytesPath = $"{HuaTuoHotfixData.AssemblyTextAssetFullPath}/{dll}{HuaTuoHotfixData.AssemblyTextAssetExtension}";
-            if (!Directory.Exists(HuaTuoHotfixData.AssemblyTextAssetFullPath))
+            string dllBytesPath = $"{WolongHotfixData.AssemblyTextAssetFullPath}/{dll}{WolongHotfixData.AssemblyTextAssetExtension}";
+            if (!Directory.Exists(WolongHotfixData.AssemblyTextAssetFullPath))
             {
-                Directory.CreateDirectory(HuaTuoHotfixData.AssemblyTextAssetFullPath);
+                Directory.CreateDirectory(WolongHotfixData.AssemblyTextAssetFullPath);
             }
             File.Copy(dllPath, dllBytesPath, true);
         }
 
-        foreach (var dll in HuaTuoHotfixData.AOTMetaDlls)
+        foreach (var dll in WolongHotfixData.AOTMetaDlls)
         {
             string dllPath = $"{HybridCLR.BuildConfig.GetAssembliesPostIl2CppStripDir(buildTarget)}/{dll}";
             if (!File.Exists(dllPath))
@@ -85,10 +85,10 @@ public static class BuildEventHandlerHuaTuo
                 Debug.LogError($"ab中添加AOT补充元数据dll:{dllPath} 时发生错误,文件不存在。裁剪后的AOT dll在BuildPlayer时才能生成，因此需要你先构建一次游戏App后再打包。");
                 continue;
             }
-            string dllBytesPath = $"{HuaTuoHotfixData.AssemblyTextAssetFullPath}/{dll}{HuaTuoHotfixData.AssemblyTextAssetExtension}";
-            if (!Directory.Exists(HuaTuoHotfixData.AssemblyTextAssetFullPath))
+            string dllBytesPath = $"{WolongHotfixData.AssemblyTextAssetFullPath}/{dll}{WolongHotfixData.AssemblyTextAssetExtension}";
+            if (!Directory.Exists(WolongHotfixData.AssemblyTextAssetFullPath))
             {
-                Directory.CreateDirectory(HuaTuoHotfixData.AssemblyTextAssetFullPath);
+                Directory.CreateDirectory(WolongHotfixData.AssemblyTextAssetFullPath);
             }
             File.Copy(dllPath, dllBytesPath, true);
         }

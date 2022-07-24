@@ -56,7 +56,7 @@ namespace HybridCLR
             }
             //CompileDllHelper.CompileDllActiveBuildTarget();
 
-            var rootAssemblies = HuaTuoHotfixData.AllHotUpdateDllNames
+            var rootAssemblies = WolongHotfixData.AllHotUpdateDllNames
                 .Select(dll => Path.GetFileNameWithoutExtension(dll)).Concat(GeneratorConfig.GetExtraAssembiles())
                 .Where(name => allAssByName.ContainsKey(name)).Select(name => allAssByName[name]).ToList();
             //var rootAssemblies = GeneratorConfig.GetExtraAssembiles()

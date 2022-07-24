@@ -34,7 +34,7 @@ namespace HybridCLR
         public string[] OnFilterAssemblies(BuildOptions buildOptions, string[] assemblies)
         {
             // 将热更dll从打包列表中移除
-            return assemblies.Where(ass => HuaTuoHotfixData.AllHotUpdateDllNames.All(dll => !ass.EndsWith(dll, StringComparison.OrdinalIgnoreCase))).ToArray();
+            return assemblies.Where(ass => WolongHotfixData.AllHotUpdateDllNames.All(dll => !ass.EndsWith(dll, StringComparison.OrdinalIgnoreCase))).ToArray();
         }
 
 
@@ -85,7 +85,7 @@ namespace HybridCLR
             {
                 string content = File.ReadAllText(file);
                 ScriptingAssemblies scriptingAssemblies = JsonUtility.FromJson<ScriptingAssemblies>(content);
-                foreach (string name in HuaTuoHotfixData.MonoHotUpdateDllNames)
+                foreach (string name in WolongHotfixData.MonoHotUpdateDllNames)
                 {
                     if(!scriptingAssemblies.names.Contains(name))
                     {

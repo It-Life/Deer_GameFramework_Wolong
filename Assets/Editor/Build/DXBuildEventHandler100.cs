@@ -19,7 +19,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
 {
     public bool ContinueOnFailure => false;
 
-    private string CommitResourcesPath = Application.dataPath + "/../CommitResources/Huatuo_100/";
+    private string CommitResourcesPath = Application.dataPath + "/../CommitResources/Wolong_100/";
     private bool IsCleanCommitPathConfig = false;
     private List<string> StreamingAssetsPaths = new List<string>()
     {
@@ -80,7 +80,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
             }
         }
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
-        BuildEventHandlerHuaTuo.OnPreprocessAllPlatforms(platforms);
+        BuildEventHandlerWolong.OnPreprocessAllPlatforms(platforms);
         BuildEventHandlerLuban.OnPreprocessAllPlatforms(platforms, outputFullSelected);
     }
     /// <summary>
@@ -98,7 +98,7 @@ public class DXBuildEventHandler100 : IBuildEventHandler
     public void OnPreprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath,
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath)
     {
-        BuildEventHandlerHuaTuo.OnPreprocessPlatform(platform);
+        BuildEventHandlerWolong.OnPreprocessPlatform(platform);
     }
     /// <summary>
     /// 某个平台生成 AssetBundle 完成事件。

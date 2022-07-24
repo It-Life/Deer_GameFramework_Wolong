@@ -34,7 +34,7 @@ namespace HybridCLR
             List<string> notSceneAssets = new List<string>();
 
             string hotfixDllSrcDir = BuildConfig.GetHotFixDllsOutputDirByTarget(target);
-            foreach (var dll in HuaTuoHotfixData.AllHotUpdateDllNames)
+            foreach (var dll in WolongHotfixData.AllHotUpdateDllNames)
             {
                 string dllPath = $"{hotfixDllSrcDir}/{dll}";
                 string dllBytesPath = $"{tempDir}/{dll}.bytes";
@@ -43,7 +43,7 @@ namespace HybridCLR
             }
 
             string aotDllDir = BuildConfig.GetAssembliesPostIl2CppStripDir(target);
-            foreach (var dll in HuaTuoHotfixData.AOTMetaDlls)
+            foreach (var dll in WolongHotfixData.AOTMetaDlls)
             {
                 string dllPath = $"{aotDllDir}/{dll}";
                 if (!File.Exists(dllPath))

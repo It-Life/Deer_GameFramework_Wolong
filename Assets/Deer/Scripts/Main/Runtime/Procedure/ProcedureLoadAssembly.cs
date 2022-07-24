@@ -44,19 +44,19 @@ namespace Main.Runtime
             {
                 foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    if (string.Compare(HuaTuoHotfixData.LogicMainDllName, $"{asm.GetName().Name}.dll",
+                    if (string.Compare(WolongHotfixData.LogicMainDllName, $"{asm.GetName().Name}.dll",
                             StringComparison.Ordinal) == 0)
                     {
                         m_MainLogicAssembly = asm;
                     }
-                    foreach (var hotUpdateDllName in HuaTuoHotfixData.AllHotUpdateDllNames)
+                    foreach (var hotUpdateDllName in WolongHotfixData.AllHotUpdateDllNames)
                     {
                         if (hotUpdateDllName == $"{asm.GetName().Name}.dll")
                         {
                             m_HotfixAssemblys.Add(asm);
                         }
                     }
-                    if (m_MainLogicAssembly != null && m_HotfixAssemblys.Count == HuaTuoHotfixData.AllHotUpdateDllNames.Count)
+                    if (m_MainLogicAssembly != null && m_HotfixAssemblys.Count == WolongHotfixData.AllHotUpdateDllNames.Count)
                     {
                         break;
                     }
@@ -65,9 +65,9 @@ namespace Main.Runtime
             else
             {
                 m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);
-                foreach (var hotUpdateDllName in HuaTuoHotfixData.AllHotUpdateDllNames)
+                foreach (var hotUpdateDllName in WolongHotfixData.AllHotUpdateDllNames)
                 {
-                    var assetPath = Utility.Path.GetRegularPath(Path.Combine(HuaTuoHotfixData.AssemblyTextAssetPath, $"{hotUpdateDllName}{HuaTuoHotfixData.AssemblyTextAssetExtension}"));
+                    var assetPath = Utility.Path.GetRegularPath(Path.Combine(WolongHotfixData.AssemblyTextAssetPath, $"{hotUpdateDllName}{WolongHotfixData.AssemblyTextAssetExtension}"));
                     Log.Debug($"LoadAsset: [ {assetPath} ]");
                     m_LoadAssetCount++;
                     GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
@@ -114,7 +114,7 @@ namespace Main.Runtime
             try
             {
                 var asm = Assembly.Load(textAsset.bytes);
-                if (string.Compare(HuaTuoHotfixData.LogicMainDllName, userData as string, StringComparison.Ordinal) == 0)
+                if (string.Compare(WolongHotfixData.LogicMainDllName, userData as string, StringComparison.Ordinal) == 0)
                     m_MainLogicAssembly = asm;
 
                 m_HotfixAssemblys.Add(asm);
@@ -174,15 +174,15 @@ namespace Main.Runtime
             /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
             /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
             /// 
-            if (HuaTuoHotfixData.AOTMetaDlls.Count == 0)
+            if (WolongHotfixData.AOTMetaDlls.Count == 0)
             {
                 m_LoadMetadataAssemblyComplete = true;
                 return;
             }
             m_LoadMetadataAssetCallbacks ??= new LoadAssetCallbacks(LoadMetadataAssetSuccess, LoadMetadataAssetFailure);
-            foreach (var aotDllName in HuaTuoHotfixData.AOTMetaDlls)
+            foreach (var aotDllName in WolongHotfixData.AOTMetaDlls)
             {
-                var assetPath = Utility.Path.GetRegularPath(Path.Combine(HuaTuoHotfixData.AssemblyTextAssetPath, $"{aotDllName}{HuaTuoHotfixData.AssemblyTextAssetExtension}"));
+                var assetPath = Utility.Path.GetRegularPath(Path.Combine(WolongHotfixData.AssemblyTextAssetPath, $"{aotDllName}{WolongHotfixData.AssemblyTextAssetExtension}"));
                 Log.Debug($"LoadMetadataAsset: [ {assetPath} ]");
                 m_LoadMetadataAssetCount++;
                 GameEntryMain.Resource.LoadAsset(assetPath, m_LoadMetadataAssetCallbacks, aotDllName);

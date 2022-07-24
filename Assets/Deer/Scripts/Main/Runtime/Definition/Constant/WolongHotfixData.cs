@@ -14,7 +14,7 @@ using UnityEngine;
 /// <summary>
 /// Please modify the description.
 /// </summary>
-public static class HuaTuoHotfixData
+public static class WolongHotfixData
 {
     /// <summary>
     /// 需要在Prefab上挂脚本的热更dll名称列表，不需要挂到Prefab上的脚本可以不放在这里
