@@ -10,7 +10,7 @@
 
 ### 热更框架流程图
 
-![流程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/main/DescDocu/%E6%B5%81%E7%A8%8B.png)
+![流程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/2020.3.33/DescDocu/%E6%B5%81%E7%A8%8B.png?raw=true)
 
 ### 热更程序集
 
