@@ -36,6 +36,10 @@
 
 * [Deer_GameFramework_Wolong/框架使用教程.md at main · It-Life/Deer_GameFramework_Wolong (github.com)](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/main/DescDocu/框架使用教程.md)
 
+### 框架使用集合地
+
+- [点击链接加入群聊【Gf_Wolong热更集合】](https://jq.qq.com/?_wv=1027&k=18qNRFnH)
+
 **致谢仓库**
 
 [EllanJiang](https://github.com/EllanJiang)/**[GameFramework](https://github.com/EllanJiang/GameFramework)**
