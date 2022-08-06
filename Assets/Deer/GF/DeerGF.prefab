@@ -29,6 +29,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3697501985217164919}
   m_RootOrder: 1
@@ -127,6 +128,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3697501985217164919}
   m_RootOrder: 2
@@ -202,6 +204,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3697501985217165903}
   m_Father: {fileID: 0}
@@ -241,9 +244,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4022083260644971193}
   - component: {fileID: 3584323862020619376}
+  - component: {fileID: 2602881146543915560}
   m_Layer: 0
   m_Name: UICamera
-  m_TagString: Untagged
+  m_TagString: UICamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -258,6 +262,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3697501985217164919}
   m_RootOrder: 0
@@ -305,6 +310,39 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2602881146543915560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872962349337619652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &3697501985217258621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -315,6 +353,10 @@ PrefabInstance:
     - target: {fileID: 116470, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_Name
       value: Builtin
+      objectReference: {fileID: 0}
+    - target: {fileID: 430602, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 433714, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_RootOrder
@@ -366,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_EntranceProcedureTypeName
-      value: Main.Runtime.ProcedureLauncher
+      value: Main.Runtime.Procedure.ProcedureLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.size
@@ -374,27 +416,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[0]
-      value: Main.Runtime.ProcedureCheckVersion
+      value: Main.Runtime.Procedure.ProcedureCheckVersion
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[1]
-      value: Main.Runtime.ProcedureInitResources
+      value: Main.Runtime.Procedure.ProcedureInitResources
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[2]
-      value: Main.Runtime.ProcedureLauncher
+      value: Main.Runtime.Procedure.ProcedureLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[3]
-      value: Main.Runtime.ProcedureLoadAssembly
+      value: Main.Runtime.Procedure.ProcedureLoadAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[4]
-      value: Main.Runtime.ProcedureSplash
+      value: Main.Runtime.Procedure.ProcedureSplash
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[5]
-      value: Main.Runtime.ProcedureUpdateResources
+      value: Main.Runtime.Procedure.ProcedureUpdateResources
       objectReference: {fileID: 0}
     - target: {fileID: 11405216, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AvailableProcedureTypeNames.Array.data[6]
@@ -450,13 +492,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
---- !u!4 &3697501985217165903 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 433714, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
-  m_PrefabInstance: {fileID: 3697501985217258621}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3697501985217164919 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 430602, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+  m_PrefabInstance: {fileID: 3697501985217258621}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3697501985217165903 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 433714, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
   m_PrefabInstance: {fileID: 3697501985217258621}
   m_PrefabAsset: {fileID: 0}

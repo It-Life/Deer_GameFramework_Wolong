@@ -29,9 +29,8 @@ namespace HotfixBusiness.Entity
             if (entityData.IsOwner)
             {
                 IsOwner = true;
-                Transform transCamTarget = CachedTransform.Find("CamTaget");
-                //GameEntry.Camera.FollowAndLockViewTarget(CachedTransform, transCamTarget);
-                //GameEntry.Camera.SetMiniMapFollowTarget(CachedTransform);
+                //Transform transCamTarget = CachedTransform.Find("CamTaget");
+                GameEntry.Camera.FollowAndFreeViewTarget(CachedTransform, CachedTransform);
             }
 
         }
@@ -42,7 +41,7 @@ namespace HotfixBusiness.Entity
             GameEntry.Messenger.UnRegisterEvent(EventName.EVENT_CS_GAME_MOVE_DIRECTION, OnHandleMoveDirectionCallback);
             GameEntry.Messenger.UnRegisterEvent(EventName.EVENT_CS_GAME_MOVE_END, OnHandleMoveEndCallback);
             GameEntry.Messenger.UnRegisterEvent(EventName.EVENT_CS_GAME_START_JUMP, OnHandleJumpCallback);
-            //GameEntry.Camera.FollowAndLockViewTarget(null, null);
+            GameEntry.Camera.FollowAndFreeViewTarget(null, null);
         }
 
         private void Update()

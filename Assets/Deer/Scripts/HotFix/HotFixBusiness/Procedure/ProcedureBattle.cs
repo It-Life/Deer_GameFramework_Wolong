@@ -6,12 +6,10 @@
 //修改时间:2022-06-05 19-21-25
 //版 本:0.1 
 // ===============================================
-using GameFramework;
-using Main.Runtime;
-using UnityGameFramework.Runtime;
+using Main.Runtime.Procedure;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace HotfixFramework.Runtime
+namespace HotfixBusiness.Procedure
 {
     public class ProcedureBattle : ProcedureBase
     {

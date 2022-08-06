@@ -15,7 +15,7 @@ public static class EntityComponentExtension
     // 0 为无效
     // 正值用于和服务器通信的实体（如玩家角色、NPC、怪等，服务器只产生正值）
     // 负值用于本地生成的临时实体（如特效、FakeObject等）
-    //private static int s_SerialId = 0;
+    private static int m_SerialId = 0;
 
     public static EntityLogicBase GetGameEntity(this EntityComponent entityComponent, int entityId)
     {
@@ -40,7 +40,15 @@ public static class EntityComponentExtension
             Log.Warning("Data is invalid.");
             return;
         }
-
+        if (!entityComponent.HasEntityGroup(entityGroup))
+        {
+            entityComponent.AddEntityGroup(entityGroup, 60, 60, 60,60);
+        }
         entityComponent.ShowEntity(data.Id, logicType, AssetUtility.Entity.GetEntityAsset(data.AssetName), entityGroup, priority, data);
+    }
+
+    public static int GenEntityId(this EntityComponent entityComponent)
+    {
+        return m_SerialId++;
     }
 }

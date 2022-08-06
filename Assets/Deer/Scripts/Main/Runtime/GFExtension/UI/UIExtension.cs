@@ -8,6 +8,7 @@
 // ===============================================
 using GameFramework;
 using GameFramework.UI;
+using Main.Runtime.Procedure;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;

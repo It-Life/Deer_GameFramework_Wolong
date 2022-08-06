@@ -6,12 +6,7 @@
 //修改时间:2022-06-18 00-19-22
 //版 本:0.1 
 // ===============================================
-using Deer;
-using HotfixFramework.Runtime;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using HotfixBusiness.Procedure;
 using UnityGameFramework.Runtime;
 
 namespace HotfixBusiness.UI 
@@ -61,7 +56,7 @@ namespace HotfixBusiness.UI
         private void OnClickLoginBtn()
         {
             ProcedureLogin procedure = (ProcedureLogin)GameEntry.Procedure.CurrentProcedure;
-            procedure.ChangeState();
+            procedure.ChangeStateToMain();
         }
     }
 }

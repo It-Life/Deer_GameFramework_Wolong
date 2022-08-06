@@ -7,11 +7,11 @@
 //版 本:0.1 
 // ===============================================
 using GameFramework;
-using Main.Runtime;
+using Main.Runtime.Procedure;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace HotfixFramework.Runtime
+namespace HotfixBusiness.Procedure
 {
     public class ProcedureLogin : ProcedureBase
     {
@@ -31,8 +31,9 @@ namespace HotfixFramework.Runtime
                 GameEntry.UI.CloseUIForm((int)m_UIFormSerialId);
             }
         }
-        public void ChangeState() 
+        public void ChangeStateToMain() 
         {
+            m_ProcedureOwner.SetData<VarString>("nextProcedure", "HotfixBusiness.Procedure.ProcedureMain");
             ChangeState<ProcedureChangeScene>(m_ProcedureOwner);
         }
     }

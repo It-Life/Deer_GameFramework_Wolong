@@ -2,7 +2,7 @@
 using GameFramework;
 using GameFramework.Resource;
 using GameFramework.UI;
-using Main.Runtime;
+using Main.Runtime.Procedure;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -93,7 +93,7 @@ public partial class GameEntry
     }
     private static List<Assembly> m_HotfixAssemblys;
     private static ProcedureBase m_EntranceProcedureBase;
-    private static string m_EntranceProcedureTypeName = "HotfixFramework.Runtime.ProcedurePreload";
+    private static string m_EntranceProcedureTypeName = "HotfixBusiness.Procedure.ProcedurePreload";
     private static void ResetProcedure() 
     {
         //卸载流程

@@ -7,18 +7,24 @@
 //版 本:0.1 
 // ===============================================
 using GameFramework;
-using Main.Runtime;
+using HotfixBusiness.Entity;
+using Main.Runtime.Procedure;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace HotfixFramework.Runtime
+namespace HotfixBusiness.Procedure
 {
     public class ProcedureMain : ProcedureBase
     {
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            ChangeState<ProcedureBattle>(procedureOwner);
+            //ChangeState<ProcedureBattle>(procedureOwner);
+            CharacterPlayerData characterData = new CharacterPlayerData(GameEntry.Entity.GenEntityId(),1, "Character/Character");
+            characterData.Position = new Vector3(142,1,68);
+            characterData.IsOwner = true;
+            GameEntry.Entity.ShowEntity(typeof(CharacterPlayer),"Character",1,characterData);
         }
     }
 }

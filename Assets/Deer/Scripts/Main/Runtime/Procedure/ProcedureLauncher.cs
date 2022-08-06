@@ -10,7 +10,7 @@ using GameFramework;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace Main.Runtime
+namespace Main.Runtime.Procedure
 {
     public class ProcedureLauncher : ProcedureBase
     {

@@ -6,16 +6,12 @@
 //修改时间:2022-06-05 18-42-47
 //版 本:0.1 
 // ===============================================
-using GameFramework;
 using GameFramework.Resource;
-using Main.Runtime;
-using System;
+using Main.Runtime.Procedure;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace HotfixFramework.Runtime
+namespace HotfixBusiness.Procedure
 {
     public class ProcedurePreload : ProcedureBase
     {
