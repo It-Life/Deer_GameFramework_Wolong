@@ -14,7 +14,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetEntityAsset(string entityModelName)
         {
-            return Utility.Text.Format("Assets/Deer/Asset/EntityPrefabs/{0}.prefab", entityModelName);
+            return Utility.Text.Format("Assets/Deer/AssetsHotfix/EntityPrefabs/{0}.prefab", entityModelName);
         }
 
         /// <summary>
