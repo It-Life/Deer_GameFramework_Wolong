@@ -1,5 +1,7 @@
 @echo off
 
+cd %~dp0
+
 rem set default branch
 set IL2CPP_BRANCH=2021.3.1
 
@@ -28,16 +30,17 @@ if not exist %LOCAL_IL2CPP_DATA% (
 
 rem need copdy MonoBleedingEdge
 set MBE=%LOCAL_IL2CPP_DATA%\MonoBleedingEdge
-if not exist %MBE% (
-    xcopy /q /i /e "%IL2CPP_PATH%\..\MonoBleedingEdge" %MBE%
+if exist %MBE% (
+    rd /s /q %MBE%
 )
-
+xcopy /q /i /e "%IL2CPP_PATH%\..\MonoBleedingEdge" %MBE%
 
 rem copy il2cpp
 set IL2CPP=%LOCAL_IL2CPP_DATA%\il2cpp
-if not exist %IL2CPP% (
-    xcopy /q /i /e "%IL2CPP_PATH%" %IL2CPP%
+if exist %IL2CPP% (
+    rd /s /q %IL2CPP%
 )
+xcopy /q /i /e "%IL2CPP_PATH%" %IL2CPP%
 
 set HYBRIDCLR_REPO_DIR=hybridclr_repo
 
