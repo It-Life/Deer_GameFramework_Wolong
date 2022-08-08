@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityGameFramework.Runtime;
 
 namespace HybridCLR.Generators
 {
@@ -33,7 +32,6 @@ namespace HybridCLR.Generators
             return new List<Type>
             {
                 typeof(Action<int, string, Vector3>),
-                typeof(ObjectPoolComponent),
             };
         }
 
@@ -47,7 +45,11 @@ namespace HybridCLR.Generators
             return new List<string>
             {
                 "vi8i8",
-                "i8i8i8r4i4r4i4",
+                "i4i8i8i4i4i8i8",
+                "i8i8S12",
+                "S12i8S12",
+                "S12i8S12S12",
+                "i16i8i16i16",
             };
         }
 
@@ -61,7 +63,7 @@ namespace HybridCLR.Generators
             return new List<string>
             {
                 "vi4i4",
-                "i8i8i8r4i4r4i4",
+                "S12i4S12S12",
             };
         }
     }

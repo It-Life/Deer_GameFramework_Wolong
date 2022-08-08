@@ -1,20 +1,13 @@
-using GameFramework;
-using GameFramework.ObjectPool;
-using Google.Protobuf;
-using Google.Protobuf.Collections;
-using Google.Protobuf.Reflection;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Scripting;
-using UnityGameFramework.Runtime;
+using System.IO;
+using Google.Protobuf.Collections;
+using Google.Protobuf.Reflection;
 
 [assembly: Preserve]
 enum IntEnum : int
@@ -23,103 +16,115 @@ enum IntEnum : int
     B,
 }
 
+public class MyComparer<T> : Comparer<T>
+{
+    public override int Compare(T x, T y)
+    {
+        return 0;
+    }
+}
+
+class MyStateMachine : IAsyncStateMachine
+{
+    public void MoveNext()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetStateMachine(IAsyncStateMachine stateMachine)
+    {
+        throw new NotImplementedException();
+    }
+}
+
 public class RefTypes : MonoBehaviour
 {
-    void RefLuban() 
+    List<Type> GetTypes()
     {
-        
-    }
-    public class RefItemObject : ObjectBase
-    {
-        private ResourceComponent m_ResourceComponent;
-
-        public static RefItemObject Create()
+        return new List<Type>
         {
-            RefItemObject item = ReferencePool.Acquire<RefItemObject>();
-            return item;
-        }
-        protected override void Release(bool isShutdown)
-        {
+        };
+    }
 
-        }
-    }
-    void RefGameframework()
+    // Start is called before the first frame update
+    void Start()
     {
-        ObjectPoolComponent objectPoolComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<ObjectPoolComponent>();
-        objectPoolComponent.CreateMultiSpawnObjectPool<RefItemObject>("SpriteCollection",0, 16, 60, 0);
-    }
-    void RefXml() 
-    {
-        System.Xml.XmlDocument xmlDocument = new System.Xml.XmlDocument();
-        System.Xml.XmlElement configRoot = xmlDocument.DocumentElement;
-        System.Xml.XmlNode node = xmlDocument.SelectSingleNode("Root");
-    }
-    void RefUnityEngine()
-    {
+        Debug.Log(GetTypes());
         GameObject.Instantiate<GameObject>(null);
         Instantiate<GameObject>(null, null);
         Instantiate<GameObject>(null, null, false);
         Instantiate<GameObject>(null, new Vector3(), new Quaternion());
         Instantiate<GameObject>(null, new Vector3(), new Quaternion(), null);
-        this.gameObject.AddComponent<RefTypes>();
-        gameObject.AddComponent(typeof(RefTypes));
     }
+
+    public void RefNumerics()
+    {
+        var a = new System.Numerics.BigInteger();
+        a.ToString();
+    }
+
+
+    void RefMisc()
+    {
+
+    }
+
+    void RefComparers()
+    {
+        var a = new object[]
+        {
+            new MyComparer<int>(),
+            new MyComparer<long>(),
+            new MyComparer<float>(),
+            new MyComparer<double>(),
+            new MyComparer<object>(),
+        };
+
+        new MyComparer<int>().Compare(default, default);
+        new MyComparer<long>().Compare(default, default);
+        new MyComparer<float>().Compare(default, default);
+        new MyComparer<double>().Compare(default, default);
+        new MyComparer<object>().Compare(default, default);
+
+        object b = EqualityComparer<int>.Default;
+        b = EqualityComparer<long>.Default;
+        b = EqualityComparer<float>.Default;
+        b = EqualityComparer<double>.Default;
+        b = EqualityComparer<object>.Default;
+    }
+
 
     void RefNullable()
     {
         // nullable
+        object b = null;
         int? a = 5;
-        object b = a;
+        b = a;
+        int d = (int?)b ?? 7;
+        int e = (int)b;
+        a = d;
+        b = a;
+        b = Enumerable.Range(0, 1).Reverse().Take(1).TakeWhile(x => true).Skip(1).All(x => true);
+        b = new WaitForSeconds(1f);
+        b = new WaitForSecondsRealtime(1f);
+        b = new WaitForFixedUpdate();
+        b = new WaitForEndOfFrame();
+        b = new WaitWhile(() => true);
+        b = new WaitUntil(() => true);
     }
 
     void RefContainer()
     {
-        new List<object>()
+        //int, long,float,double, IntEnum,object
+        List<object> b = new List<object>()
         {
-            new Dictionary<int, int>(),
-            new Dictionary<int, long>(),
-            new Dictionary<int, object>(),
-            new Dictionary<uint, object>(),
-            new Dictionary<long, int>(),
-            new Dictionary<long, long>(),
-            new Dictionary<long, object>(),
-            new Dictionary<object, long>(),
-            new Dictionary<object, object>(),
-            new SortedDictionary<int, long>(),
-            new SortedDictionary<int, object>(),
-            new SortedDictionary<long, int>(),
-            new SortedDictionary<long, object>(),
-            new HashSet<int>(),
-            new HashSet<long>(),
-            new HashSet<object>(),
-            new List<int>(),
-            new List<long>(),
-            new List<float>(),
-            new List<double>(),
-            new List<object>(),
-            new List<Assembly>(),
-            new ValueTuple<int, int>(1, 1),
-            new ValueTuple<long, long>(1, 1),
-            new ValueTuple<object, object>(1, 1),
-            new SingletonMono<MonoBehaviour>(),
+
         };
     }
 
-    class RefStateMachine : IAsyncStateMachine
-    {
-        public void MoveNext()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetStateMachine(IAsyncStateMachine stateMachine)
-        {
-            throw new NotImplementedException();
-        }
-    }
     void RefAsyncMethod()
     {
-        var stateMachine = new RefStateMachine();
+        var stateMachine = new MyStateMachine();
 
         TaskAwaiter aw = default;
         var c0 = new AsyncTaskMethodBuilder();
@@ -184,61 +189,22 @@ public class RefTypes : MonoBehaviour
         Debug.Log(b);
     }
 
-    class RefMessage : IMessage<RefMessage>
+    void RefNewtonsoftJson()
     {
-        public MessageDescriptor Descriptor => throw new NotImplementedException();
-
-        public UnknownFieldSet _unknownFields;
-
-        public int CalculateSize()
-        {
-            throw new NotImplementedException();
-        }
-
-        public RefMessage Clone()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Equals(RefMessage other)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MergeFrom(RefMessage message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MergeFrom(CodedInputStream input)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteTo(CodedOutputStream output)
-        {
-            throw new NotImplementedException();
-        }
+        //AotHelper.EnsureList<int>();
+        //AotHelper.EnsureList<long>();
+        //AotHelper.EnsureList<float>();
+        //AotHelper.EnsureList<double>();
+        //AotHelper.EnsureList<string>();
+        //AotHelper.EnsureDictionary<int, int>();
+        //AotHelper.EnsureDictionary<int, string>();
     }
 
-    void RefMessageMethod() 
+    public void RefProtobufNet()
     {
-        IMessage message = new RefMessage();
-        message.Equals((RefMessage)message);
-        MessageParser<RefMessage> messageParser = new MessageParser<RefMessage>(() => new RefMessage());
-        messageParser.ParseFrom(new byte[0]);
-        messageParser.ParseFrom(new byte[0],0,0);
-        messageParser.ParseFrom(ByteString.Empty);
-        messageParser.ParseFrom(Stream.Null);
-        messageParser.ParseDelimitedFrom(Stream.Null);
-        messageParser.ParseJson(String.Empty);
-        messageParser.WithDiscardUnknownFields(false);
-        messageParser.WithExtensionRegistry(new ExtensionRegistry());
-        Lists.Equals(new List<object>(),new List<object>());
-        ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(0, 0);
-        ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(0);
-        RepeatedField<RefMessage> refMessages = new RepeatedField<RefMessage>();
+        
     }
+
     public void RefGoogleProtobuf()
     {
         var o = new object[]
@@ -248,9 +214,75 @@ public class RefTypes : MonoBehaviour
             new MapField<string, object>(),
             new MapField<string, object>.Codec(default, default, default),
         };
-/*        IBsonSerializer<object> s = null;
-        BsonSerializer.RegisterSerializer<object>(s);
-        BsonSerializer.Serialize(null, typeof(void), null);
-        BsonSerializer.Serialize<string>(null, "");*/
+    }
+
+    class TestTable
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+    }
+
+    public void RefSQLite()
+    {
+    }
+
+    public static async void TestAsync3()
+    {
+        Debug.Log("async task 1");
+        await Task.Delay(10);
+        Debug.Log("async task 2");
+    }
+
+    public static int Main_1()
+    {
+        Debug.Log("hello,hybridclr");
+
+        var task = Task.Run(async () =>
+        {
+            await TestAsync2();
+        });
+
+        task.Wait();
+
+        Debug.Log("async task end");
+        Debug.Log("async task end2");
+
+        return 0;
+    }
+
+    public static async Task TestAsync2()
+    {
+        Debug.Log("async task 1");
+        await Task.Delay(3000);
+        Debug.Log("async task 2");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        TestAsync();
+    }
+
+    public static int TestAsync()
+    {
+        var t0 = Task.Run(async () =>
+        {
+            await Task.Delay(10);
+        });
+        t0.Wait();
+        var task = Task.Run(async () =>
+        {
+            await Task.Delay(10);
+            return 100;
+        });
+        Debug.Log(task.Result);
+        return 0;
+    }
+    void RefXml()
+    {
+        System.Xml.XmlDocument xmlDocument = new System.Xml.XmlDocument();
+        System.Xml.XmlElement configRoot = xmlDocument.DocumentElement;
+        System.Xml.XmlNode node = xmlDocument.SelectSingleNode("Root");
     }
 }

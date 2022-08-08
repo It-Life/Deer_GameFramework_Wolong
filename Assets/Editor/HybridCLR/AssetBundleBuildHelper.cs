@@ -12,7 +12,7 @@ namespace HybridCLR
     public static class AssetBundleBuildHelper
     {
 
-        public static string ToReleateAssetPath(string s)
+        public static string ToRelativeAssetPath(string s)
         {
             return s.Substring(s.IndexOf("Assets/"));
         }
@@ -64,7 +64,7 @@ namespace HybridCLR
             AssetBundleBuild notSceneAb = new AssetBundleBuild
             {
                 assetBundleName = "common",
-                assetNames = notSceneAssets.Select(s => ToReleateAssetPath(s)).ToArray(),
+                assetNames = notSceneAssets.Select(s => ToRelativeAssetPath(s)).ToArray(),
             };
             abs.Add(notSceneAb);
 
@@ -77,8 +77,8 @@ namespace HybridCLR
 
             foreach (var ab in abs)
             {
-                AssetDatabase.CopyAsset(ToReleateAssetPath($"{outputDir}/{ab.assetBundleName}"),
-                    ToReleateAssetPath($"{streamingAssetPathDst}/{ab.assetBundleName}"));
+                AssetDatabase.CopyAsset(ToRelativeAssetPath($"{outputDir}/{ab.assetBundleName}"),
+                    ToRelativeAssetPath($"{streamingAssetPathDst}/{ab.assetBundleName}"));
             }
         }
 

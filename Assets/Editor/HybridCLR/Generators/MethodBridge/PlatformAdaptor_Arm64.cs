@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace HybridCLR.Generators
+namespace HybridCLR.Generators.MethodBridge
 {
     internal class PlatformAdaptor_Arm64 : PlatformAdaptorBase
     {
@@ -36,7 +36,7 @@ namespace HybridCLR.Generators
             { typeof(System.Numerics.Vector4), new TypeInfo(typeof(System.Numerics.Vector4), ParamOrReturnType.ARM64_HFA_FLOAT_4) },
         };
 
-        public CallConventionType CallConventionType { get; } = CallConventionType.General64;
+        public PlatformABI CallConventionType { get; } = PlatformABI.Universal64;
 
         public override bool IsArch32 => false;
 
@@ -249,7 +249,7 @@ namespace HybridCLR.Generators
             string paramNameListStr = string.Join(", ", method.ParamInfos.Select(p => p.Managed2NativeParamValue(this.CallConventionType)).Concat(new string[] { "method" }));
 
             string invokeAssignArgs = @$"
-	if (huatuo::IsInstanceMethod(method))
+	if (hybridclr::IsInstanceMethod(method))
 	{{
         args[0].ptr = __this;
 {string.Join("\n", method.ParamInfos.Skip(1).Select(p => $"\t\targs[{p.Index}].u64 = *(uint64_t*)__args[{p.Index - 1}];"))}
@@ -279,13 +279,13 @@ static {method.ReturnInfo.Type.GetTypeName()} __Native2ManagedCall_AdjustorThunk
 
 static void __Managed2NativeCall_{method.CreateCallSigName()}(const MethodInfo* method, uint16_t* argVarIndexs, StackObject* localVarBase, void* ret)
 {{
-    if (huatuo::metadata::IsInstanceMethod(method) && !localVarBase[argVarIndexs[0]].obj)
+    if (hybridclr::metadata::IsInstanceMethod(method) && !localVarBase[argVarIndexs[0]].obj)
     {{
         il2cpp::vm::Exception::RaiseNullReferenceException();
     }}
     Interpreter::RuntimeClassCCtorInit(method);
     typedef {method.ReturnInfo.Type.GetTypeName()} (*NativeMethod)({paramListStr});
-    {(!method.ReturnInfo.IsVoid ? $"*({method.ReturnInfo.Type.GetTypeName()}*)ret = " : "")}((NativeMethod)(method->methodPointer))({paramNameListStr});
+    {(!method.ReturnInfo.IsVoid ? $"*({method.ReturnInfo.Type.GetTypeName()}*)ret = " : "")}((NativeMethod)(GetInterpreterDirectlyCallMethodPointer(method)))({paramNameListStr});
 }}
 ");
         }
@@ -302,7 +302,7 @@ static void __Managed2NativeCall_{method.CreateCallSigName()}(const MethodInfo* 
             string paramNameListStr = string.Join(", ", method.ParamInfos.Select(p => p.Managed2NativeParamValue(this.CallConventionType)).Concat(new string[] { "method" }));
 
             string invokeAssignArgs = @$"
-	if (huatuo::IsInstanceMethod(method))
+	if (hybridclr::IsInstanceMethod(method))
 	{{
         args[0].ptr = __this;
 {string.Join("\n", method.ParamInfos.Skip(1).Select(p => $"\t\targs[{p.Index}].u64 = *(uint64_t*)__args[{p.Index - 1}];"))}
@@ -315,10 +315,10 @@ static void __Managed2NativeCall_{method.CreateCallSigName()}(const MethodInfo* 
 
 
             lines.Add($@"
-#ifdef HUATUO_UNITY_2021_OR_NEW
+#ifdef HYBRIDCLR_UNITY_2021_OR_NEW
 static void __Invoke_instance_{method.CreateCallSigName()}(Il2CppMethodPointer __methodPtr, const MethodInfo* __method, void* __this, void** __args, void* __ret)
 {{
-    StackObject args[{totalQuadWordNum + 1}] = {{ (uint64_t)AdjustValueTypeSelfPointer(({ConstStrings.typeObjectPtr})__this, __method)}};
+    StackObject args[{totalQuadWordNum + 1}] = {{ (uint64_t)__this }};
     ConvertInvokeArgs(args+1, __method, __args);
     Interpreter::Execute(__method, args, __ret);
 }}

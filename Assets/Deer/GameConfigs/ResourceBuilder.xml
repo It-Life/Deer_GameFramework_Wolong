@@ -2,14 +2,14 @@
 <UnityGameFramework>
   <ResourceBuilder>
     <Settings>
-      <InternalResourceVersion>21</InternalResourceVersion>
+      <InternalResourceVersion>24</InternalResourceVersion>
       <Platforms>2</Platforms>
       <AssetBundleCompression>1</AssetBundleCompression>
       <CompressionHelperTypeName>UnityGameFramework.Runtime.DefaultCompressionHelper</CompressionHelperTypeName>
       <AdditionalCompressionSelected>False</AdditionalCompressionSelected>
       <ForceRebuildAssetBundleSelected>False</ForceRebuildAssetBundleSelected>
       <BuildEventHandlerTypeName>DXBuildEventHandler100</BuildEventHandlerTypeName>
-      <OutputDirectory>D:/Working/GitHub/Deer_GameFramework_HuaTuo/ResourcesFiles</OutputDirectory>
+      <OutputDirectory>D:/Github/Deer_GameFramework_Wolong/ResourcesFiles</OutputDirectory>
       <OutputPackageSelected>True</OutputPackageSelected>
       <OutputFullSelected>False</OutputFullSelected>
       <OutputPackedSelected>False</OutputPackedSelected>
