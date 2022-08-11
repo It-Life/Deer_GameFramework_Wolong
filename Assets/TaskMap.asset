@@ -22,6 +22,15 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   TaskConfigs:
-  - Enabled: 1
+  - Enabled: 0
     Title: "\u63A5\u5165luban"
     Description: "\u5B9E\u73B0\u8868\u5206\u79BB\n\u5B9E\u73B0\u8BFB\u8868\u529F\u80FD\n\u5B9E\u73B0\u751F\u6210\u8868\u7248\u672C\u6587\u4EF6"
+  - Enabled: 1
+    Title: "\u5FEB\u901F\u7F16\u8BD1\u7A0B\u5E8F\u96C6"
+    Description: "\u63CF\u8FF0"
+  - Enabled: 1
+    Title: "\u65E0\u7F1D\u70ED\u66F4"
+    Description: "\u63CF\u8FF0"
+  - Enabled: 0
+    Title: "\u4EFB\u52A1\u6807\u9898"
+    Description: "\u63CF\u8FF0"

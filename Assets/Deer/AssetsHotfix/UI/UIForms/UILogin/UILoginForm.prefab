@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1495174404976755347}
   m_RootOrder: 0
@@ -170,6 +171,34 @@ PrefabInstance:
     - target: {fileID: 1635818207794938138, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
       propertyPath: m_Name
       value: Btn_Login
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.57607687
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.57607687
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.5849056
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_DoubleClickIntervalTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.31505868
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.31505868
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.9433962
       objectReference: {fileID: 0}
     - target: {fileID: 8898194497509721920, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
       propertyPath: m_fontAsset
@@ -429,7 +458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: m_CodePath
-      value: D:/Working/GitHub/Deer_GameFramework_Wolong/Assets/Deer/Scripts/HotFix/HotFixBusiness/UI/BindComponents
+      value: D:/Github/Deer_GameFramework_Wolong/Assets/Deer/Scripts/HotFix/HotFixBusiness/UI/BindComponents
       objectReference: {fileID: 0}
     - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: m_ClassName
@@ -489,14 +518,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
---- !u!1 &2452617083027244232 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8982228020252818915, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
-  m_PrefabInstance: {fileID: 6822455311423404331}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1495174404976755347 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5337284280437128120, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
+  m_PrefabInstance: {fileID: 6822455311423404331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2452617083027244232 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8982228020252818915, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
   m_PrefabInstance: {fileID: 6822455311423404331}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6003532101336046229

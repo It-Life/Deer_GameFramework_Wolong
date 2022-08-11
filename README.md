@@ -36,11 +36,21 @@
 
 * [Deer_GameFramework_Wolong/框架使用教程.md at main · It-Life/Deer_GameFramework_Wolong (github.com)](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/main/DescDocu/框架使用教程.md)
 
+### 项目声明
+
+- 项目里包含的第三方收费插件仅供学习使用，如有商业目的，请自行购买。
+- [AstarPathfindingProject](https://arongranberg.com/astar/)
+- [Sirenix](https://odininspector.com/?utm_source=assetstore&utm_medium=description_link&utm_campaign=default/)
+- [QHierarchy](https://assetstore.unity.com/packages/tools/utilities/qhierarchy-28577?locale=zh-CN)
+- [Demigiant](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
+- [SuperScrollView](https://assetstore.unity.com/packages/tools/gui/ugui-super-scrollview-86572)
+- ...
+
 ### 框架使用集合地
 
 - [点击链接加入群聊【Gf_Wolong热更集合】](https://jq.qq.com/?_wv=1027&k=18qNRFnH)
 
-**致谢仓库**
+### 致谢仓库
 
 [EllanJiang](https://github.com/EllanJiang)/**[GameFramework](https://github.com/EllanJiang/GameFramework)**
 
