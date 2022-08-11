@@ -164,24 +164,23 @@ public class UIButtonSuper : Button, IDragHandler
     }
 
     public override void OnPointerDown(PointerEventData eventData) {
-        if (eventData.pointerId < -1 || IsDraging) return; //适配 Touch：只响应一个Touch；适配鼠标：只响应左键
         base.OnPointerDown(eventData);
+        if (eventData.pointerId < -1 || IsDraging) return; //适配 Touch：只响应一个Touch；适配鼠标：只响应左键
         fingerId = eventData.pointerId;
-
         isDown = true;
         isDownExit = false;
         downTime = 0;
     }
     public override void OnPointerUp(PointerEventData eventData) {
-        if (fingerId != eventData.pointerId) return;//正确的手指抬起时才会；
         base.OnPointerUp(eventData);
+        if (fingerId != eventData.pointerId) return;//正确的手指抬起时才会；
         fingerId = int.MinValue;
         isDown = false;
         isDownExit = true;
     }
     public override void OnPointerExit(PointerEventData eventData) {
-        if (fingerId != eventData.pointerId) return;//正确的手指抬起时才会；
         base.OnPointerExit(eventData);
+        if (fingerId != eventData.pointerId) return;//正确的手指抬起时才会；
         isPress = false;
         isDownExit = true ;
     }
