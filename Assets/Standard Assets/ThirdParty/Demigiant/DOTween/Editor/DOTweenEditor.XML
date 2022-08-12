@@ -10,11 +10,14 @@
             </summary>
             <param name="onPreviewUpdated">Eventual callback to call after every update</param>
         </member>
-        <member name="M:DG.DOTweenEditor.DOTweenEditorPreview.Stop(System.Boolean)">
+        <member name="M:DG.DOTweenEditor.DOTweenEditorPreview.Stop(System.Boolean,System.Boolean)">
             <summary>
             Stops the update loop and clears the onPreviewUpdated callback.
             </summary>
-            <param name="resetTweenTargets">If TRUE also resets the tweened objects to their original state</param>
+            <param name="resetTweenTargets">If TRUE also resets the tweened objects to their original state.
+            Note that this works by calling Rewind on all tweens, so it will work correctly
+            only if you have a single tween type per object and it wasn't killed</param>
+            <param name="clearTweens">If TRUE also kills any cached tween</param>
         </member>
         <member name="M:DG.DOTweenEditor.DOTweenEditorPreview.PrepareTweenForPreview(DG.Tweening.Tween,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
@@ -24,6 +27,15 @@
             <param name="clearCallbacks">If TRUE (recommended) removes all callbacks (OnComplete/Rewind/etc)</param>
             <param name="preventAutoKill">If TRUE prevents the tween from being auto-killed at completion</param>
             <param name="andPlay">If TRUE starts playing the tween immediately</param>
+        </member>
+        <member name="F:DG.DOTweenEditor.EditorVersion.Version">
+            <summary>Full major version + first minor version (ex: 2018.1f)</summary>
+        </member>
+        <member name="F:DG.DOTweenEditor.EditorVersion.MajorVersion">
+            <summary>Major version</summary>
+        </member>
+        <member name="F:DG.DOTweenEditor.EditorVersion.MinorVersion">
+            <summary>First minor version (ex: in 2018.1 it would be 1)</summary>
         </member>
         <member name="M:DG.DOTweenEditor.EditorUtils.SetEditorTexture(UnityEngine.Texture2D,UnityEngine.FilterMode,System.Int32)">
             <summary>
