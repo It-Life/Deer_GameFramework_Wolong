@@ -16,11 +16,7 @@ namespace HybridCLR.Generators.MethodBridge
         IEnumerable<MethodBridgeSig> GetPreserveMethods();
 
         void GenerateCall(MethodBridgeSig method, List<string> outputLines);
-
-        void GenerateInvoke(MethodBridgeSig method, List<string> outputLines);
-
+		
         void GenCallStub(List<MethodBridgeSig> methods, List<string> lines);
-
-        void GenInvokeStub(List<MethodBridgeSig> methods, List<string> lines);
     }
 }
