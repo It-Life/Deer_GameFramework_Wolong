@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb7f20d1f90cfb4a8c62d7bad640eb5, type: 3}
+  m_Name: AnimationControllerDefaults
+  m_EditorClassIdentifier: 
+  defaultEasing:
+    ease: 7
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  preferUsingPreviousActionEasing: 1
+  defaultDirection: 0
+  preferUsingPreviousDirection: 1
+  useRelative: 0
+  preferUsingPreviousRelativeValue: 1
+  autoplayMode: 0
+  playOnAwake: 0
+  pauseOnAwake: 0
+  timeScaleIndependent: 0
+  playType: 0
+  updateType: 0
+  autoKill: 1
+  loops: 0

@@ -8,11 +8,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Deer/Scenes/DeerLauncher.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Deer/AssetsHotfix/Scenes/Login.unity
-    guid: 17ec5b8f543c59345bc1257ec50c7228
-  - enabled: 1
-    path: Assets/Deer/AssetsHotfix/Scenes/Main.unity
-    guid: 24f9961372fb6c2439df9fbc7f4c0f79
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a12e277844498e846bbd553b8750bb9e, type: 2}
