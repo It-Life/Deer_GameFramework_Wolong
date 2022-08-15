@@ -13,10 +13,16 @@ namespace HybridCLR.Generators.MethodBridge
 
         TypeInfo CreateTypeInfo(Type type, bool returnValue);
 
-        IEnumerable<MethodBridgeSig> GetPreserveMethods();
+        void GenerateManaged2NativeMethod(MethodBridgeSig method, List<string> outputLines);
 
-        void GenerateCall(MethodBridgeSig method, List<string> outputLines);
-		
-        void GenCallStub(List<MethodBridgeSig> methods, List<string> lines);
+        void GenerateManaged2NativeStub(List<MethodBridgeSig> methods, List<string> lines);
+
+        void GenerateNative2ManagedMethod(MethodBridgeSig method, List<string> outputLines);
+
+        void GenerateNative2ManagedStub(List<MethodBridgeSig> methods, List<string> lines);
+
+        void GenerateAdjustThunkMethod(MethodBridgeSig method, List<string> outputLines);
+
+        void GenerateAdjustThunkStub(List<MethodBridgeSig> methods, List<string> lines);
     }
 }
