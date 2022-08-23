@@ -9,6 +9,8 @@ obj
 *.xmind
 Temp
 BuildPackage
+BuildPackageApk
+RuntimeInspector
 BuildPackageVS
 ResourcesFiles
 StreamingAssets
