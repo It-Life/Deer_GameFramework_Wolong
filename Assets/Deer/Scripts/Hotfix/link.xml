@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<linker>
+	<assembly fullname="System" preserve="all" />
+	<assembly fullname="UnityEngine" preserve="all" />
+	<assembly fullname="UnityEngine.CoreModule" preserve="all" />
+	<assembly fullname="Assembly-CSharp" preserve="all" />
+	<assembly fullname="mscorlib" preserve="all" />
+	<assembly fullname="System.Core" preserve="all" />
+	<assembly fullname="UnityEngine.TextRenderingModule">
+		<type fullname="UnityEngine.TextMesh" preserve="all" />
+	</assembly>
+	<assembly fullname="UnityEngine.AnimationModule">
+		<type fullname="UnityEngine.Animator" preserve="all" />
+		<type fullname="UnityEngine.AnimationClip" preserve="all" />
+		<type fullname="UnityEngine.RuntimeAnimatorController" preserve="all" />
+		<type fullname="UnityEngine.AnimationEvent" preserve="all" />
+		<type fullname="UnityEngine.AnimatorClipInfo" preserve="all" />
+		<type fullname="UnityEngine.AnimatorStateInfo" preserve="all" />
+	</assembly>
+	<assembly fullname="UnityEngine.PhysicsModule">
+		<type fullname="UnityEngine.BoxCollider" preserve="all" />
+		<type fullname="UnityEngine.MeshCollider" preserve="all" />
+		<type fullname="UnityEngine.SphereCollider" preserve="all" />
+		<type fullname="UnityEngine.Rigidbody" preserve="all" />
+		<type fullname="UnityEngine.Collider" preserve="all" />
+		<type fullname="UnityEngine.Physics" preserve="all" />
+		<type fullname="UnityEngine.RaycastHit" preserve="all" />
+	</assembly>
+	<assembly fullname="UnityEngine.AudioModule">
+		<type fullname="UnityEngine.AudioListener" preserve="all" />
+		<type fullname="UnityEngine.AudioClip" preserve="all" />
+		<type fullname="UnityEngine.AudioSource" preserve="all" />
+	</assembly>
+	<assembly fullname="Cinemachine">
+		<type fullname="Cinemachine.CinemachineVirtualCameraBase" preserve="all" />
+		<type fullname="Cinemachine.CinemachineVirtualCamera" preserve="all" />
+		<type fullname="Cinemachine.LensSettings" preserve="all" />
+		<type fullname="Cinemachine.CinemachineFramingTransposer" preserve="all" />
+		<type fullname="Cinemachine.AxisState" preserve="all" />
+		<type fullname="Cinemachine.CinemachinePOV" preserve="all" />
+		<type fullname="Cinemachine.CinemachineComponentBase" preserve="all" />
+		<type fullname="Cinemachine.CinemachineBrain" preserve="all" />
+		<type fullname="Cinemachine.CinemachineBlendDefinition" preserve="all" />
+		<type fullname="Cinemachine.CinemachineVirtualCameraBase+TransitionParams" preserve="all" />
+	</assembly>
+	<assembly fullname="System.Xml">
+		<type fullname="System.Xml.XmlElement" preserve="all" />
+	</assembly> 
+	<assembly fullname="Google.Protobuf" preserve="all" />
+</linker>
+

@@ -1,0 +1,22 @@
+{
+    "name": "HotfixFramework.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:43b47c7afe53ff144af0a914f0f30bb6",
+        "GUID:a2d8a19598eca814496b089021d08d60",
+        "GUID:363c5eb08ff8e6a439b85e37b8c20d96",
+        "GUID:7ef7d012d9d92d341926d99b50cdde6a",
+        "GUID:1fa870703d1928149882949ff9440a9a",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

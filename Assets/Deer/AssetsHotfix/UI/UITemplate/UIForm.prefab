@@ -27,6 +27,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 337206100559482581}
   m_RootOrder: 0
@@ -73,6 +74,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5337284280437128120}
   m_Father: {fileID: 0}
@@ -135,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BindDatas: []
   m_ClassName: UIPanel
-  m_Namespace: HotFixBusiness.UI
-  m_CodePath: D:/Working/GitHub/Deer_GameFramework_HuaTuo/Assets/Deer/Scripts/HotFix/HotFixBusiness/UI/BindComponents
-  m_CodeRelativePath: /Deer/Scripts/HotFix/HotFixBusiness/UI/BindComponents
+  m_Namespace: HotfixBusiness.UI
+  m_CodePath: D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents
+  m_CodeRelativePath: /Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents
   m_BindComs: []

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace HotFixBusiness.UI 
+namespace HotfixBusiness.UI 
 {
     /// <summary>
     /// Please modify the description.
