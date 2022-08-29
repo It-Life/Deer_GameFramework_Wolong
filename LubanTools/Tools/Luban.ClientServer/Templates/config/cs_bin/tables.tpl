@@ -1,5 +1,5 @@
 using Bright.Serialization;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 {{
     name = x.name
@@ -22,7 +22,7 @@ public sealed class {{name}}
 
     public {{name}}() { }
     
-    public async Task LoadAsync(System.Func<string, Task<ByteBuf>> loader)
+    public async UniTask LoadAsync(System.Func<string, UniTask<ByteBuf>> loader)
     {
         var tables = new System.Collections.Generic.Dictionary<string, object>();
         {{~for table in tables ~}}

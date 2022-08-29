@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Scripting;
 using System.IO;
 using Google.Protobuf.Collections;
-using Google.Protobuf.Reflection;
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.CompilerServices;
 
 [assembly: Preserve]
 enum IntEnum : int
@@ -127,60 +127,60 @@ public class RefTypes : MonoBehaviour
         var stateMachine = new MyStateMachine();
 
         TaskAwaiter aw = default;
-        var c0 = new AsyncTaskMethodBuilder();
+        var c0 = new AsyncUniTaskMethodBuilder();
         c0.Start(ref stateMachine);
         c0.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c0.SetException(null);
         c0.SetResult();
 
-        var c1 = new AsyncTaskMethodBuilder();
+        var c1 = new AsyncUniTaskMethodBuilder();
         c1.Start(ref stateMachine);
         c1.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c1.SetException(null);
         c1.SetResult();
 
-        var c2 = new AsyncTaskMethodBuilder<bool>();
+        var c2 = new AsyncUniTaskMethodBuilder<bool>();
         c2.Start(ref stateMachine);
         c2.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c2.SetException(null);
         c2.SetResult(default);
 
-        var c3 = new AsyncTaskMethodBuilder<int>();
+        var c3 = new AsyncUniTaskMethodBuilder<int>();
         c3.Start(ref stateMachine);
         c3.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c3.SetException(null);
         c3.SetResult(default);
 
-        var c4 = new AsyncTaskMethodBuilder<long>();
+        var c4 = new AsyncUniTaskMethodBuilder<long>();
         c4.Start(ref stateMachine);
         c4.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c4.SetException(null);
 
-        var c5 = new AsyncTaskMethodBuilder<float>();
+        var c5 = new AsyncUniTaskMethodBuilder<float>();
         c5.Start(ref stateMachine);
         c5.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c5.SetException(null);
         c5.SetResult(default);
 
-        var c6 = new AsyncTaskMethodBuilder<double>();
+        var c6 = new AsyncUniTaskMethodBuilder<double>();
         c6.Start(ref stateMachine);
         c6.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c6.SetException(null);
         c6.SetResult(default);
 
-        var c7 = new AsyncTaskMethodBuilder<object>();
+        var c7 = new AsyncUniTaskMethodBuilder<object>();
         c7.Start(ref stateMachine);
         c7.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c7.SetException(null);
         c7.SetResult(default);
 
-        var c8 = new AsyncTaskMethodBuilder<IntEnum>();
+        var c8 = new AsyncUniTaskMethodBuilder<IntEnum>();
         c8.Start(ref stateMachine);
         c8.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
         c8.SetException(null);
         c8.SetResult(default);
 
-        var c9 = new AsyncVoidMethodBuilder();
+        var c9 = new AsyncUniTaskMethodBuilder();
         var b = AsyncVoidMethodBuilder.Create();
         c9.Start(ref stateMachine);
         c9.AwaitUnsafeOnCompleted(ref aw, ref stateMachine);
@@ -230,11 +230,11 @@ public class RefTypes : MonoBehaviour
     public static async void TestAsync3()
     {
         Debug.Log("async task 1");
-        await Task.Delay(10);
+        await UniTask.DelayFrame(10);
         Debug.Log("async task 2");
     }
 
-    public static int Main_1()
+/*    public static int Main_1()
     {
         Debug.Log("hello,hybridclr");
 
@@ -249,22 +249,24 @@ public class RefTypes : MonoBehaviour
         Debug.Log("async task end2");
 
         return 0;
-    }
+    }*/
 
-    public static async Task TestAsync2()
+    public static async UniTask TestAsync2()
     {
         Debug.Log("async task 1");
-        await Task.Delay(3000);
+        await UniTask.Delay(3000);
         Debug.Log("async task 2");
+        AsyncUniTaskMethodBuilder.Create();
+        var _ = typeof(AsyncUniTaskMethodBuilder<>);
     }
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+/*    void Update()
     {
         TestAsync();
-    }
+    }*/
 
-    public static int TestAsync()
+/*    public static int TestAsync()
     {
         var t0 = Task.Run(async () =>
         {
@@ -278,11 +280,21 @@ public class RefTypes : MonoBehaviour
         });
         Debug.Log(task.Result);
         return 0;
-    }
-    void RefXml()
+    }*/
+void RefXml()
     {
         System.Xml.XmlDocument xmlDocument = new System.Xml.XmlDocument();
         System.Xml.XmlElement configRoot = xmlDocument.DocumentElement;
         System.Xml.XmlNode node = xmlDocument.SelectSingleNode("Root");
     }
+    void RefUniTask()
+    {
+        Cysharp.Threading.Tasks.UniTask uniTask = new Cysharp.Threading.Tasks.UniTask();
+        uniTask1();
+    }
+
+    UniTask<object> uniTask1() 
+    {
+        return new UniTask<object>();
+    } 
 }

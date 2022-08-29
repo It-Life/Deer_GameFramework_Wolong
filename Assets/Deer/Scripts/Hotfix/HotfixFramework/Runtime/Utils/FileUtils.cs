@@ -19,42 +19,6 @@ namespace HotfixFramework.Runtime
     /// </summary>
     public static class FileUtils
     {
-        /// <summary>
-        /// C# 侧使用的文件流
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="isReadWritePath"></param>
-        /// <param name="action"></param>
-        public static void FileReadAllBytes(string filePath, bool isReadWritePath, Action<bool, byte[]> action)
-        {
-            if (isReadWritePath)
-            {
-                filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, filePath);
-                if (!File.Exists(filePath))
-                {
-                    Logger.Error("filepath:" + filePath + " not exists");
-                    return;
-                }
-                byte[] result = File.ReadAllBytes(filePath);
-                action?.Invoke(true, result);
-            }
-            else
-            {
-                filePath = Main.Runtime.FileUtils.GetStreamingAssetsPlatformPathUrl(filePath);
-                GameEntry.Config.ReadConfigWithStreamingAssets(filePath, delegate (bool isRead, byte[] result)
-                {
-                    action?.Invoke(isRead, result);
-                });
-            }
-        }
-        public static bool CanConfigReadWritePath()
-        {
-            if (GameEntry.Resource.ResourceMode == GameFramework.Resource.ResourceMode.Package)
-            {
-                return false;
-            }
-            return false;
-        }
         public static string BinToUtf8(byte[] total)
         {
             byte[] result = total;

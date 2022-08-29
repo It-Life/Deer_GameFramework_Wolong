@@ -9,6 +9,13 @@ using UnityEngine;
 
 namespace Main.Runtime 
 {
+    public enum UnityPlatformPathType:int
+    {
+        dataPath = 0,
+        streamingAssetsPath,
+        persistentDataPath,
+        temporaryCachePath,
+    }
     public class FileUtils
     {
         public static bool CreateFile(string filePath, bool isCreateDir = true)
@@ -129,17 +136,87 @@ namespace Main.Runtime
             return false;
         }
 
-        public static string GetStreamingAssetsPlatformPathUrl(string filePath)
+        public static string GetPlatformPath(string filePath, UnityPlatformPathType pathType,bool isUrl = false)
         {
-            filePath =
-#if UNITY_ANDROID && !UNITY_EDITOR
-            Application.streamingAssetsPath + "/" + filePath;
-#else
-            "file://" + Application.streamingAssetsPath + "/" + filePath;
-#endif
+            filePath = string.Empty;
+//#if UNITY_ANDROID && !UNITY_EDITOR
+            if (pathType == UnityPlatformPathType.dataPath)
+            {
+                if (isUrl)
+                    filePath = Application.streamingAssetsPath + "/" + filePath;
+                else
+                    filePath = Application.dataPath + "!assets" + "/" + filePath;
+            }
+            else if (pathType == UnityPlatformPathType.streamingAssetsPath)
+            {
+
+            }
+            else if (pathType == UnityPlatformPathType.persistentDataPath)
+            {
+
+            }
+            else if (pathType == UnityPlatformPathType.temporaryCachePath)
+            {
+
+            }
+
+            //#elif UNITY_IOS
+            filePath = "file://" + Application.streamingAssetsPath + "/" + filePath;
+            if (pathType == UnityPlatformPathType.dataPath)
+            {
+                if (isUrl)
+                    filePath = Application.streamingAssetsPath + "/" + filePath;
+                else
+                    filePath = Application.dataPath + "!assets" + "/" + filePath;
+            }
+            else if (pathType == UnityPlatformPathType.streamingAssetsPath)
+            {
+
+            }
+            else if (pathType == UnityPlatformPathType.persistentDataPath)
+            {
+
+            }
+            else if (pathType == UnityPlatformPathType.temporaryCachePath)
+            {
+
+            }
+//#else
+            if (pathType == UnityPlatformPathType.dataPath)
+            {
+                if (isUrl)
+                    filePath = Application.streamingAssetsPath + "/" + filePath;
+                else
+                    filePath = Application.dataPath + "!assets" + "/" + filePath;
+            }
+            else if (pathType == UnityPlatformPathType.streamingAssetsPath)
+            {
+
+            }
+            else if (pathType == UnityPlatformPathType.persistentDataPath)
+            {
+
+            }
+            else if (pathType == UnityPlatformPathType.temporaryCachePath)
+            {
+
+            }
+//
+//#endif
             return filePath;
         }
         public static string GetStreamingAssetsPlatformPath(string filePath)
+        {
+            filePath =
+#if UNITY_ANDROID && !UNITY_EDITOR
+             Application.dataPath + "!assets" + "/" + filePath;
+#else
+            Application.streamingAssetsPath + "/" + filePath;
+#endif
+            return filePath;
+        }
+
+        public static string GetPersistentDataPlatformPath(string filePath)
         {
             filePath =
 #if UNITY_ANDROID && !UNITY_EDITOR

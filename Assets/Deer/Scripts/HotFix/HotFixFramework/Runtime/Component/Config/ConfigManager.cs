@@ -127,6 +127,10 @@ namespace Deer
                     Logger.Error("filepath:" + filePath + " not exists");
                     return null;
                 }
+                filePath = $"file://{filePath}";
+                /*#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+                                filePath = $"file://{filePath}";
+                #endif*/
             }
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
             await unityWebRequest.SendWebRequest();

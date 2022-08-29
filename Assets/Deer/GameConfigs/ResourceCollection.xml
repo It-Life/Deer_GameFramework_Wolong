@@ -30,6 +30,7 @@
     </Resources>
     <Assets>
       <Asset Guid="022e3a7a56dcd374b99c91524e195749" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
+      <Asset Guid="05b08e9732e06594da416c470e5562a5" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="0883fae378205e048ae9226b551c1848" ResourceName="AssetsHotfix/EntityPrefabs/Character" />
       <Asset Guid="0c210c5b35c48d4408b1fdf6cd3f3061" ResourceName="AssetsNative/Font/zh-cn_Commonly_used" />
       <Asset Guid="102e820a7b9321d42b127d3104a7ca5a" ResourceName="AssetsHotfix/UI/UIForms/UILoading/UILoadingForm" />

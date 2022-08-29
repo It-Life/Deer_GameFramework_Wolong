@@ -49,7 +49,7 @@ public static class WolongHotfixData
             "Google.Protobuf.dll",
             // "MongoDB.Bson.dll",
             // "DOTween.Modules.dll",
-            // "UniTask.dll",
+            "UniTask.dll",
         };
 
     /// <summary>

@@ -34,3 +34,6 @@ MonoBehaviour:
   - Enabled: 0
     Title: "\u4EFB\u52A1\u6807\u9898"
     Description: "\u63CF\u8FF0"
+  - Enabled: 1
+    Title: "\u81EA\u52A8\u904D\u5386Link"
+    Description: "\u63CF\u8FF0"
