@@ -46,7 +46,7 @@ public static class BuildEventHandlerWolong
         {
             if (IsPlatformSelected(platforms,item.Key))
             {
-                HybridCLR.CompileDllHelper.CompileDll(item.Value);
+                HybridCLR.Editor.CompileDllHelper.CompileDll(item.Value);
                 CopyDllBuildFiles(item.Value);
             }
         }
@@ -65,30 +65,30 @@ public static class BuildEventHandlerWolong
 
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
-        FolderUtils.ClearFolder(WolongHotfixData.AssemblyTextAssetFullPath);
-        foreach (var dll in WolongHotfixData.AllHotUpdateDllNames)
+        FolderUtils.ClearFolder(HybridCLRConfig_Custom.AssemblyTextAssetFullPath);
+        foreach (var dll in HybridCLRConfig_Custom.HotUpdateAssemblies)
         {
-            string dllPath = $"{HybridCLR.BuildConfig.GetHotFixDllsOutputDirByTarget(buildTarget)}/{dll}";
-            string dllBytesPath = $"{WolongHotfixData.AssemblyTextAssetFullPath}/{dll}{WolongHotfixData.AssemblyTextAssetExtension}";
-            if (!Directory.Exists(WolongHotfixData.AssemblyTextAssetFullPath))
+            string dllPath = $"{HybridCLR.Editor.BuildConfig.GetHotFixDllsOutputDirByTarget(buildTarget)}/{dll}";
+            string dllBytesPath = $"{HybridCLRConfig_Custom.AssemblyTextAssetFullPath}/{dll}{HybridCLRConfig_Custom.AssemblyTextAssetExtension}";
+            if (!Directory.Exists(HybridCLRConfig_Custom.AssemblyTextAssetFullPath))
             {
-                Directory.CreateDirectory(WolongHotfixData.AssemblyTextAssetFullPath);
+                Directory.CreateDirectory(HybridCLRConfig_Custom.AssemblyTextAssetFullPath);
             }
             File.Copy(dllPath, dllBytesPath, true);
         }
 
-        foreach (var dll in WolongHotfixData.AOTMetaDlls)
+        foreach (var dll in HybridCLRConfig_Custom.AOTMetaAssemblies)
         {
-            string dllPath = $"{HybridCLR.BuildConfig.GetAssembliesPostIl2CppStripDir(buildTarget)}/{dll}";
+            string dllPath = $"{HybridCLR.Editor.BuildConfig.GetAssembliesPostIl2CppStripDir(buildTarget)}/{dll}";
             if (!File.Exists(dllPath))
             {
                 Debug.LogError($"ab中添加AOT补充元数据dll:{dllPath} 时发生错误,文件不存在。裁剪后的AOT dll在BuildPlayer时才能生成，因此需要你先构建一次游戏App后再打包。");
                 continue;
             }
-            string dllBytesPath = $"{WolongHotfixData.AssemblyTextAssetFullPath}/{dll}{WolongHotfixData.AssemblyTextAssetExtension}";
-            if (!Directory.Exists(WolongHotfixData.AssemblyTextAssetFullPath))
+            string dllBytesPath = $"{HybridCLRConfig_Custom.AssemblyTextAssetFullPath}/{dll}{HybridCLRConfig_Custom.AssemblyTextAssetExtension}";
+            if (!Directory.Exists(HybridCLRConfig_Custom.AssemblyTextAssetFullPath))
             {
-                Directory.CreateDirectory(WolongHotfixData.AssemblyTextAssetFullPath);
+                Directory.CreateDirectory(HybridCLRConfig_Custom.AssemblyTextAssetFullPath);
             }
             File.Copy(dllPath, dllBytesPath, true);
         }

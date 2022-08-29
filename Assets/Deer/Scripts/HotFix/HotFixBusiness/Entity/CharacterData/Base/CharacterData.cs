@@ -14,7 +14,7 @@ namespace HotfixBusiness.Entity
     public class CharacterData : EntityData
     {
         public float ConstantSpeed { get; set; } = 0;
-        public bool UnUseGravity { get; set; } = false;
+        public bool UnUseGravity { get; set; } = true;
         public float WalkSpeed { get; set; } = 2;
         public float RunSpeed { get; set; } = 4;
         public float BackMoveSpeed { get; set; } = 3;

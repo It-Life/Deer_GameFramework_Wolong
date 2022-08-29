@@ -6,6 +6,7 @@
 //修改时间 : 2021-08-28 13-57-10  
 //版 本 : 0.1 
 // ===============================================
+using Cinemachine;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -40,65 +41,63 @@ public partial class CameraComponent : GameFrameworkComponent
         m_MainCamera = transform.Find("MainCamera").GetComponent<Camera>();
         OnFreeLookAwark();
         OnUICameraAwark();
-        //CinemachineCore.GetInputAxis = GetAxisCustom;
+        CinemachineCore.GetInputAxis = GetAxisCustom;
     }
-    /*    /// <summary>
 
-
-        public float GetAxisCustom(string axisName)
+    public float GetAxisCustom(string axisName)
+    {
+        if (axisName == "Mouse X")
         {
-            if (axisName == "Mouse X")
+            if (Input.GetMouseButton(0))
             {
-                if (Input.GetMouseButton(0))
-                {
-                    return Input.GetAxis("Mouse X");
-                }
-                else
-                {
-                    return 0;
-                }
+                return Input.GetAxis("Mouse X");
             }
-            else if (axisName == "Mouse Y")
+            else
             {
-                if (Input.GetMouseButton(0))
-                {
-                    return Input.GetAxis("Mouse Y");
-                }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
-            return 0;
         }
+        else if (axisName == "Mouse Y")
+        {
+            if (Input.GetMouseButton(0))
+            {
+                return Input.GetAxis("Mouse Y");
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        return 0;
+    }
 
 
-        #region 小地图相机管理
-        /// <summary>
-        /// 设置小地图跟随主角
-        /// </summary>
-        /// <param name="transform"></param>
-        public void SetMiniMapFollowTarget(Transform transform) 
-        {
-            m_MiniMapFollowTarget = transform;
-            m_FollowMiniMapCamera.transform.position = transform.position + new Vector3(0,10,0);
-            m_FollowMiniMapCamera.transform.LookAt(transform);
-            m_OffsetPosition = m_FollowMiniMapCamera.transform.position - transform.position;
-        }
-        /// <summary>
-        /// 小地图变焦放大
-        /// </summary>
-        public void MiniMapZoomIn()
-        {
-            m_FollowMiniMapCamera.fieldOfView += 40;
-        }
-        /// <summary>
-        /// 小地图变焦缩小
-        /// </summary>
-        public void MiniMapZoomOut()
-        {
-            m_FollowMiniMapCamera.fieldOfView -= 40;
-        }
-        #endregion
-    */
+/*    #region 小地图相机管理
+    /// <summary>
+    /// 设置小地图跟随主角
+    /// </summary>
+    /// <param name="transform"></param>
+    public void SetMiniMapFollowTarget(Transform transform)
+    {
+        m_MiniMapFollowTarget = transform;
+        m_FollowMiniMapCamera.transform.position = transform.position + new Vector3(0, 10, 0);
+        m_FollowMiniMapCamera.transform.LookAt(transform);
+        m_OffsetPosition = m_FollowMiniMapCamera.transform.position - transform.position;
+    }
+    /// <summary>
+    /// 小地图变焦放大
+    /// </summary>
+    public void MiniMapZoomIn()
+    {
+        m_FollowMiniMapCamera.fieldOfView += 40;
+    }
+    /// <summary>
+    /// 小地图变焦缩小
+    /// </summary>
+    public void MiniMapZoomOut()
+    {
+        m_FollowMiniMapCamera.fieldOfView -= 40;
+    }
+    #endregion*/
+
 }

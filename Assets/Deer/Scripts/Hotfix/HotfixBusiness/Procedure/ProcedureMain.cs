@@ -22,7 +22,7 @@ namespace HotfixBusiness.Procedure
             base.OnEnter(procedureOwner);
             //ChangeState<ProcedureBattle>(procedureOwner);
             CharacterPlayerData characterData = new CharacterPlayerData(GameEntry.Entity.GenEntityId(),1, "Character/Character");
-            characterData.Position = new Vector3(142,1,68);
+            characterData.Position = new Vector3(142,2,68);
             characterData.IsOwner = true;
             GameEntry.Entity.ShowEntity(typeof(CharacterPlayer),"Character",1,characterData);
         }

@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 using Debug = UnityEngine.Debug;
+using HybridCLR.Editor;
 
 namespace HybridCLR
 {
