@@ -122,7 +122,7 @@ namespace HybridCLR.Editor.BuildProcessors
                 binFile.LoadFromFile(binPath);
 
                 ScriptsData scriptsData = binFile.scriptsData;
-                foreach (string name in BuildConfig.HotUpdateAssemblies)
+                foreach (string name in HybridCLRConfig_Custom.HotUpdateAssemblies)
                 {
                     if (!scriptsData.dllNames.Contains(name))
                     {
