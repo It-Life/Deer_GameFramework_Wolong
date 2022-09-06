@@ -11,7 +11,7 @@ namespace HybridCLR.Editor
 {
     public static partial class BuildConfig
     {
-#if !UNITY_IOS
+#if !UNITY_2020_1_OR_NEWER || !UNITY_IOS
         [InitializeOnLoadMethod]
         private static void Setup()
         {
@@ -39,6 +39,8 @@ namespace HybridCLR.Editor
         public static string ProjectDir => Directory.GetParent(Application.dataPath).ToString();
 
         public static string ScriptingAssembliesJsonFile { get; } = "ScriptingAssemblies.json";
+		
+        public static string GlobalgamemanagersBinFile { get; } = "globalgamemanagers";
 
         public static string HybridCLRBuildCacheDir => Application.dataPath + "/HybridCLRBuildCache";
 
