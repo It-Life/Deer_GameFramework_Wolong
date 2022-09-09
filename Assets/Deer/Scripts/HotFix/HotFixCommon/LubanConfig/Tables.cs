@@ -6,7 +6,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using Bright.Serialization;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 
 namespace cfg
@@ -23,7 +23,7 @@ public sealed class Tables
 
     public Tables() { }
     
-    public async Task LoadAsync(System.Func<string, Task<ByteBuf>> loader)
+    public async UniTask LoadAsync(System.Func<string, UniTask<ByteBuf>> loader)
     {
         var tables = new System.Collections.Generic.Dictionary<string, object>();
         TbGlobalConfig = new Common.TbGlobalConfig(await loader("common_tbglobalconfig")); 

@@ -11,14 +11,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
 using Bright.Serialization;
 using cfg;
+using Cysharp.Threading.Tasks;
 using GameFramework;
 using GameFramework.Event;
-using GameFramework.Resource;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityGameFramework.Runtime;
@@ -97,7 +96,7 @@ namespace Deer
         }
 
         #region 读表逻辑
-        public async Task<Tables> LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
+        public async UniTask<Tables> LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
         {
             Tables tables = new Tables();
             await tables.LoadAsync(file => ConfigLoader(file));
@@ -105,7 +104,7 @@ namespace Deer
             return tables;
         }
 
-        private static async Task<ByteBuf> ConfigLoader(string file)
+        private static async UniTask<ByteBuf> ConfigLoader(string file)
         {
             string filePath = string.Empty;
             if (GameEntryMain.Base.EditorResourceMode)
