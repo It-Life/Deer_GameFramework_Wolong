@@ -6,6 +6,7 @@
 //修改时间:2022-06-07 23-38-12
 //版 本:0.1 
 // ===============================================
+using HybridCLR.Editor;
 using Main.Runtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,11 @@ using UnityGameFramework.Runtime;
 /// </summary>
 public static class BuildEventHandlerWolong
 {
+
+    public static string AssemblyTextAssetPath 
+    {
+        get { return Path.Combine(Application.dataPath, DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath); }    
+    }
     /// <summary>
     /// Convert UGF platform to Unity platform define
     /// </summary>
@@ -46,7 +52,7 @@ public static class BuildEventHandlerWolong
         {
             if (IsPlatformSelected(platforms,item.Key))
             {
-                HybridCLR.Editor.CompileDllHelper.CompileDll(item.Value);
+                HybridCLR.Editor.CompileDllCommand.CompileDll(item.Value);
                 CopyDllBuildFiles(item.Value);
             }
         }
@@ -65,33 +71,34 @@ public static class BuildEventHandlerWolong
 
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
-        FolderUtils.ClearFolder(HybridCLRConfig_Custom.AssemblyTextAssetFullPath);
-        foreach (var dll in HybridCLRConfig_Custom.HotUpdateAssemblies)
+        FolderUtils.ClearFolder(AssemblyTextAssetPath);
+        foreach (var dll in SettingsUtil.HotUpdateAssemblies)
         {
-            string dllPath = $"{HybridCLR.Editor.BuildConfig.GetHotFixDllsOutputDirByTarget(buildTarget)}/{dll}";
-            string dllBytesPath = $"{HybridCLRConfig_Custom.AssemblyTextAssetFullPath}/{dll}{HybridCLRConfig_Custom.AssemblyTextAssetExtension}";
-            if (!Directory.Exists(HybridCLRConfig_Custom.AssemblyTextAssetFullPath))
+            string dllPath = $"{SettingsUtil.GetHotFixDllsOutputDirByTarget(buildTarget)}/{dll}";
+            string dllBytesPath = $"{AssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
+            if (!Directory.Exists(AssemblyTextAssetPath))
             {
-                Directory.CreateDirectory(HybridCLRConfig_Custom.AssemblyTextAssetFullPath);
+                Directory.CreateDirectory(AssemblyTextAssetPath);
             }
             File.Copy(dllPath, dllBytesPath, true);
         }
-
-        foreach (var dll in HybridCLRConfig_Custom.AOTMetaAssemblies)
+        foreach (var dll in SettingsUtil.AOTMetaAssemblies)
         {
-            string dllPath = $"{HybridCLR.Editor.BuildConfig.GetAssembliesPostIl2CppStripDir(buildTarget)}/{dll}";
+            string dllPath = $"{SettingsUtil.GetAssembliesPostIl2CppStripDir(buildTarget)}/{dll}";
             if (!File.Exists(dllPath))
             {
                 Debug.LogError($"ab中添加AOT补充元数据dll:{dllPath} 时发生错误,文件不存在。裁剪后的AOT dll在BuildPlayer时才能生成，因此需要你先构建一次游戏App后再打包。");
                 continue;
             }
-            string dllBytesPath = $"{HybridCLRConfig_Custom.AssemblyTextAssetFullPath}/{dll}{HybridCLRConfig_Custom.AssemblyTextAssetExtension}";
-            if (!Directory.Exists(HybridCLRConfig_Custom.AssemblyTextAssetFullPath))
+            string dllBytesPath = $"{AssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
+            if (!Directory.Exists(AssemblyTextAssetPath))
             {
-                Directory.CreateDirectory(HybridCLRConfig_Custom.AssemblyTextAssetFullPath);
+                Directory.CreateDirectory(AssemblyTextAssetPath);
             }
             File.Copy(dllPath, dllBytesPath, true);
         }
+        DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblies);
+        DeerSettingsUtils.SetHybridCLRAOTMetaAssemblies(SettingsUtil.AOTMetaAssemblies);
         AddHotfixDllToResourceCollection();
         AssetDatabase.Refresh();
     }

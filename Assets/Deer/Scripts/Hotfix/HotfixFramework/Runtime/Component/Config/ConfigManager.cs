@@ -110,7 +110,7 @@ namespace Deer
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 //编辑器模式
-                filePath = $"{Application.dataPath}/../LubanTools/GenerateDatas/{ResourcesPathData.ConfigPathName}/{file}.bytes";
+                filePath = $"{Application.dataPath}/../LubanTools/GenerateDatas/{DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName}/{file}.bytes";
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
@@ -120,7 +120,7 @@ namespace Deer
             else
             {
                 //单机包模式和热更模式 读取沙盒目录
-                filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, ResourcesPathData.ConfigPathName, $"{file}.bytes");
+                filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName, $"{file}.bytes");
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
@@ -146,7 +146,7 @@ namespace Deer
         public void CheckConfigVersion(CheckConfigCompleteCallback configCompleteCallback)
         {
             m_CheckConfigCompleteCallback = configCompleteCallback;
-            string configXmlPath = Path.Combine(GameEntry.Resource.ReadWritePath, ResourcesPathData.ConfigVersionFile);
+            string configXmlPath = Path.Combine(GameEntry.Resource.ReadWritePath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName);
             byte[] configBytes = File.ReadAllBytes(configXmlPath);
             string xml = HotfixFramework.Runtime.FileUtils.BinToUtf8(configBytes);
             Analysisanalysis(xml, (f,t,c) => {
@@ -215,10 +215,10 @@ namespace Deer
 
         private IEnumerator IELoadOnlyReadPathConfigVersionFile(MoveConfigToReadWriteCallback moveConfigToReadWriteCallback) 
         {
-            UnityWebRequest webRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, ResourcesPathData.ConfigVersionFile));
+            UnityWebRequest webRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName));
             if (webRequest == null)
             {
-                Logger.Error($"load {ResourcesPathData.ConfigVersionFile} file error.");
+                Logger.Error($"load {DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName} file error.");
                 yield return null;
             }
             yield return webRequest.SendWebRequest();
@@ -240,7 +240,7 @@ namespace Deer
             int completeNum = 0;
             foreach (var config in m_Configs)
             {
-                filePath = Path.Combine(GameEntry.Resource.ReadWritePath, ResourcesPathData.ConfigPathName, config.Value.Name);
+                filePath = Path.Combine(GameEntry.Resource.ReadWritePath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName, config.Value.Name);
                 bool canMove = false;
                 if (File.Exists(filePath))
                 {
@@ -257,7 +257,7 @@ namespace Deer
                 }
                 if (canMove) 
                 {
-                    string fileOnlyReadPath = Path.Combine(Application.streamingAssetsPath, ResourcesPathData.ConfigPathName, config.Value.Name);
+                    string fileOnlyReadPath = Path.Combine(Application.streamingAssetsPath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName, config.Value.Name);
                     UnityWebRequest webRequest = UnityWebRequest.Get(fileOnlyReadPath);
                     if (webRequest == null)
                     {
@@ -346,7 +346,7 @@ namespace Deer
             foreach (var config in m_NeedUpdateConfigs)
             {
                 string downloadPath = Path.Combine(GameEntry.Resource.ReadWritePath + config.Value.Path);
-                string downloadUri = GameEntry.GameSettings.GetConfigDownLoadPath(config.Value.Path);
+                string downloadUri = DeerSettingsUtils.GetResDownLoadPath(config.Value.Path);
                 GameEntry.Download.AddDownload(downloadPath, downloadUri, config.Value);
             }
         }
@@ -400,7 +400,7 @@ namespace Deer
             {
                 configInfo.RetryCount++;
                 string downloadPath = Path.Combine(GameEntry.Resource.ReadWritePath + configInfo.Path);
-                string downloadUri = GameEntry.GameSettings.GetConfigDownLoadPath(configInfo.Path);
+                string downloadUri = DeerSettingsUtils.GetResDownLoadPath(configInfo.Path);
                 GameEntry.Download.AddDownload(downloadPath, downloadUri, configInfo);
             }
             else

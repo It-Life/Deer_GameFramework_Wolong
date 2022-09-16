@@ -15,11 +15,6 @@ using UnityGameFramework.Runtime;
 /// </summary>
 public partial class GameEntry
 {
-    /// <summary>
-    /// 获取游戏设置组件
-    /// </summary>
-    public static GameSettingsComponent GameSettings => _gameSettings ??= UnityGameFramework.Runtime.GameEntry.GetComponent<GameSettingsComponent>();
-    private static GameSettingsComponent _gameSettings;
 
     public static MessengerComponent Messenger => _messenger ??= UnityGameFramework.Runtime.GameEntry.GetComponent<MessengerComponent>();
     private static MessengerComponent _messenger;
@@ -96,11 +91,19 @@ public partial class GameEntry
     private static string m_EntranceProcedureTypeName = "HotfixBusiness.Procedure.ProcedurePreload";
     private static void ResetProcedure() 
     {
+#if UNITY_EDITOR
+        if (m_HotfixAssemblys.Count == 0)
+        {
+            Logger.Error("1.请检查GlobalSettings.asset 文件里的 HotfixAssemblies 集合字段，确保热更程序集已经收集完毕；\n" +
+                "2.检查DeerGlobalSettings.asset 文件里的 HotfixAssemblies 集合字段是否有内容，如果没有请生成一次AssetBundle");
+            return;
+        }
+#endif
         //卸载流程
         Fsm.DestroyFsm<GameFramework.Procedure.IProcedureManager>();
         GameFramework.Procedure.IProcedureManager procedureManager = GameFramework.GameFrameworkEntry.GetModule<GameFramework.Procedure.IProcedureManager>();
         //创建新的流程 HotfixFramework.Runtime
-        var m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), m_HotfixAssemblys);
+        string[] m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), m_HotfixAssemblys);
         ProcedureBase[] procedures = new ProcedureBase[m_ProcedureTypeNames.Length];
         for (int i = 0; i < m_ProcedureTypeNames.Length; i++)
         {

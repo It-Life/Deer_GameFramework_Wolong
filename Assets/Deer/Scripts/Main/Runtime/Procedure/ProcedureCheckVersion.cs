@@ -36,15 +36,10 @@ namespace Main.Runtime.Procedure
         private UpdateVersionListCallbacks m_UpdateVersionListCallbacks;
 
         private int m_UINativeLoadingFormserialid;
-        /// <summary>
-        /// 配置表文件名
-        /// </summary>
-        private const string m_ConfigVersionFileName = "ConfigVersion.xml";
 
         /// <summary>
         /// 资源版本文件名
         /// </summary>
-        private const string m_ResourceVersionFileName = "ResourceVersion.txt";
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -64,7 +59,7 @@ namespace Main.Runtime.Procedure
 
             m_UpdateConfigVersionFlag = false;
             m_UpdateResourceVersionFlag = false;
-            GameEntryMain.Resource.UpdatePrefixUri = "";//GameEntry.GameSettings.GetResourcesDownLoadPath();
+            GameEntryMain.Resource.UpdatePrefixUri = DeerSettingsUtils.GetResDownLoadPath();
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
             DownLoadConfigVersion();
@@ -96,8 +91,9 @@ namespace Main.Runtime.Procedure
         /// </summary>
         private void DownLoadConfigVersion()
         {
-            string downLoadPath = GameEntryMain.Resource.ReadWritePath + "/" + m_ConfigVersionFileName;
-            string downLoadUrl = "";//GameEntryMain.GameSettings.GetConfigDownLoadPath(m_ConfigVersionFileName);
+            string configVersionFileName = DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName;
+            string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, configVersionFileName);
+            string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(configVersionFileName);
             GameEntryMain.Download.AddDownload(downLoadPath, downLoadUrl, new CheckData() { CheckType = ResourcesType.Config });
         }
 
@@ -106,8 +102,9 @@ namespace Main.Runtime.Procedure
         /// </summary>
         private void DownLoadResourcesVersion()
         {
-            string downLoadPath = GameEntryMain.Resource.ReadWritePath + "/" + m_ResourceVersionFileName;
-            string downLoadUrl = "";//GameEntryMain.GameSettings.GetResourcesDownLoadPath() + "/" + m_ResourceVersionFileName;
+            string resourceVersionFileName = DeerSettingsUtils.FrameworkGlobalSettings.ResourceVersionFileName;
+            string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, resourceVersionFileName);
+            string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(resourceVersionFileName);
             if (Application.isEditor && GameEntryMain.Base.EditorResourceMode)
             {
                 m_LatestResourceComplete = true;

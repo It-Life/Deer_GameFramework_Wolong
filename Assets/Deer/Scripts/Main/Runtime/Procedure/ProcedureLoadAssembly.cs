@@ -43,7 +43,6 @@ namespace Main.Runtime.Procedure
         private bool m_LoadMetadataAssemblyWait;
         private Assembly m_MainLogicAssembly;
         private List<Assembly> m_HotfixAssemblys;
-        private bool m_RunMainFun;
         private int m_UINativeLoadingFormserialid;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -55,19 +54,19 @@ namespace Main.Runtime.Procedure
             {
                 foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
                 {
-                    if (string.Compare(HybridCLRConfig_Custom.LogicMainDllName, $"{asm.GetName().Name}.dll",
+                    if (string.Compare(DeerSettingsUtils.HybridCLRCustomGlobalSettings.LogicMainDllName, $"{asm.GetName().Name}.dll",
                             StringComparison.Ordinal) == 0)
                     {
                         m_MainLogicAssembly = asm;
                     }
-                    foreach (var hotUpdateDllName in HybridCLRConfig_Custom.HotUpdateAssemblies)
+                    foreach (var hotUpdateDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
                     {
                         if (hotUpdateDllName == $"{asm.GetName().Name}.dll")
                         {
                             m_HotfixAssemblys.Add(asm);
                         }
                     }
-                    if (m_MainLogicAssembly != null && m_HotfixAssemblys.Count == HybridCLRConfig_Custom.HotUpdateAssemblies.Count)
+                    if (m_MainLogicAssembly != null && m_HotfixAssemblys.Count == DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies.Count)
                     {
                         break;
                     }
@@ -76,9 +75,9 @@ namespace Main.Runtime.Procedure
             else
             {
                 m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);
-                foreach (var hotUpdateDllName in HybridCLRConfig_Custom.HotUpdateAssemblies)
+                foreach (var hotUpdateDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
                 {
-                    var assetPath = Utility.Path.GetRegularPath(Path.Combine(HybridCLRConfig_Custom.AssemblyTextAssetPath, $"{hotUpdateDllName}{HybridCLRConfig_Custom.AssemblyTextAssetExtension}"));
+                    var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, $"{hotUpdateDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
                     Log.Debug($"LoadAsset: [ {assetPath} ]");
                     m_LoadAssetCount++;
                     GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
@@ -125,7 +124,7 @@ namespace Main.Runtime.Procedure
             try
             {
                 var asm = Assembly.Load(textAsset.bytes);
-                if (string.Compare(HybridCLRConfig_Custom.LogicMainDllName, userData as string, StringComparison.Ordinal) == 0)
+                if (string.Compare(DeerSettingsUtils.HybridCLRCustomGlobalSettings.LogicMainDllName, userData as string, StringComparison.Ordinal) == 0)
                     m_MainLogicAssembly = asm;
 
                 m_HotfixAssemblys.Add(asm);
@@ -169,7 +168,6 @@ namespace Main.Runtime.Procedure
                 Log.Fatal("Main logic entry method 'Entrance' missing.");
                 return;
             }
-            m_RunMainFun = true;
             object[] objects = new object[] { new object[] { m_HotfixAssemblys } };
             entryMethod.Invoke(appType, objects);
         }
@@ -185,15 +183,15 @@ namespace Main.Runtime.Procedure
             /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
             /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
             /// 
-            if (HybridCLRConfig_Custom.AOTMetaAssemblies.Count == 0)
+            if (DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies.Count == 0)
             {
                 m_LoadMetadataAssemblyComplete = true;
                 return;
             }
             m_LoadMetadataAssetCallbacks ??= new LoadAssetCallbacks(LoadMetadataAssetSuccess, LoadMetadataAssetFailure);
-            foreach (var aotDllName in HybridCLRConfig_Custom.AOTMetaAssemblies)
+            foreach (var aotDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies)
             {
-                var assetPath = Utility.Path.GetRegularPath(Path.Combine(HybridCLRConfig_Custom.AssemblyTextAssetPath, $"{aotDllName}{HybridCLRConfig_Custom.AssemblyTextAssetExtension}"));
+                var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, $"{aotDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
                 Log.Debug($"LoadMetadataAsset: [ {assetPath} ]");
                 m_LoadMetadataAssetCount++;
                 GameEntryMain.Resource.LoadAsset(assetPath, m_LoadMetadataAssetCallbacks, aotDllName);
@@ -217,7 +215,7 @@ namespace Main.Runtime.Procedure
                 fixed (byte* ptr = dllBytes)
                 {
                     // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
-                    LoadImageErrorCode err = (LoadImageErrorCode)HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly((IntPtr)ptr, dllBytes.Length); ;
+                    LoadImageErrorCode err = (LoadImageErrorCode)HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly((IntPtr)ptr, dllBytes.Length); 
                     Debug.Log($"LoadMetadataForAOTAssembly:{userData as string}. ret:{err}");
                 }
             }

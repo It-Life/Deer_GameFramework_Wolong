@@ -162,13 +162,13 @@ class CreateScriptAsset : EndNameEditAction
             System.DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"));
         //把#Author# 替换
         annotationStr = annotationStr.Replace("#Author#",
-            GameEditorConfig.author);
+            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
         //把#ChangeAuthor# 替换
         annotationStr = annotationStr.Replace("#ChangeAuthor#",
-            GameEditorConfig.author);
+            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
         //把#Version# 替换
         annotationStr = annotationStr.Replace("#Version#",
-            GameEditorConfig.version);
+            DeerSettingsUtils.FrameworkGlobalSettings.ScriptVersion);
         //把内容重新写入脚本
         bool encoderShouldEmitUTF8Identifier = false;
         bool throwOnInvalidBytes = false;

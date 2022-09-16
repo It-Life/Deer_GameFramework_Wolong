@@ -506,7 +506,7 @@ public class ComponentAutoBindToolInspector : Editor
         using (StreamWriter sw = new StreamWriter($"{codePath}/{className}.cs"))
         {
             sw.WriteLine("/* ================================================");
-            sw.WriteLine($" * Introduction：xxxx\n * Creator：xxxx\n * CreationTime：{DateTime.Now}\n * CreateVersion：{GameEditorConfig.version}");
+            sw.WriteLine($" * Introduction：xxxx\n * Creator：xxxx\n * CreationTime：{DateTime.Now}\n * CreateVersion：{DeerSettingsUtils.FrameworkGlobalSettings.ScriptVersion}");
             sw.WriteLine("================================================ */");
 
             sw.WriteLine("using System.Collections;");

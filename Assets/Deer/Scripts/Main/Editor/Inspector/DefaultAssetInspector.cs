@@ -7,14 +7,17 @@
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System;
 
-[CanEditMultipleObjects, CustomEditor(typeof(DefaultAsset))]
+
+[CanEditMultipleObjects, CustomEditor(typeof(DefaultAsset),false)]
 public class DefaultAssetInspector : Editor
 {
     private GUIStyle m_TextStyle;
 
     public override void OnInspectorGUI()
     {
+        base.OnInspectorGUI();
         if (this.m_TextStyle == null)
         {
             this.m_TextStyle = "ScriptText";
