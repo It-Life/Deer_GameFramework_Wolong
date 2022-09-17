@@ -8,6 +8,7 @@
 // ===============================================
 using GameFramework;
 using GameFramework.Event;
+using Main.Runtime.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,9 +68,15 @@ namespace Main.Runtime.Procedure
 
             if (Application.isEditor)
             {
-                //PlayerPrefs.SetInt(PrefsKey.FIRST_MOVE_READWRITE_PATH, 1);
+                if (!DeerSettingsUtils.FrameworkGlobalSettings.ReadLocalConfigInEditor)
+                {
+                    GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
+                }
             }
-            //GameEntryMain.Config.CheckConfigVersion(OnCheckConfigComplete);
+            else 
+            {
+                GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
+            }
             if (Application.isEditor && GameEntryMain.Base.EditorResourceMode)
             {
                 m_NeedUpdateResources = false;
@@ -81,6 +88,7 @@ namespace Main.Runtime.Procedure
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
+            base.OnLeave(procedureOwner, isShutdown);
             GameEntryMain.Event.Unsubscribe(ResourceUpdateStartEventArgs.EventId, OnResourceUpdateStart);
             GameEntryMain.Event.Unsubscribe(ResourceUpdateChangedEventArgs.EventId, OnResourceUpdateChanged);
             GameEntryMain.Event.Unsubscribe(ResourceUpdateSuccessEventArgs.EventId, OnResourceUpdateSuccess);
@@ -89,7 +97,6 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
             //GameEntryMain.Messenger.UnRegisterEvent(EventName.EVENT_CS_UI_TIPS_CALLBACK, NoticeTipsUpdate);
-            base.OnLeave(procedureOwner, isShutdown);
         }
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -122,6 +129,7 @@ namespace Main.Runtime.Procedure
             m_NeedUpdateResources = updateCount > 0;
             m_UpdateResourceCount = updateCount;
             m_UpdateTotalZipLength += updateTotalZipLength;
+            GameEntryMain.UI.OpenUIForm(Main.Runtime.AssetUtility.UI.GetUIFormAsset("UINativeLoadingForm"), "Default", this);
         }
 
         private void OnNoticeUpdate()
@@ -131,30 +139,17 @@ namespace Main.Runtime.Procedure
             {
                 string conetnt = Utility.Text.Format("有{0}更新", FileUtils.GetLengthString(m_UpdateTotalZipLength));
                 UnityGameFramework.Runtime.Log.Info(conetnt);
-                MessengerInfo messengerInfo = new MessengerInfo();
-                messengerInfo.param1 = true;
-                messengerInfo.param2 = Utility.Text.Format("客官,有{0}更新，请立马更新！", FileUtils.GetLengthString(m_UpdateTotalZipLength));
-                //GameEntryMain.Messenger.SendEvent(EventName.EVENT_CS_UI_OPEN_TIPS_UI, messengerInfo);
+                NativeMessageBoxOption nativeMessageBoxOption = new NativeMessageBoxOption();
+                nativeMessageBoxOption.title = "提示";
+                nativeMessageBoxOption.message = Utility.Text.Format("客官,有{0}更新，请立马更新！", FileUtils.GetLengthString(m_UpdateTotalZipLength));
+                nativeMessageBoxOption.onSure = () => { StartUpdate(); };
+                nativeMessageBoxOption.onCancel = () => { Application.Quit(); };
+                GameEntryMain.UI.OpenUIForm(AssetUtility.UI.GetUIFormAsset("UINativeMessageBoxForm"), "Default", nativeMessageBoxOption);
             }
             else
             {
                 StartUpdate();
             }
-        }
-
-        private object NoticeTipsUpdate(object pSender)
-        {
-            MessengerInfo messengerInfo = (MessengerInfo)pSender;
-            bool bIsOk = bool.Parse(messengerInfo.param1.ToString());
-            if (bIsOk)
-            {
-                StartUpdate();
-            }
-            else
-            {
-                Application.Quit();
-            }
-            return null;
         }
 
         private void StartUpdate()
@@ -181,7 +176,7 @@ namespace Main.Runtime.Procedure
         private void StartUpdateConfigs(object userData)
         {
             Log.Info("Start update config ");
-            //GameEntry.Config.UpdateConfigs(OnUpdateConfigsComplete);
+            GameEntryMain.Instance.UpdateConfigs(OnUpdateConfigsComplete);
         }
 
         private void StartUpdateResources(object userData)
@@ -310,31 +305,31 @@ namespace Main.Runtime.Procedure
         private void OnDownloadStart(object sender, GameEventArgs e)
         {
             DownloadStartEventArgs ne = (DownloadStartEventArgs)e;
-/*            if (!(ne.UserData is ConfigInfo configInfo))
+            if (!(ne.UserData is ConfigInfo configInfo))
             {
                 return;
             }
             OnUpdateCompleteOne(configInfo.Name, 0, UpdateStateType.Start);
-            m_UpdateInfoDatas.Add(new UpdateInfoData(configInfo.Name));*/
+            m_UpdateInfoDatas.Add(new UpdateInfoData(configInfo.Name));
         }
         private void OnDownloadSuccess(object sender, GameEventArgs e)
         {
             DownloadSuccessEventArgs ne = (DownloadSuccessEventArgs)e;
-/*            if (!(ne.UserData is ConfigInfo configInfo))
+            if (!(ne.UserData is ConfigInfo configInfo))
             {
                 return;
             }
-            int size = configInfo.Size.ToInt();
-            OnUpdateCompleteOne(configInfo.Name, (size > 0 ? size : 1) * 1024, UpdateStateType.Success);*/
+            int size = int.Parse(configInfo.Size);
+            OnUpdateCompleteOne(configInfo.Name, (size > 0 ? size : 1) * 1024, UpdateStateType.Success);
         }
         private void OnDownloadFailure(object sender, GameEventArgs e)
         {
             DownloadFailureEventArgs ne = (DownloadFailureEventArgs)e;
-/*            if (!(ne.UserData is ConfigInfo configInfo))
+            if (!(ne.UserData is ConfigInfo configInfo))
             {
                 return;
             }
-            OnUpdateCompleteOne(configInfo.Name, 0, UpdateStateType.Failure);*/
+            OnUpdateCompleteOne(configInfo.Name, 0, UpdateStateType.Failure);
         }
         private class UpdateInfoData
         {

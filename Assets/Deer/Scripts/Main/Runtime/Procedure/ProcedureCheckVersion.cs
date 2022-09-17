@@ -9,6 +9,7 @@
 using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
+using Main.Runtime.UI;
 using System.IO;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -49,7 +50,6 @@ namespace Main.Runtime.Procedure
                 Log.Info("The device is not connected to the network");
                 return;
             }
-            m_UINativeLoadingFormserialid = GameEntryMain.UI.OpenUIForm(Main.Runtime.AssetUtility.UI.GetUIFormAsset("UINativeLoadingForm"), "Default",this);
             m_UpdateVersionListCallbacks = new UpdateVersionListCallbacks(OnUpdateResourcesVersionListSuccess, OnUpdateResourcesVersionListFailure);
             m_CurrDownLoadResourceVersionCount = 0;
             m_CurrDownLoadConfigVersionCount = 0;
@@ -78,10 +78,6 @@ namespace Main.Runtime.Procedure
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            if (m_UINativeLoadingFormserialid != 0)
-            {
-                GameEntryMain.UI.CloseUIForm(m_UINativeLoadingFormserialid);
-            }
             GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
         }

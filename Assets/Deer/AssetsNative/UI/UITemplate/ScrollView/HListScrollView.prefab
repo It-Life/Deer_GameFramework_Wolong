@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 1354454144669251607}
   - component: {fileID: 6276702730719544152}
   m_Layer: 5
-  m_Name: HListScroll View
+  m_Name: HListScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -19,8 +19,7 @@ public class BuildEventHandler : IBuildEventHandler
 {
     public bool ContinueOnFailure => false;
 
-    private string CommitResourcesPath = Application.dataPath + $"/../CommitResources/{DeerSettingsUtils.FrameworkGlobalSettings.ResAdminType}_{DeerSettingsUtils.FrameworkGlobalSettings.ResAdminCode}/";
-    private bool IsCleanCommitPathConfig = false;
+    private string CommitResourcesPath = Application.dataPath + $"/../CommitResources/{DeerSettingsUtils.ResourcesArea.ResAdminType}_{DeerSettingsUtils.ResourcesArea.ResAdminCode}/";
     private List<string> StreamingAssetsPaths = new List<string>()
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix")),
@@ -210,31 +209,32 @@ public class BuildEventHandler : IBuildEventHandler
             string versionInfoJson = JsonUtility.ToJson(m_VersionInfo);
             Main.Runtime.FileUtils.CreateFile(Path.Combine(outputFullPath,DeerSettingsUtils.FrameworkGlobalSettings.ResourceVersionFileName),versionInfoJson);
             string commitPath = CommitResourcesPath + "/" + platform;
-
-            if (IsCleanCommitPathConfig)
+            if (!Directory.Exists(commitPath))
+            {
+                Directory.CreateDirectory(commitPath);
+            }
+            if (DeerSettingsUtils.ResourcesArea.CleanCommitPathRes)
             {
                 FolderUtils.ClearFolder(commitPath);
             }
-            else 
-            {
-                List<string> commitAssetsPaths = new List<string>()
+            List<string> commitAssetsPaths = new List<string>()
                 {
                     Utility.Path.GetRegularPath(Path.Combine(commitPath, "AssetsHotfix")),
                     Utility.Path.GetRegularPath(Path.Combine(commitPath, "AssetsNative")),
                 };
-                foreach (var item in commitAssetsPaths)
+            foreach (var item in commitAssetsPaths)
+            {
+                FolderUtils.ClearFolder(item);
+            }
+            List<string> files = new List<string>(Directory.GetFiles(commitPath));
+            foreach (var file in files)
+            {
+                if (file.Contains("GameFrameworkVersion"))
                 {
-                    FolderUtils.ClearFolder(item);
-                }
-                List<string> files = new List<string>(Directory.GetFiles(commitPath));
-                foreach (var file in files)
-                {
-                    if (file.Contains("GameFrameworkVersion"))
+                    if (File.Exists(file))
                     {
-                        if (File.Exists(file))
-                        {
-                            File.Delete(file);
-                        }
+                        File.Delete(file);
+                        break;
                     }
                 }
             }

@@ -8,9 +8,5 @@
 // ===============================================
 namespace Deer
 {
-    /// <summary>
-    /// 使用可更新模式并更新Config完成时的回调函数。
-    /// </summary>
-    /// <param name="result">更新资源结果，全部成功为 true，否则为 false。</param>
-    public delegate void UpdateConfigCompleteCallback(bool result);
+
 }

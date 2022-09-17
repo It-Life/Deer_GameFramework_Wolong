@@ -1,13 +1,18 @@
-﻿using System;
+﻿using GameFramework;
+using GameFramework.Event;
+using Main.Runtime;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityGameFramework.Runtime;
 /// <summary>
 /// 游戏入口。
 /// </summary>
-public class GameEntryMain : MonoBehaviour
+public class GameEntryMain : SingletonMono<GameEntryMain>
 {
     /// <summary>
     /// 获取游戏基础组件。
@@ -142,4 +147,199 @@ public class GameEntryMain : MonoBehaviour
     public static MessengerComponent Messenger => _messenger ??= GameEntry.GetComponent<MessengerComponent>();
     private static MessengerComponent _messenger;
 
+    private void Start()
+    {
+        Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
+        Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
+    }
+
+    #region 表资源更新逻辑
+    /// <summary>
+    /// 使用可更新模式并检查资源Config完成时的回调函数。
+    /// </summary>
+    /// <param name="removedCount">已移除的资源数量。</param>
+    /// <param name="updateCount">可更新的资源数量。</param>
+    /// <param name="updateTotalLength">可更新的资源总大小。</param>
+    public delegate void CheckConfigCompleteCallback(int movedCount, int removedCount, int updateCount, long updateTotalLength);
+    /// <summary>
+    /// 使用可更新模式并更新Config完成时的回调函数。
+    /// </summary>
+    /// <param name="result">更新资源结果，全部成功为 true，否则为 false。</param>
+    public delegate void UpdateConfigCompleteCallback(bool result);
+
+    private CheckConfigCompleteCallback m_CheckConfigCompleteCallback;
+    private UpdateConfigCompleteCallback m_UpdateConfigCompleteCallback;
+
+    private bool m_FailureFlag = false;
+    private int m_UpdateRetryCount;
+
+    /// <summary>
+    /// 获取或者设置配置表重试次数
+    /// </summary>
+    public int UpdateRetryCount
+    {
+        get
+        {
+            return m_UpdateRetryCount;
+        }
+        set
+        {
+            m_UpdateRetryCount = value;
+        }
+    }
+    /// <summary>
+    /// 全部配置表文件
+    /// </summary>
+    private Dictionary<string, ConfigInfo> m_Configs;
+
+    /// <summary>
+    /// 需要更新的配置文件列表
+    /// </summary>
+    private Dictionary<string, ConfigInfo> m_NeedUpdateConfigs = new Dictionary<string, ConfigInfo>();
+    /// <summary>
+    /// 检查表版本
+    /// </summary>
+    /// <param name="configCompleteCallback"></param>
+    /// <exception cref="GameFrameworkException"></exception>
+    public void CheckConfigVersion(CheckConfigCompleteCallback configCompleteCallback)
+    {
+        m_CheckConfigCompleteCallback = configCompleteCallback;
+        string configXmlPath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName);
+        byte[] configBytes = File.ReadAllBytes(configXmlPath);
+        string xml = FileUtils.BinToUtf8(configBytes);
+        m_Configs = FileUtils.AnalyConfigXml(xml);
+        if (m_Configs.Count > 0)
+        {
+            CheckNeedUpdateConfig();
+        }
+        else 
+        {
+            m_CheckConfigCompleteCallback?.Invoke(0, 0, 0, 0);
+        }
+    }
+
+    /// <summary>
+    /// 检查需要更新的配置表文件
+    /// </summary>
+    private void CheckNeedUpdateConfig()
+    {
+        m_NeedUpdateConfigs.Clear();
+        string filePath = string.Empty;
+        string curMD5 = string.Empty;
+        foreach (KeyValuePair<string, ConfigInfo> config in m_Configs)
+        {
+            filePath = Path.Combine(Resource.ReadWritePath + config.Key);
+
+            if (File.Exists(filePath))
+            {
+                curMD5 = Main.Runtime.FileUtils.Md5ByPathName(filePath);
+                if (curMD5 != config.Value.MD5)
+                {
+                    if (!m_NeedUpdateConfigs.ContainsKey(config.Key))
+                    {
+                        m_NeedUpdateConfigs.Add(config.Key, config.Value);
+                    }
+                }
+            }
+            else
+            {
+                if (!m_NeedUpdateConfigs.ContainsKey(config.Key))
+                {
+                    m_NeedUpdateConfigs.Add(config.Key, config.Value);
+                }
+            }
+        }
+
+        long size = 0;
+        foreach (var config in m_NeedUpdateConfigs)
+        {
+            int addSize = int.Parse(config.Value.Size);
+            size += (addSize > 0 ? addSize : 1) * 1024;
+        }
+
+        m_CheckConfigCompleteCallback?.Invoke(0, 0, m_NeedUpdateConfigs.Count, size);
+    }
+    /// <summary>
+    /// 更新表资源
+    /// </summary>
+    /// <param name="updateConfigCompleteCallback"></param>
+    public void UpdateConfigs(UpdateConfigCompleteCallback updateConfigCompleteCallback)
+    {
+        m_UpdateConfigCompleteCallback = updateConfigCompleteCallback;
+        if (m_NeedUpdateConfigs.Count <= 0)
+        {
+            m_UpdateConfigCompleteCallback?.Invoke(true);
+            return;
+        }
+
+        foreach (var config in m_NeedUpdateConfigs)
+        {
+            string downloadPath = Path.Combine(Resource.ReadWritePath + config.Value.Path);
+            string downloadUri = DeerSettingsUtils.GetResDownLoadPath(config.Value.Path);
+            Download.AddDownload(downloadPath, downloadUri, config.Value);
+        }
+    }
+    /// <summary>
+    /// 更新成功事件
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OnDownloadSuccess(object sender, GameEventArgs e)
+    {
+        if (m_FailureFlag)
+        {
+            return;
+        }
+        DownloadSuccessEventArgs ne = (DownloadSuccessEventArgs)e;
+        if (!(ne.UserData is ConfigInfo configInfo))
+        {
+            return;
+        }
+        if (m_NeedUpdateConfigs.ContainsKey(configInfo.Path))
+        {
+            m_NeedUpdateConfigs.Remove(configInfo.Path);
+        }
+
+        if (m_NeedUpdateConfigs.Count <= 0)
+        {
+            m_UpdateConfigCompleteCallback?.Invoke(true);
+        }
+    }
+    /// <summary>
+    /// 更新失败事件
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OnDownloadFailure(object sender, GameEventArgs e)
+    {
+        if (m_FailureFlag)
+        {
+            return;
+        }
+        DownloadFailureEventArgs ne = (DownloadFailureEventArgs)e;
+        if (!(ne.UserData is ConfigInfo configInfo))
+        {
+            return;
+        }
+        if (File.Exists(ne.DownloadPath))
+        {
+            File.Delete(ne.DownloadPath);
+        }
+        if (configInfo.RetryCount < m_UpdateRetryCount)
+        {
+            configInfo.RetryCount++;
+            string downloadPath = Path.Combine(Resource.ReadWritePath + configInfo.Path);
+            string downloadUri = DeerSettingsUtils.GetResDownLoadPath(configInfo.Path);
+            Download.AddDownload(downloadPath, downloadUri, configInfo);
+        }
+        else
+        {
+            m_FailureFlag = true;
+            m_UpdateConfigCompleteCallback?.Invoke(false);
+            Log.Error("update config failure ！！ errormessage: {0}", ne.ErrorMessage);
+        }
+    }
+    #endregion
+
 }
+

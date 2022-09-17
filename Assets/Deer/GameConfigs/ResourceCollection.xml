@@ -12,30 +12,34 @@
       <Resource Name="AssetsHotfix/UI/UIForms/UIDialog/UIDialogForm" LoadType="0" Packed="False" />
       <Resource Name="AssetsHotfix/UI/UIForms/UILoading/UILoadingForm" LoadType="0" Packed="False" />
       <Resource Name="AssetsHotfix/UI/UIForms/UILogin/UILoginForm" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/Joystick/Joystick" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/Progress" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/ScrollView" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/UIButton" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/UIForm" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/UIInputField" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/UIModel" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/UISpriteAnimation" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/UI/UITemplate/UIToggle" LoadType="0" Packed="False" />
       <Resource Name="AssetsNative/Font/wryhSDF" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/Font/zh-cn_Commonly_used" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIArt/Atlas/jindut" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIArt/Atlas/jindut_di" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIArt/Texture/loading_bg" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIForms/UINativeLoading/UINativeLoadingForm" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/Joystick/Joystick" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/Progress" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/HGridScrollView" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/HListScrollView" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/ScrollVItemPrefab" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/VGridScrollView" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/VListScrollView" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIButton" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIForm" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIInputField" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIModel" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UISpriteAnimation" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIToggle" LoadType="0" Packed="True" />
     </Resources>
     <Assets>
-      <Asset Guid="022e3a7a56dcd374b99c91524e195749" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
+      <Asset Guid="022e3a7a56dcd374b99c91524e195749" ResourceName="AssetsNative/UI/UITemplate/ScrollView/VGridScrollView" />
       <Asset Guid="05b08e9732e06594da416c470e5562a5" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="0883fae378205e048ae9226b551c1848" ResourceName="AssetsHotfix/EntityPrefabs/Character" />
       <Asset Guid="0c210c5b35c48d4408b1fdf6cd3f3061" ResourceName="AssetsNative/Font/zh-cn_Commonly_used" />
       <Asset Guid="102e820a7b9321d42b127d3104a7ca5a" ResourceName="AssetsHotfix/UI/UIForms/UILoading/UILoadingForm" />
       <Asset Guid="17ec5b8f543c59345bc1257ec50c7228" ResourceName="AssetsHotfix/Scenes/Login" />
-      <Asset Guid="1933ea8013f08d644bac0beabf442d59" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
+      <Asset Guid="1933ea8013f08d644bac0beabf442d59" ResourceName="AssetsNative/UI/UITemplate/ScrollView/HListScrollView" />
       <Asset Guid="1a8a6ac861a929f4890ec128197888cf" ResourceName="AssetsNative/UI/UIArt/Atlas/jindut" />
       <Asset Guid="24f9961372fb6c2439df9fbc7f4c0f79" ResourceName="AssetsHotfix/Scenes/Main" />
       <Asset Guid="2d788261a4802cc4489eb4d5d0f3026a" ResourceName="AssetsHotfix/Assembly" />
@@ -47,28 +51,28 @@
       <Asset Guid="4fc8e0637becb184ab7e870fff766199" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="56c3b222b5f9329408e788cb5f734add" ResourceName="AssetsHotfix/UI/UIArt/Texture/loading_bg" />
       <Asset Guid="688b7c1c26ccd2a4bb857aadcce68ecb" ResourceName="AssetsNative/UI/UIArt/Atlas/jindut_di" />
-      <Asset Guid="6a059a129e1575d4fb9a6b8abce19c6e" ResourceName="AssetsHotfix/UI/UITemplate/UIButton" />
+      <Asset Guid="6a059a129e1575d4fb9a6b8abce19c6e" ResourceName="AssetsNative/UI/UITemplate/UIButton" />
       <Asset Guid="6cc01cb6d9e77604faec1cad51a34ae7" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="7128120a2b527eb46be1db4cdba62ff8" ResourceName="AssetsNative/UI/UIForms/UINativeLoading/UINativeLoadingForm" />
-      <Asset Guid="7247e1fea0760b54caa253020097fcdf" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
-      <Asset Guid="745e65d5ee916dd47944050290a22205" ResourceName="AssetsHotfix/UI/UITemplate/Joystick/Joystick" />
+      <Asset Guid="7247e1fea0760b54caa253020097fcdf" ResourceName="AssetsNative/UI/UITemplate/ScrollView/ScrollVItemPrefab" />
+      <Asset Guid="745e65d5ee916dd47944050290a22205" ResourceName="AssetsNative/UI/UITemplate/Joystick/Joystick" />
       <Asset Guid="76180d3566b36d242b5ab6008fdd4057" ResourceName="AssetsHotfix/Assembly" />
-      <Asset Guid="975d78522d5bdca42a5af541a724aef2" ResourceName="AssetsHotfix/UI/UITemplate/Progress" />
+      <Asset Guid="975d78522d5bdca42a5af541a724aef2" ResourceName="AssetsNative/UI/UITemplate/Progress" />
       <Asset Guid="9a032cd9acc6429478adbcb8e12d2c66" ResourceName="AssetsHotfix/Assembly" />
-      <Asset Guid="a493fd7876190a04b972bf7b3f90d962" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
+      <Asset Guid="a493fd7876190a04b972bf7b3f90d962" ResourceName="AssetsNative/UI/UITemplate/ScrollView/HGridScrollView" />
       <Asset Guid="a9bb0d5df7af0c840935b6ee51debd27" ResourceName="AssetsHotfix/UI/UIArt/Texture/login_bg" />
       <Asset Guid="be4550f60ef06a945901153a6cfa8a71" ResourceName="AssetsHotfix/Assembly" />
-      <Asset Guid="d021a4349078f974ca8eb3f903f1fbd6" ResourceName="AssetsHotfix/UI/UITemplate/UIToggle" />
-      <Asset Guid="d5ac5cc365a9d7f469a91f84c485f9f2" ResourceName="AssetsHotfix/UI/UITemplate/UIModel" />
+      <Asset Guid="d021a4349078f974ca8eb3f903f1fbd6" ResourceName="AssetsNative/UI/UITemplate/UIToggle" />
+      <Asset Guid="d5ac5cc365a9d7f469a91f84c485f9f2" ResourceName="AssetsNative/UI/UITemplate/UIModel" />
       <Asset Guid="d815e11ad9a2fb141bd05a3a594d052d" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="e41de5d16c3cfa04da3d39b8aebad451" ResourceName="AssetsHotfix/UI/UIForms/UIDialog/UIDialogForm" />
-      <Asset Guid="e827f6256d45d1a4c8936370bebe2973" ResourceName="AssetsHotfix/UI/UITemplate/UISpriteAnimation" />
+      <Asset Guid="e827f6256d45d1a4c8936370bebe2973" ResourceName="AssetsNative/UI/UITemplate/UISpriteAnimation" />
       <Asset Guid="e851deae30f19cf4e9ab04b1b4d7b1c8" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="eb8a17d9eeaf7634084b3e278e3ef4b0" ResourceName="AssetsHotfix/UI/UIForms/UILogin/UILoginForm" />
-      <Asset Guid="ec2ada8d5b3d0154a8edbefa51801e76" ResourceName="AssetsHotfix/UI/UITemplate/UIInputField" />
-      <Asset Guid="ee434b8e75f92804ca01e3be759e7c7f" ResourceName="AssetsHotfix/UI/UITemplate/UIForm" />
+      <Asset Guid="ec2ada8d5b3d0154a8edbefa51801e76" ResourceName="AssetsNative/UI/UITemplate/UIInputField" />
+      <Asset Guid="ee434b8e75f92804ca01e3be759e7c7f" ResourceName="AssetsNative/UI/UITemplate/UIForm" />
       <Asset Guid="f3ab0d53e9c425d4da9724fab4bfd7d9" ResourceName="AssetsHotfix/GF/Customs" />
-      <Asset Guid="f4fa68baee1efc34e801c1853c42e375" ResourceName="AssetsHotfix/UI/UITemplate/ScrollView" />
+      <Asset Guid="f4fa68baee1efc34e801c1853c42e375" ResourceName="AssetsNative/UI/UITemplate/ScrollView/VListScrollView" />
     </Assets>
   </ResourceCollection>
 </UnityGameFramework>

@@ -86,7 +86,7 @@ namespace Deer.Editor
         
         static GameObject SaveObject(MenuCommand menuCommand, string prefabName,string objName = "") 
         {
-            var path = Main.Runtime.FileUtils.GetPath($@"Assets\Deer\AssetsHotfix\UI\UITemplate\{ prefabName }.prefab");
+            var path = Main.Runtime.FileUtils.GetPath($@"Assets\Deer\AssetsNative\UI\UITemplate\{ prefabName }.prefab");
             GameObject prefab = (GameObject)AssetDatabase.LoadMainAssetAtPath(path);
             if (prefab)
             {
