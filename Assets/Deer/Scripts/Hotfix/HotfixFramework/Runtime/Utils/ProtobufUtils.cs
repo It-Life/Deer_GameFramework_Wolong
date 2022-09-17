@@ -5,10 +5,7 @@ using Google.Protobuf;
 
 public class ProtobufUtils 
 {
-    public static byte[] ToBytes(object message)
-    {
-        return ((IMessage) message).ToByteArray();
-    }
+
 		
     public static void ToStream(object message, MemoryStream stream)
     {
@@ -71,18 +68,9 @@ public class ProtobufUtils
     /// </summary>
     /// <param name="msg"></param>
     /// <returns></returns>
-    public static byte[] Serialize(IMessage msg)
+    public static byte[] Serialize(object message)
     {
-        using (MemoryStream rawOutput = new MemoryStream())
-        {
-            CodedOutputStream output = new CodedOutputStream(rawOutput);
-            //output.WriteRawVarint32((uint)len);
-            output.WriteMessage(msg);
-            output.Flush();
-            byte[] result = rawOutput.ToArray();
-
-            return result;
-        }
+        return ((IMessage)message).ToByteArray();
     }
     /// <summary>
     /// 反序列化protobuf
@@ -92,9 +80,7 @@ public class ProtobufUtils
     /// <returns></returns>
     public static T Deserialize<T>(byte[] dataBytes) where T : IMessage, new()
     {
-        //CodedInputStream stream = new CodedInputStream(dataBytes);
         T msg = new T();
-        //stream.ReadMessage(msg);
         msg = (T)msg.Descriptor.Parser.ParseFrom(dataBytes);
         return msg;
     }
