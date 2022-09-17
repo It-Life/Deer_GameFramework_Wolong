@@ -29,24 +29,7 @@ public class ConfigComponent : GameFrameworkComponent
     {
         Tables = await m_ConfigManager.LoadAllUserConfig(loadConfigCompleteCallback);
     }
-    /// <summary>
-    /// 检查配置表更新
-    /// </summary>
-    /// <param name="checkConfigComplete"></param>
-    public void CheckConfigVersion(CheckConfigCompleteCallback checkConfigComplete)
-    {
-        m_ConfigManager.CheckConfigVersion(checkConfigComplete);
-    }
 
-    public void UpdateConfigs(UpdateConfigCompleteCallback updateConfigCompleteCallback)
-    {
-        m_ConfigManager.UpdateConfigs(updateConfigCompleteCallback);
-    }
-
-    public void ReadConfigWithStreamingAssets(string filePath, Action<bool, byte[]> results) 
-    {
-        m_ConfigManager.ReadConfigWithStreamingAssets(filePath, results);
-    }
     public void MoveOnlyReadPathConfigVersionFile(MoveConfigToReadWriteCallback moveConfigToReadWriteCallback = null)
     {
         m_ConfigManager.AsynLoadOnlyReadPathConfigVersionFile(moveConfigToReadWriteCallback);

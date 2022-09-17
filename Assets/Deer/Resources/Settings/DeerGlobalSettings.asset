@@ -15,9 +15,36 @@ MonoBehaviour:
   m_FrameworkGlobalSettings:
     m_ScriptAuthor: AlanDu
     m_ScriptVersion: 0.1
+    m_AppStage: 1
+    m_ResourcesArea:
+      m_ResAdminType: Common
+      m_ResAdminCode: 999
+      m_ServerType: 2
+      m_InnerResourceSourceUrl: http://121.4.195.168:8088
+      m_ExtraResourceSourceUrl: http://121.4.195.168:8088
+      m_FormalResourceSourceUrl: http://121.4.195.168:8088
+    m_ResourceVersionFileName: ResourceVersion.txt
+    WindowsAppUrl: 
+    MacOSAppUrl: 
+    IOSAppUrl: 
+    AndroidAppUrl: 
+    m_ConfigVersionFileName: ConfigVersion.xml
+    m_ConfigFolderName: LubanConfig
   m_BybridCLRCustomGlobalSettings:
-    HotUpdateAssemblies: []
-    AOTMetaAssemblies: []
+    HotUpdateAssemblies:
+    - HotfixCommon.dll
+    - HotfixMain.dll
+    - HotfixFramework.Runtime.dll
+    - HotfixBusiness.dll
+    AOTMetaAssemblies:
+    - mscorlib.dll
+    - System.dll
+    - System.Core.dll
+    - Main.Runtime.dll
+    - Gameframework.dll
+    - UnityGameFramework.Runtime.dll
+    - Google.Protobuf.dll
+    - UniTask.dll
     LogicMainDllName: HotfixMain.dll
     AssemblyTextAssetExtension: .bytes
     AssemblyTextAssetPath: Deer/AssetsHotfix/Assembly

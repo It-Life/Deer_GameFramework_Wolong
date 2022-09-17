@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Xml;
 using GameFramework;
 using UnityEditor;
 using UnityEngine;
@@ -299,6 +300,69 @@ namespace Main.Runtime
             }
 
             return Utility.Text.Format("{0} EB", (byteLength / 1152921504606846976f).ToString("F2"));
+        }
+        public static string BinToUtf8(byte[] total)
+        {
+            byte[] result = total;
+            if (total[0] == 0xef && total[1] == 0xbb && total[2] == 0xbf)
+            {
+                // utf8文件的前三个字节为特殊占位符，要跳过
+                result = new byte[total.Length - 3];
+                System.Array.Copy(total, 3, result, 0, total.Length - 3);
+            }
+
+            string utf8string = System.Text.Encoding.UTF8.GetString(result);
+            return utf8string;
+        }
+        public static Dictionary<string, ConfigInfo> AnalyConfigXml(string xml)
+        {
+            Dictionary<string, ConfigInfo> _Configs = new Dictionary<string, ConfigInfo>();
+            XmlDocument doc = new XmlDocument();
+            try
+            {
+                doc.LoadXml(xml);
+            }
+            catch (Exception ex)
+            {
+                throw new GameFrameworkException(
+                    GameFramework.Utility.Text.Format("解析配置文件出错，请检查！！errormessage:'{0}'", ex.ToString()));
+            }
+
+            XmlElement configRoot = doc.DocumentElement;
+            XmlNode node = doc.SelectSingleNode("Root");
+            if (node == null)
+            {
+                Logger.Error("Root node is null");
+                return _Configs;
+            }
+            for (int i = 0; i < node.ChildNodes.Count; i++)
+            {
+                if (node.ChildNodes[i] is XmlElement elem && elem.Name.ToLower() == "fileversion")
+                {
+                    string fileName = elem.GetAttribute("name");
+                    string filePath = elem.GetAttribute("file");
+                    string fileMd5 = elem.GetAttribute("md5");
+                    string fileSize = elem.GetAttribute("size");
+                    ConfigInfo configInfo = new ConfigInfo()
+                    {
+                        Name = fileName,
+                        Path = filePath,
+                        MD5 = fileMd5,
+                        Size = fileSize,
+                    };
+
+                    if (!_Configs.ContainsKey(filePath))
+                    {
+                        _Configs.Add(filePath, configInfo);
+                    }
+                    else
+                    {
+                        Logger.Error("config filePath already exists:" + filePath);
+                    }
+                }
+            }
+            return _Configs;
+            //StartCoroutine(IEMoveConfigFileToReadWritePath(moveConfigToReadWriteCallback));
         }
     }
 }

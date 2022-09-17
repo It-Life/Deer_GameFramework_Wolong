@@ -35,6 +35,7 @@ public static class DeerSettingsUtils
         }
     }
 
+    public static ResourcesArea ResourcesArea { get { return DeerGlobalSettings.FrameworkGlobalSettings.ResourcesArea; } }
 
     public static void SetHybridCLRHotUpdateAssemblies(List<string> hotUpdateAssemblies) 
     {
@@ -66,23 +67,23 @@ public static class DeerSettingsUtils
 
     public static string GetResDownLoadPath(string fileName = "")
     {
-        return Path.Combine(CompleteDownLoadPath, FrameworkGlobalSettings.ResAdminType, GetPlatformName(), fileName);
+        return Path.Combine(CompleteDownLoadPath, $"{ResourcesArea.ResAdminType}_{ResourcesArea.ResAdminCode}", GetPlatformName(), fileName).Replace("\\","/");
     }
     public static string CompleteDownLoadPath
     {
         get
         {
             string url = "";
-            if (FrameworkGlobalSettings.ServerType == ServerTypeEnum.Extranet)
+            if (ResourcesArea.ServerType == ServerTypeEnum.Extranet)
             {
-                url = FrameworkGlobalSettings.ExtraResourceSourceUrl;
+                url = ResourcesArea.ExtraResourceSourceUrl;
             }
-            else if (FrameworkGlobalSettings.ServerType == ServerTypeEnum.Formal)
+            else if (ResourcesArea.ServerType == ServerTypeEnum.Formal)
             {
-                url = FrameworkGlobalSettings.FormalResourceSourceUrl;
+                url = ResourcesArea.FormalResourceSourceUrl;
             }
             {
-                url = FrameworkGlobalSettings.InnerResourceSourceUrl;
+                url = ResourcesArea.InnerResourceSourceUrl;
             }
             return url;
         }
