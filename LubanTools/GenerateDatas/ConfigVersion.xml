@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Root ClientVersion="1.0.0.0">
+<Root ClientVersion="1.0.0.1">
   <FileVersion name="common_tbglobalconfig.bytes" file="common_tbglobalconfig.bytes" md5="3a47fb9cb20f3270a83b7fee75c980a9" size="1" />
   <FileVersion name="deer_tblanguage_config.bytes" file="deer_tblanguage_config.bytes" md5="6b423c9255740e161d2fb6afe295380b" size="1" />
   <FileVersion name="deer_tbsounds_config.bytes" file="deer_tbsounds_config.bytes" md5="39392ad4843f5a22b73b127cc2ccefbe" size="1" />

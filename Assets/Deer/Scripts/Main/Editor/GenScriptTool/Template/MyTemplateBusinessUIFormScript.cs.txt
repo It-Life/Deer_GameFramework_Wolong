@@ -8,7 +8,7 @@ namespace HotfixBusiness.UI
     /// <summary>
     /// Please modify the description.
     /// </summary>
-    public partial class MyTemplateScript : UIFormLogic
+    public partial class MyTemplateScript : UIBaseForm
     {
         private void Awake()
         {

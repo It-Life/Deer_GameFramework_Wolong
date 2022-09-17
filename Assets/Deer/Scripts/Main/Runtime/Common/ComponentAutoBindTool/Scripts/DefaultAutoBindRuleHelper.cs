@@ -39,6 +39,11 @@ public class DefaultAutoBindRuleHelper : IAutoBindRuleHelper
         {"SRect","ScrollRect"},
         {"Drop","Dropdown"},
         {"USpriteAni","UGUISpriteAnimation"},
+        {"VGridV","LoopGridView"},
+        {"HGridV","LoopGridView"},
+        {"VListV","LoopListView2"},
+        {"HListV","LoopListView2"},
+
     };
 
     public bool IsValidBind( Transform target, List<string> filedNames, List<string> componentTypeNames)

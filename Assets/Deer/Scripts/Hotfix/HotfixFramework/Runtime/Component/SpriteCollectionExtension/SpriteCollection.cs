@@ -77,7 +77,7 @@ namespace UGFExtensions.SpriteCollection
         [FoldoutGroup("Create Atlas", true)]
         [PropertyOrder(1)]
         [OnValueChanged("AtlasFolderChanged")]
-        private string m_AtlasFolder = "Assets/Deer/Asset/UI/UIArt/Atlas";
+        private string m_AtlasFolder = "Assets/Deer/AssetsHotfix/UI/UIArt/Atlas";
 
         void AtlasFolderChanged()
         {

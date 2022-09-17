@@ -94,8 +94,7 @@ public partial class GameEntry
 #if UNITY_EDITOR
         if (m_HotfixAssemblys.Count == 0)
         {
-            Logger.Error("1.请检查GlobalSettings.asset 文件里的 HotfixAssemblies 集合字段，确保热更程序集已经收集完毕；\n" +
-                "2.检查DeerGlobalSettings.asset 文件里的 HotfixAssemblies 集合字段是否有内容，如果没有请生成一次AssetBundle");
+            Logger.Error("1.请检查GlobalSettings.asset 文件里的 HotfixAssemblies 集合字段，确保热更程序集已经收集完毕；");
             return;
         }
 #endif
