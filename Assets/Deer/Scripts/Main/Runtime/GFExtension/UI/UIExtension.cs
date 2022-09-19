@@ -23,7 +23,7 @@ namespace Main.Runtime
     {
         private static Transform m_InstanceRoot;
         private static IUIManager m_UIManager;
-        private static string m_UIGroupHelperTypeName = "Deer.DeerUIGroupHelper";
+        private static string m_UIGroupHelperTypeName = "Main.Runtime.DeerUIGroupHelper";
         private static UIGroupHelperBase m_CustomUIGroupHelper = null;
 
         public static bool AddUIGroup(this UIComponent uIComponent, string uiGroupName, int depth, bool isDefaultUIGroupHelper)

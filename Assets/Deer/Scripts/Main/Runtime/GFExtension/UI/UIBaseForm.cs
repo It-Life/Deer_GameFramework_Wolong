@@ -40,12 +40,12 @@ namespace Main.Runtime
             }
         }
 
-        public void Close()
+        public virtual void Close()
         {
             Close(false);
         }
 
-        public void Close(bool ignoreFade)
+        public virtual void Close(bool ignoreFade)
         {
             StopAllCoroutines();
 

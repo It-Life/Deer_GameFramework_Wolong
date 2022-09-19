@@ -7,6 +7,7 @@
 //版 本:0.1 
 // ===============================================
 using HotfixBusiness.Procedure;
+using HotfoxFramework.Runtime;
 using UnityGameFramework.Runtime;
 
 namespace HotfixBusiness.UI 
@@ -14,7 +15,7 @@ namespace HotfixBusiness.UI
     /// <summary>
     /// Please modify the description.
     /// </summary>
-    public partial class UILoginForm : UIFormLogic
+    public partial class UILoginForm : UIFixBaseForm
     {
         private void Awake()
         {
