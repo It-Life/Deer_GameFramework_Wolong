@@ -598,7 +598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: m_CodePath
-      value: D:/Github/Deer_GameFramework_Wolong/Assets/Deer/Scripts/Main/Runtime/UI/BindComponents
+      value: D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/Assets/Deer/Scripts/Main/Runtime/UI/BindComponents
       objectReference: {fileID: 0}
     - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: m_ClassName
@@ -679,6 +679,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5337284280437128120, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
   m_PrefabInstance: {fileID: 6008162962536428733}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3442439698941659486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8982228020252818915, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
+  m_PrefabInstance: {fileID: 6008162962536428733}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1713457619868464690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442439698941659486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 582ff55731bf7414e884d117e7f6945a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8842613692060250556
 PrefabInstance:
   m_ObjectHideFlags: 0
