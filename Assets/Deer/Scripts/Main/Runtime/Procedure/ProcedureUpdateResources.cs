@@ -40,6 +40,7 @@ namespace Main.Runtime.Procedure
         private bool m_UpdateConfigsComplete = false;
         private bool m_UpdateResourcesComplete = false;
         private List<UpdateInfoData> m_UpdateInfoDatas = new List<UpdateInfoData>();
+        private int m_NativeLoadingFormId = 0;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -64,6 +65,8 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Subscribe(DownloadStartEventArgs.EventId, OnDownloadStart);
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
+            GameEntryMain.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUISuccess);
+            GameEntryMain.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFailure);
             //GameEntryMain.Messenger.RegisterEvent(EventName.EVENT_CS_UI_TIPS_CALLBACK, NoticeTipsUpdate);
 
             if (Application.isEditor)
@@ -89,6 +92,9 @@ namespace Main.Runtime.Procedure
             }
             GameEntryMain.Resource.CheckResources(OnCheckResourcesComplete);
         }
+
+
+
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
@@ -99,6 +105,8 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Unsubscribe(DownloadStartEventArgs.EventId, OnDownloadStart);
             GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
+            GameEntryMain.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUISuccess);
+            GameEntryMain.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFailure);
             //GameEntryMain.Messenger.UnRegisterEvent(EventName.EVENT_CS_UI_TIPS_CALLBACK, NoticeTipsUpdate);
         }
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
@@ -132,7 +140,7 @@ namespace Main.Runtime.Procedure
             m_NeedUpdateResources = updateCount > 0;
             m_UpdateResourceCount = updateCount;
             m_UpdateTotalZipLength += updateTotalZipLength;
-            GameEntryMain.UI.OpenUIForm(Main.Runtime.AssetUtility.UI.GetUIFormAsset("UINativeLoadingForm"), "Default", this);
+            m_NativeLoadingFormId = GameEntryMain.UI.OpenUIForm(Main.Runtime.AssetUtility.UI.GetUIFormAsset("UINativeLoadingForm"), "Default", this);
         }
 
         private void OnNoticeUpdate()
@@ -210,13 +218,12 @@ namespace Main.Runtime.Procedure
                 Log.Info(updateProgress);
             }
             float progressTotal = (float)currentTotalUpdateLength / m_UpdateTotalZipLength;
-            Log.Info($"更新成功数量:{m_UpdateSuccessCount} 总更新数量:{m_UpdateConfigCount + m_UpdateResourceCount} 资源数量:{m_UpdateResourceCount} Config数量:{m_UpdateConfigCount}");
+/*            Log.Info($"更新成功数量:{m_UpdateSuccessCount} 总更新数量:{m_UpdateConfigCount + m_UpdateResourceCount} 资源数量:{m_UpdateResourceCount} Config数量:{m_UpdateConfigCount}");
             Log.Info($"当前下载:{FileUtils.GetByteLengthString(currentTotalUpdateLength)} 总下载:{FileUtils.GetByteLengthString(m_UpdateTotalZipLength)} 下载进度:{progressTotal}");
-            Log.Info($"下载速度:{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}");
-            MessengerInfo messengerInfo = ReferencePool.Acquire<MessengerInfo>();
-            messengerInfo.param1 = progressTotal;
-            messengerInfo.param2 = $"{FileUtils.GetByteLengthString(currentTotalUpdateLength)}/{FileUtils.GetByteLengthString(m_UpdateTotalZipLength)}  当前下载速度每秒{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}";
-            //GameEntry.Messenger.SendEvent(EventName.EVENT_CS_UI_REFRESH_LOADING_UI, messengerInfo);
+            Log.Info($"下载速度:{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}");*/
+            var tips = $"{FileUtils.GetByteLengthString(currentTotalUpdateLength)}/{FileUtils.GetByteLengthString(m_UpdateTotalZipLength)}  当前下载速度每秒{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}";
+            var nativeLoadingForm = (UINativeLoadingForm)GameEntryMain.UI.GetUIForm(m_NativeLoadingFormId)?.Logic;
+            nativeLoadingForm?.RefreshProgress(currentTotalUpdateLength, m_UpdateTotalZipLength, tips);
         }
         private void OnUpdateConfigsComplete(bool result)
         {
@@ -303,6 +310,21 @@ namespace Main.Runtime.Procedure
                 Log.Info("Update resource '{0}' failure from '{1}' with error message '{2}', retry count '{3}'.", ne.Name, ne.DownloadUri, ne.ErrorMessage, ne.RetryCount.ToString());
             }
             OnUpdateCompleteOne(ne.Name, 0, UpdateStateType.Failure);
+        }
+
+        private void OnOpenUIFailure(object sender, GameEventArgs e)
+        {
+            
+        }
+
+        private void OnOpenUISuccess(object sender, GameEventArgs e)
+        {
+            OpenUIFormSuccessEventArgs ne = (OpenUIFormSuccessEventArgs)e;
+            if (ne.UIForm.SerialId == m_NativeLoadingFormId)
+            {
+                //关闭前置背景
+                GameEntryMain.UI.SettingForegroundSwitch(false);
+            }
         }
 
         private void OnDownloadStart(object sender, GameEventArgs e)

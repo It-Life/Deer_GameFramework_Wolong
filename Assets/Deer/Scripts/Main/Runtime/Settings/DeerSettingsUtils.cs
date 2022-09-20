@@ -121,8 +121,9 @@ public static class DeerSettingsUtils
         switch (Application.platform)
         {
             case RuntimePlatform.WindowsEditor:
+                return "Windows64";
             case RuntimePlatform.WindowsPlayer:
-                return "Windows";
+                return "Windows64";
 
             case RuntimePlatform.OSXEditor:
             case RuntimePlatform.OSXPlayer:

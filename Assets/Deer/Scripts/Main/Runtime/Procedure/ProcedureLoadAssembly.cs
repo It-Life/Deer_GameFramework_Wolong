@@ -43,13 +43,11 @@ namespace Main.Runtime.Procedure
         private bool m_LoadMetadataAssemblyWait;
         private Assembly m_MainLogicAssembly;
         private List<Assembly> m_HotfixAssemblys;
-        private int m_UINativeLoadingFormserialid;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             m_LoadAssemblyComplete = false;
             m_HotfixAssemblys = new List<Assembly>();
-            m_UINativeLoadingFormserialid = GameEntryMain.UI.OpenUIForm(Main.Runtime.AssetUtility.UI.GetUIFormAsset("UINativeLoadingForm"), "Default", this);
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
@@ -104,10 +102,7 @@ namespace Main.Runtime.Procedure
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            if (m_UINativeLoadingFormserialid != 0)
-            {
-                GameEntryMain.UI.CloseUIForm(m_UINativeLoadingFormserialid);
-            }
+            GameEntryMain.UI.CloseUIWithUIGroup("Default");
         }
 
         private void LoadAssetSuccess(string assetName, object asset, float duration, object userData)

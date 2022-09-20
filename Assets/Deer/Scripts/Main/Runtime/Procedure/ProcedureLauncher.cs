@@ -17,8 +17,7 @@ namespace Main.Runtime.Procedure
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            //GameEntryMain.UI.OpenUIForm(Main.Runtime.AssetUtility.UI.GetUIFormAsset("UINativeLoadingForm"), "Default", this);
-
+            GameEntryMain.UI.SettingForegroundSwitch(true);
             ChangeState<ProcedureSplash>(procedureOwner);
         }
     }

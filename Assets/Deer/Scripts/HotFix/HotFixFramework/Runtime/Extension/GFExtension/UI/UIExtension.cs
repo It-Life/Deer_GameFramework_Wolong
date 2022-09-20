@@ -30,69 +30,6 @@ namespace HotfoxFramework.Runtime
         private static string m_UIGroupHelperTypeName = "Main.Runtime.DeerUIGroupHelper";
         private static UIGroupHelperBase m_CustomUIGroupHelper = null;
 
-        public static bool AddUIGroup(this UIComponent uIComponent, string uiGroupName, int depth, bool isDefaultUIGroupHelper)
-        {
-            if (isDefaultUIGroupHelper)
-            {
-                return uIComponent.AddUIGroup(uiGroupName, depth);
-            }
-            if (m_UIManager == null)
-            {
-                m_UIManager = GameFrameworkEntry.GetModule<IUIManager>();
-            }
-
-            if (m_UIManager.HasUIGroup(uiGroupName))
-            {
-                return false;
-            }
-
-            UIGroupHelperBase uiGroupHelper = Helper.CreateHelper(m_UIGroupHelperTypeName, m_CustomUIGroupHelper, m_UIManager.UIGroupCount);
-            if (uiGroupHelper == null)
-            {
-                Log.Error("Can not create UI group helper.");
-                return false;
-            }
-            if (m_InstanceRoot == null)
-            {
-                m_InstanceRoot = GameObject.Find("UI Form Instances").transform;
-            }
-            uiGroupHelper.name = Utility.Text.Format("UI Group - {0}", uiGroupName);
-            uiGroupHelper.gameObject.layer = LayerMask.NameToLayer("UI");
-            Transform transform = uiGroupHelper.transform;
-            transform.SetParent(m_InstanceRoot);
-            transform.localScale = Vector3.one;
-
-            return m_UIManager.AddUIGroup(uiGroupName, depth, uiGroupHelper);
-        }
-
-        public static IEnumerator FadeToAlpha(this CanvasGroup canvasGroup, float alpha, float duration)
-        {
-            float time = 0f;
-            float originalAlpha = canvasGroup.alpha;
-            while (time < duration)
-            {
-                time += Time.deltaTime;
-                canvasGroup.alpha = Mathf.Lerp(originalAlpha, alpha, time / duration);
-                yield return new WaitForEndOfFrame();
-            }
-
-            canvasGroup.alpha = alpha;
-        }
-
-        public static IEnumerator SmoothValue(this Slider slider, float value, float duration)
-        {
-            float time = 0f;
-            float originalValue = slider.value;
-            while (time < duration)
-            {
-                time += Time.deltaTime;
-                slider.value = Mathf.Lerp(originalValue, value, time / duration);
-                yield return new WaitForEndOfFrame();
-            }
-
-            slider.value = value;
-        }
-
         public static bool HasUIForm(this UIComponent uiComponent, UIFormId uiFormId, string uiGroupName = null)
         {
             return uiComponent.HasUIForm((int)uiFormId, uiGroupName);
