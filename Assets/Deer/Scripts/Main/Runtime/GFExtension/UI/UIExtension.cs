@@ -22,7 +22,29 @@ namespace Main.Runtime
     public static class UIExtension
     {
         private static Transform m_InstanceRoot;
+        public static Transform InstanceRoot 
+        { 
+            get
+            {
+                if (m_InstanceRoot == null)
+                {
+                    m_InstanceRoot = GameObject.Find("UI Form Instances").transform;
+                }
+                return m_InstanceRoot;
+            } 
+        }
         private static IUIManager m_UIManager;
+        public static IUIManager UIManager
+        {
+            get
+            {
+                if (m_UIManager == null)
+                {
+                    m_UIManager = GameFrameworkEntry.GetModule<IUIManager>();
+                }
+                return m_UIManager;
+            } 
+        }
         private static string m_UIGroupHelperTypeName = "Main.Runtime.DeerUIGroupHelper";
         private static UIGroupHelperBase m_CustomUIGroupHelper = null;
 
@@ -32,30 +54,23 @@ namespace Main.Runtime
             {
                 return uIComponent.AddUIGroup(uiGroupName, depth);
             }
-            if (m_UIManager == null)
-            {
-                m_UIManager = GameFrameworkEntry.GetModule<IUIManager>();
-            }
 
-            if (m_UIManager.HasUIGroup(uiGroupName))
+            if (UIManager.HasUIGroup(uiGroupName))
             {
                 return false;
             }
 
-            UIGroupHelperBase uiGroupHelper = Helper.CreateHelper(m_UIGroupHelperTypeName, m_CustomUIGroupHelper, m_UIManager.UIGroupCount);
+            UIGroupHelperBase uiGroupHelper = Helper.CreateHelper(m_UIGroupHelperTypeName, m_CustomUIGroupHelper, UIManager.UIGroupCount);
             if (uiGroupHelper == null)
             {
                 Log.Error("Can not create UI group helper.");
                 return false;
             }
-            if (m_InstanceRoot == null)
-            {
-                m_InstanceRoot = GameObject.Find("UI Form Instances").transform;
-            }
+
             uiGroupHelper.name = Utility.Text.Format("UI Group - {0}", uiGroupName);
             uiGroupHelper.gameObject.layer = LayerMask.NameToLayer("UI");
             Transform transform = uiGroupHelper.transform;
-            transform.SetParent(m_InstanceRoot);
+            transform.SetParent(InstanceRoot);
             transform.localScale = Vector3.one;
 
             return m_UIManager.AddUIGroup(uiGroupName, depth, uiGroupHelper);
@@ -95,6 +110,14 @@ namespace Main.Runtime
             uiComponent.CloseUIForm(uiForm.UIForm);
         }
 
+        public static void CloseUIWithUIGroup(this UIComponent uIComponent, string uiGroupName) 
+        {
+            var group = UIManager.GetUIGroup(uiGroupName);
+            if (group != null)
+            {
+                uIComponent.CloseUIForm(group.CurrentUIForm.SerialId);
+            }
+        }
 
         public static void OpenDialog(this UIComponent uiComponent, DialogParams dialogParams)
         {
@@ -111,6 +134,19 @@ namespace Main.Runtime
         private static void OpenNativeDialog(DialogParams dialogParams)
         {
             throw new System.NotImplementedException("OpenNativeDialog");
+        }
+
+        public static void SettingForegroundSwitch(this UIComponent uiComponent, bool isOpen) 
+        {
+            var foregroundTrans = InstanceRoot.parent.Find("Foreground");
+            if (foregroundTrans != null)
+            {
+                foregroundTrans.gameObject.SetActive(isOpen);
+                if (isOpen)
+                {
+                    foregroundTrans.GetComponent<Canvas>().sortingOrder = short.MinValue;
+                }
+            }
         }
     }
 }

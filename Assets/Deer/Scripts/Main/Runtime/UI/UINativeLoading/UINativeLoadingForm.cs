@@ -42,5 +42,11 @@ namespace Main.Runtime.UI
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
         }
+
+        public void RefreshProgress(float curProgress,float totalProgress,string tips = "") 
+        {
+            m_Img_ProgressValue.fillAmount = curProgress / totalProgress;
+            m_TxtM_Tips.text = tips;
+        }
     }
 }

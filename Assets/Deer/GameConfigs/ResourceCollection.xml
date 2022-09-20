@@ -18,6 +18,7 @@
       <Resource Name="AssetsNative/UI/UIArt/Atlas/jindut_di" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIArt/Texture/loading_bg" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UIForms/UINativeLoading/UINativeLoadingForm" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UIForms/UINativeMessageBox/UINativeMessageBoxForm" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UITemplate/Joystick/Joystick" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UITemplate/Progress" LoadType="0" Packed="True" />
       <Resource Name="AssetsNative/UI/UITemplate/ScrollView/HGridScrollView" LoadType="0" Packed="True" />
@@ -50,6 +51,7 @@
       <Asset Guid="4fb975ee8aa9f164cb540e72e026b3ea" ResourceName="AssetsNative/UI/UIArt/Texture/loading_bg" />
       <Asset Guid="4fc8e0637becb184ab7e870fff766199" ResourceName="AssetsHotfix/Assembly" />
       <Asset Guid="56c3b222b5f9329408e788cb5f734add" ResourceName="AssetsHotfix/UI/UIArt/Texture/loading_bg" />
+      <Asset Guid="5e6b77e19458ca04cbbbe56273fd493a" ResourceName="AssetsNative/UI/UIForms/UINativeMessageBox/UINativeMessageBoxForm" />
       <Asset Guid="688b7c1c26ccd2a4bb857aadcce68ecb" ResourceName="AssetsNative/UI/UIArt/Atlas/jindut_di" />
       <Asset Guid="6a059a129e1575d4fb9a6b8abce19c6e" ResourceName="AssetsNative/UI/UITemplate/UIButton" />
       <Asset Guid="6cc01cb6d9e77604faec1cad51a34ae7" ResourceName="AssetsHotfix/Assembly" />
