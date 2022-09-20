@@ -2,6 +2,7 @@
 using GameFramework;
 using GameFramework.Resource;
 using GameFramework.UI;
+using Main.Runtime;
 using Main.Runtime.Procedure;
 using System;
 using System.Collections.Generic;
@@ -134,7 +135,7 @@ public partial class GameEntry
         procedureManager.Initialize(GameFramework.GameFrameworkEntry.GetModule<GameFramework.Fsm.IFsmManager>(), procedures);
         procedureManager.StartProcedure(m_EntranceProcedureBase.GetType());
     }
-    private static string m_UIFormHelperTypeName = "Deer.DeerUIFormHelper";
+    private static string m_UIFormHelperTypeName = "Main.Runtime.DeerUIFormHelper";
     private static UIFormHelperBase m_CustomUIFormHelper = null;
     private static void ResetUIFormHelper() 
     {

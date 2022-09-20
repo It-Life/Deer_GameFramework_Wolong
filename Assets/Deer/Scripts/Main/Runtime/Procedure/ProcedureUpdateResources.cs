@@ -72,6 +72,9 @@ namespace Main.Runtime.Procedure
                 {
                     GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
                 }
+                else {
+                    OnCheckConfigComplete(0,0,0,0);
+                }
             }
             else 
             {

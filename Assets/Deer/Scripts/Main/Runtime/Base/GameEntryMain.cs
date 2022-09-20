@@ -274,8 +274,8 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
 
         foreach (var config in m_NeedUpdateConfigs)
         {
-            string downloadPath = Path.Combine(Resource.ReadWritePath + config.Value.Path);
-            string downloadUri = DeerSettingsUtils.GetResDownLoadPath(config.Value.Path);
+            string downloadPath = Path.Combine(Resource.ReadWritePath,DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName,config.Value.Path);
+            string downloadUri = DeerSettingsUtils.GetResDownLoadPath(Path.Combine(DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName, config.Value.Path));
             Download.AddDownload(downloadPath, downloadUri, config.Value);
         }
     }
