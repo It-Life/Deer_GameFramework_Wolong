@@ -1,5 +1,5 @@
 <linker>
 	<assembly fullname="UnityEngine" preserve="all" />
 	<assembly fullname="UnityEngine.CoreModule" preserve="all" />
-	<assembly fullname="Main" preserve="all" />
+	<assembly fullname="Main.Runtime" preserve="all" />
 </linker>
