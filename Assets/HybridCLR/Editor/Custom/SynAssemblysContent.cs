@@ -8,6 +8,7 @@
 // ===============================================
 using HybridCLR.Editor;
 using System;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,26 +18,31 @@ using UnityEngine;
 [InitializeOnLoad]
 public class SynAssemblysContent
 {
-    private static float curTime;
-    private static float rateTime = 1f;
+    private static Task curTask;
     static SynAssemblysContent()
     {
-        EditorApplication.update -= EditorUpdate;
-        EditorApplication.update += EditorUpdate;
-        curTime = Time.time;
+        curTask = EditorUpdate();
+        EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
     }
-    static void EditorUpdate()
+    static void EditorApplication_playModeStateChanged(PlayModeStateChange obj)
+    {
+        switch (obj)
+        {
+            case PlayModeStateChange.EnteredEditMode://停止播放事件监听后被监听
+                if (curTask.Status == TaskStatus.RanToCompletion)
+                {
+                    curTask = EditorUpdate();
+                }
+                break;
+        }
+    }
+    static async Task EditorUpdate()
     {
         if (EditorApplication.isPlaying || EditorApplication.isPaused ||
             EditorApplication.isCompiling || EditorApplication.isPlayingOrWillChangePlaymode)
         {
             return;
         }
-        if ((Time.time - curTime) <= rateTime)
-        {
-            return;
-        }
-        curTime = Time.time;
         if (SettingsUtil.HotUpdateAssemblies != DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
         {
             DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies = SettingsUtil.HotUpdateAssemblies;
@@ -45,5 +51,7 @@ public class SynAssemblysContent
         {
             DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies = SettingsUtil.AOTMetaAssemblies;
         }
+        await Task.Delay(1000);
+        await EditorUpdate();
     }
 }
