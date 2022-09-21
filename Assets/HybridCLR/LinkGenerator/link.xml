@@ -85,6 +85,7 @@
     <type fullname="Bright.Serialization.SerializationException" preserve="all" />
     <type fullname="ColorType" preserve="all" />
     <type fullname="ComponentAutoBindTool" preserve="all" />
+    <type fullname="ConfigInfo" preserve="all" />
     <type fullname="DeerSettingsUtils" preserve="all" />
     <type fullname="FrameworkGlobalSettings" preserve="all" />
     <type fullname="GameEntryMain" preserve="all" />
@@ -96,6 +97,7 @@
     <type fullname="RegistFunction" preserve="all" />
     <type fullname="SerializableDictionary`2" preserve="all" />
     <type fullname="Singleton`1" preserve="all" />
+    <type fullname="UIButtonSuper" preserve="all" />
   </assembly>
   <assembly fullname="mscorlib">
     <type fullname="System.Action" preserve="all" />
@@ -230,12 +232,6 @@
     <type fullname="System.Collections.Generic.HashSet`1/Enumerator" preserve="all" />
     <type fullname="System.Linq.Enumerable" preserve="all" />
   </assembly>
-  <assembly fullname="System.Xml">
-    <type fullname="System.Xml.XmlDocument" preserve="all" />
-    <type fullname="System.Xml.XmlElement" preserve="all" />
-    <type fullname="System.Xml.XmlNode" preserve="all" />
-    <type fullname="System.Xml.XmlNodeList" preserve="all" />
-  </assembly>
   <assembly fullname="UniTask">
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder`1" preserve="all" />
@@ -250,21 +246,12 @@
   </assembly>
   <assembly fullname="UnityEditor.CoreModule">
     <type fullname="UnityEditor.AssetDatabase" preserve="all" />
-    <type fullname="UnityEditor.CanEditMultipleObjects" preserve="all" />
-    <type fullname="UnityEditor.CustomEditor" preserve="all" />
     <type fullname="UnityEditor.DefaultAsset" preserve="all" />
-    <type fullname="UnityEditor.Editor" preserve="all" />
-    <type fullname="UnityEditor.EditorGUILayout" preserve="all" />
     <type fullname="UnityEditor.EditorUtility" preserve="all" />
     <type fullname="UnityEditor.ProjectWindowUtil" preserve="all" />
-    <type fullname="UnityEditor.SerializedObject" preserve="all" />
-    <type fullname="UnityEditor.SerializedProperty" preserve="all" />
     <type fullname="UnityEditor.U2D.SpriteAtlasExtensions" preserve="all" />
     <type fullname="UnityEditor.U2D.SpriteAtlasPackingSettings" preserve="all" />
     <type fullname="UnityEditor.U2D.SpriteAtlasTextureSettings" preserve="all" />
-  </assembly>
-  <assembly fullname="UnityEditor.UI">
-    <type fullname="UnityEditor.UI.ButtonEditor" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AnimationModule">
     <type fullname="UnityEngine.Animator" preserve="all" />
@@ -348,7 +335,6 @@
     <type fullname="UnityEngine.UI.GraphicRaycaster" preserve="all" />
     <type fullname="UnityEngine.UI.Image" preserve="all" />
     <type fullname="UnityEngine.UI.RawImage" preserve="all" />
-    <type fullname="UnityEngine.UI.Selectable" preserve="all" />
     <type fullname="UnityEngine.UI.Slider" preserve="all" />
     <type fullname="UnityEngine.UI.Text" preserve="all" />
   </assembly>
