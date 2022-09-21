@@ -138,6 +138,6 @@ MonoBehaviour:
   BindDatas: []
   m_ClassName: UIPanel
   m_Namespace: HotfixBusiness.UI
-  m_CodePath: D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents
-  m_CodeRelativePath: /Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents
+  m_ComCodePath: /Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents
+  m_MountCodePath: /Deer/Scripts/Hotfix/HotfixBusiness/UI
   m_BindComs: []

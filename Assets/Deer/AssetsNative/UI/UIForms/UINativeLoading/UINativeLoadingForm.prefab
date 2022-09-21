@@ -496,6 +496,14 @@ PrefabInstance:
       value: Main.Runtime.UI
       objectReference: {fileID: 0}
     - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
+      propertyPath: m_ComCodePath
+      value: /Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
+      propertyPath: m_MountCodePath
+      value: /Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: m_CodeRelativePath
       value: /Deer/Scripts/Main/Runtime/UI/BindComponents
       objectReference: {fileID: 0}

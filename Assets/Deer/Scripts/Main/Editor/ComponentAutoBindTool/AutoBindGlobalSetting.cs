@@ -9,22 +9,11 @@ using UnityEditor;
 public class AutoBindGlobalSetting : ScriptableObject
 {
     [SerializeField]
-    private string m_CodePath;
-
-    [SerializeField]
     private string m_Namespace;
     [SerializeField]
-    private string m_CodeRelativePath;
-
-    public string CodePath
-    {
-        get
-        {
-            return Application.dataPath + m_CodeRelativePath;
-        }
-
-    }
-
+    private string m_ComCodePath;
+    [SerializeField]
+    private string m_MountCodePath;
     public string Namespace
     {
         get
@@ -32,11 +21,20 @@ public class AutoBindGlobalSetting : ScriptableObject
             return m_Namespace;
         }
     }
-    public string CodeRelativePath
+    public string MountCodePath
     {
         get
         {
-            return m_CodeRelativePath;
+            return m_MountCodePath;
+        }
+
+    }
+
+    public string ComCodePath
+    {
+        get
+        {
+            return m_ComCodePath;
         }
     }
     [MenuItem("MyTools/CatWorkflow/CreateAutoBindGlobalSetting")]

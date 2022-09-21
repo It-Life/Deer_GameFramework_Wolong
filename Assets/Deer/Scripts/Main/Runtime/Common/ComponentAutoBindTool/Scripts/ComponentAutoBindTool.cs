@@ -33,10 +33,10 @@ public class ComponentAutoBindTool : MonoBehaviour
     private string m_Namespace;
 
     [SerializeField]
-    private string m_CodePath;
+    private string m_ComCodePath;
 
     [SerializeField]
-    private string m_CodeRelativePath;
+    private string m_MountCodePath;
 
     public string ClassName
     {
@@ -54,11 +54,18 @@ public class ComponentAutoBindTool : MonoBehaviour
         }
     }
 
-    public string CodePath
+    public string ComCodePath
     {
         get
         {
-            return m_CodePath;
+            return $"{Application.dataPath}/{m_ComCodePath}";
+        }
+    }
+    public string MountCodePath
+    {
+        get
+        {
+            return $"{Application.dataPath}/{m_MountCodePath}";
         }
     }
 

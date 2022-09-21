@@ -6,6 +6,7 @@ using BindData = ComponentAutoBindTool.BindData;
 using System.Reflection;
 using System.IO;
 using UnityEditor.Callbacks;
+using System.Text;
 
 [CustomEditor(typeof(ComponentAutoBindTool))]
 public class ComponentAutoBindToolInspector : Editor
@@ -29,8 +30,8 @@ public class ComponentAutoBindToolInspector : Editor
 
     private SerializedProperty m_Namespace;
     private SerializedProperty m_ClassName;
-    private SerializedProperty m_CodePath;
-    private SerializedProperty m_CodeRelativePath;
+    private SerializedProperty m_ComCodePath;
+    private SerializedProperty m_MountCodePath;
 
     private void OnEnable()
     {
@@ -58,13 +59,13 @@ public class ComponentAutoBindToolInspector : Editor
 
         m_Namespace = serializedObject.FindProperty("m_Namespace");
         m_ClassName = serializedObject.FindProperty("m_ClassName");
-        m_CodePath = serializedObject.FindProperty("m_CodePath");
-        m_CodeRelativePath = serializedObject.FindProperty("m_CodeRelativePath");
+        m_ComCodePath = serializedObject.FindProperty("m_ComCodePath");
+        m_MountCodePath = serializedObject.FindProperty("m_MountCodePath");
 
         m_Namespace.stringValue = string.IsNullOrEmpty(m_Namespace.stringValue) ? m_Setting.Namespace : m_Namespace.stringValue;
         m_ClassName.stringValue = string.IsNullOrEmpty(m_ClassName.stringValue) ? m_Target.gameObject.name : m_ClassName.stringValue;
-        m_CodeRelativePath.stringValue = string.IsNullOrEmpty(m_CodeRelativePath.stringValue) ? m_Setting.CodeRelativePath : m_CodeRelativePath.stringValue;
-        m_CodePath.stringValue = Application.dataPath + m_CodeRelativePath.stringValue;
+        m_ComCodePath.stringValue = string.IsNullOrEmpty(m_ComCodePath.stringValue) ? m_Setting.ComCodePath : m_ComCodePath.stringValue;
+        m_MountCodePath.stringValue = string.IsNullOrEmpty(m_MountCodePath.stringValue) ? m_Setting.MountCodePath : m_MountCodePath.stringValue;
 
         serializedObject.ApplyModifiedProperties();
     }
@@ -117,7 +118,12 @@ public class ComponentAutoBindToolInspector : Editor
         {
             GenAutoBindCode();
         }
-
+        if (GUILayout.Button("挂载逻辑代码"))
+        {
+            string className = !string.IsNullOrEmpty(m_Target.ClassName) ? m_Target.ClassName : m_Target.gameObject.name;
+            if (!m_Target.gameObject.GetComponent(className))
+                m_Target.gameObject.AddComponent(GetTypeWithName(className));
+        }
         EditorGUILayout.EndHorizontal();
     }
 
@@ -275,23 +281,41 @@ public class ComponentAutoBindToolInspector : Editor
         }
         EditorGUILayout.EndHorizontal();
 
-        EditorGUILayout.LabelField("代码保存路径：");
-        EditorGUILayout.LabelField(m_CodePath.stringValue);
+        EditorGUILayout.LabelField("组件代码保存路径：");
+        EditorGUILayout.LabelField(m_ComCodePath.stringValue);
         EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("选择路径"))
+        if (GUILayout.Button("选择组件代码路径"))
         {
-            string temp = m_CodePath.stringValue;
-            string path = EditorUtility.OpenFolderPanel("选择代码保存路径", Application.dataPath, "");
-            m_CodeRelativePath.stringValue = path.Replace(Application.dataPath, "");
-            m_CodePath.stringValue = path;
-            if (string.IsNullOrEmpty(m_CodePath.stringValue))
+            string temp = m_ComCodePath.stringValue;
+            string path = EditorUtility.OpenFolderPanel("选择组件代码保存路径", Application.dataPath, "");
+            m_ComCodePath.stringValue = path.Replace(Application.dataPath, "");
+            if (string.IsNullOrEmpty(m_ComCodePath.stringValue))
             {
-                m_CodePath.stringValue = temp;
+                m_ComCodePath.stringValue = temp;
             }
         }
         if (GUILayout.Button("默认设置"))
         {
-            m_CodePath.stringValue = m_Setting.CodePath;
+            m_ComCodePath.stringValue = m_Setting.ComCodePath;
+        }
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.LabelField("挂载代码保存路径：");
+        EditorGUILayout.LabelField(m_MountCodePath.stringValue);
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("选择挂载代码路径"))
+        {
+            string temp = m_MountCodePath.stringValue;
+            string path = EditorUtility.OpenFolderPanel("选择挂载代码保存路径", Application.dataPath, "");
+            m_MountCodePath.stringValue = path.Replace(Application.dataPath, "");
+            if (string.IsNullOrEmpty(m_MountCodePath.stringValue))
+            {
+                m_MountCodePath.stringValue = temp;
+            }
+        }
+        if (GUILayout.Button("默认设置"))
+        {
+            m_MountCodePath.stringValue = m_Setting.MountCodePath;
         }
         EditorGUILayout.EndHorizontal();
     }
@@ -426,19 +450,25 @@ public class ComponentAutoBindToolInspector : Editor
     /// 写入第三方引用
     /// </summary>
     /// <param name="streamWriter">写入流</param>
-    private void WriteUsing(StreamWriter streamWriter) 
+    private void WriteUsing(StreamWriter streamWriter)
     {
+        usingSameStr.Clear();
         //根据索引获取
         for (int i = 0; i < m_Target.BindDatas.Count; i++)
         {
             BindData data = m_Target.BindDatas[i];
-            if (data.BindCom.GetType().Name == "TextMeshProUGUI")
+            if (!string.IsNullOrEmpty(data.BindCom.GetType().Namespace))
             {
-                streamWriter.WriteLine("using TMPro;");
+                if (usingSameStr.Contains(data.BindCom.GetType().Namespace))
+                {
+                    continue;
+                }
+                usingSameStr.Add(data.BindCom.GetType().Namespace);
+                streamWriter.WriteLine($"using {data.BindCom.GetType().Namespace};");
             }
         }
     }
-
+    private List<string> usingSameStr = new List<string>();
     /// <summary>
     /// 生成自动绑定代码
     /// </summary>
@@ -447,18 +477,19 @@ public class ComponentAutoBindToolInspector : Editor
         GameObject go = m_Target.gameObject;
 
         string className = !string.IsNullOrEmpty(m_Target.ClassName) ? m_Target.ClassName : go.name;
-        string codePath = !string.IsNullOrEmpty(m_Target.CodePath) ? m_Target.CodePath : m_Setting.CodePath;
+        string codePath = !string.IsNullOrEmpty(m_Target.ComCodePath) ? m_Target.ComCodePath : m_Setting.ComCodePath;
 
         if (!Directory.Exists(codePath))
         {
             Debug.LogError($"{go.name}的代码保存路径{codePath}无效");
         }
+        string filePath = $"{codePath}/{className}.BindComponents.cs";
 
-
-        using (StreamWriter sw = new StreamWriter($"{codePath}/{className}.BindComponents.cs"))
+        using (StreamWriter sw = new StreamWriter(filePath))
         {
             //sw.WriteLine("using System.Collections;");
             //sw.WriteLine("using System.Collections.Generic;");
+
             WriteUsing(sw);
             sw.WriteLine("using UnityEngine;");
             sw.WriteLine("using UnityEngine.UI;");
@@ -493,22 +524,86 @@ public class ComponentAutoBindToolInspector : Editor
             sw.WriteLine("\t\t}\n\t}\n}");
             sw.Close();
         }
-
-        //GenAutoBindMountCode(go, className, codePath);
+        ModifyFileFormat(filePath);
+        GenAutoBindMountCode(go, className);
+        AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        EditorUtility.DisplayDialog("提示", "代码生成完毕,正在挂载", "OK");
+        Debug.Log($"ClassName:{className}代码生成完毕");
+        //EditorUtility.DisplayDialog("提示", "代码生成完毕,正在挂载", "OK");
+    }
+    private void ModifyFileFormat(string filePath) 
+    {
+        string text = "";
+        using (StreamReader read = new StreamReader(filePath))
+        {
+            string oldtext = read.ReadToEnd();
+            text = oldtext;
+            text = text.Replace("\n", "\r\n");
+            text = text.Replace("\r\r\n", "\r\n"); // 防止替换了正常的换行符      
+            if (oldtext.Length == text.Length)
+            {
+                // 如果没有变化就退出
+            }
+        }
+        File.WriteAllText(filePath, text, Encoding.UTF8); //utf-8格式保存，防止乱码
+    }
+    private static string annotationCSStr =
+"// ================================================\r\n"
++ "//描 述:\r\n"
++ "//作 者:#Author#\r\n"
++ "//创建时间:#CreatTime#\r\n"
++ "//修改作者:#ChangeAuthor#\r\n"
++ "//修改时间:#ChangeTime#\r\n"
++ "//版 本:#Version# \r\n"
++ "// ===============================================\r\n";
+    private string GetFileHead() 
+    {
+        string annotationStr = annotationCSStr;
+        //annotationStr = annotationStr.Replace("#Class#",
+        //    fileNameWithoutExtension);
+        //把#CreateTime#替换成具体创建的时间
+        annotationStr = annotationStr.Replace("#CreatTime#",
+            System.DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"));
+        annotationStr = annotationStr.Replace("#ChangeTime#",
+            System.DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"));
+        //把#Author# 替换
+        annotationStr = annotationStr.Replace("#Author#",
+            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
+        //把#ChangeAuthor# 替换
+        annotationStr = annotationStr.Replace("#ChangeAuthor#",
+            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
+        //把#Version# 替换
+        annotationStr = annotationStr.Replace("#Version#",
+            DeerSettingsUtils.FrameworkGlobalSettings.ScriptVersion);
+        return annotationStr;
     }
     /// <summary>
     /// 生成自动绑定的挂载代码
     /// </summary>
-    private void GenAutoBindMountCode(GameObject go, string className, string codePath)
+    private void GenAutoBindMountCode(GameObject go, string className)
     {
-        using (StreamWriter sw = new StreamWriter($"{codePath}/{className}.cs"))
+        if (go.GetComponent(className))
         {
-            sw.WriteLine("/* ================================================");
-            sw.WriteLine($" * Introduction：xxxx\n * Creator：xxxx\n * CreationTime：{DateTime.Now}\n * CreateVersion：{DeerSettingsUtils.FrameworkGlobalSettings.ScriptVersion}");
-            sw.WriteLine("================================================ */");
+            return;
+        }
+        string codePath = !string.IsNullOrEmpty(m_Target.MountCodePath) ? m_Target.MountCodePath : m_Setting.MountCodePath;
+        string folderName = className.Replace("Form", "");
+        string fileNmae = $"{className}.cs";
+        if (!Directory.Exists(codePath))
+        {
+            Debug.LogError($"挂载{go.name}的代码保存路径{codePath}无效");
+        }
+        codePath = $"{codePath}/{folderName}";
+        if (!Directory.Exists(codePath))
+        {
+            Directory.CreateDirectory(codePath);
+        }
+        string filePath = $"{codePath}/{className}.cs";
+        using (StreamWriter sw = new StreamWriter(filePath))
+        {
+            sw.WriteLine(GetFileHead());
 
+            sw.WriteLine("using HotfoxFramework.Runtime;");
             sw.WriteLine("using System.Collections;");
             sw.WriteLine("using System.Collections.Generic;");
             sw.WriteLine("using UnityEngine;");
@@ -520,7 +615,7 @@ public class ComponentAutoBindToolInspector : Editor
                 sw.WriteLine("\nnamespace PleaseAmendNamespace\n{");
 
             sw.WriteLine($"\t/// <summary>\n\t/// Please modify the description.\n\t/// </summary>");
-            sw.WriteLine("\tpublic partial class " + className + " : UIBaseForms\n\t{");
+            sw.WriteLine("\tpublic partial class " + className + " : UIFixBaseForm\n\t{");
 
             #region Start
             sw.WriteLine("\t\tvoid Start() {\n\t\t\tGetBindComponents(gameObject);\n");         //   Start
@@ -557,20 +652,7 @@ public class ComponentAutoBindToolInspector : Editor
             sw.WriteLine("\t}\n}");
             sw.Close();
         }
-
-        EditorPrefs.SetString("DEFAULT-CLASS-NAME", m_Target.ClassName);
-        EditorPrefs.SetBool("DEFAULT-CLASS-MOUNT", true);
-    }
-
-    [DidReloadScripts]
-    private static void LoadScriptAndMountWithName()
-    {
-        if (!EditorPrefs.GetBool("DEFAULT-CLASS-MOUNT")) return;
-        EditorPrefs.SetBool("DEFAULT-CLASS-MOUNT", false);
-        string className = EditorPrefs.GetString("DEFAULT-CLASS-NAME");
-        EditorPrefs.DeleteKey("DEFAULT-CLASS-NAME");
-        if (!m_target.gameObject.GetComponent(className))
-            m_target.gameObject.AddComponent(GetTypeWithName(className));
+        ModifyFileFormat(filePath);
     }
 
     /// <summary>
@@ -583,7 +665,7 @@ public class ComponentAutoBindToolInspector : Editor
 
         for (int i = assmblies.Length - 1; i >= 0; i--)
         {
-            if (assmblies[i].GetName().Name != "Assembly-CSharp") continue;
+            if (assmblies[i].GetName().Name != "HotfixBusiness") continue;
 
             Type[] __types = assmblies[i].GetTypes();
 
