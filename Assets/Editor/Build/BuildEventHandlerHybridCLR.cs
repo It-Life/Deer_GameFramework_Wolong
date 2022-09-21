@@ -33,7 +33,7 @@ public static class BuildEventHandlerWolong
         new Dictionary<Platform, BuildTarget>()
         {
                 //{Platform.Undefined, BuildTarget.NoTarget},
-                //{Platform.Windows, BuildTarget.StandaloneWindows},
+                {Platform.Windows, BuildTarget.StandaloneWindows},
                 {Platform.Windows64, BuildTarget.StandaloneWindows64},
                 {Platform.MacOS, BuildTarget.StandaloneOSX},
                 {Platform.Linux, BuildTarget.StandaloneLinux64},
@@ -52,7 +52,7 @@ public static class BuildEventHandlerWolong
         {
             if (IsPlatformSelected(platforms,item.Key))
             {
-                HybridCLR.Editor.CompileDllCommand.CompileDll(item.Value);
+                CompileDllCommand.CompileDll(item.Value);
                 CopyDllBuildFiles(item.Value);
             }
         }
