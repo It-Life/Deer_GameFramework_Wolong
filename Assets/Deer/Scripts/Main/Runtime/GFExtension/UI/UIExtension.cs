@@ -113,7 +113,7 @@ namespace Main.Runtime
         public static void CloseUIWithUIGroup(this UIComponent uIComponent, string uiGroupName) 
         {
             var group = UIManager.GetUIGroup(uiGroupName);
-            if (group != null)
+            if (group != null && group.CurrentUIForm != null)
             {
                 uIComponent.CloseUIForm(group.CurrentUIForm.SerialId);
             }

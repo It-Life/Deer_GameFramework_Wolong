@@ -168,5 +168,13 @@ namespace Main.Runtime
             yield return m_CanvasGroup.FadeToAlpha(0f, duration);
             GameEntryMain.UI.CloseUIForm(this);
         }
+        protected void RegisterEvent(uint EventID, RegistFunction pFunction)
+        {
+            GameEntryMain.Messenger.RegisterEvent(EventID, pFunction);
+        }
+        protected void UnRegisterEvent(uint EventID, RegistFunction pFunction)
+        {
+            GameEntryMain.Messenger.UnRegisterEvent(EventID, pFunction);
+        }
     }
 }
