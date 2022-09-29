@@ -1,6 +1,6 @@
 {
   "name": "com.focus-creative-games.hybridclr_unity",
-  "version": "0.1.0",
+  "version": "0.3.4",
   "displayName": "HybridCLR",
   "description": "Unity package for HybridCLR. It includes editor and runtime scripts and assets for HybridCLR",
   "category": "Runtime",
@@ -16,6 +16,6 @@
   "author": {
     "name": "focus-creative-games",
     "email": "hybridclr@focus-creative-games.com",
-    "url": "https://focus-creative-games.github.io/"
+    "url": "https://github.com/focus-creative-games/"
   }
 }

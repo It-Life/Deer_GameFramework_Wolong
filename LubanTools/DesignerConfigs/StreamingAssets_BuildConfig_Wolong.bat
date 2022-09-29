@@ -17,13 +17,7 @@ set OUTPUT_DATA_PATH=%WORKSPACE%\GenerateDatas\LubanConfig
 call ConfigVersion.exe %DATA_OUTPUT% %configVersionOutPath%
 echo ======== 生成版本文件结束 ========
 
-echo ======== 开始复制Data文件 ========
-xcopy /s/y/i "%DATA_OUTPUT%\*.bytes" "%DATA_UPLOAD_OUTPUT%" 
-echo ======== 复制Data文件结束 ========
 
-echo ======== 开始复制Data文件 ========
-xcopy /s/y/i "%configVersionOutPath%\*.xml" "%configVersion_UPLOAD_OutPath%" 
-echo ======== 复制Data文件结束 ========
 
 ::start %configVersion_UPLOAD_OutPath%
 

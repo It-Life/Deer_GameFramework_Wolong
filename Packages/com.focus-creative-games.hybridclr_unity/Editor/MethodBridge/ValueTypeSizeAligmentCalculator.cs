@@ -1,74 +1,66 @@
-﻿using System;
+﻿using dnlib.DotNet;
+using HybridCLR.Editor.Meta;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace HybridCLR.Editor.MethodBridge
 {
-
-
 	public class ValueTypeSizeAligmentCalculator
 	{
-		private static Dictionary<string, int> s_primitives = new Dictionary<string, int>(14) {
-			{ "Byte", 1 },
-			{ "SByte", 1 },
-			{ "Boolean", 1 },
-			{ "Int16", 2 },
-			{ "UInt16", 2 },
-			{ "Char", 2 },
-			{ "Int32", 4 },
-			{ "UInt32", 4 },
-			{ "Single", 4 },
-			{ "Int64", 8 },
-			{ "UInt64", 8 },
-			{ "Double", 8 },
-			//{ "IntPtr", _referenceSize },	// so rule return the same results
-			//{ "UIntPtr", _referenceSize },	// on 32 and 64 bits architectures
-		};
-
 		public ValueTypeSizeAligmentCalculator(bool arch32)
         {
 			_referenceSize = arch32 ? 4 : 8;
         }
 
-		// actually we should use IntPtr.Size but that would make the rule
-		// return different results on 64 bits systems
 		private readonly int _referenceSize;
 
-		// Note: Needs to be public since this is being tested by our unit tests
-
-
-		private static bool IsIgnoreField(FieldInfo field)
+		private static bool IsIgnoreField(FieldDef field)
         {
-			var ignoreAttr = field.GetCustomAttributes().Where(a => a.GetType().Name == "IgnoreAttribute").FirstOrDefault();
+			var ignoreAttr = field.CustomAttributes.Where(a => a.AttributeType.FullName == "UnityEngine.Bindings.IgnoreAttribute").FirstOrDefault();
 			if (ignoreAttr == null)
             {
 				return false;
             }
-
-			var p = ignoreAttr.GetType().GetProperty("DoesNotContributeToSize");
-			return (bool)p.GetValue(ignoreAttr);
+			CANamedArgument arg = ignoreAttr.GetProperty("DoesNotContributeToSize");
+			if(arg != null && (bool)arg.Value)
+			{
+				//Debug.Log($"IgnoreField.DoesNotContributeToSize = true:{field}");
+				return true;
+			}
+			return false;
 		}
 
-		private (int Size, int Aligment) SizeAndAligmentOfStruct(Type type)
+		private (int Size, int Aligment) SizeAndAligmentOfStruct(TypeSig type)
 		{
 			int totalSize = 0;
 			int packAligment = 8;
 			int maxAligment = 1;
 
-			StructLayoutAttribute sa = type.StructLayoutAttribute;
-			if (sa != null && sa.Pack > 0)
+			TypeDef typeDef = type.ToTypeDefOrRef().ResolveTypeDefThrow();
+
+			List<TypeSig> klassInst = type.ToGenericInstSig()?.GenericArguments?.ToList();
+			GenericArgumentContext ctx = klassInst != null ? new GenericArgumentContext(klassInst, null) : null;
+
+			ClassLayout sa = typeDef.ClassLayout;
+			if (sa != null && sa.PackingSize > 0)
             {
-				packAligment = sa.Pack;
+				packAligment = sa.PackingSize;
             }
 			bool useSLSize = true;
-			foreach (FieldInfo field in type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+			foreach (FieldDef field in typeDef.Fields)
 			{
-				// add size of the type
-				var (fs, fa) = SizeAndAligmentOf(field.FieldType);
+				if (field.IsStatic)
+                {
+					continue;
+                }
+				TypeSig fieldType = ctx != null ? MetaUtil.Inflate(field.FieldType, ctx) : field.FieldType;
+				var (fs, fa) = SizeAndAligmentOf(fieldType);
 				fa = Math.Min(fa, packAligment);
 				if (fa > maxAligment)
                 {
@@ -78,11 +70,11 @@ namespace HybridCLR.Editor.MethodBridge
 				{
 					continue;
 				}
-				if (sa != null && sa.Value == LayoutKind.Explicit)
+				if (sa != null && typeDef.Layout.HasFlag(dnlib.DotNet.TypeAttributes.ExplicitLayout))
 				{
-					int offset = field.GetCustomAttribute<FieldOffsetAttribute>().Value;
+					int offset = (int)field.FieldOffset.Value;
 					totalSize = Math.Max(totalSize, offset + fs);
-					if (offset > sa.Size)
+					if (offset > sa.ClassSize)
 					{
 						useSLSize = false;
 					}
@@ -94,7 +86,7 @@ namespace HybridCLR.Editor.MethodBridge
 						totalSize = (totalSize + fa - 1) / fa * fa;
 					}
 					totalSize += fs;
-					if (sa != null && sa.Value == LayoutKind.Sequential && totalSize > sa.Size)
+					if (sa != null && typeDef.Layout.HasFlag(dnlib.DotNet.TypeAttributes.SequentialLayout) && totalSize > sa.ClassSize)
                     {
 						useSLSize = false;
                     }
@@ -108,11 +100,11 @@ namespace HybridCLR.Editor.MethodBridge
 			{
 				totalSize = (totalSize + maxAligment - 1) / maxAligment * maxAligment;
 			}
-			if (sa != null && sa.Size > 0)
+			if (sa != null && sa.ClassSize > 0)
 			{
 				if (/*sa.Value == LayoutKind.Explicit &&*/ useSLSize)
 				{
-					totalSize = sa.Size;
+					totalSize = (int)sa.ClassSize;
 					while(totalSize % maxAligment != 0)
                     {
 						maxAligment /= 2;
@@ -122,27 +114,64 @@ namespace HybridCLR.Editor.MethodBridge
 			return (totalSize, maxAligment);
 		}
 
-		public (int Size, int Aligment) SizeAndAligmentOf(Type type)
+		public (int Size, int Aligment) SizeAndAligmentOf(TypeSig type)
 		{
+			type = type.RemovePinnedAndModifiers();
 			if (type.IsByRef || !type.IsValueType || type.IsArray)
 				return (_referenceSize, _referenceSize);
 
-			// list based on Type.IsPrimitive
-			if (type.Namespace == "System")
+			switch (type.ElementType)
 			{
-				if (s_primitives.TryGetValue(type.Name, out var size))
+				case ElementType.Void: throw new NotSupportedException(type.ToString());
+				case ElementType.Boolean:
+				case ElementType.I1:
+				case ElementType.U1: return (1, 1);
+				case ElementType.Char:
+				case ElementType.I2:
+				case ElementType.U2: return (2, 2);
+				case ElementType.I4:
+				case ElementType.U4: return (4, 4);
+				case ElementType.I8:
+				case ElementType.U8: return (8, 8);
+				case ElementType.R4: return (4, 4);
+				case ElementType.R8: return (8, 8);
+				case ElementType.I:
+				case ElementType.U:
+				case ElementType.String:
+				case ElementType.Ptr:
+				case ElementType.ByRef:
+				case ElementType.Class:
+				case ElementType.Array:
+				case ElementType.SZArray:
+				case ElementType.FnPtr:
+				case ElementType.Object:
+				case ElementType.Module: return (_referenceSize, _referenceSize);
+				case ElementType.TypedByRef: return SizeAndAligmentOfStruct(type);
+				case ElementType.ValueType:
 				{
-					return (size, size);
+					TypeDef typeDef = type.ToTypeDefOrRef().ResolveTypeDef();
+					if (typeDef.IsEnum)
+					{
+						return SizeAndAligmentOf(typeDef.GetEnumUnderlyingType());
+					}
+					return SizeAndAligmentOfStruct(type);
 				}
-				if (type.Name == "IntPtr" || type.Name == "UIntPtr")
-                {
-					return (_referenceSize, _referenceSize);
-                }
+				case ElementType.GenericInst:
+				{
+					GenericInstSig gis = (GenericInstSig)type;
+					if (!gis.GenericType.IsValueType)
+					{
+						return (_referenceSize, _referenceSize);
+					}
+					TypeDef typeDef = gis.GenericType.ToTypeDefOrRef().ResolveTypeDef();
+					if (typeDef.IsEnum)
+					{
+						return SizeAndAligmentOf(typeDef.GetEnumUnderlyingType());
+					}
+					return SizeAndAligmentOfStruct(type);
+				}
+				default: throw new NotSupportedException(type.ToString());
 			}
-			if (type.IsEnum)
-				return SizeAndAligmentOf(type.GetEnumUnderlyingType());
-
-			return SizeAndAligmentOfStruct(type);
 		}
 	}
 }

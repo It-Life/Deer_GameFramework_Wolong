@@ -43,9 +43,9 @@ public class SynAssemblysContent
         {
             return;
         }
-        if (SettingsUtil.HotUpdateAssemblies != DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
+        if (SettingsUtil.HotUpdateAssemblyFiles != DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
         {
-            DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies = SettingsUtil.HotUpdateAssemblies;
+            DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies = SettingsUtil.HotUpdateAssemblyFiles;
         }
         if (SettingsUtil.AOTMetaAssemblies != DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies)
         {

@@ -14,14 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enable: 1
   cloneFromGitee: 1
-  BuildCacheDir: HybridCLRBuildCache
-  hotfixAssemblyDefinitions: []
-  hotfixAssemblies:
+  hotUpdateAssemblyDefinitions: []
+  hotUpdateAssemblies:
   - HotfixCommon
   - HotfixMain
   - HotfixFramework.Runtime
   - HotfixBusiness
-  AOTMetadataDlls:
+  AOTMetaAssemblies:
   - mscorlib
   - System
   - System.Core
@@ -30,6 +29,11 @@ MonoBehaviour:
   - UnityGameFramework.Runtime
   - Google.Protobuf
   - UniTask
-  hotfixDllOutputDir: HotFixDlls
+  outputLinkFile: HybridCLR/link.xml
+  outputAOTGenericReferenceFile: Main/AOTGenericReferences.cs
+  maxGenericReferenceIteration: 4
+  ReversePInvokeWrapperCount: 10
+  maxMethodBridgeGenericIteration: 4
+  hotUpdateDllOutputDir: HotUpdateDlls
   hybridCLRDataDir: HybridCLRData
   strippedAssemblyDir: AssembliesPostIl2CppStrip

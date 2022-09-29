@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dnlib.DotNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -10,70 +11,7 @@ namespace HybridCLR.Editor.MethodBridge
 {
     public class MethodBridgeSig : IEquatable<MethodBridgeSig>
     {
-
-        private readonly static Regex s_sigPattern = new Regex(@"^(v|i1|i2|i4|i8|r4|r8|i16|sr|vf2|vf3|vf4|vd2|vd3|vd4|S\d+|A\d+|B\d+|C\d+)+$");
-
-        public static MethodBridgeSig CreateBySignatuer(string sigName)
-        {
-            var re = s_sigPattern.Match(sigName);
-            if (!re.Success)
-            {
-                throw new ArgumentException($"{sigName} is not valid signature");
-            }
-            
-            var mbs = new MethodBridgeSig() { ParamInfos = new List<ParamInfo>()};
-            var sigs = re.Groups[1].Captures;
-            mbs.ReturnInfo = new ReturnInfo() { Type = CreateTypeInfoBySignature(sigs[0].Value)};
-            for(int i = 1; i < sigs.Count; i++)
-            {
-                mbs.ParamInfos.Add(new ParamInfo() { Type = CreateTypeInfoBySignature(sigs[i].Value)});
-            }
-            return mbs;
-        }
-
-
-        private static TypeInfo CreateTypeInfoBySignature(string sigName)
-        {
-            switch(sigName)
-            {
-                case "v": return new TypeInfo(typeof(void), ParamOrReturnType.VOID);
-                case "i1": return new TypeInfo(typeof(sbyte), ParamOrReturnType.I1_U1);
-                case "i2": return new TypeInfo(typeof(short), ParamOrReturnType.I2_U2);
-                case "i4": return new TypeInfo(typeof(int), ParamOrReturnType.I4_U4);
-                case "i8": return new TypeInfo(typeof(long), ParamOrReturnType.I8_U8);
-                case "r4": return new TypeInfo(typeof(float), ParamOrReturnType.R4);
-                case "r8": return new TypeInfo(typeof(double), ParamOrReturnType.R8);
-                case "i16": return TypeInfo.s_i16;
-                case "sr": return TypeInfo.s_ref;
-                case "vf2": return new TypeInfo(null, ParamOrReturnType.ARM64_HFA_FLOAT_2);
-                case "vf3": return new TypeInfo(null, ParamOrReturnType.ARM64_HFA_FLOAT_3);
-                case "vf4": return new TypeInfo(null, ParamOrReturnType.ARM64_HFA_FLOAT_4);
-                case "vd2": return new TypeInfo(null, ParamOrReturnType.ARM64_HFA_DOUBLE_2);
-                case "vd3": return new TypeInfo(null, ParamOrReturnType.ARM64_HFA_DOUBLE_3);
-                case "vd4": return new TypeInfo(null, ParamOrReturnType.ARM64_HFA_DOUBLE_4);
-                default:
-                    {
-                        if (sigName.StartsWith("S"))
-                        {
-                            return new TypeInfo(null, ParamOrReturnType.STRUCTURE_ALIGN1, int.Parse(sigName.Substring(1)));
-                        }
-                        if (sigName.StartsWith("A"))
-                        {
-                            return new TypeInfo(null, ParamOrReturnType.STRUCTURE_ALIGN2, int.Parse(sigName.Substring(1)));
-                        }
-                        if (sigName.StartsWith("B"))
-                        {
-                            return new TypeInfo(null, ParamOrReturnType.STRUCTURE_ALIGN4, int.Parse(sigName.Substring(1)));
-                        }
-                        if (sigName.StartsWith("C"))
-                        {
-                            return new TypeInfo(null, ParamOrReturnType.STRUCTURE_ALIGN8, int.Parse(sigName.Substring(1)));
-                        }
-                        throw new ArgumentException($"invalid signature:{sigName}");
-                    }
-            }
-        }
-
+        public MethodDef MethodDef { get; set; }
 
         public ReturnInfo ReturnInfo { get; set; }
 
@@ -84,6 +22,15 @@ namespace HybridCLR.Editor.MethodBridge
             for(int i = 0; i < ParamInfos.Count; i++)
             {
                 ParamInfos[i].Index = i;
+            }
+        }
+
+        public void TransfromSigTypes(Func<TypeInfo, bool, TypeInfo> transformer)
+        {
+            ReturnInfo.Type = transformer(ReturnInfo.Type, true);
+            foreach(var paramType in ParamInfos)
+            {
+                paramType.Type = transformer(paramType.Type, false);
             }
         }
 
