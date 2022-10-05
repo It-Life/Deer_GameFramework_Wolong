@@ -72,7 +72,7 @@ public static class BuildEventHandlerWolong
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
         FolderUtils.ClearFolder(AssemblyTextAssetPath);
-        foreach (var dll in SettingsUtil.HotUpdateAssemblies)
+        foreach (var dll in SettingsUtil.HotUpdateAssemblyFiles)
         {
             string dllPath = $"{SettingsUtil.GetHotFixDllsOutputDirByTarget(buildTarget)}/{dll}";
             string dllBytesPath = $"{AssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
@@ -97,7 +97,7 @@ public static class BuildEventHandlerWolong
             }
             File.Copy(dllPath, dllBytesPath, true);
         }
-        DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblies);
+        DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblyFiles);
         DeerSettingsUtils.SetHybridCLRAOTMetaAssemblies(SettingsUtil.AOTMetaAssemblies);
         AddHotfixDllToResourceCollection();
         AssetDatabase.Refresh();

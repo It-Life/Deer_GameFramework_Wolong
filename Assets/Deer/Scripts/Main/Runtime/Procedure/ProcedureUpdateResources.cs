@@ -69,15 +69,9 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFailure);
             //GameEntryMain.Messenger.RegisterEvent(EventName.EVENT_CS_UI_TIPS_CALLBACK, NoticeTipsUpdate);
 
-            if (Application.isEditor)
+            if (GameEntryMain.Base.EditorResourceMode)
             {
-                if (!DeerSettingsUtils.FrameworkGlobalSettings.ReadLocalConfigInEditor)
-                {
-                    GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
-                }
-                else {
                     OnCheckConfigComplete(0,0,0,0);
-                }
             }
             else 
             {
@@ -90,6 +84,7 @@ namespace Main.Runtime.Procedure
                 OnNoticeUpdate();
                 return;
             }
+   
             GameEntryMain.Resource.CheckResources(OnCheckResourcesComplete);
         }
 

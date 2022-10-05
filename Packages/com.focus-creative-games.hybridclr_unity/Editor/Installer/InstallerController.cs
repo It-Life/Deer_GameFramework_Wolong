@@ -18,6 +18,7 @@ namespace HybridCLR.Editor.Installer
     public enum InstallErrorCode
     {
         Ok,
+        InvalidUnityInstallPath,
         Il2CppInstallPathNotMatchIl2CppBranch,
         Il2CppInstallPathNotExists,
         NotIl2CppPath,
@@ -233,7 +234,9 @@ namespace HybridCLR.Editor.Installer
 
             if (!IsComaptibleWithIl2CppPlusBranch(il2cppBranch, installDir))
             {
-                return InstallErrorCode.Il2CppInstallPathNotMatchIl2CppBranch;
+                return TryParseMinorVersion(installDir, out _) ?
+                    InstallErrorCode.Il2CppInstallPathNotMatchIl2CppBranch
+                    : InstallErrorCode.InvalidUnityInstallPath;
             }
 
             if (!installDir.EndsWith("/il2cpp"))
@@ -262,9 +265,9 @@ namespace HybridCLR.Editor.Installer
         private string GetUnityIl2CppDllModifiedPath(string curVersionStr)
         {
 #if UNITY_EDITOR_WIN
-            return $"{SettingsUtil.HybridCLRDataDir}/ModifiedUnityAssemblies/{curVersionStr}/Unity.IL2CPP-Win.dll";
+            return $"{SettingsUtil.ProjectDir}/{SettingsUtil.HybridCLRDataPathInPackage}/ModifiedUnityAssemblies/{curVersionStr}/Unity.IL2CPP-Win.dll.bytes";
 #else
-            return $"{SettingsUtil.HybridCLRDataDir}/ModifiedUnityAssemblies/{curVersionStr}/Unity.IL2CPP-Mac.dll";
+            return $"{SettingsUtil.ProjectDir}/{SettingsUtil.HybridCLRDataPathInPackage}/ModifiedUnityAssemblies/{curVersionStr}/Unity.IL2CPP-Mac.dll.bytes";
 #endif
         }
 
@@ -284,7 +287,12 @@ namespace HybridCLR.Editor.Installer
 #endif
 
             string workDir = SettingsUtil.HybridCLRDataDir;
+            Directory.CreateDirectory(workDir);
             //BashUtil.RecreateDir(workDir);
+
+            string buildiOSDir = $"{workDir}/iOSBuild";
+            BashUtil.RemoveDir(buildiOSDir);
+            BashUtil.CopyDir($"{SettingsUtil.HybridCLRDataPathInPackage}/iOSBuild", buildiOSDir, true);
 
             // clone hybridclr
             string hybridclrRepoDir = $"{workDir}/hybridclr_repo";
@@ -323,11 +331,11 @@ namespace HybridCLR.Editor.Installer
             }
 
             // create LocalIl2Cpp
-            string localIl2cppDataDir = $"{workDir}/LocalIl2CppData";
-            BashUtil.RecreateDir(localIl2cppDataDir);
+            string localUnityDataDir = SettingsUtil.LocalUnityDataDir;
+            BashUtil.RecreateDir(localUnityDataDir);
 
             // copy MonoBleedingEdge
-            BashUtil.CopyDir($"{Directory.GetParent(il2cppInstallPath)}/MonoBleedingEdge", $"{localIl2cppDataDir}/MonoBleedingEdge", true);
+            BashUtil.CopyDir($"{Directory.GetParent(il2cppInstallPath)}/MonoBleedingEdge", $"{localUnityDataDir}/MonoBleedingEdge", true);
 
             // copy il2cpp
             BashUtil.CopyDir(Il2CppInstallDirectory, SettingsUtil.LocalIl2CppDir, true);
