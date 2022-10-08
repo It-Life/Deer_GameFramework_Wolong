@@ -2,7 +2,6 @@
 using GameFramework;
 using GameFramework.Resource;
 using GameFramework.UI;
-using HotfoxFramework.Runtime;
 using Main.Runtime;
 using Main.Runtime.Procedure;
 using System;

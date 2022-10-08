@@ -104,4 +104,9 @@ public class EntityLogicBase : EntityLogic
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
     }
+
+    protected void Close() 
+    {
+        GameEntry.Entity.HideEntity(Id);
+    }
 }

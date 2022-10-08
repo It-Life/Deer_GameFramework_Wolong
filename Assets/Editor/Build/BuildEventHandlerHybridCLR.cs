@@ -79,7 +79,7 @@ public static class BuildEventHandlerWolong
         FolderUtils.ClearFolder(AssemblyTextAssetPath);
         foreach (var dll in SettingsUtil.HotUpdateAssemblyFiles)
         {
-            string dllPath = $"{SettingsUtil.GetHotFixDllsOutputDirByTarget(buildTarget)}/{dll}";
+            string dllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(buildTarget)}/{dll}";
             string dllBytesPath = $"{AssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
             if (!Directory.Exists(AssemblyTextAssetPath))
             {
@@ -106,8 +106,7 @@ public static class BuildEventHandlerWolong
         AddHotfixDllToResourceCollection();
         AssetDatabase.Refresh();
     }
-    //TODO 自动把GetAssembliesPostIl2CppStripDir 写到AOTMetaAssemblies 里
-    
+
     private static ResourceCollection resourceCollection;
     private static string resourcesName = "AssetsHotfix/Assembly";
     private static List<string> guids = new List<string>();

@@ -41,22 +41,22 @@ public enum UIFormId
     /// 弹出框。
     /// </summary>
     DialogForm = 2,
-
+    /// <summary>
+    /// 提示框。
+    /// </summary>
+    UITipsForm = 3,
     /// <summary>
     /// 加载界面。
     /// </summary>
     UILoadingForm = 100,
-
     /// <summary>
     /// 登录界面。
     /// </summary>
     UILoginForm = 101,
-
     /// <summary>
     /// 主界面。
     /// </summary>
     UIMainForm = 102,
-
     /// <summary>
     /// 背包界面。
     /// </summary>
@@ -66,9 +66,6 @@ public enum UIFormId
     /// 邮件界面。
     /// </summary>
     UIMailForm = 200,
-    /// <summary>
-    /// 飘字提示框
-    /// </summary>
-    UITipsForm = 108,
+
 }
     

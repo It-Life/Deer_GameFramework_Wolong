@@ -43,7 +43,6 @@ namespace GameFramework
                 List<Type> results = new List<Type>();
                 foreach (System.Reflection.Assembly assembly in s_Assemblies)
                 {
-                    GameFrameworkLog.Debug($"name{assembly.GetName()}");
                     results.AddRange(assembly.GetTypes());
                 }
 
