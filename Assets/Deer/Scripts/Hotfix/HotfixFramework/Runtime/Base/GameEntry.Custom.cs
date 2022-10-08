@@ -2,11 +2,13 @@
 using GameFramework;
 using GameFramework.Resource;
 using GameFramework.UI;
+using HotfoxFramework.Runtime;
 using Main.Runtime;
 using Main.Runtime.Procedure;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using HotfoxFramework.Runtime;
 using UGFExtensions.SpriteCollection;
 using UGFExtensions.Texture;
 using UnityEngine;

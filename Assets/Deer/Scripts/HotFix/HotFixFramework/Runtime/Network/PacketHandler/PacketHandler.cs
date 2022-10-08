@@ -7,14 +7,11 @@
 //版 本 : 0.1 
 // ===============================================
 
+using Pb.Message;
 using Deer;
 using GameFramework;
 using GameFramework.Network;
 using UnityGameFramework.Runtime;
-
-public class PacketHandler
-{
-}
 
 public class SCHeartBeatHandler : PacketHandlerBase
 {
@@ -37,16 +34,24 @@ public class SCHeartBeatHandler : PacketHandlerBase
         {
             return;
         }
-        if (packetImpl.protoId == (int)DeerProtoBase.ProtocolID.PtcS2CHeartBeat)
+        ExternalMessage externalMessage = ProtobufUtils.Deserialize<ExternalMessage>(packetImpl.protoBody);
+        
+        if (externalMessage.CmdCode == 0)
         {
             Log.Info("The heartbeat message from the server is received...");
         }
         else
         {
+            if (externalMessage.ResponseStatus != 0)
+            {
+                Logger.ColorInfo(ColorType.red,$"收到错误消息 ResponseStatus:{externalMessage.ResponseStatus},ValidMsg:{externalMessage.ValidMsg}");
+                return;
+            }
             MessengerInfo messengerInfo = ReferencePool.Acquire<MessengerInfo>();
-            messengerInfo.param1 = packetImpl.protoId;
-            messengerInfo.param2 = packetImpl.protoBody;
+            messengerInfo.param1 = externalMessage.CmdMerge;
+            messengerInfo.param2 = externalMessage.Data.ToByteArray();
             GameEntry.Messenger.SendEvent(EventName.EVENT_CS_NET_RECEIVE, messengerInfo);
+            Logger.ColorInfo(ColorType.violet, $"收到{ProtobufUtils.GetHighOrder(externalMessage.CmdMerge)}_{ProtobufUtils.GetLowOrder(externalMessage.CmdMerge)}消息Id:{externalMessage.CmdMerge}");
         }
     }
 }

@@ -8,6 +8,7 @@
 // ===============================================
 using GameFramework;
 using GameFramework.Event;
+using HotfoxFramework.Runtime;
 using Main.Runtime.Procedure;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -34,7 +35,7 @@ namespace HotfixBusiness.Procedure
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             if (m_LoadSceneComplete)
             {
-                ChangeState(procedureOwner, Utility.Assembly.GetType(m_nextProcedure));
+                ChangeState(procedureOwner, Utility.Assembly.GetType(Constant.Scene.GetProcedureName(m_nextProcedure)));
             }
         }
 
@@ -50,9 +51,10 @@ namespace HotfixBusiness.Procedure
         void OnStartLoadScene() 
         {
             UnloadAllScene();
+            GameEntry.Entity.HideAllLoadedEntities();
             GameEntry.ObjectPool.ReleaseAllUnused();
             GameEntry.Resource.ForceUnloadUnusedAssets(true);
-            GameEntry.Scene.LoadScene(AssetUtility.Scene.GetSceneAsset("Main"), Constant.AssetPriority.SceneAsset);
+            GameEntry.Scene.LoadScene(AssetUtility.Scene.GetSceneAsset(Constant.Scene.GetSceneName(m_nextProcedure)), Constant.AssetPriority.SceneAsset);
         }
 
         void UnloadAllScene() 

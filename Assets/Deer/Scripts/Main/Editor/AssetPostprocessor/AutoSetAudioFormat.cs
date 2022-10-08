@@ -78,14 +78,14 @@ namespace Deer.Editor
                 }
             }else
             {
-                if (assetPath.ToLower().Contains("mp3") 
+                /*if (assetPath.ToLower().Contains("mp3") 
                     || assetPath.ToLower().Contains("ogg")
                 )
                 {
                     string namePath = fullPath.Replace("mp3", "wav");
                     namePath = namePath.Replace("ogg", "wav");
                     File.Move(fullPath,namePath);
-                }
+                }*/
             }
 
         }

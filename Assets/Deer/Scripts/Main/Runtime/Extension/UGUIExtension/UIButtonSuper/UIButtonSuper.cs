@@ -6,11 +6,11 @@
 //修改时间 : 2021-07-10 12-12-48  
 //版 本 : 0.1 
 // ===============================================
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
+using System;
+using GameFramework.Sound;
 using UnityEngine.UI;
 
 #if UNITY_EDITOR
@@ -20,6 +20,7 @@ using UnityEditor.UI;
 [CanEditMultipleObjects]
 public class UIButtonSuperEditor : ButtonEditor
 {
+    private SerializedProperty m_ButtonUISounds;
     private SerializedProperty m_CanClick;
     private SerializedProperty m_CanDoubleClick;
     private SerializedProperty m_DoubleClickIntervalTime;
@@ -33,6 +34,7 @@ public class UIButtonSuperEditor : ButtonEditor
     {
         base.OnEnable();
         
+        m_ButtonUISounds = serializedObject.FindProperty("m_ButtonUISounds");
         m_CanClick = serializedObject.FindProperty("m_CanClick");
         m_CanDoubleClick = serializedObject.FindProperty("m_CanDoubleClick");
         m_DoubleClickIntervalTime = serializedObject.FindProperty("m_DoubleClickIntervalTime");
@@ -47,6 +49,7 @@ public class UIButtonSuperEditor : ButtonEditor
     {
         base.OnInspectorGUI();
         serializedObject.Update();
+        EditorGUILayout.PropertyField(m_ButtonUISounds);//显示我们创建的属性
         EditorGUILayout.PropertyField(m_CanClick);//显示我们创建的属性
         EditorGUILayout.Space();//空行
         EditorGUILayout.PropertyField(m_CanDoubleClick);//显示我们创建的属性
@@ -63,8 +66,31 @@ public class UIButtonSuperEditor : ButtonEditor
 
 #endif
 
+public enum ButtonSoundType
+{
+    Down,
+    Up,
+    Click,
+    Enter,
+    Exit,
+    Drag
+}
+public enum ButtonSoundAssetType
+{
+    Hotfix,
+    Native,
+}
+[Serializable]
+public class ButtonSoundCell
+{
+    public ButtonSoundAssetType ButtonSoundAssetType = ButtonSoundAssetType.Hotfix;
+    public ButtonSoundType ButtonSoundType = ButtonSoundType.Click;
+    public string ButtonUISoundName = "ui_click_button";
+}
+
 public class UIButtonSuper : Button, IDragHandler
 {
+    public List<ButtonSoundCell> m_ButtonUISounds = new List<ButtonSoundCell>() {new ButtonSoundCell()};
     [Tooltip("是否可以点击")]
     public bool m_CanClick = true;
     [Tooltip("是否可以双击")]
@@ -163,6 +189,54 @@ public class UIButtonSuper : Button, IDragHandler
         get { return isDownExit; }
     }
 
+    public ButtonSoundCell GetButtonSound(ButtonSoundType buttonSoundType)
+    {
+        foreach (var buttonSound in m_ButtonUISounds)
+        {
+            if (buttonSound.ButtonSoundType == buttonSoundType)
+            {
+                return buttonSound;
+            }
+        }
+        return null;
+    }
+
+    private void PlayButtonSound(ButtonSoundType buttonSoundType)
+    {
+        ButtonSoundCell buttonSound = GetButtonSound(buttonSoundType);
+        if (buttonSound == null)
+        {
+            return;
+        }
+        string soundGroup = "UISound";
+        if (!GameEntryMain.Sound.HasSoundGroup(soundGroup))
+        {
+            GameEntryMain.Sound.AddSoundGroup(soundGroup, 5);
+        }
+        PlaySoundParams playSoundParams = PlaySoundParams.Create();
+        playSoundParams.Priority = 100;
+        playSoundParams.Loop = false;
+        playSoundParams.VolumeInSoundGroup = 1;
+        playSoundParams.SpatialBlend = 0;
+        string soundPath = "";
+        if (buttonSound.ButtonSoundAssetType == ButtonSoundAssetType.Native)
+        {
+            //UISound/ui_click button
+            soundPath = $"Assets/Deer/AssetsNative/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.mp3";
+        }
+        else
+        {
+            soundPath = $"Assets/Deer/AssetsHotfix/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.mp3";
+        }
+        GameEntryMain.Sound.PlaySound(soundPath, soundGroup, 50, playSoundParams);
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        base.OnPointerEnter(eventData);
+        PlayButtonSound(ButtonSoundType.Enter);
+    }
+
     public override void OnPointerDown(PointerEventData eventData) {
         base.OnPointerDown(eventData);
         if (eventData.pointerId < -1 || IsDraging) return; //适配 Touch：只响应一个Touch；适配鼠标：只响应左键
@@ -170,6 +244,7 @@ public class UIButtonSuper : Button, IDragHandler
         isDown = true;
         isDownExit = false;
         downTime = 0;
+        PlayButtonSound(ButtonSoundType.Down);
     }
     public override void OnPointerUp(PointerEventData eventData) {
         base.OnPointerUp(eventData);
@@ -177,12 +252,14 @@ public class UIButtonSuper : Button, IDragHandler
         fingerId = int.MinValue;
         isDown = false;
         isDownExit = true;
+        PlayButtonSound(ButtonSoundType.Up);
     }
     public override void OnPointerExit(PointerEventData eventData) {
         base.OnPointerExit(eventData);
         if (fingerId != eventData.pointerId) return;//正确的手指抬起时才会；
         isPress = false;
         isDownExit = true ;
+        PlayButtonSound(ButtonSoundType.Exit);
     }
     public override void OnPointerClick(PointerEventData eventData) {
         if (!isPress ) {
@@ -190,9 +267,11 @@ public class UIButtonSuper : Button, IDragHandler
         }
         else
             isPress = false;
+        PlayButtonSound(ButtonSoundType.Click);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        PlayButtonSound(ButtonSoundType.Drag);
     }
 }

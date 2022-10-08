@@ -5,6 +5,17 @@ using UnityEngine;
 
 public class OpenFolder : MonoBehaviour
 {
+    [MenuItem("MyTools/OpenFolder/DesignerConfigs")]
+    public static void OpenDesignerConfigs()
+    {
+        Application.OpenURL($"file://{Application.dataPath}/../LubanTools/DesignerConfigs");
+    }
+    
+    [MenuItem("MyTools/OpenFolder/Proto")]
+    public static void OpenProto()
+    {
+        Application.OpenURL($"file://{Application.dataPath}/../LubanTools/Proto");
+    }
     [MenuItem("MyTools/OpenFolder/AssetsPath")]
     public static void OpenDataPath()
     {

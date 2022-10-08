@@ -11,7 +11,7 @@ using GameFramework.ObjectPool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Deer
+namespace HotfoxFramework.Runtime
 {
     public class AssetInstanceObject : ObjectBase
     {

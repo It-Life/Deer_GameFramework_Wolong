@@ -21,13 +21,12 @@ using Object = UnityEngine.Object;
 
 namespace UGFExtensions.SpriteCollection
 {
-    [CreateAssetMenu(fileName = "SpriteCollection", menuName = "UGFExtensions/SpriteCollection", order = 0)]
+    [CreateAssetMenu(fileName = "SpriteCollection", menuName = "Deer/SpriteCollection", order = 0)]
 #if ODIN_INSPECTOR
     public class SpriteCollection : SerializedScriptableObject
     {
         [OdinSerialize] [DictionaryDrawerSettings(KeyLabel = "Path", ValueLabel = "Sprite", IsReadOnly = true)]
         private Dictionary<string, Sprite> m_Sprites = new Dictionary<string, Sprite>();
-
         public Sprite GetSprite(string path)
         {
             m_Sprites.TryGetValue(path, out Sprite sprite);
@@ -36,6 +35,15 @@ namespace UGFExtensions.SpriteCollection
         public Dictionary<string, Sprite> GetSprites()
             { return m_Sprites; }
 #if UNITY_EDITOR
+        protected override void OnBeforeSerialize()
+        {
+            base.OnBeforeSerialize();
+            if (string.IsNullOrEmpty(m_AtlasFolder))
+            {
+                m_AtlasFolder = DeerSettingsUtils.FrameworkGlobalSettings.AtlasFolder;
+            }
+        }
+        
         [OdinSerialize]
         [OnValueChanged("OnListChange", includeChildren: true)]
         [ListDrawerSettings(DraggableItems = false, IsReadOnly = false, HideAddButton = true)]
@@ -77,8 +85,7 @@ namespace UGFExtensions.SpriteCollection
         [FoldoutGroup("Create Atlas", true)]
         [PropertyOrder(1)]
         [OnValueChanged("AtlasFolderChanged")]
-        private string m_AtlasFolder = "Assets/Deer/AssetsHotfix/UI/UIArt/Atlas";
-
+        private string m_AtlasFolder = "";
         void AtlasFolderChanged()
         {
             if (!string.IsNullOrEmpty(m_AtlasFolder))
@@ -86,7 +93,7 @@ namespace UGFExtensions.SpriteCollection
                 int index = m_AtlasFolder.IndexOf("Assets/", StringComparison.Ordinal);
                 if (index == -1)
                 {
-                    m_AtlasFolder = "Assets/Deer/Asset/UI/UIArt/Atlas";
+                    m_AtlasFolder = DeerSettingsUtils.FrameworkGlobalSettings.AtlasFolder;
                     EditorUtility.DisplayDialog("提示", $"图集生成文件夹必须在Assets目录下", "确定");
                     return;
                 }

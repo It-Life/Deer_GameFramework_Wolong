@@ -36,6 +36,7 @@ public enum UIFormId
     /// 弹出框。
     /// </summary>
     NDialogForm = 1,
+
     /// <summary>
     /// 弹出框。
     /// </summary>
@@ -55,13 +56,19 @@ public enum UIFormId
     /// 主界面。
     /// </summary>
     UIMainForm = 102,
+
     /// <summary>
     /// 背包界面。
     /// </summary>
     UIBagForm = 103,
+
     /// <summary>
     /// 邮件界面。
     /// </summary>
-    UIMailForm = 200
+    UIMailForm = 200,
+    /// <summary>
+    /// 飘字提示框
+    /// </summary>
+    UITipsForm = 108,
 }
-
+    

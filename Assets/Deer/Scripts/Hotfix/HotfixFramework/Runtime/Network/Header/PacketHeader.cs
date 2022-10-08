@@ -24,13 +24,12 @@ public class PacketHeader : IPacketHeader, IReference
     {
         get
         {
-            return Id > 0 && PacketLength >= 0;
+            return PacketLength >= 0;
         }
     }
 
     public void Clear()
     {
-        Id = 0;
         PacketLength = 0;
     }
 }

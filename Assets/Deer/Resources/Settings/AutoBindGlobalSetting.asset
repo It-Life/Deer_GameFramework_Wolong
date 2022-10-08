@@ -12,6 +12,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 089caf30d869f954eb91eb065677f71c, type: 3}
   m_Name: AutoBindGlobalSetting
   m_EditorClassIdentifier: 
-  m_Namespace: Deer.UI
-  m_ComCodePath: /Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents
-  m_MountCodePath: /Deer/Scripts/Hotfix/HotfixBusiness/UI
+  m_Namespace: HotfixBusiness.UI
+  m_ComCodePath: Deer/Scripts/HotFix/HotFixBusiness/UI/BindComponents
+  m_MountCodePath: Deer/Scripts/HotFix/HotFixBusiness/UI
+  m_RulePrefixes:
+  - Prefixe: Trans
+    FullName: Transform
+  - Prefixe: OldAnim
+    FullName: Animation
+  - Prefixe: NewAnim
+    FullName: Animator
+  - Prefixe: Rect
+    FullName: RectTransform
+  - Prefixe: Canvas
+    FullName: Canvas
+  - Prefixe: Group
+    FullName: CanvasGroup
+  - Prefixe: VGroup
+    FullName: VerticalLayoutGroup
+  - Prefixe: HGroup
+    FullName: HorizontalLayoutGroup
+  - Prefixe: GGroup
+    FullName: GridLayoutGroup
+  - Prefixe: TGroup
+    FullName: ToggleGroup
+  - Prefixe: Btn
+    FullName: UIButtonSuper
+  - Prefixe: Img
+    FullName: Image
+  - Prefixe: RImg
+    FullName: RawImage
+  - Prefixe: Txt
+    FullName: Text
+  - Prefixe: TxtM
+    FullName: TextMeshProUGUI
+  - Prefixe: Input
+    FullName: TMP_InputField
+  - Prefixe: Slider
+    FullName: Slider
+  - Prefixe: Mask
+    FullName: Mask
+  - Prefixe: Mask2D
+    FullName: Mask2D
+  - Prefixe: Tog
+    FullName: Toggle
+  - Prefixe: Sbar
+    FullName: Scrollbar
+  - Prefixe: Sbar
+    FullName: Scrollbar
+  - Prefixe: SRect
+    FullName: ScrollRect
+  - Prefixe: Drop
+    FullName: Dropdown
+  - Prefixe: USpriteAni
+    FullName: UGUISpriteAnimation
+  - Prefixe: VGridV
+    FullName: LoopGridView
+  - Prefixe: HGridV
+    FullName: LoopGridView
+  - Prefixe: VListV
+    FullName: LoopListView2
+  - Prefixe: HListV
+    FullName: LoopListView2

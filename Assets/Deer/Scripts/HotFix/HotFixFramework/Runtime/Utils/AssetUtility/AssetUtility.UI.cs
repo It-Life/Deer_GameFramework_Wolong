@@ -106,7 +106,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetSpritePath(string spriteName)
         {
-            return string.Format("Assets/UITemp/{0}.png", spriteName);
+            return string.Format("Assets/Deer/UISprites/{0}.png", spriteName);
         }
         /// <summary>
         /// 获取精灵资源收集器
@@ -115,7 +115,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetSpriteCollectionPath(string collectionName)
         {
-            return string.Format("Assets/Deer/Asset/UI/UIArt/AtlasCollection/{0}.asset", collectionName);
+            return string.Format("Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/{0}.asset", collectionName);
         }
 
         /// <summary>

@@ -45,10 +45,10 @@ public class EntityLogicBase : EntityLogic
 #endif
     {
         base.OnShow(userData);
-        MessengerInfo messengerInfo = ReferencePool.Acquire<MessengerInfo>();
-        messengerInfo.param1 = Id;
-        messengerInfo.param2 = userData;
-        GameEntry.Messenger.SendEvent(EventName.EVENT_CS_GAME_ENTITY_SHOW, messengerInfo);
+        if (Id > 10000)
+        {
+            GameEntry.Messenger.SendEvent(EventName.EVENT_CS_PRELOAD_SUCCESS, Id);
+        }
     }
 
 #if UNITY_2017_3_OR_NEWER
@@ -58,10 +58,6 @@ public class EntityLogicBase : EntityLogic
 #endif
     {
         base.OnHide(isShutdown, userData);
-        MessengerInfo messengerInfo = ReferencePool.Acquire<MessengerInfo>();
-        messengerInfo.param1 = Id;
-        messengerInfo.param2 = userData;
-        GameEntry.Messenger.SendEvent(EventName.EVENT_CS_GAME_ENTITY_HIDE, messengerInfo);
     }
 
 #if UNITY_2017_3_OR_NEWER

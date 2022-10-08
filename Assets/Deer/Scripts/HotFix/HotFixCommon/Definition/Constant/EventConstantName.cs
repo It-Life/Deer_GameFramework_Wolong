@@ -23,7 +23,11 @@ public static class EventName
     /// 收到消息
     /// </summary>
     public const uint EVENT_CS_NET_RECEIVE = 0x000003;
-
+    /// <summary>
+    /// 预加载资源成功事件
+    /// </summary>
+    public const uint EVENT_CS_PRELOAD_SUCCESS = 0x000004;
+    
     #endregion
 
     #region UI 10000-19999

@@ -84,4 +84,13 @@ public class ProtobufUtils
         msg = (T)msg.Descriptor.Parser.ParseFrom(dataBytes);
         return msg;
     }
+    public static int GetHighOrder(int cmdMerge)
+    {
+        return cmdMerge >> 16;
+    }
+
+    public static int GetLowOrder(int cmdMerge)
+    {
+        return cmdMerge & 65535;
+    }
 }

@@ -23,7 +23,8 @@ public static class DeerSettingsUtils
     private static DeerSettings m_DeerGlobalSettings;
     public static FrameworkGlobalSettings FrameworkGlobalSettings { get { return DeerGlobalSettings.FrameworkGlobalSettings; } }
     public static HybridCLRCustomGlobalSettings HybridCLRCustomGlobalSettings { get { return DeerGlobalSettings.BybridCLRCustomGlobalSettings; } }
-    private static DeerSettings DeerGlobalSettings
+
+    public static DeerSettings DeerGlobalSettings
     {
         get
         {
@@ -81,7 +82,7 @@ public static class DeerSettingsUtils
             else if (ResourcesArea.ServerType == ServerTypeEnum.Formal)
             {
                 url = ResourcesArea.FormalResourceSourceUrl;
-            }
+            }else
             {
                 url = ResourcesArea.InnerResourceSourceUrl;
             }
@@ -89,6 +90,45 @@ public static class DeerSettingsUtils
         }
     }
 
+    private static ServerIpAndPort FindServerIpAndPort(string channelName = "")
+    {
+        if (string.IsNullOrEmpty(channelName))
+        {
+            channelName = FrameworkGlobalSettings.CurUseServerChannel;
+        }
+        foreach (var serverChannelInfo in FrameworkGlobalSettings.ServerChannelInfos)
+        {
+            if (serverChannelInfo.ChannelName.Equals(channelName))
+            {
+                foreach (var serverIpAndPort in serverChannelInfo.ServerIpAndPorts)
+                {
+                    if (serverIpAndPort.ServerName.Equals(serverChannelInfo.CurUseServerName))
+                    {
+                        return serverIpAndPort;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public static string GetServerIp(string channelName = "")
+    {
+        ServerIpAndPort serverIpAndPort = FindServerIpAndPort(channelName);
+        if (serverIpAndPort != null)
+        {
+            return serverIpAndPort.Ip;
+        }
+        return string.Empty;
+    }
+    public static int GetServerPort(string channelName = "")
+    {
+        ServerIpAndPort serverIpAndPort = FindServerIpAndPort(channelName);
+        if (serverIpAndPort != null)
+        {
+            return serverIpAndPort.Port;
+        }
+        return 0;
+    }
     private static T GetSingletonAssetsByResources<T>(string assetsPath) where T : ScriptableObject, new()
     {
         string assetType = typeof(T).Name;

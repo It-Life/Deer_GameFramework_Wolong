@@ -25,6 +25,6 @@ public static class FrameworkTools
 	[MenuItem("MyTools/FrameworkTools/GenerateConfigToStreamingAssets")]
 	private static void GenConfigToStreamingAssets()
 	{
-		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/StreamingAssets_BuildConfig_Wolong.bat"));
+		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/BuildConfig_Wolong.bat"));
 	}
 }

@@ -228,8 +228,7 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
         string curMD5 = string.Empty;
         foreach (KeyValuePair<string, ConfigInfo> config in m_Configs)
         {
-            filePath = Path.Combine(Resource.ReadWritePath, "LubanConfig", config.Key);
-            Debug.LogWarning(filePath);
+            filePath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName, config.Key);
             if (File.Exists(filePath))
             {
                 curMD5 = Main.Runtime.FileUtils.Md5ByPathName(filePath);

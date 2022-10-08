@@ -30,7 +30,7 @@ public class DefaultAutoBindRuleHelper : IAutoBindRuleHelper
         {"RImg","RawImage"},
         {"Txt","Text"},
         {"TxtM","TextMeshProUGUI"},
-        {"Input","InputField"},
+        {"Input","TMP_InputField"},
         {"Slider","Slider"},
         {"Mask","Mask"},
         {"Mask2D","RectMask2D"},

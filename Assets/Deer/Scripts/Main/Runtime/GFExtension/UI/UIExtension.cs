@@ -28,7 +28,7 @@ namespace Main.Runtime
             {
                 if (m_InstanceRoot == null)
                 {
-                    m_InstanceRoot = GameObject.Find("UI Form Instances").transform;
+                    m_InstanceRoot = GameEntryMain.UI.transform.Find("UI Form Instances");
                 }
                 return m_InstanceRoot;
             } 
@@ -47,6 +47,10 @@ namespace Main.Runtime
         }
         private static string m_UIGroupHelperTypeName = "Main.Runtime.DeerUIGroupHelper";
         private static UIGroupHelperBase m_CustomUIGroupHelper = null;
+        public static Transform GetInstanceRoot(this UIComponent uIComponent) 
+        {
+            return InstanceRoot;
+        }
 
         public static bool AddUIGroup(this UIComponent uIComponent, string uiGroupName, int depth, bool isDefaultUIGroupHelper)
         {

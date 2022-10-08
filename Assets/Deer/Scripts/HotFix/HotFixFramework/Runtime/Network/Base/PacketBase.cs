@@ -14,7 +14,7 @@ public abstract class PacketBase : Packet
     {
         get;
     }
-    public int protoId;
+    //public int protoId;
     public byte[] protoBody;
     public void Close()
     {

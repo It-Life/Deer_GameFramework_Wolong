@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Deer;
+using Pb.Message;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -20,10 +21,10 @@ using UnityGameFramework.Runtime;
 public class NetConnectorComponent : GameFrameworkComponent
 {
 
-/*    private Dictionary<string, INetworkChannel> m_ListNetworkChannel = new Dictionary<string, INetworkChannel>();
+    private Dictionary<string, INetworkChannel> m_ListNetworkChannel = new Dictionary<string, INetworkChannel>();
 
     public NetworkChannelHelper channelHelper;
-    public INetworkChannel CreateTcpNetworkChannel(string channelName) 
+    public INetworkChannel CreateTcpNetworkChannel(string channelName = "Default") 
     {
         INetworkChannel networkChannel = null;
         if (m_ListNetworkChannel.ContainsKey(channelName))
@@ -34,24 +35,11 @@ public class NetConnectorComponent : GameFrameworkComponent
         channelHelper = ReferencePool.Acquire<NetworkChannelHelper>();
         networkChannel = GameEntry.Network.CreateNetworkChannel(channelName, ServiceType.Tcp, channelHelper);
         m_ListNetworkChannel.Add(channelName, networkChannel);
+        //SetHeartBeatInterval(channelName,5f);
         return networkChannel;
     }
 
-    public INetworkChannel CreateTcpWithSyncNetworkChannel(string channelName)
-    {
-        INetworkChannel networkChannel = null;
-        if (m_ListNetworkChannel.ContainsKey(channelName))
-        {
-            m_ListNetworkChannel.TryGetValue(channelName, out networkChannel);
-            return networkChannel;
-        }
-        channelHelper = ReferencePool.Acquire<NetworkChannelHelper>();
-        networkChannel = GameEntry.Network.CreateNetworkChannel(channelName, ServiceType.TcpWithSyncReceive, channelHelper);
-        m_ListNetworkChannel.Add(channelName, networkChannel);
-        return networkChannel;
-    }
-
-    public void Connect(string channelName,string ip, int prot, object userData = null) 
+    public void Connect(string ip, int prot, string channelName = "Default", object userData = null) 
     {
         INetworkChannel networkChannel = null;
         m_ListNetworkChannel.TryGetValue(channelName, out networkChannel);
@@ -92,7 +80,7 @@ public class NetConnectorComponent : GameFrameworkComponent
         if (networkChannel != null)
         {
             CSProtoPacket csProtoPacket = ReferencePool.Acquire<CSProtoPacket>();
-            csProtoPacket.protoId = nProtocolId;
+            //csProtoPacket.protoId = nProtocolId;
             csProtoPacket.protoBody = v;
             networkChannel.Send(csProtoPacket);
         }
@@ -100,5 +88,30 @@ public class NetConnectorComponent : GameFrameworkComponent
         {
             Log.Error($"channelName:{0},is nono", channelName);
         }
-    }*/
+    }
+    public void Send(string channelName, int cmdMerge, byte[] v)
+    {
+        INetworkChannel networkChannel = null;
+        m_ListNetworkChannel.TryGetValue(channelName, out networkChannel);
+        if (networkChannel != null)
+        {
+            CSProtoPacket csProtoPacket = ReferencePool.Acquire<CSProtoPacket>();
+            ExternalMessage external = new ExternalMessage();
+            external.CmdCode = 1;
+            external.CmdMerge = cmdMerge;
+            external.ProtocolSwitch = 0;
+            external.Data = Google.Protobuf.ByteString.CopyFrom(v);
+            csProtoPacket.protoBody = ProtobufUtils.Serialize(external);
+            networkChannel.Send(csProtoPacket);
+            Logger.ColorInfo(ColorType.yellowgreen, $"发送{ProtobufUtils.GetHighOrder(cmdMerge)}_{ProtobufUtils.GetLowOrder(cmdMerge)}消息Id:{cmdMerge}");
+        }
+        else
+        {
+            Log.Error($"channelName:{0},is nono", channelName);
+        }
+    }
+    public void Send(int cmdMerge, object message , string channelName = "Default")
+    {
+        Send(channelName,cmdMerge,ProtobufUtils.Serialize(message));
+    }
 }

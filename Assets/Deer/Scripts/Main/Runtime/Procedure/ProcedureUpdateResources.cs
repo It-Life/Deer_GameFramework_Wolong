@@ -71,25 +71,21 @@ namespace Main.Runtime.Procedure
 
             if (GameEntryMain.Base.EditorResourceMode)
             {
+                if (!DeerSettingsUtils.FrameworkGlobalSettings.ReadLocalConfigInEditor)
+                {
+                    GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
+                }
+                else {
                     OnCheckConfigComplete(0,0,0,0);
-            }
-            else 
-            {
-                GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
-            }
-            if (Application.isEditor && GameEntryMain.Base.EditorResourceMode)
-            {
+                }
                 m_NeedUpdateResources = false;
                 m_UpdateResourcesComplete = true;
                 OnNoticeUpdate();
                 return;
             }
-   
+            GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
             GameEntryMain.Resource.CheckResources(OnCheckResourcesComplete);
         }
-
-
-
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);

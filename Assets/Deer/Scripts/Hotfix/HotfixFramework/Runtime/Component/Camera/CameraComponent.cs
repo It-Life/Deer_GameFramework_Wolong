@@ -8,6 +8,7 @@
 // ===============================================
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityGameFramework.Runtime;
 
 public enum CameraType 
@@ -21,6 +22,14 @@ public class CameraModel
     //public CinemachineVirtualCamera CinemachineVirtual;
     public CameraType CameraType = CameraType.FollowCamera;
 }
+
+public enum BaseCamera:int
+{
+    MainCamera,
+    ArCamera,
+    BattleCamera
+}
+
 [DisallowMultipleComponent]
 [AddComponentMenu("Deer/Camera")]
 public partial class CameraComponent : GameFrameworkComponent
@@ -29,17 +38,30 @@ public partial class CameraComponent : GameFrameworkComponent
     /// 主相机
     /// </summary>
     private Camera m_MainCamera;
+    private UniversalAdditionalCameraData m_MainCameraUniData;
     public Camera MainCamera 
     {
-        get { return m_MainCamera; }
-        set { m_MainCamera = value; }
+        get => m_MainCamera;
+        set => m_MainCamera = value;
     }
+
+    private Camera m_CurUseCamera;
+    public Camera CurUseCamera => m_CurUseCamera;
+
+    /// <summary>
+    /// 相机灵敏度
+    /// </summary>
+    private float CameraSensitivity = 0.1f;
+
     protected override void Awake()
     {
         base.Awake();
 
         m_MainCamera = transform.Find("MainCamera").GetComponent<Camera>();
+        m_MainCameraUniData = m_MainCamera.GetComponent<UniversalAdditionalCameraData>();
+        m_CurUseCamera = m_MainCamera;
         OnFreeLookAwark();
+        
         OnUICameraAwark();
         CinemachineCore.GetInputAxis = GetAxisCustom;
     }
