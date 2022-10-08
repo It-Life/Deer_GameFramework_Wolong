@@ -17,34 +17,56 @@ MonoBehaviour:
     m_ScriptVersion: 0.1
     m_AppStage: 1
     m_ResourcesArea:
-      m_ResAdminType: Common
-      m_ResAdminCode: 999
+      m_ResAdminType: Wolong
+      m_ResAdminCode: 100
       m_ServerType: 2
-      m_InnerResourceSourceUrl: http://121.4.195.168:8088
+      m_CleanCommitPathRes: 1
+      m_InnerResourceSourceUrl: http://192.168.29.51:9091/unity
       m_ExtraResourceSourceUrl: http://121.4.195.168:8088
       m_FormalResourceSourceUrl: http://121.4.195.168:8088
+    m_AtlasFolder: Assets/Deer/AssetsHotfix/UI/UIArt/Atlas
     m_ResourceVersionFileName: ResourceVersion.txt
     WindowsAppUrl: 
     MacOSAppUrl: 
     IOSAppUrl: 
     AndroidAppUrl: 
+    m_CurUseServerChannel: Default
+    m_ServerChannelInfos:
+    - ChannelName: Default
+      CurUseServerName: extranet
+      ServerIpAndPorts:
+      - ServerName: intranet
+        Ip: 192.168.29.51
+        Port: 10100
+      - ServerName: extranet
+        Ip: 47.98.226.149
+        Port: 10100
+    m_IsReadLocalConfigInEditor: 1
     m_ConfigVersionFileName: ConfigVersion.xml
     m_ConfigFolderName: LubanConfig
   m_BybridCLRCustomGlobalSettings:
+    m_Enable: 1
     HotUpdateAssemblies:
-    - HotfixCommon.dll
     - HotfixMain.dll
+    - HotfixCommon.dll
     - HotfixFramework.Runtime.dll
     - HotfixBusiness.dll
     AOTMetaAssemblies:
     - mscorlib.dll
     - System.dll
     - System.Core.dll
+    - System.Configuration.dll
+    - System.Numerics.dll
+    - System.Runtime.CompilerServices.Unsafe.dll
+    - System.Xml.dll
     - Main.Runtime.dll
+    - HybridCLR.Runtime.dll
     - Gameframework.dll
     - UnityGameFramework.Runtime.dll
     - Google.Protobuf.dll
     - UniTask.dll
+    - Cinemachine.dll
+    - PlayerPrefsEditor.dll
     LogicMainDllName: HotfixMain.dll
     AssemblyTextAssetExtension: .bytes
     AssemblyTextAssetPath: Deer/AssetsHotfix/Assembly

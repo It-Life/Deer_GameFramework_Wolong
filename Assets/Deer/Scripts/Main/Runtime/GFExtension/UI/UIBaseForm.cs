@@ -6,6 +6,8 @@
 //修改时间:2022-06-17 15-41-52
 //版 本:0.1 
 // ===============================================
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +22,6 @@ namespace Main.Runtime
     public class UIBaseForm : UIFormLogic
     {
         public const int DepthFactor = 100;
-        private const float FadeTime = 0.3f;
 
         private static Font s_MainFont = null;
         private Canvas m_CachedCanvas = null;
@@ -37,25 +38,6 @@ namespace Main.Runtime
             get
             {
                 return m_CachedCanvas.sortingOrder;
-            }
-        }
-
-        public virtual void Close()
-        {
-            Close(false);
-        }
-
-        public virtual void Close(bool ignoreFade)
-        {
-            StopAllCoroutines();
-
-            if (ignoreFade)
-            {
-                GameEntryMain.UI.CloseUIForm(this);
-            }
-            else
-            {
-                StartCoroutine(CloseCo(FadeTime));
             }
         }
 
@@ -106,15 +88,14 @@ namespace Main.Runtime
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
-
-            m_CanvasGroup.alpha = 0f;
-            StopAllCoroutines();
-            StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+            OnRegisterEvent();
+            Open();
         }
 
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
+            OnUnRegisterEvent();
         }
 
         protected override void OnPause()
@@ -125,10 +106,7 @@ namespace Main.Runtime
         protected override void OnResume()
         {
             base.OnResume();
-
-            m_CanvasGroup.alpha = 0f;
-            StopAllCoroutines();
-            StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+            Open();
         }
 
         protected override void OnCover()
@@ -151,6 +129,37 @@ namespace Main.Runtime
             base.OnUpdate(elapseSeconds, realElapseSeconds);
         }
 
+        protected virtual void Open()
+        {
+            Open(false);
+        }
+
+        protected virtual void Open(bool ignoreFade,float fadeTime = 0.3f,Action fadeComplete = null)
+        {
+            StopAllCoroutines();
+            if (!ignoreFade)
+            {
+                m_CanvasGroup.alpha = 0f;
+                StartCoroutine(OpenCo(fadeTime,fadeComplete));
+            }
+        }
+        protected virtual void Close()
+        {
+            Close(false);
+        }
+
+        protected virtual void Close(bool ignoreFade,float fadeTime = 0.3f,Action fadeComplete = null)
+        {
+            StopAllCoroutines();
+            if (ignoreFade)
+            {
+                GameEntryMain.UI.CloseUIForm(this);
+            }
+            else
+            {
+                StartCoroutine(CloseCo(fadeTime,fadeComplete));
+            }
+        }
         protected override void OnDepthChanged(int uiGroupDepth, int depthInUIGroup)
         {
             int oldDepth = Depth;
@@ -162,11 +171,29 @@ namespace Main.Runtime
                 canvases[i].sortingOrder += deltaDepth;
             }
         }
-
-        private IEnumerator CloseCo(float duration)
+        private IEnumerator OpenCo(float duration,Action fadeComplete)
+        {
+            yield return m_CanvasGroup.FadeToAlpha(1f, duration);
+            fadeComplete?.Invoke();
+        }
+        private IEnumerator CloseCo(float duration,Action fadeComplete)
         {
             yield return m_CanvasGroup.FadeToAlpha(0f, duration);
+            fadeComplete?.Invoke();
             GameEntryMain.UI.CloseUIForm(this);
+        }
+        /// <summary>
+        /// 注册事件
+        /// </summary>
+        protected virtual void OnRegisterEvent() { }
+        /// <summary>
+        /// 取消注册事件
+        /// </summary>
+        protected virtual void OnUnRegisterEvent() { }
+        
+        protected void SendEvent(uint EventID, object pSender = null)
+        {
+            GameEntryMain.Messenger.SendEvent(EventID,pSender);
         }
         protected void RegisterEvent(uint EventID, RegistFunction pFunction)
         {

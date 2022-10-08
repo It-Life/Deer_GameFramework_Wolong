@@ -22,9 +22,9 @@ public static class FrameworkTools
 	{
 		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/Proto/gen_pb_code.bat"));
 	}
-	[MenuItem("MyTools/FrameworkTools/GenerateConfigToStreamingAssets")]
+	[MenuItem("MyTools/FrameworkTools/GenerateConfig")]
 	private static void GenConfigToStreamingAssets()
 	{
-		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/StreamingAssets_BuildConfig_Wolong.bat"));
+		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/BuildConfig_Wolong.bat"));
 	}
 }

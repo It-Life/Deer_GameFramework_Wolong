@@ -41,6 +41,9 @@ namespace Deer
         }
         private IEnumerator StartReadConfigWithStreamingAssets(string filePath) 
         {
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
+            filePath = filePath = $"file://{filePath}";
+#endif
             UnityWebRequest webRequest = UnityWebRequest.Get(filePath);
             yield return webRequest.SendWebRequest();
             if (webRequest.isDone)
@@ -82,12 +85,15 @@ namespace Deer
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 //编辑器模式
-                filePath = $"{Application.dataPath}/../LubanTools/GenerateDatas/{DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName}/{file}.bytes";
+                filePath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName}",$"{file}.bytes");
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
                     return null;
                 }
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+                filePath = filePath = $"file://{filePath}";
+#endif
             }
             else
             {
@@ -99,9 +105,9 @@ namespace Deer
                     return null;
                 }
                 filePath = $"file://{filePath}";
-                /*#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-                                filePath = $"file://{filePath}";
-                #endif*/
+#if UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+                filePath = $"file://{filePath}";
+#endif
             }
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
             await unityWebRequest.SendWebRequest();
@@ -116,7 +122,12 @@ namespace Deer
         }
         private IEnumerator IELoadOnlyReadPathConfigVersionFile()
         {
-            UnityWebRequest webRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName));
+
+            string filePath = Path.Combine(Application.streamingAssetsPath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName);
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
+            filePath = filePath = $"file://{filePath}";
+#endif
+            UnityWebRequest webRequest = UnityWebRequest.Get(filePath);
             if (webRequest == null)
             {
                 Logger.Error($"load {DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName} file error.");
@@ -127,8 +138,8 @@ namespace Deer
             {
                 var configBytes = webRequest.downloadHandler.data;
                 string xml = FileUtils.BinToUtf8(configBytes);
-                var configs = FileUtils.AnalyConfigXml(xml);
-                if (configs.Count > 0)
+                m_Configs = FileUtils.AnalyConfigXml(xml);
+                if (m_Configs.Count > 0)
                 {
                     StartCoroutine(IEMoveConfigFileToReadWritePath());
                 }
@@ -167,6 +178,9 @@ namespace Deer
                 if (canMove)
                 {
                     string fileOnlyReadPath = Path.Combine(Application.streamingAssetsPath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName, config.Value.Name);
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
+                    fileOnlyReadPath = fileOnlyReadPath = $"file://{fileOnlyReadPath}";
+#endif
                     UnityWebRequest webRequest = UnityWebRequest.Get(fileOnlyReadPath);
                     if (webRequest == null)
                     {

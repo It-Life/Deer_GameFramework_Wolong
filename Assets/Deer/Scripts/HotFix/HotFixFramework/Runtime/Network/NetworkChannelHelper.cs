@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Pb.Message;
 using GameFramework;
 using GameFramework.Event;
 using GameFramework.Network;
@@ -22,10 +23,10 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
     private readonly Dictionary<int, Type> m_ServerToClientPacketTypes = new Dictionary<int, Type>();
     private MemoryStream m_CachedStream = new MemoryStream(1024 * 8);
     private INetworkChannel m_NetworkChannel = null;
-    private byte[] m_Cached = new byte[6];
+    private byte[] m_CachedByte;
     public static readonly int PacketSizeLength = 4;        //包体长度
-    public static readonly int MessageIdLength = 2;         //协议号长度
-    public static readonly int MessageOpcodeIndex = 4;      //协议号开始下标
+    //public static readonly int MessageIdLength = 2;         //协议号长度
+    //public static readonly int MessageOpcodeIndex = 4;      //协议号开始下标
     /// <summary>
     /// 获取消息包头长度 （包的长度和协议号组成）。
     /// 前4个字节代表消息的长度
@@ -36,7 +37,7 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
     {
         get
         {
-            return PacketSizeLength + MessageIdLength;
+            return PacketSizeLength;
         }
     }
 
@@ -46,8 +47,8 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
     /// <param name="networkChannel">网络频道。</param>
     public void Initialize(INetworkChannel networkChannel)
     {
+        m_CachedByte = new byte[PacketHeaderLength];
         m_NetworkChannel = networkChannel;
-
         // 反射注册包和包处理函数。
         Type packetBaseType = typeof(SCPacketBase);
         Type packetHandlerBaseType = typeof(PacketHandlerBase);
@@ -115,11 +116,12 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
     /// <returns>是否发送心跳消息包成功。</returns>
     public bool SendHeartBeat()
     {
-        DeerGameBase.CSHeartBeat csHeartBeat = new DeerGameBase.CSHeartBeat();
-        csHeartBeat.DwTime = 1;
+        ExternalMessage external = new ExternalMessage();
+        external.CmdCode = 0;
+        external.ProtocolSwitch = 0;
+        external.CmdMerge = 0;
         Deer.CSProtoPacket csProtoPacket = ReferencePool.Acquire<Deer.CSProtoPacket>();
-        csProtoPacket.protoId = (int)DeerProtoBase.ProtocolID.PtcC2SHeartBeat;
-        csProtoPacket.protoBody = csHeartBeat.ToByteArray();
+        csProtoPacket.protoBody = ProtobufUtils.Serialize(external);
         m_NetworkChannel.Send(csProtoPacket);
         return true;
     }
@@ -133,7 +135,7 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
     /// <returns>是否序列化成功。</returns>
     public bool Serialize<T>(T packet, Stream destination) where T : Packet
     {
-        PacketBase packetImpl = packet as PacketBase;
+        Deer.CSProtoPacket packetImpl = packet as Deer.CSProtoPacket;
         if (packetImpl == null)
         {
             Log.Warning("Packet is invalid.");
@@ -144,16 +146,15 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
             Log.Warning("Send packet invalid.");
             return false;
         }
-        PacketHeader packetHeader = ReferencePool.Acquire<PacketHeader>();
-        packetHeader.PacketLength = packetImpl.protoBody.Length;
-        packetHeader.Id = (short)packetImpl.protoId;
         m_CachedStream.Seek(0, SeekOrigin.Begin);
         m_CachedStream.SetLength(0);
-        m_Cached.WriteTo(0, packetHeader.PacketLength);
-        m_Cached.WriteTo(MessageOpcodeIndex, (short)packetHeader.Id);
-        m_CachedStream.Write(m_Cached, 0, m_Cached.Length);
+        Array.Clear(m_CachedByte, 0, m_CachedByte.Length);
+        m_CachedByte.WriteToJava(0, packetImpl.protoBody.Length);
+        //m_Cached.WriteTo(MessageOpcodeIndex, (short)packetHeader.Id);
+        m_CachedStream.Write(m_CachedByte, 0, m_CachedByte.Length);
         m_CachedStream.Write(packetImpl.protoBody, 0, packetImpl.protoBody.Length);
         m_CachedStream.WriteTo(destination);
+        ReferencePool.Release(packetImpl);
         return true;
     }
 
@@ -171,14 +172,11 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
         PacketHeader packetHeader = ReferencePool.Acquire<PacketHeader>();
         if (source is MemoryStream memoryStream)
         {
-            //packetSize 由 消息包的长度 和消息协议号组成
-            //这里需要用服务端发过来的packetSize的值减去消息包中MessageId的长度，
-            //因为服务端在发送消息时设置的packetSize的值是包含opcode的，而
-            //客户端在解析包头的时候已经解析了oMessageIdpcode，因此剩余要解析的数据长度要减去2（MessageId长度是3个字节）
+            //packetSize 由 消息包的长度
             byte[] bytes = memoryStream.GetBuffer();
-            int packetSize = BitConverter.ToInt32(bytes, 0);
+            int packetSize = ByteUtils.ReadToJava(bytes, 0);
             packetHeader.PacketLength = packetSize;
-            packetHeader.Id = BitConverter.ToInt16(bytes, MessageOpcodeIndex);
+            //Logger.ColorInfo(ColorType.blue, $"消息头长度：{packetSize}");
             return packetHeader;
         }
         return null;
@@ -207,7 +205,7 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
         {
             if (source is MemoryStream memoryStream)
             {
-                scProtoPacket.protoId = scPacketHeader.Id;
+                //scProtoPacket.protoId = scPacketHeader.Id;
                 scProtoPacket.protoBody = memoryStream.ToArray();
             }
         }
@@ -242,6 +240,7 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
         messengerInfo.param2 = ne.NetworkChannel.Socket.LocalEndPoint.ToString();
         messengerInfo.param3 = ne.NetworkChannel.Socket.RemoteEndPoint.ToString();
         GameEntry.Messenger.SendEvent(EventName.EVENT_CS_NET_CONNECTED, messengerInfo);
+        Logger.Debug("网络连接成功......");
     }
 
     private void OnNetworkClosed(object sender, GameEventArgs e)
@@ -256,6 +255,7 @@ public class NetworkChannelHelper : INetworkChannelHelper, IReference
         /*            messengerInfo.param2 = ne.NetworkChannel.Socket.LocalEndPoint.ToString();
                     messengerInfo.param3 = ne.NetworkChannel.Socket.RemoteEndPoint.ToString();*/
         GameEntry.Messenger.SendEvent(EventName.EVENT_CS_NET_CLOSE, messengerInfo);
+        Logger.Debug("网络连接关闭......");
     }
 
     private void OnNetworkMissHeartBeat(object sender, GameEventArgs e)

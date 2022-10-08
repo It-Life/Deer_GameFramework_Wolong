@@ -6,8 +6,11 @@
 //修改时间:2022-09-16 14-15-39
 //版 本:0.1 
 // ===============================================
+using Sirenix.OdinInspector;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 资源存放地
@@ -41,6 +44,25 @@ public class ResourcesArea
     private string m_FormalResourceSourceUrl = "http://121.4.195.168:8088";
     public string FormalResourceSourceUrl { get { return m_FormalResourceSourceUrl; } }
 }
+[Serializable]
+public class ServerIpAndPort
+{
+    public string ServerName;
+    public string Ip;
+    public int Port;
+}
+//intranet 10100
+//192.168.29.51
+//extranet
+//47.98.226.149
+[Serializable]
+public class ServerChannelInfo
+{
+    public string ChannelName;
+    public string CurUseServerName;
+    public List<ServerIpAndPort> ServerIpAndPorts;
+}
+
 /// <summary>
 /// Please modify the description.
 /// </summary>
@@ -62,6 +84,12 @@ public class FrameworkGlobalSettings
     [SerializeField]
     private ResourcesArea m_ResourcesArea;
     public ResourcesArea ResourcesArea { get { return m_ResourcesArea; } }
+    [Header("SpriteCollection")]
+    [SerializeField]
+    [FolderPath]
+    private string m_AtlasFolder = "Assets/Deer/AssetsHotfix/UI/UIArt/Atlas";
+    public string AtlasFolder { get { return m_AtlasFolder; } }
+
     [Header("Hotfix")]
     [SerializeField]
     private string m_ResourceVersionFileName = "ResourceVersion.txt";
@@ -70,6 +98,20 @@ public class FrameworkGlobalSettings
     public string MacOSAppUrl = "";
     public string IOSAppUrl = "";
     public string AndroidAppUrl = "";
+    [Header("Server")] 
+    [SerializeField]
+    private string m_CurUseServerChannel;
+    public string CurUseServerChannel
+    {
+        get => m_CurUseServerChannel;
+    }
+    [SerializeField]
+    private List<ServerChannelInfo> m_ServerChannelInfos;
+
+    public List<ServerChannelInfo> ServerChannelInfos
+    {
+        get => m_ServerChannelInfos;
+    }
 
     [Header("Config")]
     [Tooltip("是否读取本地表 UnityEditor 下起作用")]
@@ -81,4 +123,5 @@ public class FrameworkGlobalSettings
     [SerializeField]
     private string m_ConfigFolderName = "LubanConfig";
     public string ConfigFolderName { get { return m_ConfigFolderName; } }
+
 }

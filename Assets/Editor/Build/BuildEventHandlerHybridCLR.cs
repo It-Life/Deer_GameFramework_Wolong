@@ -7,10 +7,9 @@
 //版 本:0.1 
 // ===============================================
 using HybridCLR.Editor;
-using Main.Runtime;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using HybridCLR.Editor.Commands;
 using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Editor.ResourceTools;
@@ -26,6 +25,7 @@ public static class BuildEventHandlerWolong
     {
         get { return Path.Combine(Application.dataPath, DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath); }    
     }
+
     /// <summary>
     /// Convert UGF platform to Unity platform define
     /// </summary>
@@ -48,6 +48,10 @@ public static class BuildEventHandlerWolong
     }
     public static void OnPreprocessAllPlatforms(Platform platforms) 
     {
+        if (!DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable)
+        {
+            return;
+        }
         foreach (var item in Platform2BuildTargetDic)
         {
             if (IsPlatformSelected(platforms,item.Key))
@@ -71,6 +75,7 @@ public static class BuildEventHandlerWolong
 
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
+        AOTMetaAssembliesHelper.FindAllAOTMetaAssemblies(buildTarget);
         FolderUtils.ClearFolder(AssemblyTextAssetPath);
         foreach (var dll in SettingsUtil.HotUpdateAssemblyFiles)
         {
@@ -82,7 +87,7 @@ public static class BuildEventHandlerWolong
             }
             File.Copy(dllPath, dllBytesPath, true);
         }
-        foreach (var dll in SettingsUtil.AOTMetaAssemblies)
+        foreach (var dll in DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies)
         {
             string dllPath = $"{SettingsUtil.GetAssembliesPostIl2CppStripDir(buildTarget)}/{dll}";
             if (!File.Exists(dllPath))
@@ -98,11 +103,11 @@ public static class BuildEventHandlerWolong
             File.Copy(dllPath, dllBytesPath, true);
         }
         DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblyFiles);
-        DeerSettingsUtils.SetHybridCLRAOTMetaAssemblies(SettingsUtil.AOTMetaAssemblies);
         AddHotfixDllToResourceCollection();
         AssetDatabase.Refresh();
     }
-
+    //TODO 自动把GetAssembliesPostIl2CppStripDir 写到AOTMetaAssemblies 里
+    
     private static ResourceCollection resourceCollection;
     private static string resourcesName = "AssetsHotfix/Assembly";
     private static List<string> guids = new List<string>();

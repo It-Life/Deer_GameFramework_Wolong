@@ -83,7 +83,11 @@ namespace Deer.Editor
         {
             SaveObject(menuCommand, "UISpriteAnimation");
         }
-        
+        [MenuItem("GameObject/UI/U_UIHealthBar", false, 3)]
+        static void CreateUIHealthbar(MenuCommand menuCommand)
+        {
+            SaveObject(menuCommand, "UIHealthBar");
+        }
         static GameObject SaveObject(MenuCommand menuCommand, string prefabName,string objName = "") 
         {
             var path = Main.Runtime.FileUtils.GetPath($@"Assets\Deer\AssetsNative\UI\UITemplate\{ prefabName }.prefab");

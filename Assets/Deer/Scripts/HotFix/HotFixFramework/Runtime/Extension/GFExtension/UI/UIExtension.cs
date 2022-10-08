@@ -18,7 +18,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace HotfoxFramework.Runtime 
+namespace HotfoxFramework.Runtime
 {
     /// <summary>
     /// Please modify the description.
@@ -30,11 +30,59 @@ namespace HotfoxFramework.Runtime
         private static string m_UIGroupHelperTypeName = "Main.Runtime.DeerUIGroupHelper";
         private static UIGroupHelperBase m_CustomUIGroupHelper = null;
 
+        /// <summary>
+        /// 血条节点
+        /// </summary>
+        private static HealthbarRoot m_HealthbarRoot;
+        public static HealthbarRoot HealthbarRoot
+        {
+            get
+            {
+                if (m_HealthbarRoot == null)
+                {
+                    m_HealthbarRoot = GameEntry.UI.GetInstanceRoot().Find("HealthbarRoot").gameObject.GetOrAddComponent<HealthbarRoot>();
+                    m_HealthbarRoot.gameObject.SetActive(true);
+                }
+                return m_HealthbarRoot;
+            }
+        }
+        /// <summary>
+        /// 飘字节点
+        /// </summary>
+        private static ShootTextRoot m_ShootTextRoot;
+        public static ShootTextRoot ShootTextRoot
+        {
+            get
+            {
+                if (m_ShootTextRoot == null)
+                {
+                    m_ShootTextRoot = GameEntry.UI.GetInstanceRoot().Find("ShootTextRoot").gameObject.GetOrAddComponent<ShootTextRoot>();
+                    m_ShootTextRoot.gameObject.SetActive(true);
+                }
+                return m_ShootTextRoot;
+            }
+        }
+        /// <summary>
+        /// 获取血条节点
+        /// </summary>
+        /// <param name="uiComponent"></param>
+        /// <returns></returns>
+        public static HealthbarRoot GetHealthbarRoot(this UIComponent uiComponent)
+        {
+            return HealthbarRoot;
+        }
+        /// <summary>
+        /// 获取飘字界面
+        /// </summary>
+        /// <returns></returns>
+        public static ShootTextRoot GetShootTextRoot(this UIComponent uiComponent)
+        {
+            return ShootTextRoot;
+        }
         public static bool HasUIForm(this UIComponent uiComponent, UIFormId uiFormId, string uiGroupName = null)
         {
             return uiComponent.HasUIForm((int)uiFormId, uiGroupName);
         }
-
         public static bool HasUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
         {
             UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get(uiFormId);
@@ -145,7 +193,23 @@ namespace HotfoxFramework.Runtime
                 uiComponent.OpenUIForm(UIFormId.DialogForm, dialogParams);
             }
         }
+        /// <summary>
+        /// 打开飘字提示框
+        /// </summary>
+        /// <param name="uIComponent"></param>
+        /// <param name="tips">显示内容</param>
+        /// <param name="color">颜色（默认白色）</param>
+        /// <param name="openBg">背景框（默认打开）</param>
+        public static void OpenTips(this UIComponent uIComponent, string tips, Color? color = null, bool openBg = true)
+        {
 
+            MessengerInfo info = ReferencePool.Acquire<MessengerInfo>();
+            info.param1 = tips;
+            info.param2 = color == null ? Color.white : color;
+            info.param3 = openBg;
+
+            uIComponent.OpenUIForm(UIFormId.UITipsForm, info);
+        }
         private static void OpenNativeDialog(DialogParams dialogParams)
         {
             throw new System.NotImplementedException("OpenNativeDialog");

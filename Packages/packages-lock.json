@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "com.focus-creative-games.hybridclr_unity": {
-      "version": "file:com.focus-creative-games.hybridclr_unity",
+      "version": "https://gitee.com/focus-creative-games/hybridclr_unity.git",
       "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "8eb94be37e2072064ddd84f04ca4d6e21b149aed"
     },
     "com.unity.burst": {
       "version": "1.6.5",
@@ -16,10 +17,12 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.cinemachine": {
-      "version": "2.8.6",
+      "version": "2.9.1",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.test-framework": "1.1.31"
+      },
       "url": "https://packages.unity.cn"
     },
     "com.unity.collab-proxy": {

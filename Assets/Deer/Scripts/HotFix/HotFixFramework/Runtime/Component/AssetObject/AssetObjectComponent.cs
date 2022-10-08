@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace Deer
+namespace HotfoxFramework.Runtime
 {
     public delegate void LoadAssetObjectComplete(bool success, object assetObj, int nLoadSerial);
 
@@ -28,6 +28,7 @@ namespace Deer
         private HashSet<int> m_AssetObjectToReleaseOnLoad; //加载完毕要卸载的AssetObject  
         private string m_luaModuleHelperName = "AssetObjectManagerHelper";
         private int m_nLoadSerial = 0;
+        private Dictionary<int, object> m_AssetObjectToLoad;
         [SerializeField]
         private float m_InstanceAutoReleaseInterval = 5f;
 
@@ -103,6 +104,7 @@ namespace Deer
             m_AssetObjectBeingLoaded = new Dictionary<int, string>();
             m_AssetObjectToReleaseOnLoad = new HashSet<int>();
             m_LoadAssetObjectComplete = new Dictionary<int, LoadAssetObjectComplete>();
+            m_AssetObjectToLoad = new Dictionary<int, object>();
         }
 
         private void Start()
@@ -120,7 +122,7 @@ namespace Deer
             m_LoadAssetCallbacks = null;
             m_InstancePool = null;
         }
-        public void LoadAssetAsync(int nLoadSerial, string strPath, string strShowName, LoadAssetObjectComplete loadAssetObjectComplete = null)
+        public void LoadAssetAsync(int nLoadSerial, string strPath, string strShowName,Type assetType, LoadAssetObjectComplete loadAssetObjectComplete = null)
         {
             m_LoadAssetObjectComplete.Add(nLoadSerial, loadAssetObjectComplete);
             AssetInstanceObject assetObject = m_InstancePool.Spawn(strPath);
@@ -128,18 +130,36 @@ namespace Deer
             {
                 AssetObjectInfo assetObjectInfo = AssetObjectInfo.Create(nLoadSerial, strPath, strShowName);
                 m_AssetObjectBeingLoaded.Add(nLoadSerial, strPath);
-                GameEntry.Resource.LoadAsset(strPath, typeof(GameObject), Constant.AssetPriority.SceneUnit, m_LoadAssetCallbacks, assetObjectInfo);
+                GameEntry.Resource.LoadAsset(strPath, assetType, Constant.AssetPriority.SceneUnit, m_LoadAssetCallbacks, assetObjectInfo);
             }
             else
             {
-                loadAssetObjectComplete?.Invoke(true, (GameObject)assetObject.Target, nLoadSerial);
+                CallFunction("LoadAssetObjectSuccessCallback", assetObject.Target, nLoadSerial);
+            }
+        }
+
+        public void HideObject(int serialId) 
+        {
+            RecycleAsset(serialId);
+        }
+        public void RecycleAsset(int serialId) 
+        {
+            if (m_AssetObjectToLoad.TryGetValue(serialId, out object obj))
+            {
+                GameObject tempObj = obj as GameObject;
+                if (tempObj != null)
+                {
+                    tempObj.SetActive(false);
+                }
+                Unspawn(obj);
+                m_AssetObjectToLoad.Remove(serialId);
             }
         }
         /// <summary>
-        /// 回收资源(不要调用 只用于AssetObjectBase destroy的时候)
+        /// 回收资源
         /// </summary>
         /// <param name="asset"></param>
-        public void Unspawn(object asset)
+        private void Unspawn(object asset)
         {
             if (m_InstancePool == null)
             {
@@ -153,7 +173,7 @@ namespace Deer
         /// </summary>
         /// <param name="uiFormAssetName">界面资源名称</param>
         /// <returns>是否正在加载预制体</returns>
-        public bool IsLoadingUIForm(int serialId)
+        public bool IsLoadingAssetObjectById(int serialId)
         {
             return m_AssetObjectBeingLoaded.ContainsKey(serialId);
         }
@@ -202,10 +222,8 @@ namespace Deer
             m_AssetObjectBeingLoaded.Remove(assetObjectInfo.SerialId);
 
             string appendErrorMessage = Utility.Text.Format("Load assetObject failure, asset name '{0}', status '{1}' , error message '{2}'.", assetName, status.ToString(), errorMessage);
-            if (m_LoadAssetObjectComplete.TryGetValue(assetObjectInfo.SerialId, out LoadAssetObjectComplete loadAssetObjectComplete))
-            {
-                loadAssetObjectComplete?.Invoke(false, null, 0);
-            }
+            CallFunction("LoadAssetObjectFailureCallback", assetObjectInfo.SerialId);
+
             ReferencePool.Release(assetObjectInfo);
             Log.Error(appendErrorMessage);
         }
@@ -227,12 +245,24 @@ namespace Deer
             m_AssetObjectBeingLoaded.Remove(assetObjectInfo.SerialId);
             AssetInstanceObject assetObject = AssetInstanceObject.Create(assetName, asset, Instantiate((UnityEngine.Object)asset));
             m_InstancePool.Register(assetObject, true);
-            if (m_LoadAssetObjectComplete.TryGetValue(assetObjectInfo.SerialId, out LoadAssetObjectComplete loadAssetObjectComplete))
-            {
-                loadAssetObjectComplete?.Invoke(true, (GameObject)assetObject.Target, assetObjectInfo.SerialId);
-            }
+            CallFunction("LoadAssetObjectSuccessCallback", assetObject.Target, assetObjectInfo.SerialId);
             ReferencePool.Release(assetObjectInfo);
 
+        }
+        private void CallFunction(string func, int serialId)
+        {
+            if (m_LoadAssetObjectComplete.TryGetValue(serialId, out LoadAssetObjectComplete loadAssetObjectComplete))
+            {
+                loadAssetObjectComplete?.Invoke(false, null, 0);
+            }
+        }
+        private void CallFunction(string func, object gameObject, int serialId)
+        {
+            m_AssetObjectToLoad.Add(serialId, gameObject);
+            if (m_LoadAssetObjectComplete.TryGetValue(serialId, out LoadAssetObjectComplete loadAssetObjectComplete))
+            {
+                loadAssetObjectComplete?.Invoke(true, gameObject, serialId);
+            }
         }
         public int GenSerialId()
         {

@@ -27,6 +27,11 @@ public static class SoundComponentExtension
             Log.Warning("Can not load sound '{0}' from data table.", musicId.ToString());
             return null;
         }
+
+        if (!soundComponent.HasSoundGroup(Constant.SoundGroup.Music))
+        {
+            soundComponent.AddSoundGroup(Constant.SoundGroup.Music, 5);
+        }
         soundComponent.StopMusic();
         PlaySoundParams playSoundParams = PlaySoundParams.Create();
         playSoundParams.Priority = config.SoundPriority.ToInt();
@@ -57,7 +62,10 @@ public static class SoundComponentExtension
             Log.Warning("Can not load sound '{0}' from data table.", soundId.ToString());
             return null;
         }
-
+        if (!soundComponent.HasSoundGroup(Constant.SoundGroup.Sound))
+        {
+            soundComponent.AddSoundGroup(Constant.SoundGroup.Sound, 5);
+        }
         PlaySoundParams playSoundParams = PlaySoundParams.Create();
         playSoundParams.Priority = config.SoundPriority.ToInt();
         playSoundParams.Loop = config.Loop == 1;
@@ -93,7 +101,10 @@ public static class SoundComponentExtension
             Log.Warning("Can not load UI sound '{0}' from data table.", uiSoundId.ToString());
             return null;
         }
-
+        if (!soundComponent.HasSoundGroup(Constant.SoundGroup.UISound))
+        {
+            soundComponent.AddSoundGroup(Constant.SoundGroup.UISound, 5);
+        }
         PlaySoundParams playSoundParams = PlaySoundParams.Create();
         playSoundParams.Priority = config.SoundPriority.ToInt();
         playSoundParams.Loop = config.Loop == 1;

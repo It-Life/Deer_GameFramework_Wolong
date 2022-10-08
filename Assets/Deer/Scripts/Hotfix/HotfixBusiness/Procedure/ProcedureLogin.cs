@@ -33,7 +33,7 @@ namespace HotfixBusiness.Procedure
         }
         public void ChangeStateToMain() 
         {
-            m_ProcedureOwner.SetData<VarString>("nextProcedure", "HotfixBusiness.Procedure.ProcedureMain");
+            m_ProcedureOwner.SetData<VarString>("nextProcedure", ProcedureEnum.ProcedureMain.ToString());
             ChangeState<ProcedureChangeScene>(m_ProcedureOwner);
         }
     }

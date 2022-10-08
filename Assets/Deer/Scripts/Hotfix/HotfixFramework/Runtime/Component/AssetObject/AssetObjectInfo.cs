@@ -7,10 +7,8 @@
 //版 本 : 0.1 
 // ===============================================
 using GameFramework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-namespace Deer
+
+namespace HotfoxFramework.Runtime
 {
 	public class AssetObjectInfo: IReference
 	{

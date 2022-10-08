@@ -7,6 +7,7 @@ using System.Reflection;
 using System.IO;
 using UnityEditor.Callbacks;
 using System.Text;
+using GameFramework;
 
 [CustomEditor(typeof(ComponentAutoBindTool))]
 public class ComponentAutoBindToolInspector : Editor
@@ -41,22 +42,7 @@ public class ComponentAutoBindToolInspector : Editor
         m_BindComs = serializedObject.FindProperty("m_BindComs");
 
         m_HelperTypeNames = GetTypeNames(typeof(IAutoBindRuleHelper), s_AssemblyNames);
-
-        string[] paths = AssetDatabase.FindAssets("t:AutoBindGlobalSetting");
-        if (paths.Length == 0)
-        {
-            Debug.LogError("不存在AutoBindGlobalSetting");
-            return;
-        }
-        if (paths.Length > 1)
-        {
-            Debug.LogError("AutoBindGlobalSetting数量大于1");
-            return;
-        }
-        string path = AssetDatabase.GUIDToAssetPath(paths[0]);
-        m_Setting = AssetDatabase.LoadAssetAtPath<AutoBindGlobalSetting>(path);
-
-
+        m_Setting = AutoBindGlobalSetting.GetAutoBindGlobalSetting();
         m_Namespace = serializedObject.FindProperty("m_Namespace");
         m_ClassName = serializedObject.FindProperty("m_ClassName");
         m_ComCodePath = serializedObject.FindProperty("m_ComCodePath");
@@ -116,6 +102,11 @@ public class ComponentAutoBindToolInspector : Editor
 
         if (GUILayout.Button("生成绑定代码"))
         {
+            if (m_ClassName.stringValue.Equals("UIPanel") || string.IsNullOrEmpty(m_ClassName.stringValue))
+            {
+                EditorUtility.DisplayDialog("提示", "请先同步物体名字到类名，点击【物体名】按钮", "确定");
+                return;
+            }
             GenAutoBindCode();
         }
         if (GUILayout.Button("挂载逻辑代码"))
@@ -193,7 +184,7 @@ public class ComponentAutoBindToolInspector : Editor
             m_TempFiledNames.Clear();
             m_TempComponentTypeNames.Clear();
 
-            if (m_Target.RuleHelper.IsValidBind(child, m_TempFiledNames, m_TempComponentTypeNames))
+            if (AutoBindGlobalSetting.IsValidBind(child, m_TempFiledNames, m_TempComponentTypeNames))
             {
                 for (int i = 0; i < m_TempFiledNames.Count; i++)
                 {
@@ -286,12 +277,15 @@ public class ComponentAutoBindToolInspector : Editor
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("选择组件代码路径"))
         {
-            string temp = m_ComCodePath.stringValue;
-            string path = EditorUtility.OpenFolderPanel("选择组件代码保存路径", Application.dataPath, "");
-            m_ComCodePath.stringValue = path.Replace(Application.dataPath, "");
-            if (string.IsNullOrEmpty(m_ComCodePath.stringValue))
+            string folder = Path.Combine(Application.dataPath, m_ComCodePath.stringValue);
+            if (!Directory.Exists(folder))
             {
-                m_ComCodePath.stringValue = temp;
+                folder = Application.dataPath;
+            }
+            string path = EditorUtility.OpenFolderPanel("选择组件代码保存路径", folder, "");
+            if (!string.IsNullOrEmpty(path))
+            {
+                m_ComCodePath.stringValue = path.Replace(Application.dataPath +"/", "");
             }
         }
         if (GUILayout.Button("默认设置"))
@@ -305,12 +299,15 @@ public class ComponentAutoBindToolInspector : Editor
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("选择挂载代码路径"))
         {
-            string temp = m_MountCodePath.stringValue;
-            string path = EditorUtility.OpenFolderPanel("选择挂载代码保存路径", Application.dataPath, "");
-            m_MountCodePath.stringValue = path.Replace(Application.dataPath, "");
-            if (string.IsNullOrEmpty(m_MountCodePath.stringValue))
+            string folder = Path.Combine(Application.dataPath, m_MountCodePath.stringValue);
+            if (!Directory.Exists(folder))
             {
-                m_MountCodePath.stringValue = temp;
+                folder = Application.dataPath;
+            }
+            string path = EditorUtility.OpenFolderPanel("选择挂载代码保存路径", folder, "");
+            if (!string.IsNullOrEmpty(path))
+            {
+                m_MountCodePath.stringValue = path.Replace(Application.dataPath +"/", "");
             }
         }
         if (GUILayout.Button("默认设置"))
@@ -478,7 +475,7 @@ public class ComponentAutoBindToolInspector : Editor
 
         string className = !string.IsNullOrEmpty(m_Target.ClassName) ? m_Target.ClassName : go.name;
         string codePath = !string.IsNullOrEmpty(m_Target.ComCodePath) ? m_Target.ComCodePath : m_Setting.ComCodePath;
-
+        codePath = Path.Combine(Application.dataPath, codePath);
         if (!Directory.Exists(codePath))
         {
             Debug.LogError($"{go.name}的代码保存路径{codePath}无效");
@@ -587,6 +584,7 @@ public class ComponentAutoBindToolInspector : Editor
             return;
         }
         string codePath = !string.IsNullOrEmpty(m_Target.MountCodePath) ? m_Target.MountCodePath : m_Setting.MountCodePath;
+        codePath = Path.Combine(Application.dataPath, codePath);
         string folderName = className.Replace("Form", "");
         string fileNmae = $"{className}.cs";
         if (!Directory.Exists(codePath))
@@ -618,29 +616,29 @@ public class ComponentAutoBindToolInspector : Editor
             sw.WriteLine("\tpublic partial class " + className + " : UIFixBaseForm\n\t{");
 
             #region Start
-            sw.WriteLine("\t\tvoid Start() {\n\t\t\tGetBindComponents(gameObject);\n");         //   Start
+            sw.WriteLine("\t\t protected override void OnInit(object userData) {\n\t\t\t base.OnInit(userData);\n\t\t\t GetBindComponents(gameObject);\n");         //   Start
             for (int i = 0; i < m_Target.BindDatas.Count; i++)
             {
-                if(Equals(m_Target.BindDatas[i].BindCom.GetType(), typeof(UIButtonSuper)))
-                    sw.WriteLine($"\t\t\tm_{m_Target.BindDatas[i].Name}.onClick.AddListener({m_Target.BindDatas[i].Name}Event);");
+                if(m_Target.BindDatas[i].BindCom.GetType() == typeof(UIButtonSuper))
+                    sw.WriteLine($"\t\t\t m_{m_Target.BindDatas[i].Name}.onClick.AddListener({m_Target.BindDatas[i].Name}Event);");
             }
-            sw.WriteLine("\t\t}\n");
+            sw.WriteLine("\t\t }\n");
             #endregion
 
             #region OnDisable
-            sw.WriteLine("\t\tvoid OnDisable() {");     //   OnDisable
+            /*sw.WriteLine("\t\tprotected override void OnClose(bool isShutdown, object userData) {\n\t\t\tbase.OnClose(isShutdown, userData);");     //   OnDisable
             for (int i = 0; i < m_Target.BindDatas.Count; i++)
             {
-                if (Equals(m_Target.BindDatas[i].BindCom.GetType(), typeof(UIButtonSuper)))
+                if (m_Target.BindDatas[i].BindCom.GetType() == typeof(UIButtonSuper))
                     sw.WriteLine($"\t\t\tm_{m_Target.BindDatas[i].Name}.onClick.RemoveAllListeners();");
             }
-            sw.WriteLine("\t\t}\n");
+            sw.WriteLine("\t\t}\n");*/
             #endregion
 
             #region ButtonEvent
             for (int i = 0; i < m_Target.BindDatas.Count; i++)
             {
-                if (Equals(m_Target.BindDatas[i].BindCom.GetType(), typeof(UIButtonSuper)))
+                if (m_Target.BindDatas[i].BindCom.GetType() == typeof(UIButtonSuper))
                 {
                     sw.WriteLine("\t\tprivate void " + m_Target.BindDatas[i].Name + "Event() {");
                     sw.WriteLine("\t\t\tDebug.Log(" + @$"""This is {m_Target.BindDatas[i].Name}Event.""" + ");\n\t\t}\n");

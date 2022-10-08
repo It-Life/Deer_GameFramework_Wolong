@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Please modify the description.
@@ -16,9 +17,16 @@ using UnityEngine;
 [Serializable]
 public class HybridCLRCustomGlobalSettings
 {
-    [Header("Auto Setting,do not modify!")]
+    [Header("Auto sync with [HybridCLRGlobalSettings]")]
+    [Tooltip("You should modify the file form file path [Assets/CustomHybridCLR/Settings/HybridCLRGlobalSettings.asset]")]
+    [SerializeField] private bool m_Enable = false;
+    public bool Enable { get { return m_Enable; }
+        set { m_Enable = value; }
+    }
+    [Header("Auto sync with [HybridCLRGlobalSettings]")]
+    [Tooltip("You should modify the file form file path [Assets/CustomHybridCLR/Settings/HybridCLRGlobalSettings.asset]")]
     public List<string> HotUpdateAssemblies;
-    [Header("Auto Setting,do not modify!")]
+    [Header("Need manual setting!")]
     public List<string> AOTMetaAssemblies;
     /// <summary>
     /// Dll of main business logic assembly
