@@ -5,12 +5,12 @@
 
 ### 版本
 
-- Unity 2020.3.33f1
+- Unity 2021.3.1f1c1
 - Microsoft Visual Studio Professional 2022 
 
-### 热更框架流程图
+### 程序集引用图
 
-![流程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/2020.3.33/DescDocu/%E6%B5%81%E7%A8%8B.png?raw=true)
+![流程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/2021.3.1/DescDocu/%E6%B5%81%E7%A8%8B.png?raw=true)
 
 ### 热更程序集
 
@@ -30,11 +30,11 @@
 
 - HotfixBusinessB.dll 业务程序集B
 
-程序集打AssetBundle（AB），遵循GameFramework（GF）资源管理,以及集成到GF，AB自动生成程序集，并打出ab资源。
+程序集自动打AssetBundle（AB），遵循GameFramework（GF）资源管理
 
 ### 使用教程
 
-* [Deer_GameFramework_Wolong/框架使用教程.md at main · It-Life/Deer_GameFramework_Wolong (github.com)](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/main/DescDocu/框架使用教程.md)
+* [Deer_GameFramework_Wolong/框架使用教程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/main/DescDocu/框架使用教程.md)
 
 ### 项目声明
 
