@@ -22,6 +22,7 @@ public class SynAssemblysContent
 	static SynAssemblysContent()
 	{
         curTask = EditorUpdate();
+        EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
         EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
     }
     static void EditorApplication_playModeStateChanged(PlayModeStateChange obj) 
@@ -43,16 +44,38 @@ public class SynAssemblysContent
         {
             return;
         }
-        if (SettingsUtil.HotUpdateAssemblyFiles != DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
+
+        FindTwinsHybridCLRGlobalSettings();
+        if (DeerSettingsUtils.HybridCLRCustomGlobalSettings != null && SettingsUtil.HotUpdateAssemblyFiles != DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
         {
             DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies = SettingsUtil.HotUpdateAssemblyFiles;
         }
 
-        if (SettingsUtil.Enable != DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable)
+        if (DeerSettingsUtils.HybridCLRCustomGlobalSettings != null && SettingsUtil.Enable != DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable)
         {
             DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable = SettingsUtil.Enable;
         }
         await Task.Delay(1000);
         await EditorUpdate();
     }
+
+
+    static void FindTwinsHybridCLRGlobalSettings()
+    {
+        string[] globalAssetPaths = AssetDatabase.FindAssets("t:HybridCLRGlobalSettings");
+        if (globalAssetPaths is { Length: > 1 })
+        {
+            foreach (var assetPathU in globalAssetPaths)
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath(assetPathU);
+                if (!assetPath.Contains("CustomHybridCLR"))
+                {
+                    Debug.LogWarning($"Type HybridCLRGlobalSettings 不能创建多个，在 CustomHybridCLR/Settings下已经存在！");
+                    AssetDatabase.DeleteAsset(assetPath);
+                    AssetDatabase.Refresh();
+                }
+            }
+        }
+    }
+
 }
