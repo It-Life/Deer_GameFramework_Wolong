@@ -25,7 +25,7 @@ namespace ToDoListEditor
         public string Description = "描述";
     }
 
-    [CreateAssetMenu(fileName = "任务清单", menuName = "任务清单")]
+    [CreateAssetMenu(fileName = "TodoList", menuName = "Deer/TodoList")]
     public class TaskListConfigObject : SerializedScriptableObject
     {
         [LabelText("任务清单")]

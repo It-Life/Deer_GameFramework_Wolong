@@ -22,28 +22,28 @@ public class CreateTemplateScript
     private const string TemplateLuaSceneScriptPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaSceneScript.lua.txt";*/
 
     //菜单项
-     [MenuItem("Assets/Create/CSharpScript/C# FrameScript", false, 1)]
+     [MenuItem("Assets/Create/Deer/CSharpScript/C# FrameScript", false, 1)]
     static void CreateScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewBehaviourScript.cs",
         null, TemplateScriptPath);
     }
-    [MenuItem("Assets/Create/CSharpScript/C# MainFrameUIScript", false, 2)]
+    [MenuItem("Assets/Create/Deer/CSharpScript/C# MainFrameUIScript", false, 2)]
     static void CreateMainUIFormScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewUIFormScript.cs",
         null, TemplateMainUIFormScriptPath);
     }
-    [MenuItem("Assets/Create/CSharpScript/C# BusinessFrameUIScript", false, 3)]
+    [MenuItem("Assets/Create/Deer/CSharpScript/C# BusinessFrameUIScript", false, 3)]
     static void CreateHotfixBusinessUIFormScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewUIFormScript.cs",
         null, TemplateBusinessUIFormScriptPath);
     }
-    [MenuItem("Assets/Create/CSharpScript/C# FrameProcedureScript", false, 4)]
+    [MenuItem("Assets/Create/Deer/CSharpScript/C# FrameProcedureScript", false, 4)]
     static void CreateProcedureScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
