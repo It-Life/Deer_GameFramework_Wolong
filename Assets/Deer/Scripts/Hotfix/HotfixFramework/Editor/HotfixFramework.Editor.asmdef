@@ -1,5 +1,5 @@
 {
-    "name": "HotFixFramework.Editor",
+    "name": "HotfixFramework.Editor",
     "rootNamespace": "",
     "references": [
         "GUID:1c284c47c5e6d27489e8e674b28561be",
