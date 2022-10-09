@@ -38,9 +38,6 @@ public class HybridCLRGlobalSettingsProvider : SettingsProvider
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("maxGenericReferenceIteration"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("ReversePInvokeWrapperCount"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("maxMethodBridgeGenericIteration"));
-        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("hotUpdateDllOutputDir"));
-        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("hybridCLRDataDir"));
-        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("strippedAssemblyDir"));
         EditorGUILayout.Space(20);
         if ( !changeCheckScope.changed ) return;
         m_CustomSettings.ApplyModifiedPropertiesWithoutUndo();

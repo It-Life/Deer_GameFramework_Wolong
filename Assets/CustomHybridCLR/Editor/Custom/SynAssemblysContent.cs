@@ -65,7 +65,7 @@ public class SynAssemblysContent
     static void FindTwinsHybridCLRGlobalSettings()
     {
         string[] globalAssetPaths = AssetDatabase.FindAssets("t:HybridCLRGlobalSettings");
-        if (globalAssetPaths is { Length: > 1 })
+        if (globalAssetPaths != null && globalAssetPaths.Length > 1)
         {
             foreach (var assetPathU in globalAssetPaths)
             {
