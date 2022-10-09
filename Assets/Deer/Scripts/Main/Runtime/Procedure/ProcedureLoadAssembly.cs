@@ -237,8 +237,10 @@ namespace Main.Runtime.Procedure
                 fixed (byte* ptr = dllBytes)
                 {
                     // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
+#if ENABLE_HYBRID_CLR_UNITY
                     LoadImageErrorCode err = (LoadImageErrorCode)HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly((IntPtr)ptr, dllBytes.Length); 
                     Debug.Log($"LoadMetadataForAOTAssembly:{userData as string}. ret:{err}");
+#endif
                 }
             }
             catch (Exception e)

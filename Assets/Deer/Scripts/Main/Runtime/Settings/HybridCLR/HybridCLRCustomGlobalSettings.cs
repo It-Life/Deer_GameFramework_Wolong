@@ -23,6 +23,10 @@ public class HybridCLRCustomGlobalSettings
     public bool Enable { get { return m_Enable; }
         set { m_Enable = value; }
     }
+    [SerializeField] private bool m_Gitee = true;
+    public bool Gitee { get { return m_Gitee; }
+        set { m_Gitee = value; }
+    }
     [Header("Auto sync with [HybridCLRGlobalSettings]")]
     [Tooltip("You should modify the file form file path [Assets/CustomHybridCLR/Settings/HybridCLRGlobalSettings.asset]")]
     public List<string> HotUpdateAssemblies;

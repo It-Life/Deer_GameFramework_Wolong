@@ -79,7 +79,9 @@ public class BuildEventHandler : IBuildEventHandler
             }
         }
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
+#if ENABLE_HYBRID_CLR_UNITY
         BuildEventHandlerWolong.OnPreprocessAllPlatforms(platforms);
+#endif
         BuildEventHandlerLuban.OnPreprocessAllPlatforms(platforms, outputFullSelected);
     }
     /// <summary>
@@ -97,7 +99,9 @@ public class BuildEventHandler : IBuildEventHandler
     public void OnPreprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath,
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath)
     {
+#if ENABLE_HYBRID_CLR_UNITY
         BuildEventHandlerWolong.OnPreprocessPlatform(platform);
+#endif
     }
     /// <summary>
     /// 某个平台生成 AssetBundle 完成事件。

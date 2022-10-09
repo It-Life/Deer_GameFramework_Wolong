@@ -179,13 +179,6 @@
       },
       "url": "https://packages.unity.cn"
     },
-    "com.whinarn.unitymeshsimplifier": {
-      "version": "https://github.com/Whinarn/UnityMeshSimplifier.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "d741912bfeaad8da4fe0f258f4f3eefe1fe7b3f3"
-    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

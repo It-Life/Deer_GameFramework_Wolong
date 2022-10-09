@@ -713,11 +713,11 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     : ENABLE_LOG
-    Android: ENABLE_LOG;ODIN_INSPECTOR;ODIN_INSPECTOR_3
-    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;ENABLE_LOG
-    WebGL: ENABLE_LOG
-    Windows Store Apps: ENABLE_LOG
-    iPhone: ENABLE_LOG
+    Android: ENABLE_LOG;ODIN_INSPECTOR;ODIN_INSPECTOR_3;HYBRIDCLR
+    Standalone: ODIN_INSPECTOR;ODIN_INSPECTOR_3;ENABLE_LOG;ENABLE_UNITY_HYBRID_CLR;HYBRIDCLR
+    WebGL: ENABLE_LOG;HYBRIDCLR
+    Windows Store Apps: ENABLE_LOG;HYBRIDCLR
+    iPhone: ENABLE_LOG;HYBRIDCLR
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

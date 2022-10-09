@@ -1,8 +1,8 @@
-﻿using System;
+﻿#if ENABLE_HYBRID_CLR_UNITY
 using System.IO;
 using HybridCLR.Editor;
 using UnityEditor;
-using UnityEngine;
+
 
 public static class AOTMetaAssembliesHelper
 {
@@ -50,3 +50,4 @@ public static class AOTMetaAssembliesHelper
         AssetDatabase.Refresh();
     }
 }
+#endif

@@ -6,6 +6,7 @@
 //修改时间:2022-06-07 23-38-12
 //版 本:0.1 
 // ===============================================
+#if ENABLE_HYBRID_CLR_UNITY
 using HybridCLR.Editor;
 using System.Collections.Generic;
 using System.IO;
@@ -164,3 +165,4 @@ public static class BuildEventHandlerWolong
     }
 
 }
+#endif

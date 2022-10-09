@@ -1,10 +1,8 @@
-using System.Collections;
+#if ENABLE_HYBRID_CLR_UNITY
 using System.Collections.Generic;
 using System.IO;
 using HybridCLR.Editor;
 using UnityEditor;
-using UnityEditor.Graphs;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 public class HybridCLRGlobalSettingsProvider : SettingsProvider
@@ -64,3 +62,4 @@ public class HybridCLRGlobalSettingsProvider : SettingsProvider
         return null;
     }
 }
+#endif

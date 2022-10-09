@@ -6,6 +6,8 @@
 //修改时间:2022-09-16 18-25-52
 //版 本:0.1 
 // ===============================================
+
+#if ENABLE_HYBRID_CLR_UNITY
 using HybridCLR.Editor;
 using System;
 using System.Threading.Tasks;
@@ -79,3 +81,4 @@ public class SynAssemblysContent
     }
 
 }
+#endif
