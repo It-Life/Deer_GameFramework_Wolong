@@ -8,18 +8,31 @@
     <type fullname="Pathfinding.Seeker" preserve="all" />
   </assembly>
   <assembly fullname="Cinemachine">
+    <type fullname="Cinemachine.AxisState" preserve="all" />
     <type fullname="Cinemachine.CinemachineCore" preserve="all" />
     <type fullname="Cinemachine.CinemachineCore/AxisInputDelegate" preserve="all" />
     <type fullname="Cinemachine.CinemachineFreeLook" preserve="all" />
     <type fullname="Cinemachine.CinemachineVirtualCameraBase" preserve="all" />
   </assembly>
   <assembly fullname="DOTween">
+    <type fullname="DG.Tweening.Core.DOGetter`1" preserve="all" />
+    <type fullname="DG.Tweening.Core.DOSetter`1" preserve="all" />
     <type fullname="DG.Tweening.Core.TweenerCore`3" preserve="all" />
+    <type fullname="DG.Tweening.DOTween" preserve="all" />
+    <type fullname="DG.Tweening.Ease" preserve="all" />
+    <type fullname="DG.Tweening.Plugins.Options.FloatOptions" preserve="all" />
     <type fullname="DG.Tweening.Plugins.Options.VectorOptions" preserve="all" />
     <type fullname="DG.Tweening.ShortcutExtensions" preserve="all" />
     <type fullname="DG.Tweening.Tween" preserve="all" />
     <type fullname="DG.Tweening.TweenCallback" preserve="all" />
     <type fullname="DG.Tweening.TweenSettingsExtensions" preserve="all" />
+  </assembly>
+  <assembly fullname="EasyTouch.Runtime">
+    <type fullname="HedgehogTeam.EasyTouch.BaseFinger" preserve="all" />
+    <type fullname="HedgehogTeam.EasyTouch.EasyTouch" preserve="all" />
+    <type fullname="HedgehogTeam.EasyTouch.EasyTouch/DoubleTapHandler" preserve="all" />
+    <type fullname="HedgehogTeam.EasyTouch.EasyTouch/PinchHandler" preserve="all" />
+    <type fullname="HedgehogTeam.EasyTouch.Gesture" preserve="all" />
   </assembly>
   <assembly fullname="GameFramework">
     <type fullname="GameFramework.BaseEventArgs" preserve="all" />
@@ -64,6 +77,7 @@
     <type fullname="GameFramework.Utility/Assembly" preserve="all" />
     <type fullname="GameFramework.Utility/Path" preserve="all" />
     <type fullname="GameFramework.Utility/Text" preserve="all" />
+    <type fullname="GameFramework.Variable`1" preserve="all" />
   </assembly>
   <assembly fullname="Google.Protobuf">
     <type fullname="Google.Protobuf.ByteString" preserve="all" />
@@ -83,7 +97,6 @@
     <type fullname="Google.Protobuf.Reflection.FileDescriptor" preserve="all" />
     <type fullname="Google.Protobuf.Reflection.GeneratedClrTypeInfo" preserve="all" />
     <type fullname="Google.Protobuf.Reflection.MessageDescriptor" preserve="all" />
-    <type fullname="Google.Protobuf.Reflection.OriginalNameAttribute" preserve="all" />
     <type fullname="Google.Protobuf.UnknownFieldSet" preserve="all" />
   </assembly>
   <assembly fullname="Main.Runtime">
@@ -147,6 +160,7 @@
     <type fullname="System.Func`1" preserve="all" />
     <type fullname="System.Func`2" preserve="all" />
     <type fullname="System.Func`3" preserve="all" />
+    <type fullname="System.Func`5" preserve="all" />
     <type fullname="System.IAsyncResult" preserve="all" />
     <type fullname="System.IDisposable" preserve="all" />
     <type fullname="System.IEquatable`1" preserve="all" />
@@ -202,12 +216,20 @@
     <type fullname="System.TimeSpan" preserve="all" />
     <type fullname="System.TimeZoneInfo" preserve="all" />
     <type fullname="System.Type" preserve="all" />
-    <type fullname="System.UInt64" preserve="all" />
     <type fullname="System.ValueType" preserve="all" />
   </assembly>
   <assembly fullname="Sirenix.Serialization">
     <type fullname="Sirenix.OdinInspector.SerializedScriptableObject" preserve="all" />
     <type fullname="Sirenix.Serialization.OdinSerializeAttribute" preserve="all" />
+  </assembly>
+  <assembly fullname="SuperScrollViewProject">
+    <type fullname="SuperScrollView.LoopGridView" preserve="all" />
+    <type fullname="SuperScrollView.LoopGridViewInitParam" preserve="all" />
+    <type fullname="SuperScrollView.LoopGridViewItem" preserve="all" />
+    <type fullname="SuperScrollView.LoopGridViewSettingParam" preserve="all" />
+    <type fullname="SuperScrollView.LoopListView2" preserve="all" />
+    <type fullname="SuperScrollView.LoopListViewInitParam" preserve="all" />
+    <type fullname="SuperScrollView.LoopListViewItem2" preserve="all" />
   </assembly>
   <assembly fullname="System">
     <type fullname="System.Collections.Generic.LinkedList`1" preserve="all" />
@@ -229,6 +251,18 @@
     <type fullname="System.Collections.Generic.HashSet`1/Enumerator" preserve="all" />
     <type fullname="System.Linq.Enumerable" preserve="all" />
   </assembly>
+  <assembly fullname="TencentLocationSDK">
+    <type fullname="ILocationListener" preserve="all" />
+    <type fullname="TencentLocation.Util" preserve="all" />
+    <type fullname="TencentLocationErrorCode" preserve="all" />
+    <type fullname="TencentLocationInfo" preserve="all" />
+    <type fullname="TencentLocationService" preserve="all" />
+    <type fullname="TencentLocationServiceStatus" preserve="all" />
+  </assembly>
+  <assembly fullname="TencentMapSdk">
+    <type fullname="TencentMap.API.MapController" preserve="all" />
+    <type fullname="TencentMap.CoordinateSystem.Coordinate" preserve="all" />
+  </assembly>
   <assembly fullname="UniTask">
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder" preserve="all" />
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder`1" preserve="all" />
@@ -243,11 +277,16 @@
   </assembly>
   <assembly fullname="Unity.TextMeshPro">
     <type fullname="TMPro.TextMeshProUGUI" preserve="all" />
+    <type fullname="TMPro.TMP_InputField" preserve="all" />
     <type fullname="TMPro.TMP_Text" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AnimationModule">
     <type fullname="UnityEngine.Animator" preserve="all" />
     <type fullname="UnityEngine.AnimatorStateInfo" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.AudioModule">
+    <type fullname="UnityEngine.WebCamDevice" preserve="all" />
+    <type fullname="UnityEngine.WebCamTexture" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule">
     <type fullname="UnityEngine.AddComponentMenu" preserve="all" />
@@ -264,8 +303,10 @@
     <type fullname="UnityEngine.Debug" preserve="all" />
     <type fullname="UnityEngine.DisallowMultipleComponent" preserve="all" />
     <type fullname="UnityEngine.Events.UnityAction" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityAction`1" preserve="all" />
     <type fullname="UnityEngine.Events.UnityEvent" preserve="all" />
     <type fullname="UnityEngine.Events.UnityEvent`1" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityEventBase" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
     <type fullname="UnityEngine.HeaderAttribute" preserve="all" />
     <type fullname="UnityEngine.HideFlags" preserve="all" />
@@ -273,28 +314,40 @@
     <type fullname="UnityEngine.KeyCode" preserve="all" />
     <type fullname="UnityEngine.Keyframe" preserve="all" />
     <type fullname="UnityEngine.LayerMask" preserve="all" />
+    <type fullname="UnityEngine.Material" preserve="all" />
     <type fullname="UnityEngine.Mathf" preserve="all" />
+    <type fullname="UnityEngine.Mesh" preserve="all" />
+    <type fullname="UnityEngine.MeshFilter" preserve="all" />
     <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
     <type fullname="UnityEngine.PlayerPrefs" preserve="all" />
     <type fullname="UnityEngine.Quaternion" preserve="all" />
     <type fullname="UnityEngine.Random" preserve="all" />
     <type fullname="UnityEngine.RangeAttribute" preserve="all" />
+    <type fullname="UnityEngine.Ray" preserve="all" />
     <type fullname="UnityEngine.Rect" preserve="all" />
     <type fullname="UnityEngine.RectTransform" preserve="all" />
+    <type fullname="UnityEngine.Renderer" preserve="all" />
     <type fullname="UnityEngine.RequireComponent" preserve="all" />
+    <type fullname="UnityEngine.Resources" preserve="all" />
+    <type fullname="UnityEngine.RuntimePlatform" preserve="all" />
     <type fullname="UnityEngine.Screen" preserve="all" />
     <type fullname="UnityEngine.SerializeField" preserve="all" />
+    <type fullname="UnityEngine.SkinnedMeshRenderer" preserve="all" />
     <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.SystemInfo" preserve="all" />
+    <type fullname="UnityEngine.TextAsset" preserve="all" />
     <type fullname="UnityEngine.Texture" preserve="all" />
     <type fullname="UnityEngine.Texture2D" preserve="all" />
     <type fullname="UnityEngine.TextureFormat" preserve="all" />
     <type fullname="UnityEngine.Time" preserve="all" />
     <type fullname="UnityEngine.TooltipAttribute" preserve="all" />
     <type fullname="UnityEngine.Transform" preserve="all" />
+    <type fullname="UnityEngine.UserAuthorization" preserve="all" />
     <type fullname="UnityEngine.Vector2" preserve="all" />
     <type fullname="UnityEngine.Vector3" preserve="all" />
     <type fullname="UnityEngine.WaitForEndOfFrame" preserve="all" />
+    <type fullname="UnityEngine.WaitForSeconds" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.ImageConversionModule">
     <type fullname="UnityEngine.ImageConversion" preserve="all" />
@@ -305,15 +358,29 @@
     <type fullname="UnityEngine.GUIStyle" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.InputLegacyModule">
+    <type fullname="UnityEngine.Gyroscope" preserve="all" />
     <type fullname="UnityEngine.Input" preserve="all" />
     <type fullname="UnityEngine.Touch" preserve="all" />
     <type fullname="UnityEngine.TouchPhase" preserve="all" />
   </assembly>
+  <assembly fullname="UnityEngine.JSONSerializeModule">
+    <type fullname="UnityEngine.JsonUtility" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.ParticleSystemModule">
+    <type fullname="UnityEngine.ParticleSystem" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystem/MainModule" preserve="all" />
+  </assembly>
   <assembly fullname="UnityEngine.PhysicsModule">
+    <type fullname="UnityEngine.CapsuleCollider" preserve="all" />
     <type fullname="UnityEngine.CharacterController" preserve="all" />
     <type fullname="UnityEngine.Collider" preserve="all" />
+    <type fullname="UnityEngine.Collision" preserve="all" />
     <type fullname="UnityEngine.CollisionFlags" preserve="all" />
+    <type fullname="UnityEngine.ForceMode" preserve="all" />
+    <type fullname="UnityEngine.MeshCollider" preserve="all" />
     <type fullname="UnityEngine.Physics" preserve="all" />
+    <type fullname="UnityEngine.RaycastHit" preserve="all" />
+    <type fullname="UnityEngine.Rigidbody" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UI">
     <type fullname="UnityEngine.EventSystems.EventSystem" preserve="all" />
@@ -328,7 +395,10 @@
     <type fullname="UnityEngine.UI.Graphic" preserve="all" />
     <type fullname="UnityEngine.UI.Image" preserve="all" />
     <type fullname="UnityEngine.UI.RawImage" preserve="all" />
+    <type fullname="UnityEngine.UI.Selectable" preserve="all" />
     <type fullname="UnityEngine.UI.Slider" preserve="all" />
+    <type fullname="UnityEngine.UI.Toggle" preserve="all" />
+    <type fullname="UnityEngine.UI.Toggle/ToggleEvent" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UIModule">
     <type fullname="UnityEngine.Canvas" preserve="all" />
