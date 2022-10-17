@@ -5,10 +5,10 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "2899d13d603ea3f1c2f0a6b27c6d05afb716e88e"
+      "hash": "d7a176514649ad196e55b54920e6a1cd331b4126"
     },
     "com.unity.burst": {
-      "version": "1.6.5",
+      "version": "1.7.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -26,7 +26,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.collab-proxy": {
-      "version": "1.15.18",
+      "version": "1.17.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -67,7 +67,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.inputsystem": {
-      "version": "1.3.0",
+      "version": "1.4.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -82,8 +82,15 @@
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.0.2",
+      "depth": 2,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.cn"
+    },
     "com.unity.render-pipelines.core": {
-      "version": "12.1.6",
+      "version": "12.1.7",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -93,14 +100,14 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "12.1.6",
+      "version": "12.1.7",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
-        "com.unity.burst": "1.5.0",
-        "com.unity.render-pipelines.core": "12.1.6",
-        "com.unity.shadergraph": "12.1.6"
+        "com.unity.burst": "1.7.3",
+        "com.unity.render-pipelines.core": "12.1.7",
+        "com.unity.shadergraph": "12.1.7"
       }
     },
     "com.unity.searcher": {
@@ -111,20 +118,22 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.services.core": {
-      "version": "1.0.1",
+      "version": "1.4.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0"
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.modules.androidjni": "1.0.0"
       },
       "url": "https://packages.unity.cn"
     },
     "com.unity.shadergraph": {
-      "version": "12.1.6",
+      "version": "12.1.7",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "12.1.6",
+        "com.unity.render-pipelines.core": "12.1.7",
         "com.unity.searcher": "4.9.1"
       }
     },
