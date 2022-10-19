@@ -20,33 +20,24 @@ using UnityEngine;
 [InitializeOnLoad]
 public class SynAssemblysContent
 {
-    private static Task curTask;
+    private static float startTime;
+    private static float duration = 5f;
 	static SynAssemblysContent()
-	{
-        curTask = EditorUpdate();
-        EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
-        EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
-    }
-    static void EditorApplication_playModeStateChanged(PlayModeStateChange obj) 
     {
-        switch (obj)
-        {
-            case PlayModeStateChange.EnteredEditMode://停止播放事件监听后被监听
-                if (curTask.Status == TaskStatus.RanToCompletion)
-                {
-                    curTask = EditorUpdate();
-                }
-                break;
-        }
+        EditorApplication.update -= EditorUpdate;
+        EditorApplication.update += EditorUpdate;
+        startTime = Time.time;
     }
-    static async Task EditorUpdate()
+
+    static void EditorUpdate()
     {
         if (EditorApplication.isPlaying || EditorApplication.isPaused ||
             EditorApplication.isCompiling || EditorApplication.isPlayingOrWillChangePlaymode)
         {
             return;
         }
-
+        if (Time.time >= startTime + duration) return;
+        startTime = Time.time;
         FindTwinsHybridCLRGlobalSettings();
         if (DeerSettingsUtils.HybridCLRCustomGlobalSettings != null && SettingsUtil.HotUpdateAssemblyFiles != DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
         {
@@ -57,8 +48,6 @@ public class SynAssemblysContent
         {
             DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable = SettingsUtil.Enable;
         }
-        await Task.Delay(1000);
-        await EditorUpdate();
     }
 
 

@@ -22,7 +22,7 @@ Community Addons:   https://odininspector.com/community-tools
 Discord:            https://discord.gg/AgDmStu
 
 
----------------------------------------Thanks you!---------------------------------------
+-------------------------------------- Thank you! ---------------------------------------
 
 We really hope you like using Odin. Be sure to leave a review on the Asset Store,
 that helps us out a lot!
