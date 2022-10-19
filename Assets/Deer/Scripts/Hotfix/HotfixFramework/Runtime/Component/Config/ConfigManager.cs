@@ -104,7 +104,6 @@ namespace Deer
                     Logger.Error("filepath:" + filePath + " not exists");
                     return null;
                 }
-                filePath = $"file://{filePath}";
 #if UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
                 filePath = $"file://{filePath}";
 #endif
