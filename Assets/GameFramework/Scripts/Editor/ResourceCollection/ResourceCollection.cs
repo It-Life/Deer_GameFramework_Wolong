@@ -631,5 +631,19 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             return true;
         }
+        #region Extend by AlanDu.
+        public void SetNativeResourcesPacked(bool bPacked)
+        {
+            EditorUtility.DisplayProgressBar("Packing...", Utility.Text.Format("Packing assetsNative resources, {0}/{1} packed.", 0, 0), 0);
+            foreach (Resource resource in m_Resources.Values)
+            {
+                if (resource.Name.Contains("AssetsNative"))
+                {
+                    resource.SetPacked(bPacked);
+                }
+            }
+            EditorUtility.ClearProgressBar();
+        }
+        #endregion
     }
 }

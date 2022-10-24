@@ -547,6 +547,15 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
 
             GUILayout.Label(string.Empty);
+
+            #region Extend by AlanDu.
+            if (GUILayout.Button("PackedNative", GUILayout.Width(100f)))
+            {
+                EditorUtility.DisplayProgressBar("AllPacked", "Processing...", 0f);
+                PackedNativeResource(true);
+                EditorUtility.ClearProgressBar();
+            }
+            #endregion
             if (GUILayout.Button("Clean", GUILayout.Width(80f)))
             {
                 EditorUtility.DisplayProgressBar("Clean", "Processing...", 0f);
@@ -560,7 +569,12 @@ namespace UnityGameFramework.Editor.ResourceTools
                 EditorUtility.ClearProgressBar();
             }
         }
-
+        #region Extend by AlanDu.
+        private void PackedNativeResource(bool bPacked)
+        {
+            m_Controller.SetNativeResourcePacked(bPacked);
+        }
+        #endregion
         private void DrawSourceFolder(SourceFolder sourceFolder)
         {
             if (m_HideAssignedSourceAssets && IsAssignedSourceFolder(sourceFolder))
@@ -598,6 +612,38 @@ namespace UnityGameFramework.Editor.ResourceTools
                 EditorGUILayout.LabelField(string.Empty, GUILayout.Width(26f + 14f * sourceFolder.Depth), GUILayout.Height(18f));
 #endif
                 EditorGUILayout.LabelField(sourceFolder.Name);
+
+                #region Extend by AlanDu.
+                if (GUILayout.Button($"Add an [{sourceFolder.Name}] as Bundle",GUILayout.Width(300f),GUILayout.Height(18f)))
+                {
+                    string resourceName = sourceFolder.FromRootPath;
+                    Resource[] resources = m_Controller.GetResources();
+                    foreach (var resource in resources)
+                    {
+                        if (resource.FullName.StartsWith(resourceName))
+                        {
+                            m_Controller.RemoveResource(resource.Name, null);
+                        }
+                    }
+                    SetSelectedSourceFolder(m_Controller.SourceAssetRoot, false);
+                    SetSelectedSourceFolder(sourceFolder, true);
+                    AddResource(resourceName, null, false);
+
+                    Resource bundle = m_Controller.GetResource(resourceName, null);
+                    if (bundle != null)
+                    {
+                        HashSet<SourceAsset> selectedSourceAssets = GetSelectedSourceAssets();
+                        foreach (SourceAsset sourceAsset in selectedSourceAssets)
+                        {
+                            AssignAsset(sourceAsset, bundle);
+                        }
+                    }
+                    RefreshResourceTree();
+                    EditorUtility.ClearProgressBar();
+                    m_SelectedSourceAssets.Clear();
+                    m_CachedSelectedSourceFolders.Clear();
+                }
+                #endregion
             }
             EditorGUILayout.EndHorizontal();
 

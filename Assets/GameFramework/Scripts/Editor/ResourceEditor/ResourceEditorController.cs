@@ -675,5 +675,12 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             return 0;
         }
+
+        #region Extend by AlanDu.
+        public void SetNativeResourcePacked(bool bPacked)
+        {
+            m_ResourceCollection.SetNativeResourcesPacked(bPacked);
+        }
+        #endregion
     }
 }

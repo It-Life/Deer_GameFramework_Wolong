@@ -188,5 +188,12 @@ namespace UnityGameFramework.Editor.ResourceTools
         {
             return a.Guid.CompareTo(b.Guid);
         }
+
+        #region Extend by AlanDu.
+        public void SetPacked(bool packed)
+        {
+            Packed = packed;
+        }
+        #endregion
     }
 }
