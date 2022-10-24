@@ -19,7 +19,7 @@ public class GameObjectEdtior : MonoBehaviour
     
 
     [MenuItem("MyTools/Lazy/删除物体 %#d", false, 11)]
-    static void Mydelete()
+    static void MyDeleteObject()
     {
         foreach (Object o in Selection.objects)
         {
