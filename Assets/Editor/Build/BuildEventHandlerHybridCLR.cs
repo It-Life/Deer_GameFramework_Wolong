@@ -132,6 +132,14 @@ public static class BuildEventHandlerWolong
         resourceCollection = new ResourceCollection();
         if (resourceCollection.Load())
         {
+            Resource[] resources = resourceCollection.GetResources();
+            foreach (var resource in resources)
+            {
+                if (resource.Name.Contains("Assembly"))
+                {
+                    resourceCollection.RemoveResource(resource.Name,null);
+                }
+            }
             if (!resourceCollection.HasResource(resourcesName, null))
             {
                 resourceCollection.AddResource(resourcesName, null, null, LoadType.LoadFromFile, false);

@@ -12,6 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+#if ENABLE_HYBRID_CLR_UNITY
+using HybridCLR;
+#endif
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -202,9 +205,8 @@ namespace Main.Runtime.Procedure
             // 可以加载任意aot assembly的对应的dll。但要求dll必须与unity build过程中生成的裁剪后的dll一致，而不能直接使用原始dll。
             // 我们在BuildProcessor_xxx里添加了处理代码，这些裁剪后的dll在打包时自动被复制到 {项目目录}/HybridCLRData/AssembliesPostIl2CppStrip/{Target} 目录。
 
-            /// 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
-            /// 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
-            /// 
+            // 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
+            // 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
             if (DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies.Count == 0)
             {
                 m_LoadMetadataAssemblyComplete = true;
@@ -238,8 +240,9 @@ namespace Main.Runtime.Procedure
                 {
                     // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
 #if ENABLE_HYBRID_CLR_UNITY
-                    LoadImageErrorCode err = (LoadImageErrorCode)HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly((IntPtr)ptr, dllBytes.Length); 
-                    Debug.Log($"LoadMetadataForAOTAssembly:{userData as string}. ret:{err}");
+                    HomologousImageMode mode = HomologousImageMode.SuperSet;
+                    LoadImageErrorCode err = (LoadImageErrorCode)HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes,mode); 
+                    Debug.Log($"LoadMetadataForAOTAssembly:{userData as string}. mode:{mode} ret:{err}");
 #endif
                 }
             }
