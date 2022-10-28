@@ -574,19 +574,31 @@ public class ComponentAutoBindToolInspector : Editor
             DeerSettingsUtils.FrameworkGlobalSettings.ScriptVersion);
         return annotationStr;
     }
+    string strChangeAuthor = "//修改作者:";
+    string strChangeTime = "//修改时间:";
+    private List<string> ChangeFileHead(List<string> strList) 
+    {
+        for (int i = 0; i < strList.Count; i++)
+        {
+            if (strList[i].Contains(strChangeAuthor))
+            {
+                strList[i] = $"{strChangeAuthor}{DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor}";
+            }
+            if (strList[i].Contains(strChangeTime))
+            {
+                strList[i] = $"{strChangeTime}{System.DateTime.Now:yyyy-MM-dd HH-mm-ss}";
+            }
+        }
+        return strList;
+    }
     /// <summary>
     /// 生成自动绑定的挂载代码
     /// </summary>
     private void GenAutoBindMountCode(GameObject go, string className)
     {
-        if (go.GetComponent(className))
-        {
-            return;
-        }
         string codePath = !string.IsNullOrEmpty(m_Target.MountCodePath) ? m_Target.MountCodePath : m_Setting.MountCodePath;
         codePath = Path.Combine(Application.dataPath, codePath);
         string folderName = className.Replace("Form", "");
-        string fileNmae = $"{className}.cs";
         if (!Directory.Exists(codePath))
         {
             Debug.LogError($"挂载{go.name}的代码保存路径{codePath}无效");
@@ -596,60 +608,130 @@ public class ComponentAutoBindToolInspector : Editor
         {
             Directory.CreateDirectory(codePath);
         }
-        string filePath = $"{codePath}/{className}.cs";
-        using (StreamWriter sw = new StreamWriter(filePath))
+
+        string btnStart =   "/*--------------------Auto generate start button listener.Do not modify!--------------------*/";
+        string btnEnd =     "/*--------------------Auto generate end button listener.Do not modify!----------------------*/";
+        string scriptEnd =  "/*--------------------Auto generate footer.Do not add anything below the footer!------------*/";
+        string scriptEndK = "\t}\n}";
+        Dictionary<string, string> clickFuncDict = new Dictionary<string, string>();
+        for (int i = 0; i < m_Target.BindDatas.Count; i++)
         {
-            sw.WriteLine(GetFileHead());
-
-            sw.WriteLine("using HotfoxFramework.Runtime;");
-            sw.WriteLine("using System.Collections;");
-            sw.WriteLine("using System.Collections.Generic;");
-            sw.WriteLine("using UnityEngine;");
-            //sw.WriteLine("using UnityEngine.UI;");
-
-            if (!string.IsNullOrEmpty(m_Target.Namespace))
-                sw.WriteLine($"\nnamespace {m_Target.Namespace}" + "\n{");
-            else
-                sw.WriteLine("\nnamespace PleaseAmendNamespace\n{");
-
-            sw.WriteLine($"\t/// <summary>\n\t/// Please modify the description.\n\t/// </summary>");
-            sw.WriteLine("\tpublic partial class " + className + " : UIFixBaseForm\n\t{");
-
-            #region Start
-            sw.WriteLine("\t\t protected override void OnInit(object userData) {\n\t\t\t base.OnInit(userData);\n\t\t\t GetBindComponents(gameObject);\n");         //   Start
-            for (int i = 0; i < m_Target.BindDatas.Count; i++)
+            if (m_Target.BindDatas[i].BindCom.GetType() == typeof(UIButtonSuper))
+                clickFuncDict[$"m_{m_Target.BindDatas[i].Name}"] = $"{m_Target.BindDatas[i].Name}Event";
+            //sw.WriteLine($"\t\t\t m_{m_Target.BindDatas[i].Name}.onClick.AddListener({m_Target.BindDatas[i].Name}Event);");
+        }
+        string filePath = $"{codePath}/{className}.cs";
+        //string filePath = $"{codePath}/{className}.txt";
+        if (!File.Exists(filePath))
+        {
+            using (StreamWriter sw = new StreamWriter(filePath))
             {
-                if(m_Target.BindDatas[i].BindCom.GetType() == typeof(UIButtonSuper))
-                    sw.WriteLine($"\t\t\t m_{m_Target.BindDatas[i].Name}.onClick.AddListener({m_Target.BindDatas[i].Name}Event);");
-            }
-            sw.WriteLine("\t\t }\n");
-            #endregion
-
-            #region OnDisable
-            /*sw.WriteLine("\t\tprotected override void OnClose(bool isShutdown, object userData) {\n\t\t\tbase.OnClose(isShutdown, userData);");     //   OnDisable
-            for (int i = 0; i < m_Target.BindDatas.Count; i++)
-            {
-                if (m_Target.BindDatas[i].BindCom.GetType() == typeof(UIButtonSuper))
-                    sw.WriteLine($"\t\t\tm_{m_Target.BindDatas[i].Name}.onClick.RemoveAllListeners();");
-            }
-            sw.WriteLine("\t\t}\n");*/
-            #endregion
-
-            #region ButtonEvent
-            for (int i = 0; i < m_Target.BindDatas.Count; i++)
-            {
-                if (m_Target.BindDatas[i].BindCom.GetType() == typeof(UIButtonSuper))
+                sw.WriteLine(GetFileHead());
+    
+                sw.WriteLine("using HotfixFramework.Runtime;");
+                sw.WriteLine("using System.Collections;");
+                sw.WriteLine("using System.Collections.Generic;");
+                sw.WriteLine("using UnityEngine;");
+                //sw.WriteLine("using UnityEngine.UI;");
+    
+                if (!string.IsNullOrEmpty(m_Target.Namespace))
+                    sw.WriteLine($"\nnamespace {m_Target.Namespace}" + "\n{");
+                else
+                    sw.WriteLine("\nnamespace PleaseAmendNamespace\n{");
+    
+                sw.WriteLine($"\t/// <summary>\n\t/// Please modify the description.\n\t/// </summary>");
+                sw.WriteLine("\tpublic partial class " + className + " : UIFixBaseForm\n\t{");
+    
+                #region OnInit
+                sw.WriteLine("\t\tprotected override void OnInit(object userData) {\n\t\t\t base.OnInit(userData);\n\t\t\t GetBindComponents(gameObject);\n");         //   OnInit
+                sw.WriteLine(btnStart);
+                foreach (var clickFunc in clickFuncDict)
                 {
-                    sw.WriteLine("\t\tprivate void " + m_Target.BindDatas[i].Name + "Event() {");
-                    sw.WriteLine("\t\t\tDebug.Log(" + @$"""This is {m_Target.BindDatas[i].Name}Event.""" + ");\n\t\t}\n");
+                    sw.WriteLine($"\t\t\t{clickFunc.Key}.onClick.AddListener({clickFunc.Value});");
+                }
+                sw.WriteLine(btnEnd);
+                sw.WriteLine("\t\t}\n");
+                #endregion
+    
+                #region ButtonEvent
+                for (int i = 0; i < m_Target.BindDatas.Count; i++)
+                {
+                    if (m_Target.BindDatas[i].BindCom.GetType() == typeof(UIButtonSuper))
+                    {
+                        sw.WriteLine("\t\tprivate void " + m_Target.BindDatas[i].Name + "Event()"+"{}");
+                    }
+                }
+                #endregion
+                sw.WriteLine(scriptEnd);
+                sw.WriteLine(scriptEndK);
+                sw.Close();
+            }
+        }
+        else
+        {
+            bool stopWrite = false;
+            bool writeNewOver = false;
+            string[] strArr = File.ReadAllLines(filePath);
+            List<string> strList = new List<string>();
+            for (int i = 0; i < strArr.Length; i++)
+            {
+                string str = strArr[i];
+                if (str.Equals(scriptEnd))
+                {
+                    break;
+                }
+                if (str.Equals(btnStart))
+                {
+                    strList.Add(btnStart);
+                    stopWrite = true;
+                }
+
+                if (!stopWrite)
+                {
+                    strList.Add(str);
+                }
+                else
+                {
+                    if (!writeNewOver)
+                    {
+                        foreach (var clickFunc in clickFuncDict)
+                        {
+                            strList.Add($"\t\t\t {clickFunc.Key}.onClick.AddListener({clickFunc.Value});");
+                        }
+                        //writeNew
+                        writeNewOver = true;
+                    }
+                }
+                if (str.Equals(btnEnd))
+                {
+                    strList.Add(btnEnd);
+                    stopWrite = false;
                 }
             }
-            #endregion
+            foreach (KeyValuePair<string, string> pair in clickFuncDict)
+            {
+                bool contain = false;
+                for (int kIndex = 0; kIndex < strList.Count; kIndex++)
+                {
+                    string str = strList[kIndex];
 
-
-            sw.WriteLine("\t}\n}");
-            sw.Close();
+                    if (str.Contains($"{pair.Value}()"))
+                    {
+                        contain = true;
+                        break;
+                    }
+                }
+                if (!contain)
+                {
+                    strList.Add($"\t\tprivate void {pair.Value}()"+"{}");
+                }
+            }
+            strList.Add(scriptEnd);
+            strList.Add(scriptEndK);
+            strList = ChangeFileHead(strList);
+            File.WriteAllLines(filePath, strList.ToArray());
         }
+
         ModifyFileFormat(filePath);
     }
 

@@ -12,7 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Text.RegularExpressions;
-using HotfoxFramework.Runtime;
+using HotfixFramework.Runtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

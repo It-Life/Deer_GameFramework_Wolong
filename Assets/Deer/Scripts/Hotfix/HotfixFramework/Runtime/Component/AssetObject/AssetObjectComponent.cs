@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace HotfoxFramework.Runtime
+namespace HotfixFramework.Runtime
 {
     public delegate void LoadAssetObjectComplete(bool success, object assetObj, int nLoadSerial);
 

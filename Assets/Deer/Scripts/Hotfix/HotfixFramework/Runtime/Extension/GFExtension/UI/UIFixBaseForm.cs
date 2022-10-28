@@ -8,7 +8,7 @@
 // ===============================================
 using Main.Runtime;
 
-namespace HotfoxFramework.Runtime {
+namespace HotfixFramework.Runtime {
     /// <summary>
     /// Please modify the description.
     /// </summary>

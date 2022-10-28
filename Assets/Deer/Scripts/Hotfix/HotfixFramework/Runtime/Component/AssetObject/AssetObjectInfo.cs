@@ -8,7 +8,7 @@
 // ===============================================
 using GameFramework;
 
-namespace HotfoxFramework.Runtime
+namespace HotfixFramework.Runtime
 {
 	public class AssetObjectInfo: IReference
 	{

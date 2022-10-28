@@ -7,7 +7,7 @@
 //版 本:0.1 
 // ===============================================
 using HotfixBusiness.Procedure;
-using HotfoxFramework.Runtime;
+using HotfixFramework.Runtime;
 using UnityGameFramework.Runtime;
 
 namespace HotfixBusiness.UI 
@@ -17,47 +17,24 @@ namespace HotfixBusiness.UI
     /// </summary>
     public partial class UILoginForm : UIFixBaseForm
     {
-        private void Awake()
-        {
-            GetBindComponents(gameObject);
-        }
-
-        protected override void OnInit(object userData)
-        {
+        protected override void OnInit(object userData) {
             base.OnInit(userData);
-            m_Btn_Login.onClick.AddListener(OnClickLoginBtn);
-            m_Btn_Login1.onClick.AddListener(OnClickLoginBtn1);
-            m_Btn_UIButtonTest.onClick.AddListener(OnClickLoginBtnText);
+            GetBindComponents(gameObject);
+
+/*--------------------Auto generate start button listener.Do not modify!--------------------*/
+            m_Btn_Login.onClick.AddListener(Btn_LoginEvent);
+            m_Btn_Login1.onClick.AddListener(Btn_Login1Event);
+            m_Btn_UIButtonTest.onClick.AddListener(Btn_UIButtonTestEvent);
+/*--------------------Auto generate end button listener.Do not modify!----------------------*/
         }
 
-        private void OnClickLoginBtnText()
-        {
-            Logger.Info("我是ButtonTestttt");
-        }
-
-        private void OnClickLoginBtn1()
-        {
-            Logger.Info("我是Button1");
-        }
-
-        protected override void OnOpen(object userData)
-        {
-            base.OnOpen(userData);
-        }
-
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-        }
-
-        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
-        {
-            base.OnUpdate(elapseSeconds, realElapseSeconds);
-        }
-        private void OnClickLoginBtn()
+        private void Btn_LoginEvent()
         {
             ProcedureLogin procedure = (ProcedureLogin)GameEntry.Procedure.CurrentProcedure;
             procedure.ChangeStateToMain();
         }
+        private void Btn_Login1Event(){}
+        private void Btn_UIButtonTestEvent(){}
+/*--------------------Auto generate footer.Do not add anything below the footer!------------*/
     }
 }

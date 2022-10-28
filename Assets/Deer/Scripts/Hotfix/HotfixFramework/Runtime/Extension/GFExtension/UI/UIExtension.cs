@@ -18,7 +18,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
-namespace HotfoxFramework.Runtime
+namespace HotfixFramework.Runtime
 {
     /// <summary>
     /// Please modify the description.

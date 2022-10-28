@@ -21,9 +21,12 @@ MonoBehaviour:
   - HotfixMain
   - HotfixFramework.Runtime
   - HotfixBusiness
+  preserveHotUpdateAssemblies: []
+  hotUpdateDllCompileOutputRootDir: HybridCLRData/HotUpdateDlls
+  strippedAOTDllOutputRootDir: HybridCLRData/AssembliesPostIl2CppStrip
+  patchAOTAssemblies: []
   collectAssetReferenceTypes: 0
   outputLinkFile: HybridCLRData/Generated/link.xml
   outputAOTGenericReferenceFile: HybridCLRData/Generated/AOTGenericReferences.cs
   maxGenericReferenceIteration: 10
-  ReversePInvokeWrapperCount: 10
   maxMethodBridgeGenericIteration: 10

@@ -46,9 +46,10 @@ MonoBehaviour:
     m_ConfigFolderName: LubanConfig
   m_BybridCLRCustomGlobalSettings:
     m_Enable: 1
+    m_Gitee: 1
     HotUpdateAssemblies:
-    - HotfixMain.dll
     - HotfixCommon.dll
+    - HotfixMain.dll
     - HotfixFramework.Runtime.dll
     - HotfixBusiness.dll
     AOTMetaAssemblies:

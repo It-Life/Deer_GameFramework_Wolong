@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HotfoxFramework.Runtime 
+namespace HotfixFramework.Runtime 
 {
 	/// <summary>
 	/// Please modify the description.
