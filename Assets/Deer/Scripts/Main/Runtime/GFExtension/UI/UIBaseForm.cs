@@ -26,7 +26,9 @@ namespace Main.Runtime
         private static Font s_MainFont = null;
         private Canvas m_CachedCanvas = null;
         private CanvasGroup m_CanvasGroup = null;
-
+        private bool m_IsShutdown;
+        private Coroutine m_OpenCoroutine;
+        private Coroutine m_CloseCoroutine;
         public int OriginalDepth
         {
             get;
@@ -95,6 +97,11 @@ namespace Main.Runtime
         protected override void OnClose(bool isShutdown, object userData)
         {
             base.OnClose(isShutdown, userData);
+            m_IsShutdown = isShutdown;
+            if (isShutdown)
+            {
+                StopCoroutine();
+            }
             OnUnRegisterEvent();
         }
 
@@ -129,18 +136,26 @@ namespace Main.Runtime
             base.OnUpdate(elapseSeconds, realElapseSeconds);
         }
 
+        protected virtual void StopCoroutine()
+        {
+            if (m_OpenCoroutine!= null)StopCoroutine(m_OpenCoroutine);
+            if (m_CloseCoroutine != null)StopCoroutine(m_CloseCoroutine);
+        }
+
         protected virtual void Open()
         {
+            if (m_IsShutdown)return;
             Open(false);
         }
 
         protected virtual void Open(bool ignoreFade,float fadeTime = 0.3f,Action fadeComplete = null)
         {
-            StopAllCoroutines();
+            StopCoroutine();
+            if (!gameObject.activeInHierarchy)return;
             if (!ignoreFade)
             {
                 m_CanvasGroup.alpha = 0f;
-                StartCoroutine(OpenCo(fadeTime,fadeComplete));
+                m_OpenCoroutine= StartCoroutine(OpenCo(fadeTime,fadeComplete));
             }
         }
         protected virtual void Close()
@@ -150,14 +165,14 @@ namespace Main.Runtime
 
         protected virtual void Close(bool ignoreFade,float fadeTime = 0.3f,Action fadeComplete = null)
         {
-            StopAllCoroutines();
+            StopCoroutine();
             if (ignoreFade)
             {
                 GameEntryMain.UI.CloseUIForm(this);
             }
             else
             {
-                StartCoroutine(CloseCo(fadeTime,fadeComplete));
+                m_CloseCoroutine = StartCoroutine(CloseCo(fadeTime,fadeComplete));
             }
         }
         protected override void OnDepthChanged(int uiGroupDepth, int depthInUIGroup)

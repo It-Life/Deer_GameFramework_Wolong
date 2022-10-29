@@ -1,5 +1,5 @@
 {
-    "name": "SuperScrollViewEditor",
+    "name": "SuperScrollView.Editor",
     "rootNamespace": "",
     "references": [
         "GUID:7293c580bc63d384882dc455bb093e64"

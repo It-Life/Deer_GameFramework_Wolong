@@ -88,7 +88,10 @@ public class ButtonSoundCell
     public string ButtonUISoundName = "ui_click_button";
 }
 
-public class UIButtonSuper : Button, IDragHandler
+public delegate void ButtonBeginDragCallback(PointerEventData eventData);
+public delegate void ButtonDragCallback(PointerEventData eventData);
+public delegate void ButtonEndDragCallback(PointerEventData eventData);
+public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHandler
 {
     public List<ButtonSoundCell> m_ButtonUISounds = new List<ButtonSoundCell>() {new ButtonSoundCell()};
     [Tooltip("是否可以点击")]
@@ -108,6 +111,9 @@ public class UIButtonSuper : Button, IDragHandler
     [Tooltip("长按事件")]
     public ButtonClickedEvent onPress;
     //public ButtonClickedEvent onClick;
+    public ButtonBeginDragCallback onBeginDrag;
+    public ButtonDragCallback onDrag;
+    public ButtonEndDragCallback onEndDrag;
  
     private bool isDown = false;
     private bool isPress = false;
@@ -269,9 +275,17 @@ public class UIButtonSuper : Button, IDragHandler
             isPress = false;
         PlayButtonSound(ButtonSoundType.Click);
     }
-
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        onBeginDrag?.Invoke(eventData);
+    }
     public void OnDrag(PointerEventData eventData)
     {
         PlayButtonSound(ButtonSoundType.Drag);
+        onDrag?.Invoke(eventData);
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        onEndDrag?.Invoke(eventData);
     }
 }

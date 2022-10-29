@@ -9,12 +9,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class DataLoginInfoManager : Singleton<DataLoginInfoManager>
-{
-	private DataLoginInfoManager() { }
 
-	public void Init() 
-	{
-	
-	}
+namespace HotfixBusiness.DataUser
+{
+    public class DataLoginInfoManager : Singleton<DataLoginInfoManager>,IUserInfoManager
+    {
+        private DataLoginInfoManager() { }
+        public void OnInit()
+        {
+            Debug.Log("DataLoginInfoManager:OnInit");
+        }
+
+        public void OnLeave()
+        {
+            Debug.Log("DataLoginInfoManager:OnLeave");
+        }
+
+        public void OnUpdate()
+        {
+            
+        }
+    }
 }

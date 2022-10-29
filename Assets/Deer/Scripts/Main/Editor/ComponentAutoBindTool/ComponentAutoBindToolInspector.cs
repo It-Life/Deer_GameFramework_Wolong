@@ -102,7 +102,7 @@ public class ComponentAutoBindToolInspector : Editor
 
         if (GUILayout.Button("生成绑定代码"))
         {
-            if (m_ClassName.stringValue.Equals("UIPanel") || string.IsNullOrEmpty(m_ClassName.stringValue))
+            if (m_ClassName.stringValue.Equals("UIForm") || string.IsNullOrEmpty(m_ClassName.stringValue))
             {
                 EditorUtility.DisplayDialog("提示", "请先同步物体名字到类名，点击【物体名】按钮", "确定");
                 return;
@@ -183,7 +183,15 @@ public class ComponentAutoBindToolInspector : Editor
         {
             m_TempFiledNames.Clear();
             m_TempComponentTypeNames.Clear();
-
+            if (child == m_Target.transform)
+            {
+                continue;
+            }
+            ComponentAutoBindTool componentAuto = child.gameObject.GetComponentInParent<ComponentAutoBindTool>();
+            if (componentAuto != null && componentAuto != m_Target)
+            {
+                continue;
+            }
             if (AutoBindGlobalSetting.IsValidBind(child, m_TempFiledNames, m_TempComponentTypeNames))
             {
                 for (int i = 0; i < m_TempFiledNames.Count; i++)
@@ -598,11 +606,12 @@ public class ComponentAutoBindToolInspector : Editor
     {
         string codePath = !string.IsNullOrEmpty(m_Target.MountCodePath) ? m_Target.MountCodePath : m_Setting.MountCodePath;
         codePath = Path.Combine(Application.dataPath, codePath);
-        string folderName = className.Replace("Form", "");
         if (!Directory.Exists(codePath))
         {
             Debug.LogError($"挂载{go.name}的代码保存路径{codePath}无效");
+            return;
         }
+        string folderName = GetClassFolderName(className);
         codePath = $"{codePath}/{folderName}";
         if (!Directory.Exists(codePath))
         {
@@ -733,6 +742,21 @@ public class ComponentAutoBindToolInspector : Editor
         }
 
         ModifyFileFormat(filePath);
+    }
+
+    private string GetClassFolderName(string className)
+    {
+        string folderName = className.Replace("Form", "");
+        if (className.Contains("_"))
+        {
+            string[] args = className.Split('_');
+            if (args.Length > 1)
+            {
+                folderName = args[0];
+            }
+        }
+
+        return folderName;
     }
 
     /// <summary>

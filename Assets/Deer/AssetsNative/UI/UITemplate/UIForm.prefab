@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BindDatas: []
-  m_ClassName: UIPanel
+  m_ClassName: UIForm
   m_Namespace: HotfixBusiness.UI
   m_ComCodePath: Deer/Scripts/HotFix/HotFixBusiness/UI/BindComponents
   m_MountCodePath: Deer/Scripts/HotFix/HotFixBusiness/UI

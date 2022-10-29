@@ -9,6 +9,7 @@
 using GameFramework.Resource;
 using Main.Runtime.Procedure;
 using System.Collections.Generic;
+using HotfixBusiness.DataUser;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
 namespace HotfixBusiness.Procedure
@@ -22,6 +23,8 @@ namespace HotfixBusiness.Procedure
         {
             base.OnEnter(procedureOwner);
             m_procedureOwner = procedureOwner;
+            //初始化所有角色信息管理器
+            DataUserManager.Instance.enabled = true;
             PreloadConfig();
             if (GameEntry.Base.EditorResourceMode)
             {

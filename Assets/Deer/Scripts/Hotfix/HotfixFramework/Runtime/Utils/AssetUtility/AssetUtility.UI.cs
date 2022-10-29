@@ -16,7 +16,20 @@ public static partial class AssetUtility
         {
             return Utility.Text.Format("Assets/Deer/AssetsHotfix/UI/UIForms/{0}/{1}.prefab", assetName.Replace("Form",""), assetName);
         }
-
+        public static string GetUISubFormAsset(string assetName)
+        {
+            string[] args = assetName.Split('_');
+            if (args is { Length: > 1 })
+            {
+                return Utility.Text.Format("Assets/Deer/AssetsHotfix/UI/UIForms/{0}/{1}.prefab", args[0], assetName);
+            }
+            Logger.Error("UISubForm prefab wrong name.It should be [UIxxx_xxxSubForm]");
+            return string.Empty;
+        }
+        public static string GetUIComSubFormAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/Deer/AssetsHotfix/UI/UIForms/UISub/{0}.prefab", assetName);
+        }
         /// <summary>
         /// 获取伤害预制
         /// </summary>
