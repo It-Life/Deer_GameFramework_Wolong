@@ -15,7 +15,7 @@ public static partial class SetTextureExtensions
     {
         GameEntry.TextureSet.SetTextureByNetwork(SetRawImage.Create(rawImage, file), saveFilePath);
     }
-    public static void SetTextureByResources(this RawImage rawImage, string file)
+    public static void SetTexture(this RawImage rawImage, string file)
     {
         GameEntry.TextureSet.SetTextureByResources(SetRawImage.Create(rawImage, file));
     }

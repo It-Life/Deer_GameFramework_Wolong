@@ -29,7 +29,7 @@
 `m_CheckCanReleaseInterval`和`m_AutoReleaseInterval` 配合使用 检查到可回收对象会调用对象池 回收。 对象池到达释放时间会自动清理。
 ## Texture 的加载 与卸载
 
-加载Texture 通过 `TextureSetComponent` 的`SetTextureByFileSystem` `SetTextureByNetwork` `SetTextureByResources`方法
+加载Texture 通过 `TextureSetComponent` 的`SetTextureByFileSystem` `SetTextureByNetwork` `SetTexture`方法
 
 `SetTexture` 三个方法都需要提供一个 实现了`ISetTexture2dObject` 接口的对象。 
 
@@ -40,7 +40,7 @@
 ```csharp
  rawImage.SetTextureByFileSystem("TestTexture.png");
  rawImage.SetTextureByNetwork("http://xxx/xxx.png","TestTexture.png");//第二个参数是将网络图片保存到文件系统中的地址。可以不填写。
- rawImage.SetTextureByResources("Assets/Res/TestTexture.png");
+ rawImage.SetTexture("Assets/Res/TestTexture.png");
 ```
 
 卸载Texture由扩展组件卸载。不需要用户手动控制。
