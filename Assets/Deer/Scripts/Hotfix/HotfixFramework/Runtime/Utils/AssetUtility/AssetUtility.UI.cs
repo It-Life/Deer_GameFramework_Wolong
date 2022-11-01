@@ -36,7 +36,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetUIDamagePrefabPath(string damagePrefabName)
         {
-            return string.Format("Assets/Asset/UI/UIPrefab/UIUnit/DamagePrefab/{0}.prefab", damagePrefabName);
+            return string.Format("Assets/Deer/AssetsHotfix/UI/UIPrefab/UIUnit/DamagePrefab/{0}.prefab", damagePrefabName);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetUITopUnitPrefabPath(string prefabName)
         {
-            return string.Format("Assets/Asset/UI/UIPrefab/UIUnit/UIFightUnit/{0}.prefab", prefabName);
+            return string.Format("Assets/Deer/AssetsHotfix/UI/UIPrefab/UIUnit/UIFightUnit/{0}.prefab", prefabName);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetHPChangePrefabPath()
         {
-            return "Assets/Asset/UI/UIPrefab/UIUnit/HPChange.prefab";
+            return "Assets/Deer/AssetsHotfix/UI/UIPrefab/UIUnit/HPChange.prefab";
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetPlayerHudPath()
         {
-            return "Assets/Asset/UI/UIPrefab/UIHUD/UIPlayerHUDPanel.prefab";
+            return "Assets/Deer/AssetsHotfix/UI/UIPrefab/UIHUD/UIPlayerHUDPanel.prefab";
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetMonsterHudPath()
         {
-            return "Assets/Asset/UI/UIPrefab/UIHUD/UIMonsterHUD.prefab";
+            return "Assets/Deer/AssetsHotfix/UI/UIPrefab/UIHUD/UIMonsterHUD.prefab";
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetNpcHudPath()
         {
-            return "Assets/Asset/UI/UIPrefab/UIHUD/UINpcHUDPanel.prefab";
+            return "Assets/Deer/AssetsHotfix/UI/UIPrefab/UIHUD/UINpcHUDPanel.prefab";
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetHeadIcon(string iconName)
         {
-            return string.Format("Assets/Asset/UI/IconNew/{0}.png", iconName);
+            return string.Format("Assets/Deer/AssetsHotfix/UI/IconNew/{0}.png", iconName);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetWeaponIcon(string iconName)
         {
-            return string.Format("Assets/Asset/UI/IconNew/{0}.png", iconName);
+            return string.Format("Assets/Deer/AssetsHotfix/UI/IconNew/{0}.png", iconName);
         }
 
         /// <summary>
@@ -110,35 +110,35 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetDefaultIcon()
         {
-            return "Assets/Asset/UI/IconNew/Icon_Empty.png";
+            return "Assets/Deer/AssetsHotfix/UI/IconNew/Icon_Empty.png";
         }
         /// <summary>
         /// 获取精灵资源名称
         /// </summary>
-        /// <param name="iconName"></param>
+        /// <param name="spriteName"></param>
         /// <returns></returns>
         public static string GetSpritePath(string spriteName)
         {
-            return string.Format("Assets/Deer/UISprites/{0}.png", spriteName);
+            return $"Assets/Deer/UISprites/{spriteName}.png";
         }
         /// <summary>
         /// 获取精灵资源收集器
         /// </summary>
-        /// <param name="iconName"></param>
+        /// <param name="collectionName"></param>
         /// <returns></returns>
         public static string GetSpriteCollectionPath(string collectionName)
         {
-            return string.Format("Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/{0}.asset", collectionName);
+            return $"Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/{collectionName}.asset";
         }
 
         /// <summary>
         /// 获取大图
         /// </summary>
-        /// <param name="iconName"></param>
+        /// <param name="textureName"></param>
         /// <returns></returns>
         public static string GetTexturePath(string textureName)
         {
-            return string.Format("Assets/Deer/Asset/UI/UIArt/Texture/{0}.png", textureName);
+            return string.Format("Assets/Deer/AssetsHotfix/UI/UIArt/Texture/{0}.png", textureName);
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetRenderTexturePath(string textureName)
         {
-            return string.Format("Assets/Deer/Asset/UI/UIArt/Texture/{0}.renderTexture", textureName);
+            return string.Format("Assets/Deer/AssetsHotfix/UI/UIArt/Texture/{0}.renderTexture", textureName);
         }
     }
 }

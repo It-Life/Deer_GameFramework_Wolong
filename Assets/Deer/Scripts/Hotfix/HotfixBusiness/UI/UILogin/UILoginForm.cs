@@ -26,6 +26,9 @@ namespace HotfixBusiness.UI
             m_Btn_Login1.onClick.AddListener(Btn_Login1Event);
             m_Btn_UIButtonTest.onClick.AddListener(Btn_UIButtonTestEvent);
 /*--------------------Auto generate end button listener.Do not modify!----------------------*/
+            m_RImg_bg.SetTexture(AssetUtility.UI.GetTexturePath("loading_bg"));
+            m_Img_Icon.SetSprite(AssetUtility.UI.GetSpriteCollectionPath("Icon"),AssetUtility.UI.GetSpritePath("Icon/Icon"));
+            m_RImg_NetImage.SetTextureByNetwork("https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png");
         }
 
         private void Btn_LoginEvent()
