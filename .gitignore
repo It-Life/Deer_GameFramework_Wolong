@@ -20,3 +20,7 @@ il2cpp_plus_repo
 AssembliesPostIl2CppStrip
 HotFixDlls
 Wolong_100
+HybridCLRData
+Assets/Deer/AssetsHotfix/Assembly
+CommitResources/setup/cwRsync4_client_jb51
+LubanTools/setup/proto

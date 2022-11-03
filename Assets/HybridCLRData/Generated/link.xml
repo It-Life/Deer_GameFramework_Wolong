@@ -38,7 +38,6 @@
     <type fullname="GameFramework.Network.INetworkChannelHelper" preserve="all" />
     <type fullname="GameFramework.Network.IPacketHandler" preserve="all" />
     <type fullname="GameFramework.Network.IPacketHeader" preserve="all" />
-    <type fullname="GameFramework.Network.NetworkErrorCode" preserve="all" />
     <type fullname="GameFramework.Network.Packet" preserve="all" />
     <type fullname="GameFramework.Network.ServiceType" preserve="all" />
     <type fullname="GameFramework.ObjectPool.IObjectPool`1" preserve="all" />
@@ -107,6 +106,7 @@
     <type fullname="RegistFunction" preserve="all" />
     <type fullname="SerializableDictionary`2" preserve="all" />
     <type fullname="Singleton`1" preserve="all" />
+    <type fullname="SingletonMono`1" preserve="all" />
     <type fullname="UIButtonSuper" preserve="all" />
   </assembly>
   <assembly fullname="mscorlib">
@@ -367,7 +367,6 @@
     <type fullname="UnityGameFramework.Runtime.LoadSceneSuccessEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.LoadSceneUpdateEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.LocalizationComponent" preserve="all" />
-    <type fullname="UnityGameFramework.Runtime.Log" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.NetworkClosedEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.NetworkComponent" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.NetworkConnectedEventArgs" preserve="all" />

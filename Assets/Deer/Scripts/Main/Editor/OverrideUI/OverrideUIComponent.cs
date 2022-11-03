@@ -22,7 +22,7 @@ namespace Deer.Editor
         {
             var text = CreateComponent<TextMeshProUGUI>("Text");
             text.raycastTarget = false;
-            text.font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Deer/AssetsHotfix/Font/wryhSDF.asset"); // 默认字体  
+            text.font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Deer/AssetsNative/Font/wryhSDF.asset"); // 默认字体  
             text.color = Color.black;
             text.text = "New Text";
             return text;
