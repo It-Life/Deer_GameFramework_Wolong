@@ -78,14 +78,14 @@ public static class BuildEventHandlerWolong
     {
         AOTMetaAssembliesHelper.FindAllAOTMetaAssemblies(buildTarget);
         FolderUtils.ClearFolder(AssemblyTextAssetPath);
+        if (!Directory.Exists(AssemblyTextAssetPath))
+        {
+            Directory.CreateDirectory(AssemblyTextAssetPath);
+        }
         foreach (var dll in SettingsUtil.HotUpdateAssemblyFiles)
         {
             string dllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(buildTarget)}/{dll}";
             string dllBytesPath = $"{AssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
-            if (!Directory.Exists(AssemblyTextAssetPath))
-            {
-                Directory.CreateDirectory(AssemblyTextAssetPath);
-            }
             File.Copy(dllPath, dllBytesPath, true);
         }
         foreach (var dll in DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies)
@@ -97,10 +97,6 @@ public static class BuildEventHandlerWolong
                 continue;
             }
             string dllBytesPath = $"{AssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
-            if (!Directory.Exists(AssemblyTextAssetPath))
-            {
-                Directory.CreateDirectory(AssemblyTextAssetPath);
-            }
             File.Copy(dllPath, dllBytesPath, true);
         }
         DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblyFiles);

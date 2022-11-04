@@ -2,7 +2,7 @@
 using System.IO;
 using HybridCLR.Editor;
 using UnityEditor;
-
+using UnityEngine;
 
 public static class AOTMetaAssembliesHelper
 {
@@ -34,13 +34,17 @@ public static class AOTMetaAssembliesHelper
     public static void FindAllAOTMetaAssemblies(BuildTarget buildTarget)
     {
         string folder = $"{SettingsUtil.GetAssembliesPostIl2CppStripDir(buildTarget)}";
+        DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies.Clear();
         if (!Directory.Exists(folder))
         {
+#if UNITY_EDITOR_WIN
             Logger.Error($"AOTMetaAssemblies文件夹不存在，因此需要你先构建一次游戏App后再打包。FolderPath:{folder}");
+#elif UNITY_EDITOR_OSX
+            Logger.Error($"AOTMetaAssemblies文件夹不存在，请检查是否制作UnityEditor.CoreModule.dll,并修改覆盖Unity安装路径，然后需要先构建一次游戏App后再打包。FolderPath:{folder}");
+#endif
             return;
         }
         DirectoryInfo root = new DirectoryInfo(folder);
-        DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies.Clear();
         foreach (var fileInfo in root.GetFiles("*dll",SearchOption.AllDirectories))
         {
             string fileName = fileInfo.Name;

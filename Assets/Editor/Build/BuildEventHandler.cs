@@ -246,7 +246,7 @@ public class BuildEventHandler : IBuildEventHandler
             {
                 Debug.Log("更新资源文件拷贝完毕！");
             }
-            Application.OpenURL(CommitResourcesPath);
+            Application.OpenURL("file://"+ CommitResourcesPath);
         }
         BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
     }

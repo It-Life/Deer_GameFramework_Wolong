@@ -1,4 +1,4 @@
-﻿.idea
+.idea
 .vs
 .vsconfig
 *.csproj
@@ -24,3 +24,4 @@ HybridCLRData
 Assets/Deer/AssetsHotfix/Assembly
 CommitResources/setup/cwRsync4_client_jb51
 LubanTools/setup/proto
+BuildPackageIOS
