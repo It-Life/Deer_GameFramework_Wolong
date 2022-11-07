@@ -17,6 +17,9 @@ StreamingAssets
 LocalIl2CppData
 HybridCLRData/hybridclr_repo
 HybridCLRData/il2cpp_plus_repo
+HybridCLRData/HotUpdateDlls
+HybridCLRData/iOSBuild
+HybridCLRData/LocalIl2CppData-WindowsEditor
 AssembliesPostIl2CppStrip
 HotFixDlls
 Wolong_100

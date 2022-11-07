@@ -78,8 +78,8 @@ namespace Main.Runtime.Procedure
             if (DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable)
             {
 #if !UNITY_EDITOR
-            m_LoadMetadataAssemblyComplete = false;
-            LoadMetadataForAOTAssembly();
+                m_LoadMetadataAssemblyComplete = false;
+                LoadMetadataForAOTAssembly();
 #else
                 m_LoadMetadataAssemblyComplete = true;
 #endif

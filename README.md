@@ -1,5 +1,5 @@
 # Deer_GameFramework_Wolong
-- 基于GameFramework框架衍生的一个wolong热更框架（以由之前的huatuo升级为HybridCLR(wolong)），实现除GameFramework库底层代码以及更新流程逻辑层代码，其余流程及义务层代码全部热更。
+- 基于GameFramework框架衍生的一个wolong热更框架（以由之前的huatuo升级为HybridCLR(wolong)），实现除GameFramework库底层代码以及更新流程逻辑层代码，其余流程及业务层代码全部热更。
 
 - 游戏配表Config接入Luban,采用异步加载Config，实现热更资源和Config表分离Hotfix处理，方便配表人员频繁更新Config表。
 
@@ -35,6 +35,7 @@
 ### 使用教程
 
 * [Deer_GameFramework_Wolong/框架使用教程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/2021.3.1/DescDocu/%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B.md)
+* 博客地址 [AlanDu](https://www.cnblogs.com/AlanDu/)
 
 ### 项目声明
 
