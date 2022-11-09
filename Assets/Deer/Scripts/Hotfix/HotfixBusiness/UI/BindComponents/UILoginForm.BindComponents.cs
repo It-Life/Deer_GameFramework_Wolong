@@ -12,6 +12,8 @@ namespace HotfixBusiness.UI
 		private UIButtonSuper m_Btn_UIButtonTest;
 		private Image m_Img_Icon;
 		private RawImage m_RImg_NetImage;
+		private UIButtonSuper m_Btn_UIButtonTestTips;
+		private UIButtonSuper m_Btn_UIButtonTestDialog;
 
 		private void GetBindComponents(GameObject go)
 		{
@@ -23,6 +25,8 @@ namespace HotfixBusiness.UI
 			m_Btn_UIButtonTest = autoBindTool.GetBindComponent<UIButtonSuper>(3);
 			m_Img_Icon = autoBindTool.GetBindComponent<Image>(4);
 			m_RImg_NetImage = autoBindTool.GetBindComponent<RawImage>(5);
+			m_Btn_UIButtonTestTips = autoBindTool.GetBindComponent<UIButtonSuper>(6);
+			m_Btn_UIButtonTestDialog = autoBindTool.GetBindComponent<UIButtonSuper>(7);
 		}
 	}
 }

@@ -19,6 +19,7 @@ namespace Main.Runtime.Procedure
 {
     public class ProcedureCheckVersion : ProcedureBase
     {
+        public override bool UseNativeDialog => true;
         private int m_DownLoadVersionRetryCount = 5;
 
         private int m_CurrDownLoadResourceVersionCount = 0;

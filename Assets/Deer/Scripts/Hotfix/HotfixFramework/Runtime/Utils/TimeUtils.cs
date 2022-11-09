@@ -43,4 +43,41 @@ public static class TimeUtils
         var timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(timeZoneStr);
         return timeZoneInfo.BaseUtcOffset.Hours;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="time"></param>
+    /// <param name="strType">1 时分秒毫秒，2 时分秒 3 时分 4 分秒毫秒 5 分秒 6 秒毫秒 </param>
+    /// <returns></returns>
+    public static string ToTimeString(double time,int strType)
+    {
+        int hour = (int)time / 3600;
+        int minute = ((int)time - hour * 3600) / 60;
+        int second = (int)time - hour * 3600 - minute * 60;
+        int millisecond = (int)((time - (int)time) * 1000);
+        if (strType == 1)
+        {
+            return $"{hour:D2}:{minute:D2}:{second:D2}.{millisecond:D3}";
+        }else if (strType == 2)
+        {
+            return $"{hour:D2}:{minute:D2}:{second:D2}";
+        }else if (strType == 3)
+        {
+            return $"{hour:D2}:{minute:D2}";
+        }else if (strType == 4)
+        {
+            return $"{minute:D2}:{second:D2}.{millisecond:D3}";
+        }
+        else if (strType == 5)
+        {
+            return $"{minute:D2}:{second:D2}";
+        }else if (strType == 6)
+        {
+            return $"{second:D2}.{millisecond:D3}";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
 }

@@ -34,6 +34,8 @@ namespace Main.Runtime.Procedure
 {
     public class ProcedureLoadAssembly : ProcedureBase
     {
+        public override bool UseNativeDialog => true;
+
         private LoadAssetCallbacks m_LoadAssetCallbacks;
         private LoadAssetCallbacks m_LoadMetadataAssetCallbacks;
         private int m_LoadAssetCount;

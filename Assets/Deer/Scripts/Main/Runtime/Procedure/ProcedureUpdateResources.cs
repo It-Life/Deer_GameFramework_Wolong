@@ -27,6 +27,8 @@ namespace Main.Runtime.Procedure
 
     public class ProcedureUpdateResources : ProcedureBase
     {
+        public override bool UseNativeDialog => true;
+
         private float m_LastUpdateTime;
         private bool m_NoticeUpdate = false;
         private bool m_CheckConfigComplete = false;

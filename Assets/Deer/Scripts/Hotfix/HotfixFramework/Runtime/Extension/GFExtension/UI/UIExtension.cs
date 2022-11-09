@@ -165,7 +165,19 @@ namespace HotfixFramework.Runtime
                 return null;
             }
 
-            string assetName = AssetUtility.UI.GetUIFormAsset(uIForm_Config.AssetName);
+            string assetName = string.Empty;
+            switch (uIForm_Config.FormType)
+            {
+                case (int)Constant.UI.UIFormType.MainForm:
+                    assetName = AssetUtility.UI.GetUIFormAsset(uIForm_Config.AssetName);
+                    break;
+                case (int)Constant.UI.UIFormType.SubForm:
+                    assetName = AssetUtility.UI.GetUISubFormAsset(uIForm_Config.AssetName);
+                    break;
+                case (int)Constant.UI.UIFormType.ComSubForm:
+                    assetName = AssetUtility.UI.GetUIComSubFormAsset(uIForm_Config.AssetName);
+                    break;
+            }
             if (!uIForm_Config.AllowMultiInstance)
             {
                 if (uiComponent.IsLoadingUIForm(assetName))
@@ -184,14 +196,7 @@ namespace HotfixFramework.Runtime
 
         public static void OpenDialog(this UIComponent uiComponent, DialogParams dialogParams)
         {
-            if (((ProcedureBase)GameEntry.Procedure.CurrentProcedure).UseNativeDialog)
-            {
-                OpenNativeDialog(dialogParams);
-            }
-            else
-            {
-                uiComponent.OpenUIForm(UIFormId.DialogForm, dialogParams);
-            }
+            uiComponent.OpenUIForm(UIFormId.DialogForm, dialogParams);
         }
         /// <summary>
         /// 打开飘字提示框
@@ -202,17 +207,12 @@ namespace HotfixFramework.Runtime
         /// <param name="openBg">背景框（默认打开）</param>
         public static void OpenTips(this UIComponent uIComponent, string tips, Color? color = null, bool openBg = true)
         {
-
             MessengerInfo info = ReferencePool.Acquire<MessengerInfo>();
             info.param1 = tips;
-            info.param2 = color == null ? Color.white : color;
+            info.param2 = color ?? Color.white;
             info.param3 = openBg;
 
             uIComponent.OpenUIForm(UIFormId.UITipsForm, info);
-        }
-        private static void OpenNativeDialog(DialogParams dialogParams)
-        {
-            throw new System.NotImplementedException("OpenNativeDialog");
         }
     }
 }

@@ -44,16 +44,7 @@ namespace Main.Runtime
             get;
             set;
         }
-
-        /// <summary>
-        /// 弹出窗口时是否暂停游戏。
-        /// </summary>
-        public bool PauseGame
-        {
-            get;
-            set;
-        }
-
+        
         /// <summary>
         /// 确认按钮文本。
         /// </summary>
@@ -107,7 +98,14 @@ namespace Main.Runtime
             get;
             set;
         }
-
+        /// <summary>
+        /// 背景按钮回调。
+        /// </summary>
+        public GameFrameworkAction<object> OnClickBackground
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 用户自定义数据。
         /// </summary>

@@ -17,9 +17,19 @@ namespace Main.Runtime.Procedure
         {
             get { return false; }
         }
+
+        protected ProcedureOwner m_ProcedureOwner;
+        public virtual ProcedureOwner ProcedureOwner => m_ProcedureOwner;
+
         public void ChangeStateByType(ProcedureOwner fsm, Type stateType) 
         {
             ChangeState(fsm, stateType);
+        }
+
+        protected override void OnEnter(ProcedureOwner procedureOwner)
+        {
+            base.OnEnter(procedureOwner);
+            m_ProcedureOwner = procedureOwner;
         }
     }
 }

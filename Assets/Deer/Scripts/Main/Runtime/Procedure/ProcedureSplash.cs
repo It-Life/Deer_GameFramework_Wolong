@@ -14,6 +14,8 @@ namespace Main.Runtime.Procedure
 {
     public class ProcedureSplash : ProcedureBase
     {
+        public override bool UseNativeDialog => true;
+
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);

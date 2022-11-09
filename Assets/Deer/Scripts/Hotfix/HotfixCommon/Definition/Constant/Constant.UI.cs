@@ -22,6 +22,12 @@ public static partial class Constant
             {"PopUI",500 },
             {"Guide",600 },
         };
+        public enum UIFormType
+        {
+            MainForm = 1,
+            SubForm = 2,
+            ComSubForm = 3,
+        }
     }
 }
 

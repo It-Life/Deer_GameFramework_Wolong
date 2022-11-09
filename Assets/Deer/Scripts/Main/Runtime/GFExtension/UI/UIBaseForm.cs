@@ -19,7 +19,7 @@ namespace Main.Runtime
     /// <summary>
     /// Please modify the description.
     /// </summary>
-    public class UIBaseForm : UIFormLogic
+    public class UIBaseForm : UIFormLogic,IMessenger
     {
         public const int DepthFactor = 100;
 
@@ -172,7 +172,10 @@ namespace Main.Runtime
             }
             else
             {
-                m_CloseCoroutine = StartCoroutine(CloseCo(fadeTime,fadeComplete));
+                if (gameObject.activeSelf)
+                {
+                    m_CloseCoroutine = StartCoroutine(CloseCo(fadeTime,fadeComplete));
+                }
             }
         }
         protected override void OnDepthChanged(int uiGroupDepth, int depthInUIGroup)
@@ -197,26 +200,21 @@ namespace Main.Runtime
             fadeComplete?.Invoke();
             GameEntryMain.UI.CloseUIForm(this);
         }
-        /// <summary>
-        /// 注册事件
-        /// </summary>
-        protected virtual void OnRegisterEvent() { }
-        /// <summary>
-        /// 取消注册事件
-        /// </summary>
-        protected virtual void OnUnRegisterEvent() { }
-        
-        protected void SendEvent(uint EventID, object pSender = null)
+        public virtual void OnRegisterEvent() { }
+
+        public virtual void OnUnRegisterEvent() { }
+
+        public void SendEvent(uint eventName, object pSender = null)
         {
-            GameEntryMain.Messenger.SendEvent(EventID,pSender);
+            GameEntryMain.Messenger.SendEvent(eventName,pSender);
         }
-        protected void RegisterEvent(uint EventID, RegistFunction pFunction)
+        public void RegisterEvent(uint eventName, RegistFunction pFunction)
         {
-            GameEntryMain.Messenger.RegisterEvent(EventID, pFunction);
+            GameEntryMain.Messenger.RegisterEvent(eventName, pFunction);
         }
-        protected void UnRegisterEvent(uint EventID, RegistFunction pFunction)
+        public void UnRegisterEvent(uint eventName, RegistFunction pFunction)
         {
-            GameEntryMain.Messenger.UnRegisterEvent(EventID, pFunction);
+            GameEntryMain.Messenger.UnRegisterEvent(eventName, pFunction);
         }
     }
 }

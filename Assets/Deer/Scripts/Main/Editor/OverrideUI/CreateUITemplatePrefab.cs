@@ -58,7 +58,7 @@ namespace Deer.Editor
         [MenuItem("GameObject/UI/U_ScrollView/HListScroll View", false, 22)]
         static void CreateHListScroll(MenuCommand menuCommand)
         {
-            SaveObject(menuCommand, "ScrollView/HGridScrollView");
+            SaveObject(menuCommand, "ScrollView/HListScrollView");
         }
         [MenuItem("GameObject/UI/U_ScrollView/HGridScroll View", false, 23)]
         static void CreateHGridScroll(MenuCommand menuCommand)

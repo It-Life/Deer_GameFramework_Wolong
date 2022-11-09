@@ -372,6 +372,15 @@ public class ComponentAutoBindToolInspector : Editor
     /// </summary>
     private void AddBindData(string name, Component bindCom)
     {
+        for (int i = 0; i < m_BindDatas.arraySize; i++)
+        {
+            SerializedProperty elementData = m_BindDatas.GetArrayElementAtIndex(i);
+            if (elementData.FindPropertyRelative("Name").stringValue == name)
+            {
+                Debug.LogError($"有重复名字！请检查后重新生成！Name:{name}");
+                return;
+            }
+        }
         int index = m_BindDatas.arraySize;
         m_BindDatas.InsertArrayElementAtIndex(index);
         SerializedProperty element = m_BindDatas.GetArrayElementAtIndex(index);

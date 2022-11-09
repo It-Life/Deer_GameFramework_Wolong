@@ -30,17 +30,17 @@ public class MessengerComponent : GameFrameworkComponent
         m_messengerManager = new MessengerManager();
     }
 
-    public void RegisterEvent(uint EventID, RegistFunction pFunction)
+    public void RegisterEvent(uint eventName, RegistFunction pFunction)
     {
-        m_messengerManager.RegisterEvent(EventID, pFunction);
+        m_messengerManager.RegisterEvent(eventName, pFunction);
     }
-    public void UnRegisterEvent(uint EventID, RegistFunction pFunction)
+    public void UnRegisterEvent(uint eventName, RegistFunction pFunction)
     {
-        m_messengerManager.UnRegisterEvent(EventID, pFunction);
+        m_messengerManager.UnRegisterEvent(eventName, pFunction);
     }
 
-    public object SendEvent(uint EventID, object pSender = null)
+    public object SendEvent(uint eventName, object pSender = null)
     {
-        return m_messengerManager.SendEvent(EventID, pSender);
+        return m_messengerManager.SendEvent(eventName, pSender);
     }
 }

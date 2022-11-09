@@ -14,6 +14,8 @@ namespace Main.Runtime.Procedure
 {
     public class ProcedureInitResources : ProcedureBase
     {
+        public override bool UseNativeDialog => true;
+
         private bool m_InitResourcesComplete = false;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)

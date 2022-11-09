@@ -49,6 +49,7 @@ public static class EntityComponentExtension
 
     public static int GenEntityId(this EntityComponent entityComponent)
     {
-        return m_SerialId++;
+        m_SerialId++;
+        return m_SerialId;
     }
 }

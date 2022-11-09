@@ -13,30 +13,30 @@ public class MessengerManager
 {
     private Dictionary<uint, RegistFunction> m_dispathcerMap = new Dictionary<uint, RegistFunction>();
 
-    public void RegisterEvent(uint eventID, RegistFunction pFunction)
+    public void RegisterEvent(uint eventName, RegistFunction pFunction)
     {
-        if (!m_dispathcerMap.ContainsKey(eventID))
+        if (!m_dispathcerMap.ContainsKey(eventName))
         {
-            m_dispathcerMap.Add(eventID, pFunction);
+            m_dispathcerMap.Add(eventName, pFunction);
             return;
         }
         Dictionary<uint, RegistFunction> dispathcerMap;
-        (dispathcerMap = m_dispathcerMap)[eventID] = (RegistFunction)Delegate.Combine(dispathcerMap[eventID], pFunction);
+        (dispathcerMap = m_dispathcerMap)[eventName] = (RegistFunction)Delegate.Combine(dispathcerMap[eventName], pFunction);
     }
-    public void UnRegisterEvent(uint eventID, RegistFunction pFunction)
+    public void UnRegisterEvent(uint eventName, RegistFunction pFunction)
     {
-        if (m_dispathcerMap.ContainsKey(eventID))
+        if (m_dispathcerMap.ContainsKey(eventName))
         {
             Dictionary<uint, RegistFunction> dispathcerMap;
-            (dispathcerMap = m_dispathcerMap)[eventID] = (RegistFunction)Delegate.Remove(dispathcerMap[eventID], pFunction);
+            (dispathcerMap = m_dispathcerMap)[eventName] = (RegistFunction)Delegate.Remove(dispathcerMap[eventName], pFunction);
         }
     }
 
-    public object SendEvent(uint eventId, object pSender1)
+    public object SendEvent(uint eventName, object pSender1)
     {
-        if (m_dispathcerMap.ContainsKey(eventId) && m_dispathcerMap[eventId] != null)
+        if (m_dispathcerMap.ContainsKey(eventName) && m_dispathcerMap[eventName] != null)
         {
-            return m_dispathcerMap[eventId](pSender1);
+            return m_dispathcerMap[eventName](pSender1);
         }
         return null;
     }

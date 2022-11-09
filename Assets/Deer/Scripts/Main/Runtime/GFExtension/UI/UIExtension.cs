@@ -86,7 +86,7 @@ namespace Main.Runtime
             float originalAlpha = canvasGroup.alpha;
             while (time < duration)
             {
-                time += Time.deltaTime;
+                time += Time.realtimeSinceStartup;
                 canvasGroup.alpha = Mathf.Lerp(originalAlpha, alpha, time / duration);
                 yield return new WaitForEndOfFrame();
             }
@@ -100,7 +100,7 @@ namespace Main.Runtime
             float originalValue = slider.value;
             while (time < duration)
             {
-                time += Time.deltaTime;
+                time += Time.realtimeSinceStartup;
                 slider.value = Mathf.Lerp(originalValue, value, time / duration);
                 yield return new WaitForEndOfFrame();
             }
@@ -123,23 +123,12 @@ namespace Main.Runtime
             }
         }
 
-        public static void OpenDialog(this UIComponent uiComponent, DialogParams dialogParams)
+        public static void OpenNativeDialog(this UIComponent uiComponent, DialogParams dialogParams)
         {
             if (((ProcedureBase)GameEntryMain.Procedure.CurrentProcedure).UseNativeDialog)
             {
-                OpenNativeDialog(dialogParams);
-            }
-            else
-            {
-                //uiComponent.OpenUIForm(UIFormId.DialogForm, dialogParams);
             }
         }
-
-        private static void OpenNativeDialog(DialogParams dialogParams)
-        {
-            throw new System.NotImplementedException("OpenNativeDialog");
-        }
-
         public static void SettingForegroundSwitch(this UIComponent uiComponent, bool isOpen) 
         {
             var foregroundTrans = InstanceRoot.parent.Find("Foreground");

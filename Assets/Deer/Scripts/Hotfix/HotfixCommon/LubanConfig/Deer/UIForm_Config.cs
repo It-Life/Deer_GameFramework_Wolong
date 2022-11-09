@@ -18,6 +18,7 @@ public sealed partial class UIForm_Config :  Bright.Config.BeanBase
     public UIForm_Config(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
+        FormType = _buf.ReadInt();
         AssetName = _buf.ReadString();
         UiGroupName = _buf.ReadString();
         AllowMultiInstance = _buf.ReadBool();
@@ -34,6 +35,10 @@ public sealed partial class UIForm_Config :  Bright.Config.BeanBase
     /// 唯一标识
     /// </summary>
     public int Id { get; private set; }
+    /// <summary>
+    /// 界面类型
+    /// </summary>
+    public int FormType { get; private set; }
     /// <summary>
     /// 资源名字
     /// </summary>
@@ -67,6 +72,7 @@ public sealed partial class UIForm_Config :  Bright.Config.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
+        + "FormType:" + FormType + ","
         + "AssetName:" + AssetName + ","
         + "UiGroupName:" + UiGroupName + ","
         + "AllowMultiInstance:" + AllowMultiInstance + ","
