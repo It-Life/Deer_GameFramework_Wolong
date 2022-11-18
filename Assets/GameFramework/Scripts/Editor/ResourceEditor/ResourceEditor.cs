@@ -612,13 +612,13 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
             
             #endregion
-            if (GUILayout.Button("Clean", GUILayout.Width(50f)))
+            if (GUILayout.Button("Clean", GUILayout.Width(80f)))
             {
                 EditorUtility.DisplayProgressBar("Clean", "Processing...", 0f);
                 CleanResource();
                 EditorUtility.ClearProgressBar();
             }
-            if (GUILayout.Button("Save", GUILayout.Width(50f)))
+            if (GUILayout.Button("Save", GUILayout.Width(80f)))
             {
                 EditorUtility.DisplayProgressBar("Save", "Processing...", 0f);
                 SaveConfiguration();
@@ -654,9 +654,9 @@ namespace UnityGameFramework.Editor.ResourceTools
 
                 GUILayout.Space(-14f * sourceFolder.Depth);
 #if UNITY_2019_3_OR_NEWER
-                bool foldout = EditorGUI.Foldout(new Rect(18f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 4f, int.MaxValue, 14f), expand, string.Empty, true);
+                bool foldout = EditorGUI.Foldout(new Rect(18f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 4f, 300, 14f), expand, string.Empty, true);
 #else
-                bool foldout = EditorGUI.Foldout(new Rect(18f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 2f, int.MaxValue, 14f), expand, string.Empty, true);
+                bool foldout = EditorGUI.Foldout(new Rect(18f + 14f * sourceFolder.Depth, 20f * m_CurrentSourceRowOnDraw + 2f, 300, 14f), expand, string.Empty, true);
 #endif
                 if (expand != foldout)
                 {
