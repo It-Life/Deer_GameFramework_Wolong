@@ -79,6 +79,10 @@ public class FrameworkGlobalSettings
     public string ScriptVersion { get { return m_ScriptVersion; } }
     [SerializeField] private AppStageEnum m_AppStage = AppStageEnum.Debug;
     public AppStageEnum AppStage { get { return m_AppStage; } }
+    [Header("Font")]
+    [SerializeField]
+    private string m_DefaultFont = "wryhSDF";
+    public string DefaultFont => m_DefaultFont;
     [Header("Resources")]
     [Tooltip("资源存放地")]
     [SerializeField]

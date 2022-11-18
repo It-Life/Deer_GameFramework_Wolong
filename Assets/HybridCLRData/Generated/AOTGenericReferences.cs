@@ -10,6 +10,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	//Cysharp.Threading.Tasks.UniTask`1/Awaiter<System.Object>
 	//GameFramework.Fsm.FsmState`1<System.Object>
 	//GameFramework.Fsm.IFsm`1<System.Object>
+	//GameFramework.GameFrameworkAction`1<System.Object>
 	//GameFramework.GameFrameworkAction`2<System.Byte,UnityEngine.Vector3>
 	//GameFramework.ObjectPool.IObjectPool`1<System.Object>
 	//Google.Protobuf.Collections.RepeatedField`1<System.Object>
@@ -21,45 +22,52 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	//SerializableDictionary`2<System.Object,System.Object>
 	//Singleton`1<System.Object>
 	//SingletonMono`1<System.Object>
-	//System.Action`1<System.Object>
 	//System.Action`1<System.Int64>
+	//System.Action`1<System.Object>
 	//System.Action`2<System.Object,System.Object>
 	//System.Action`2<System.Byte,System.Object>
-	//System.Collections.Generic.Dictionary`2<cfg.Error.EErrorCode,System.Object>
+	//System.Collections.Generic.Dictionary`2<System.Int32,System.Object>
 	//System.Collections.Generic.Dictionary`2<TextShowComponentType,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.Object,System.Object>
+	//System.Collections.Generic.Dictionary`2<UIFormId,System.Int32>
+	//System.Collections.Generic.Dictionary`2<cfg.Error.EErrorCode,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.Object,System.Int32>
-	//System.Collections.Generic.Dictionary`2<System.Int32,System.Object>
 	//System.Collections.Generic.Dictionary`2/Enumerator<System.Int32,System.Object>
-	//System.Collections.Generic.Dictionary`2/Enumerator<System.Object,System.Object>
-	//System.Collections.Generic.Dictionary`2/Enumerator<TextShowComponentType,System.Object>
 	//System.Collections.Generic.Dictionary`2/Enumerator<System.Object,System.Int32>
+	//System.Collections.Generic.Dictionary`2/Enumerator<TextShowComponentType,System.Object>
+	//System.Collections.Generic.Dictionary`2/Enumerator<System.Object,System.Object>
+	//System.Collections.Generic.Dictionary`2/Enumerator<UIFormId,System.Int32>
 	//System.Collections.Generic.Dictionary`2/ValueCollection<System.Int32,System.Object>
 	//System.Collections.Generic.Dictionary`2/ValueCollection/Enumerator<System.Int32,System.Object>
-	//System.Collections.Generic.HashSet`1<System.Object>
 	//System.Collections.Generic.HashSet`1<System.Int32>
+	//System.Collections.Generic.HashSet`1<System.Object>
 	//System.Collections.Generic.HashSet`1/Enumerator<System.Object>
 	//System.Collections.Generic.IEnumerator`1<System.Object>
 	//System.Collections.Generic.IList`1<System.Object>
+	//System.Collections.Generic.KeyValuePair`2<System.Int32,System.Object>
+	//System.Collections.Generic.KeyValuePair`2<UIFormId,System.Int32>
+	//System.Collections.Generic.KeyValuePair`2<TextShowComponentType,System.Object>
 	//System.Collections.Generic.KeyValuePair`2<System.Object,System.Object>
 	//System.Collections.Generic.KeyValuePair`2<System.Object,System.Int32>
 	//System.Collections.Generic.KeyValuePair`2<System.Int64,System.Object>
-	//System.Collections.Generic.KeyValuePair`2<System.Int32,System.Object>
-	//System.Collections.Generic.KeyValuePair`2<TextShowComponentType,System.Object>
 	//System.Collections.Generic.LinkedList`1<System.Object>
 	//System.Collections.Generic.LinkedListNode`1<System.Object>
+	//System.Collections.Generic.List`1<UnityEngine.Vector3>
 	//System.Collections.Generic.List`1<UnityEngine.Touch>
+	//System.Collections.Generic.List`1<System.Int32>
+	//System.Collections.Generic.List`1<System.Int16>
+	//System.Collections.Generic.List`1<System.Double>
+	//System.Collections.Generic.List`1<System.Single>
+	//System.Collections.Generic.List`1<System.Int64>
+	//System.Collections.Generic.List`1<UnityEngine.Vector2>
 	//System.Collections.Generic.List`1<UnityEngine.EventSystems.RaycastResult>
 	//System.Collections.Generic.List`1<System.Object>
-	//System.Collections.Generic.List`1<UnityEngine.Vector3>
-	//System.Collections.Generic.List`1<System.Int32>
-	//System.Collections.Generic.List`1<UnityEngine.Vector2>
-	//System.Collections.Generic.List`1/Enumerator<System.Object>
 	//System.Collections.Generic.List`1/Enumerator<UnityEngine.Touch>
 	//System.Collections.Generic.List`1/Enumerator<System.Int32>
-	//System.Collections.Generic.Queue`1<System.Object>
-	//System.Collections.Generic.Queue`1<System.Int32>
+	//System.Collections.Generic.List`1/Enumerator<System.Object>
 	//System.Collections.Generic.Queue`1<System.Int64>
+	//System.Collections.Generic.Queue`1<System.Int32>
+	//System.Collections.Generic.Queue`1<System.Object>
 	//System.Collections.Generic.SortedDictionary`2<System.Int64,System.Object>
 	//System.Collections.Generic.SortedDictionary`2/Enumerator<System.Int64,System.Object>
 	//System.Comparison`1<System.Object>
@@ -71,8 +79,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	//System.Nullable`1<System.Int32>
 	//System.Predicate`1<UnityEngine.Touch>
 	//System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1<System.Byte>
-	//System.Runtime.CompilerServices.TaskAwaiter`1<System.Byte>
 	//System.Runtime.CompilerServices.TaskAwaiter`1<System.Object>
+	//System.Runtime.CompilerServices.TaskAwaiter`1<System.Byte>
 	//System.Threading.Tasks.Task`1<System.Object>
 	//System.Threading.Tasks.Task`1<System.Byte>
 	//System.Threading.Tasks.TaskCompletionSource`1<System.Byte>

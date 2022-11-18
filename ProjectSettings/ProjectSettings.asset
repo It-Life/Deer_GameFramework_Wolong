@@ -166,6 +166,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.DefaultCompany.Deer_GameFramework_Wolong
     Standalone: com.DefaultCompany.Deer-GameFramework-Wolong
     iPhone: com.DefaultCompany.Deer-GameFramework-Wolong
   buildNumber:
@@ -744,6 +745,8 @@ PlayerSettings:
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
+    Android: 1
+    Server: 1
     Standalone: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
@@ -758,6 +761,8 @@ PlayerSettings:
   assemblyVersionValidation: 1
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
+    Android: 3
+    Server: 3
     Standalone: 3
     iPhone: 3
   m_RenderingPath: 1

@@ -9,43 +9,40 @@
 
 using System.Collections.Generic;
 using Main.Runtime;
-using UnityEngine;
 
-namespace HotfixFramework.Runtime {
-    /// <summary>
-    /// Please modify the description.
-    /// </summary>
-    public class UIFixBaseForm : UIBaseForm
+/// <summary>
+/// Please modify the description.
+/// </summary>
+public class UIFixBaseForm : UIBaseForm
+{
+    protected Dictionary<UIFormId, int> OpenSubFormSerialIds = new Dictionary<UIFormId, int>();
+    protected void OpenSubForm(UIFormId uiFormId, object userData = null)
     {
-        protected Dictionary<UIFormId, int> OpenSubFormSerialIds = new Dictionary<UIFormId, int>();
-        protected void OpenSubForm(UIFormId uiFormId, object userData = null)
+        int serialId = (int)GameEntry.UI.OpenUIForm(uiFormId, userData);
+        OpenSubFormSerialIds.Add(uiFormId,serialId);
+    }
+
+    protected int GetSubFormSerialId(UIFormId uiFormId)
+    {
+        foreach (var openSubForm in OpenSubFormSerialIds)
         {
-            int serialId = (int)GameEntry.UI.OpenUIForm(uiFormId, userData);
-            OpenSubFormSerialIds.Add(uiFormId,serialId);
+            return openSubForm.Value;
         }
 
-        protected int GetSubFormSerialId(UIFormId uiFormId)
+        return 0;
+    }
+
+    protected override void OnClose(bool isShutdown, object userData)
+    {
+        base.OnClose(isShutdown, userData);
+        //Debug.Log($"OpenSubFormSerialIds:{OpenSubFormSerialIds.Count}");
+        foreach (var openSubForm in OpenSubFormSerialIds)
         {
-            foreach (var openSubForm in OpenSubFormSerialIds)
+            if (GameEntry.UI.HasUIForm(openSubForm.Value))
             {
-                return openSubForm.Value;
+                GameEntry.UI.CloseUIForm(openSubForm.Value);
             }
-
-            return 0;
         }
-
-        protected override void OnClose(bool isShutdown, object userData)
-        {
-            base.OnClose(isShutdown, userData);
-            //Debug.Log($"OpenSubFormSerialIds:{OpenSubFormSerialIds.Count}");
-            foreach (var openSubForm in OpenSubFormSerialIds)
-            {
-                if (GameEntry.UI.HasUIForm(openSubForm.Value))
-                {
-                    GameEntry.UI.CloseUIForm(openSubForm.Value);
-                }
-            }
-            OpenSubFormSerialIds.Clear();
-        }
+        OpenSubFormSerialIds.Clear();
     }
 }

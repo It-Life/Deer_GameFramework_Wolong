@@ -489,7 +489,17 @@ namespace UnityGameFramework.Editor.ResourceTools
             }
             EditorGUILayout.EndScrollView();
         }
-
+        #region Extend by AlanDu.
+        public enum AssetsPackedType
+        {
+            PackedDefault,
+            PackedAll,
+            PackedNative,
+        }
+        private AssetsPackedType m_AssetsPackedType = AssetsPackedType.PackedNative;
+        private AssetsPackedType m_NowAssetsPackedType;
+        private bool m_IsResetResourceList = false;
+        #endregion
         private void DrawSourceAssetsMenu()
         {
             HashSet<SourceAsset> selectedSourceAssets = GetSelectedSourceAssets();
@@ -549,20 +559,66 @@ namespace UnityGameFramework.Editor.ResourceTools
             GUILayout.Label(string.Empty);
 
             #region Extend by AlanDu.
-            if (GUILayout.Button("PackedNative", GUILayout.Width(100f)))
+
+            if (!m_IsResetResourceList)
             {
-                EditorUtility.DisplayProgressBar("AllPacked", "Processing...", 0f);
-                PackedNativeResource(true);
+                if (GUILayout.Button("ResetResourceList", GUILayout.Width(120f)))
+                {
+                    m_IsResetResourceList = true;
+                }
+            }
+            else
+            {
+                GUILayout.Label(Utility.Text.Format("Reset 'Resource List({0})'?", m_Controller.GetResources().Length));
+
+                if (GUILayout.Button("Yes", GUILayout.Width(50f)))
+                {
+                    EditorUtility.DisplayProgressBar("Remove Resource", "Processing...", 0f);
+                    if (m_Controller.RemoveAllResource())
+                    {
+                         Debug.Log("Reset Resource List success. Click 'Clean' and 'Save' button can refresh.");
+                    }
+                    EditorUtility.ClearProgressBar();
+                    m_IsResetResourceList = false;
+                    m_AssetsPackedType = AssetsPackedType.PackedDefault;
+                }
+
+                if (GUILayout.Button("No", GUILayout.Width(50f)))
+                {
+                    m_IsResetResourceList = false;
+                }
+            }
+            
+            m_AssetsPackedType = (AssetsPackedType)EditorGUILayout.EnumPopup(m_AssetsPackedType, GUILayout.Width(110f));
+            if (m_NowAssetsPackedType != m_AssetsPackedType)
+            {
+                EditorUtility.DisplayProgressBar("Packed", "Processing...", 0f);
+                switch (m_AssetsPackedType)
+                {
+                    case AssetsPackedType.PackedDefault:
+                        PackedAllResource(false);
+                        m_NowAssetsPackedType = m_AssetsPackedType;
+                        break;
+                    case AssetsPackedType.PackedAll:
+                        PackedAllResource(true);
+                        m_NowAssetsPackedType = m_AssetsPackedType;
+                        break;
+                    case AssetsPackedType.PackedNative:
+                        PackedNativeResource(true);
+                        m_NowAssetsPackedType = m_AssetsPackedType;
+                        break;
+                }
                 EditorUtility.ClearProgressBar();
             }
+            
             #endregion
-            if (GUILayout.Button("Clean", GUILayout.Width(80f)))
+            if (GUILayout.Button("Clean", GUILayout.Width(50f)))
             {
                 EditorUtility.DisplayProgressBar("Clean", "Processing...", 0f);
                 CleanResource();
                 EditorUtility.ClearProgressBar();
             }
-            if (GUILayout.Button("Save", GUILayout.Width(80f)))
+            if (GUILayout.Button("Save", GUILayout.Width(50f)))
             {
                 EditorUtility.DisplayProgressBar("Save", "Processing...", 0f);
                 SaveConfiguration();
@@ -573,6 +629,10 @@ namespace UnityGameFramework.Editor.ResourceTools
         private void PackedNativeResource(bool bPacked)
         {
             m_Controller.SetNativeResourcePacked(bPacked);
+        }
+        private void PackedAllResource(bool bPacked)
+        {
+            m_Controller.SetAllResourcePacked(bPacked);
         }
         #endregion
         private void DrawSourceFolder(SourceFolder sourceFolder)

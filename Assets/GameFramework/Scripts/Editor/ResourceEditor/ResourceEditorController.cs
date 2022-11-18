@@ -416,7 +416,31 @@ namespace UnityGameFramework.Editor.ResourceTools
 
             return false;
         }
+        #region Extend by AlanDu.
+        public bool RemoveAllResource()
+        {
+            Asset[] assetsToRemove = m_ResourceCollection.GetAssets();
+            if (m_ResourceCollection.RemoveAllResource())
+            {
+                List<SourceAsset> unassignedSourceAssets = new List<SourceAsset>();
+                foreach (Asset asset in assetsToRemove)
+                {
+                    SourceAsset sourceAsset = GetSourceAsset(asset.Guid);
+                    if (sourceAsset != null)
+                    {
+                        unassignedSourceAssets.Add(sourceAsset);
+                    }
+                }
 
+                if (OnAssetUnassigned != null)
+                {
+                    OnAssetUnassigned(unassignedSourceAssets.ToArray());
+                }
+                return true;
+            }
+            return false;
+        }
+        #endregion
         public bool SetResourceLoadType(string name, string variant, LoadType loadType)
         {
             return m_ResourceCollection.SetResourceLoadType(name, variant, loadType);
@@ -680,6 +704,10 @@ namespace UnityGameFramework.Editor.ResourceTools
         public void SetNativeResourcePacked(bool bPacked)
         {
             m_ResourceCollection.SetNativeResourcesPacked(bPacked);
+        }
+        public void SetAllResourcePacked(bool bPacked)
+        {
+            m_ResourceCollection.SetAllResourcesPacked(bPacked);
         }
         #endregion
     }
