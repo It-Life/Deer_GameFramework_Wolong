@@ -20,6 +20,12 @@ public sealed class Tables
     public Deer.TbUIForm_Config TbUIForm_Config {get; private set; }
     public Deer.TbSounds_Config TbSounds_Config {get; private set; }
     public Deer.TbLanguage_Config TbLanguage_Config {get; private set; }
+    public Deer.TbUIData_GameMode TbUIData_GameMode {get; private set; }
+    public Deer.TbUIData_Race TbUIData_Race {get; private set; }
+    public Deer.TbUIData_Character TbUIData_Character {get; private set; }
+    public Deer.TbPlayerData_Character TbPlayerData_Character {get; private set; }
+    public Deer.TbEntityData TbEntityData {get; private set; }
+    public Deer.TbLevelData TbLevelData {get; private set; }
 
     public Tables() { }
     
@@ -38,6 +44,18 @@ public sealed class Tables
         tables.Add("Deer.TbSounds_Config", TbSounds_Config);
         TbLanguage_Config = new Deer.TbLanguage_Config(await loader("deer_tblanguage_config")); 
         tables.Add("Deer.TbLanguage_Config", TbLanguage_Config);
+        TbUIData_GameMode = new Deer.TbUIData_GameMode(await loader("deer_tbuidata_gamemode")); 
+        tables.Add("Deer.TbUIData_GameMode", TbUIData_GameMode);
+        TbUIData_Race = new Deer.TbUIData_Race(await loader("deer_tbuidata_race")); 
+        tables.Add("Deer.TbUIData_Race", TbUIData_Race);
+        TbUIData_Character = new Deer.TbUIData_Character(await loader("deer_tbuidata_character")); 
+        tables.Add("Deer.TbUIData_Character", TbUIData_Character);
+        TbPlayerData_Character = new Deer.TbPlayerData_Character(await loader("deer_tbplayerdata_character")); 
+        tables.Add("Deer.TbPlayerData_Character", TbPlayerData_Character);
+        TbEntityData = new Deer.TbEntityData(await loader("deer_tbentitydata")); 
+        tables.Add("Deer.TbEntityData", TbEntityData);
+        TbLevelData = new Deer.TbLevelData(await loader("deer_tbleveldata")); 
+        tables.Add("Deer.TbLevelData", TbLevelData);
 
         TbGlobalConfig.Resolve(tables); 
         TbErrorInfo.Resolve(tables); 
@@ -45,6 +63,12 @@ public sealed class Tables
         TbUIForm_Config.Resolve(tables); 
         TbSounds_Config.Resolve(tables); 
         TbLanguage_Config.Resolve(tables); 
+        TbUIData_GameMode.Resolve(tables); 
+        TbUIData_Race.Resolve(tables); 
+        TbUIData_Character.Resolve(tables); 
+        TbPlayerData_Character.Resolve(tables); 
+        TbEntityData.Resolve(tables); 
+        TbLevelData.Resolve(tables); 
     }
 
     public void TranslateText(System.Func<string, string, string> translator)
@@ -55,6 +79,12 @@ public sealed class Tables
         TbUIForm_Config.TranslateText(translator); 
         TbSounds_Config.TranslateText(translator); 
         TbLanguage_Config.TranslateText(translator); 
+        TbUIData_GameMode.TranslateText(translator); 
+        TbUIData_Race.TranslateText(translator); 
+        TbUIData_Character.TranslateText(translator); 
+        TbPlayerData_Character.TranslateText(translator); 
+        TbEntityData.TranslateText(translator); 
+        TbLevelData.TranslateText(translator); 
     }
 }
 

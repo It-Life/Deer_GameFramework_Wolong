@@ -85,9 +85,19 @@
     <type fullname="Google.Protobuf.Reflection.OriginalNameAttribute" preserve="all" />
     <type fullname="Google.Protobuf.UnknownFieldSet" preserve="all" />
   </assembly>
+  <assembly fullname="JoystickPack">
+    <type fullname="Joystick" preserve="all" />
+    <type fullname="VariableJoystick" preserve="all" />
+  </assembly>
+  <assembly fullname="LeanTouch">
+    <type fullname="Lean.Touch.LeanFinger" preserve="all" />
+    <type fullname="Lean.Touch.LeanFingerFilter" preserve="all" />
+    <type fullname="Lean.Touch.LeanGesture" preserve="all" />
+  </assembly>
   <assembly fullname="Main.Runtime">
     <type fullname="Bright.Config.BeanBase" preserve="all" />
     <type fullname="Bright.Serialization.ByteBuf" preserve="all" />
+    <type fullname="Bright.Serialization.ByteBufExtensions" preserve="all" />
     <type fullname="Bright.Serialization.SerializationException" preserve="all" />
     <type fullname="ColorType" preserve="all" />
     <type fullname="ComponentAutoBindTool" preserve="all" />
@@ -207,6 +217,11 @@
     <type fullname="Sirenix.OdinInspector.SerializedScriptableObject" preserve="all" />
     <type fullname="Sirenix.Serialization.OdinSerializeAttribute" preserve="all" />
   </assembly>
+  <assembly fullname="SuperScrollViewProject">
+    <type fullname="SuperScrollView.LoopListView2" preserve="all" />
+    <type fullname="SuperScrollView.LoopListViewInitParam" preserve="all" />
+    <type fullname="SuperScrollView.LoopListViewItem2" preserve="all" />
+  </assembly>
   <assembly fullname="System">
     <type fullname="System.Collections.Generic.LinkedList`1" preserve="all" />
     <type fullname="System.Collections.Generic.LinkedListNode`1" preserve="all" />
@@ -263,16 +278,22 @@
     <type fullname="UnityEngine.Debug" preserve="all" />
     <type fullname="UnityEngine.DisallowMultipleComponent" preserve="all" />
     <type fullname="UnityEngine.Events.UnityAction" preserve="all" />
+    <type fullname="UnityEngine.Events.UnityAction`1" preserve="all" />
     <type fullname="UnityEngine.Events.UnityEvent" preserve="all" />
     <type fullname="UnityEngine.Events.UnityEvent`1" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.Gizmos" preserve="all" />
     <type fullname="UnityEngine.HeaderAttribute" preserve="all" />
     <type fullname="UnityEngine.HideFlags" preserve="all" />
     <type fullname="UnityEngine.HideInInspector" preserve="all" />
     <type fullname="UnityEngine.KeyCode" preserve="all" />
     <type fullname="UnityEngine.Keyframe" preserve="all" />
     <type fullname="UnityEngine.LayerMask" preserve="all" />
+    <type fullname="UnityEngine.Material" preserve="all" />
     <type fullname="UnityEngine.Mathf" preserve="all" />
+    <type fullname="UnityEngine.Matrix4x4" preserve="all" />
+    <type fullname="UnityEngine.MeshRenderer" preserve="all" />
+    <type fullname="UnityEngine.MinAttribute" preserve="all" />
     <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
     <type fullname="UnityEngine.PlayerPrefs" preserve="all" />
@@ -291,6 +312,8 @@
     <type fullname="UnityEngine.Time" preserve="all" />
     <type fullname="UnityEngine.TooltipAttribute" preserve="all" />
     <type fullname="UnityEngine.Transform" preserve="all" />
+    <type fullname="UnityEngine.U2D.SpriteAtlas" preserve="all" />
+    <type fullname="UnityEngine.U2D.SpriteAtlasManager" preserve="all" />
     <type fullname="UnityEngine.Vector2" preserve="all" />
     <type fullname="UnityEngine.Vector3" preserve="all" />
     <type fullname="UnityEngine.WaitForEndOfFrame" preserve="all" />
@@ -311,11 +334,22 @@
   <assembly fullname="UnityEngine.PhysicsModule">
     <type fullname="UnityEngine.CharacterController" preserve="all" />
     <type fullname="UnityEngine.Collider" preserve="all" />
+    <type fullname="UnityEngine.Collision" preserve="all" />
     <type fullname="UnityEngine.CollisionFlags" preserve="all" />
+    <type fullname="UnityEngine.ContactPoint" preserve="all" />
+    <type fullname="UnityEngine.ForceMode" preserve="all" />
     <type fullname="UnityEngine.Physics" preserve="all" />
+    <type fullname="UnityEngine.QueryTriggerInteraction" preserve="all" />
+    <type fullname="UnityEngine.RaycastHit" preserve="all" />
+    <type fullname="UnityEngine.Rigidbody" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UI">
+    <type fullname="UnityEngine.EventSystems.BaseEventData" preserve="all" />
     <type fullname="UnityEngine.EventSystems.EventSystem" preserve="all" />
+    <type fullname="UnityEngine.EventSystems.EventTrigger" preserve="all" />
+    <type fullname="UnityEngine.EventSystems.EventTrigger/Entry" preserve="all" />
+    <type fullname="UnityEngine.EventSystems.EventTrigger/TriggerEvent" preserve="all" />
+    <type fullname="UnityEngine.EventSystems.EventTriggerType" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IDragHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IEventSystemHandler" preserve="all" />
     <type fullname="UnityEngine.EventSystems.IPointerDownHandler" preserve="all" />
@@ -328,6 +362,7 @@
     <type fullname="UnityEngine.UI.Image" preserve="all" />
     <type fullname="UnityEngine.UI.RawImage" preserve="all" />
     <type fullname="UnityEngine.UI.Slider" preserve="all" />
+    <type fullname="UnityEngine.UI.Slider/SliderEvent" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.UIModule">
     <type fullname="UnityEngine.Canvas" preserve="all" />
@@ -387,6 +422,10 @@
     <type fullname="UnityGameFramework.Runtime.UIFormHelperBase" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.UIFormLogic" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.UIGroupHelperBase" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.UnloadSceneFailureEventArgs" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.UnloadSceneSuccessEventArgs" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.VarBoolean" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.VarInt16" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.VarString" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.WebRequestComponent" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.WebRequestFailureEventArgs" preserve="all" />

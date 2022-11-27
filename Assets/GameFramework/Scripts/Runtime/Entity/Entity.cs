@@ -17,6 +17,7 @@ namespace UnityGameFramework.Runtime
     /// </summary>
     public sealed class Entity : MonoBehaviour, IEntity
     {
+        [SerializeField]
         private int m_Id;
         private string m_EntityAssetName;
         private IEntityGroup m_EntityGroup;

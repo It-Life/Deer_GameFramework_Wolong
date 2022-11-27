@@ -7,6 +7,7 @@
 //版 本:0.1 
 // ===============================================
 using GameFramework.Resource;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
@@ -17,7 +18,9 @@ namespace Main.Runtime.Procedure
         public override bool UseNativeDialog => true;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
-        {
+		{
+            Debug.Log("tackor ProcedureSplash OnEnter");
+
             base.OnEnter(procedureOwner);
             // TODO: 这里可以播放一个 Splash 动画
             // ...

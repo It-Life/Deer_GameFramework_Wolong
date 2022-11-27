@@ -52,4 +52,5 @@ public static class EntityComponentExtension
         m_SerialId++;
         return m_SerialId;
     }
+
 }
