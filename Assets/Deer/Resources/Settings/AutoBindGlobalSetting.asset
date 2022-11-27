@@ -74,3 +74,9 @@ MonoBehaviour:
     FullName: LoopListView2
   - Prefixe: HListS
     FullName: LoopListView2
+  - Prefixe: VJoystick
+    FullName: VariableJoystick
+  - Prefixe: VBarBhv
+    FullName: BarBhv
+  - Prefixe: HSelector
+    FullName: HorizontalSelector

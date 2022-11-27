@@ -14,7 +14,9 @@ public enum ProcedureEnum
 {
     ProcedureMain,
     ProcedureArCatch,
-    ProcedureBattle
+    ProcedureBattle,
+
+	ProcedureGamePlay
 }
 
 public static partial class Constant 
@@ -25,6 +27,8 @@ public static partial class Constant
             {ProcedureEnum.ProcedureMain.ToString(),"HotfixBusiness.Procedure.ProcedureMain&Main"},
             {ProcedureEnum.ProcedureBattle.ToString(),"HotfixBusiness.Procedure.ProcedureBattle&PVE_AR"},
             {ProcedureEnum.ProcedureArCatch.ToString(),"HotfixBusiness.Procedure.ProcedureArCatch&FightingScene_AR"},
+
+            {ProcedureEnum.ProcedureGamePlay.ToString(),"HotfixBusiness.Procedure.ProcedureGamePlay&RaceScene_"},
         };
 
         public static string GetProcedureName(ProcedureEnum procedureEnum)

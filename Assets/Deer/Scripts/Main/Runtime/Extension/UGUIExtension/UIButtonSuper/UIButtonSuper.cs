@@ -234,7 +234,8 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
         {
             soundPath = $"Assets/Deer/AssetsHotfix/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.mp3";
         }
-        GameEntryMain.Sound.PlaySound(soundPath, soundGroup, 50, playSoundParams);
+
+        int audioId = GameEntryMain.Sound.PlaySound(soundPath, soundGroup, 50, playSoundParams);
     }
 
     public override void OnPointerEnter(PointerEventData eventData)

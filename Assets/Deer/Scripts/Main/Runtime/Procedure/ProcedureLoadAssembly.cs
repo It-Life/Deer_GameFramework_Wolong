@@ -51,6 +51,9 @@ namespace Main.Runtime.Procedure
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
+
+            Debug.Log("tackor ProcedureLoadAssembly OnEnter");
+
             m_LoadAssemblyComplete = false;
             m_HotfixAssemblys = new List<Assembly>();
             if (GameEntryMain.Base.EditorResourceMode)

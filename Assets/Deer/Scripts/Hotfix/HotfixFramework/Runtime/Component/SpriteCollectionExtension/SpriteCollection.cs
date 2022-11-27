@@ -29,6 +29,7 @@ namespace UGFExtensions.SpriteCollection
         private Dictionary<string, Sprite> m_Sprites = new Dictionary<string, Sprite>();
         public Sprite GetSprite(string path)
         {
+            //Debug.Log($"tackor ---> GetSprite {path}");
             m_Sprites.TryGetValue(path, out Sprite sprite);
             return sprite;
         }

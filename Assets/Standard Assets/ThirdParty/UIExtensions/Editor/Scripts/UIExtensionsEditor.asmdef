@@ -1,0 +1,19 @@
+{
+    "name": "UIExtensionsEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1d3be2b596bd1134693b8459adaa1120",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

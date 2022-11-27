@@ -73,5 +73,60 @@ public enum UIFormId
     /// </summary>
     UIMailForm = 200,
 
+
+    //tackor_add ---------------------------
+    /// <summary>
+    /// 主页界面
+    /// </summary>
+    UIMenuForm = 300,
+
+    /// <summary>
+    /// 加载场景的界面
+    /// </summary>
+    UILoadingSceneForm = 305,
+
+    /// <summary>
+    /// 游戏模式选择界面
+    /// </summary>
+    UIGameModeForm = 310,
+    /// <summary>
+    /// 角色选择界面
+    /// </summary>
+    UICharacterSelectionForm = 320,
+    /// <summary>
+    /// 赛道选择界面
+    /// </summary>
+    UIRaceSelectionForm = 330,
+
+    /// <summary>
+    /// 游戏主界面
+    /// </summary>
+    UIGamePlayForm = 340,
+
+    /// <summary>
+    /// 游戏暂停界面
+    /// </summary>
+    UIGameStopForm = 360,
+
+    /// <summary>
+    /// 设置界面
+    /// </summary>
+    UISettingsForm = 370,
+
+    /// <summary>
+    /// 设置-Audio界面
+    /// </summary>
+    UISettingAudioForm = 372,
+
+    /// <summary>
+    /// 设置-GameOptions界面
+    /// </summary>
+    UISettingGameOptions = 374,
+
+    /// <summary>
+    /// 结算界面
+    /// </summary>
+    UIGameSettleForm = 380,
+
 }
     

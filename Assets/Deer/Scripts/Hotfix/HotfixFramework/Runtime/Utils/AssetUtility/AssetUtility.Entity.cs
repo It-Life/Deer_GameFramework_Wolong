@@ -26,7 +26,18 @@ public static partial class AssetUtility
         {
             return Utility.Text.Format("Assets/Asset/CharacterResources/{0}.mat", entityMatName);
         }
-        
+
+
+        /// <summary>
+        /// 获取UI需要的模型预制体
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <returns></returns>
+        public static string GetUIEntityAsset(string modelName)
+        {
+            return string.Format("Assets/Deer/AssetsHotfix/TackorHotfix/Prefabs/{0}.prefab", modelName);
+        }
+
     }
 
 

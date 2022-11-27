@@ -10,6 +10,7 @@
 using cfg.Deer;
 using GameFramework;
 using GameFramework.Sound;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 public static class SoundComponentExtension
@@ -39,7 +40,9 @@ public static class SoundComponentExtension
         playSoundParams.VolumeInSoundGroup = config.SoundVolume;
         playSoundParams.FadeInSeconds = m_FadeVolumeDuration;
         playSoundParams.SpatialBlend = config.SpatialBlend;
-        m_MusicSerialId = soundComponent.PlaySound(AssetUtility.Sound.GetMusicAsset(config.SoundName), "Music", Constant.AssetPriority.MusicAsset, playSoundParams, null, userData);
+
+        string soundAssetName = AssetUtility.Sound.GetMusicAsset(config.SoundName);
+        m_MusicSerialId = soundComponent.PlaySound(soundAssetName, "Music", Constant.AssetPriority.MusicAsset, playSoundParams, null, userData);
         return m_MusicSerialId;
     }
     public static void StopMusic(this SoundComponent soundComponent)

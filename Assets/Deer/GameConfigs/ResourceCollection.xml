@@ -2,134 +2,329 @@
 <UnityGameFramework>
   <ResourceCollection>
     <Resources>
-      <Resource Name="Deer/AssetsHotfix" LoadType="0" Packed="False" />
-      <Resource Name="Deer/AssetsNative/UI" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Assembly" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/Ball_Base" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/Ball_Foot" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/Ball_Machine" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/Character/Character" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/Character_Ball_Base" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/Character_Ball_Foot" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/Character_Ball_Machine" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/NPC_Far" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/NPC_Far_Bullet_Sphere" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/EntityPrefabs/Star_AA" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/GameConfigs/MainCameraBlends" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/GF/Customs" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Scenes/Login" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Scenes/Main" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Scenes/RaceScene_0" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Scenes/RaceScene_1" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Scenes/RaceScene_2" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Scenes/RaceScene_3" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Sound/Music/Game_Music" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Sound/Music/Menu_Music" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Sound/UISound/Fx_01_V2" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/Sound/UISound/Fx_02_V2" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/Ball_Base" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/Ball_Foot_Black" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/Ball_Foot_Orange" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/Ball_Foot_White" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/Ball_Machine" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/FX_MAT_PowerUp_AA" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/ProBuild_Gizmos_Acceleration" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/ProBuild_Gizmos_Detection" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/ProBuild_Gizmos_SmallCube" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/ProBuild_Gizmos_White" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/ProBuild_Ground_Green" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/ProBuild_Wall_White" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/ProBuild_Wall_Yellow" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Materials/TrailMaterial" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Models/FX_MSH_Star_AA" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Models/NPC_Far" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Models/Sphere_Flat" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Models/Sphere_Foot" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Models/Sphere_Machine" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Models/Sphere_Smooth" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Shaders/RimLight" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Textures/Character/Ball" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Textures/Character/BB8-Body-Texture" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/TackorHotfix/Textures/Env/GridBox_Default" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/Icon" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/Menu" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/Others" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/Pause" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/SelectCharacter" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/SelectMode" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/SelectRace" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/Settings" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Atlas/SettingSubMenu" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/Icon" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/Menu" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/Others" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/Pause" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/SelectCharacter" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/SelectMode" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/SelectRace" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/Settings" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/AtlasCollection/SettingSubMenu" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Texture/ChooseVehicle_Background" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Texture/HubSettings_Background" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Texture/loading_bg" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Texture/login_bg" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Texture/MainMenu_Background" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Texture/SelectRace_Background" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIArt/Texture/Settings_SubMenu_Background" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIBag/UIBag_SubUI" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIBag/UIBagForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UICharacterSelection/UICharacterSelectionForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIDialog/UIDialogForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIGameMode/UIGameModeForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIGamePlay/UIGamePlayForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIGameSettle/UIGameSettleForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIGameStop/UIGameStopForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UILoading/UILoadingForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UILoadingScene/UILoadingSceneForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UILogin/UILoginForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIMenu/UIMenuForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UIRaceSelection/UIRaceSelectionForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UISettingAudio/UISettingAudioForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UISettingGameOptions/UISettingGameOptionsForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UISettings/UISettingsForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIForms/UITips/UITipsForm" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIHealthBar/UIPlayerHealthBar" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIShootText/Image_ShootText" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIShootText/ShootText_Pure" LoadType="0" Packed="False" />
+      <Resource Name="AssetsHotfix/UI/UIShootText/Text_ShootText" LoadType="0" Packed="False" />
+      <Resource Name="AssetsNative/Font/wryhSDF" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/Font/zh-cn_Commonly_used" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UIArt/Atlas/jindut" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UIArt/Atlas/jindut_di" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UIArt/Texture/loading_bg" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UIForms/UINativeLoading/UINativeLoadingForm" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UIForms/UINativeMessageBox/UINativeMessageBoxForm" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/Joystick/Joystick" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/Progress" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/HGridScrollView" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/HListScrollView" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/ScrollVItemPrefab" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/VGridScrollView" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/ScrollView/VListScrollView" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIButton" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIForm" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIHealthBar" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIInputField" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIModel" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UISpriteAnimation" LoadType="0" Packed="True" />
+      <Resource Name="AssetsNative/UI/UITemplate/UIToggle" LoadType="0" Packed="True" />
     </Resources>
     <Assets>
-      <Asset Guid="022e3a7a56dcd374b99c91524e195749" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="03139b702b628084880dc28fdf9557c0" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="03d80d65abc02e94db6729e7c88ed83a" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="076f5644f7ab2694c8aaed137ee6dde9" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="0883fae378205e048ae9226b551c1848" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="08da4af1edab8554b8bfe05e4e25af60" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="0e6faf782362c6f4db0b0d97516ce0f9" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="0f84e936253f6824385d8d78e54a1783" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="102e820a7b9321d42b127d3104a7ca5a" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="10c223bf236a28c4b8c483742fafc854" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="12ebf5a3867ddb645b46747801753e91" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="145a66b013c453c46827900e57cd6dbb" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="1569773c8def31c4fa91b4efe542d7d8" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="159911d0923ff8b48a5aaca284bf8bbc" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="1933ea8013f08d644bac0beabf442d59" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="1a8a6ac861a929f4890ec128197888cf" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="1c29b08a0652ccf4a9a9cd43fda664c7" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="1c7dc7a9ba5ab634db49d4388088629b" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="1cddfc3979dc2144098a87b4a2568741" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="1d3845c174b41664da72b465beabc7df" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="214c02faba51d54409cfa2a60443d7d7" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="21763dd15cac8144180ec8c6305f947b" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="227f8b54bf3f57b4392a62306a97b840" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="2704f04f5bd928841ab14cef42691638" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="28ed389f990cfe142bcfd28011e9ca5d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="29e81b2bc3510874796f3a51feb56f0b" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="2b93710c56051db4dae97eed3e610f4d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="2de096c2528e3da4d83ffed41c4780f7" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="2e682693a20bdfb4caaf578752941a12" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="3095e1d0989435b4dbe048a2b704ade2" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="36c7ffee52b2fcf41baadeed3dce4898" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="3aee0ac6a67422a4aa7a003f3ca32346" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="3d017a001bff5cc478e1dea28e923406" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="3f3af79492ffb3245a85e07ae1737a18" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="4280d39b4cee33e4f86148f9df84756f" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="463ab5494b00ad44b885a5480b454078" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="466741b236a7df54fa016d0554d0d255" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="4675ee4e3d7dc6a4b85561d9e5afda96" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="4c67568bc7890c04a9747d9a8ae39d9a" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="4fb975ee8aa9f164cb540e72e026b3ea" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="50e75cd8c3803c246a419d833e5e6fdd" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="54525ed56250aab45bcfdef8a7585511" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="55132911c10aa8047bd0d678757f5794" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="55f1f7d0b5e8d134aa5b5c726b4a114d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="56c3b222b5f9329408e788cb5f734add" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="5e6b77e19458ca04cbbbe56273fd493a" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="5e85c4407691efb4da847afe6df92a12" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="61c70908ecef17044a9fd6be7daf5b59" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="62af7f171d9bcc94183076499422b692" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="62e1c749fb647db439bb7bd1d6efe934" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="63db834640d352344a1ea7b03af7a1cf" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="643692a5da33a5e4583d5f3c3265d52c" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="67b04c40921437541983812eb40cff18" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="688b7c1c26ccd2a4bb857aadcce68ecb" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="6a059a129e1575d4fb9a6b8abce19c6e" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="6fa081f9e11bcec4b86653f03d638f79" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="706869e2983ceeb42b02fc2ed1fc516a" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="70bc7d03ec759c04e95e3778641572d0" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="7128120a2b527eb46be1db4cdba62ff8" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="722f33d486033e643a48fec23bb3b02c" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="7247e1fea0760b54caa253020097fcdf" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="7293a3bb8ff44b34d9ec0bca1b493f41" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="738913e15c63bd148b4e1b8996262bc4" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="7450d3b4b0e0ed84abc7618cf0c6804e" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="745e65d5ee916dd47944050290a22205" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="753bf06931b85804588f24bacc66e4cb" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="7a1da81cd6d4d6e41a36c6e26523dba8" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="7dff975b7ca0fe744bb5f29cc1246f30" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="7e5e63f1d57b0bf4092680067f6a1edd" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="80039745d36e31a498f88139649bc68b" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="80a9390956026d548935e7833d3257fa" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="83044c99d53f20d4db2574a1894c2e6d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="8359e80d98339f941bdc5fcadd131ab1" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="8650547868476f545ad072a9ad684ef1" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="88abe9aea2242424fad83c6c3f4015ef" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="8bc3e4f7a91df45419bff449770415c2" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="9225a696a9fb2a34aa2c5f4bf683fa97" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="92b428eb9080c3943a93932c4a956b3a" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="96f23b938e3088e47b507726ded70f5d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="975d78522d5bdca42a5af541a724aef2" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="994d32780df045e44b45f77d6a897e86" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="9a4f603b234c26a47ae1d6a452fe7c21" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="9c1ab7155b1a1ea469f8ccbfabc4117c" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="9c358751848aed44388f9be2d7456b7b" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="9f88ac9e0dc5fb24e848fc3907026a74" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="a2d00a141c919724fa3a88a81a8963d0" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="a34d7501f0de5ac468173ebf2629a14a" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="a493fd7876190a04b972bf7b3f90d962" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="a4ecbc6afc651d94888a4b56e95f846f" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="a5c272b7a973f3444a9f1f1f853dca3d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="a5d749ed4b88aab458360733665282ad" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="a9bb0d5df7af0c840935b6ee51debd27" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="aa782cb17474bb64d94e163dccead0dd" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="ae006438e7ad60b49bf08cfd40706e37" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="aec76bde5ee3c3741911dfc0d0497c92" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="aff204a74586b36438d8aedafd172f5d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="b5642633dff36d74caa2d5e602a2e99c" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="b5b6e5e5b63377b4e9b3556b6812194d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="be3b0cf9466a9734eab666893bf67141" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="c3bacb295d4014847a8ef29520f9d1a2" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="cea96208c1e079647978f19c37bcd7e6" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="d021a4349078f974ca8eb3f903f1fbd6" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="d259967ba0d19a94eb45a05c9748136a" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="d2f90e76f511c6c4e9cbc70cb94a6338" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="d3dc13aba3839b942975d25ada72547c" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="d5ac5cc365a9d7f469a91f84c485f9f2" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="d669c03461f55a84a9c4cfd1ff7ce39d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="d6cd74ebb858ee942b3b186632a698bd" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="dbc1d4bc6018f1f4f928156f5e3ffe21" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="e1814884bfa536448b2e60ed928ae5e1" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="e41de5d16c3cfa04da3d39b8aebad451" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="e78083cfc4a70f84d857aed3f532ec4d" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="e827f6256d45d1a4c8936370bebe2973" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="eb8a17d9eeaf7634084b3e278e3ef4b0" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="eb8f3346d634a724a9ef4cbdd576eeaf" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="ec2ada8d5b3d0154a8edbefa51801e76" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="ee434b8e75f92804ca01e3be759e7c7f" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="ef20543e03ad19a4f902c74903185451" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="f2d308365120fa34f9c4663ad62e76ca" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="f3ab0d53e9c425d4da9724fab4bfd7d9" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="f4fa68baee1efc34e801c1853c42e375" ResourceName="Deer/AssetsNative/UI" />
-      <Asset Guid="f863c6abd4b07cd4780a11a7943c9a0e" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="fd9d48d7f0bc1a842ba4652be2712442" ResourceName="Deer/AssetsHotfix" />
-      <Asset Guid="ff3fee8a0a7b71644a3e298f65231ace" ResourceName="Deer/AssetsHotfix" />
+      <Asset Guid="018cee49e6f68df468022c37208c2665" ResourceName="AssetsHotfix/UI/UIArt/Atlas/SelectMode" />
+      <Asset Guid="022e3a7a56dcd374b99c91524e195749" ResourceName="AssetsNative/UI/UITemplate/ScrollView/VGridScrollView" />
+      <Asset Guid="02937efeeafb8f54d829cc709ea1f4ad" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/SettingSubMenu" />
+      <Asset Guid="039521e70f9e8eb468fda410f1065d09" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="03cd95365a770834699b1ec0e42441b3" ResourceName="AssetsHotfix/Scenes/RaceScene_1" />
+      <Asset Guid="0436ec70e52e7194bb399326dc05d84d" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="04480931fc7c46c45872d2d3d26dd4b4" ResourceName="AssetsHotfix/TackorHotfix/Materials/ProBuild_Wall_White" />
+      <Asset Guid="0883fae378205e048ae9226b551c1848" ResourceName="AssetsHotfix/EntityPrefabs/Character/Character" />
+      <Asset Guid="09c2bfe318c4ce04087bd2900e4dca55" ResourceName="AssetsHotfix/UI/UIArt/Atlas/SelectRace" />
+      <Asset Guid="0b8ddec19039a8245b8deb6222a7199b" ResourceName="AssetsHotfix/Scenes/RaceScene_2" />
+      <Asset Guid="0c210c5b35c48d4408b1fdf6cd3f3061" ResourceName="AssetsNative/Font/zh-cn_Commonly_used" />
+      <Asset Guid="0c5622c2d90da85488f0feba169ab4dd" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="0cc9da12cb75077499184abe218050de" ResourceName="AssetsHotfix/UI/UIArt/Texture/Settings_SubMenu_Background" />
+      <Asset Guid="0e082ac2d4134ff46bdba5dd8cac9138" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="102e820a7b9321d42b127d3104a7ca5a" ResourceName="AssetsHotfix/UI/UIForms/UILoading/UILoadingForm" />
+      <Asset Guid="11f2a592be5920842b8f65ed04d23b61" ResourceName="AssetsHotfix/UI/UIForms/UIGamePlay/UIGamePlayForm" />
+      <Asset Guid="1644a3f1ed9286b45ac1bd112038a60e" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="17ec5b8f543c59345bc1257ec50c7228" ResourceName="AssetsHotfix/Scenes/Login" />
+      <Asset Guid="1933ea8013f08d644bac0beabf442d59" ResourceName="AssetsNative/UI/UITemplate/ScrollView/HListScrollView" />
+      <Asset Guid="1a015c8683c7a364bb4662a8cb1a00d2" ResourceName="AssetsHotfix/UI/UIArt/Atlas/Pause" />
+      <Asset Guid="1a8a6ac861a929f4890ec128197888cf" ResourceName="AssetsNative/UI/UIArt/Atlas/jindut" />
+      <Asset Guid="1a8afbd87b8d6ac4b8568b8c0f26b921" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="1aa33f099cc2369499170e91099c1324" ResourceName="AssetsHotfix/TackorHotfix/Materials/Ball_Machine" />
+      <Asset Guid="1aeb88589b48675458d5c0ae476e5cd2" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="1cddfc3979dc2144098a87b4a2568741" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/Icon" />
+      <Asset Guid="1daa20dc1296e7b4aa178b3899b8fb91" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="1dd1fab58417130449a514c7d20423df" ResourceName="AssetsHotfix/UI/UIArt/Texture/HubSettings_Background" />
+      <Asset Guid="1f351d504ef1e5b45b23bf0fe354c0c4" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="1ff1e0b117abbc04ba6ba3bf0c51f647" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="227f8b54bf3f57b4392a62306a97b840" ResourceName="AssetsHotfix/UI/UIHealthBar/UIPlayerHealthBar" />
+      <Asset Guid="22f8dd74c70316046866d180dea83aed" ResourceName="AssetsHotfix/TackorHotfix/Models/Sphere_Smooth" />
+      <Asset Guid="2364e527f40efb247bfa2fba02eb051b" ResourceName="AssetsHotfix/Sound/Music/Menu_Music" />
+      <Asset Guid="24f9961372fb6c2439df9fbc7f4c0f79" ResourceName="AssetsHotfix/Scenes/Main" />
+      <Asset Guid="255195c037717bd479546418eff08f34" ResourceName="AssetsHotfix/TackorHotfix/Textures/Env/GridBox_Default" />
+      <Asset Guid="2981c7b419c31e3419bfa8ab34e9866f" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="2a441c5a5b175c2478b9eb07baf35f61" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="2c34d3d9384551243831cb46e53b0aed" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="2dc56de508c376c48a85cf62dbf0605b" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="3341c3a9f74a62f4eacc6699b3691c7b" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/Menu" />
+      <Asset Guid="3503b9e33b88b9a44b5a2737acbf74ca" ResourceName="AssetsHotfix/UI/UIArt/Atlas/Menu" />
+      <Asset Guid="35ae0d080c08b04429d111abc56fbe14" ResourceName="AssetsHotfix/UI/UIArt/Texture/ChooseVehicle_Background" />
+      <Asset Guid="3781d4a308670af4a84fc76f9724f7f5" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="397b7bc6b9b47ed43b9a855c4e992dc5" ResourceName="AssetsHotfix/TackorHotfix/Materials/Ball_Foot_Black" />
+      <Asset Guid="3b2d997a5f4451d4a8f7f7cc5d8b4658" ResourceName="AssetsHotfix/UI/UIArt/Atlas/SettingSubMenu" />
+      <Asset Guid="3c31266dd0ae57c468b36845e0397b6a" ResourceName="AssetsNative/Font/wryhSDF" />
+      <Asset Guid="3d7a8d96dec4ac34aad1b2d6e20a758f" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="3e67ef5797d6efc4a83faea087f94cc4" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="42287dce4f111f149b312aaa338d5528" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="43898573fb4eed048813f2a812cc2354" ResourceName="AssetsHotfix/UI/UIArt/Atlas/Settings" />
+      <Asset Guid="44d966b249c5c974ab2c248390212483" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="44e973ebcef2a9b43a52761a28071956" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="466741b236a7df54fa016d0554d0d255" ResourceName="AssetsHotfix/UI/UIShootText/Image_ShootText" />
+      <Asset Guid="48591b2c571784a4aa2fed5bf35023e8" ResourceName="AssetsHotfix/EntityPrefabs/Character_Ball_Foot" />
+      <Asset Guid="48a3a72ab23b9204ea647df7ef7105ce" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="48cfeef2374d66943b2c09ffcf3949f6" ResourceName="AssetsHotfix/UI/UIForms/UICharacterSelection/UICharacterSelectionForm" />
+      <Asset Guid="4afddab3b85054f48898fb3a7c65e70c" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/Settings" />
+      <Asset Guid="4c61d2a8aa112054f9271eba598d510f" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/Others" />
+      <Asset Guid="4d7a5d3dd650fe547b2071bf06638d0a" ResourceName="AssetsHotfix/TackorHotfix/Models/Sphere_Flat" />
+      <Asset Guid="4fb975ee8aa9f164cb540e72e026b3ea" ResourceName="AssetsNative/UI/UIArt/Texture/loading_bg" />
+      <Asset Guid="4fde46afd41051642ade17a899d8e954" ResourceName="AssetsHotfix/EntityPrefabs/NPC_Far" />
+      <Asset Guid="506d40bcd1f47d44c8a14e4dbd5f5326" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="545c346f2adb7b14fbf9d03f935ece4f" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/SelectRace" />
+      <Asset Guid="54b9c5c8dc8b17f4fbc0a2a09eb91f86" ResourceName="AssetsHotfix/Scenes/RaceScene_3" />
+      <Asset Guid="54e670bec28d8ec45932b61837750000" ResourceName="AssetsHotfix/TackorHotfix/Materials/ProBuild_Gizmos_Detection" />
+      <Asset Guid="55132911c10aa8047bd0d678757f5794" ResourceName="AssetsNative/UI/UITemplate/UIHealthBar" />
+      <Asset Guid="56c3b222b5f9329408e788cb5f734add" ResourceName="AssetsHotfix/UI/UIArt/Texture/loading_bg" />
+      <Asset Guid="56f3a3b30ff7b2f4e81ac29a538aea4a" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="57a780f182fc7f9408d8f6231fac60aa" ResourceName="AssetsHotfix/TackorHotfix/Materials/ProBuild_Gizmos_SmallCube" />
+      <Asset Guid="5b3756c04128ace48b20bbba2a904817" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="5bbd9ef9117c13447a5985af505368b8" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="5e6b77e19458ca04cbbbe56273fd493a" ResourceName="AssetsNative/UI/UIForms/UINativeMessageBox/UINativeMessageBoxForm" />
+      <Asset Guid="5e814efff56dba84b8b7b784bd333711" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="5ecff355ca9e92240b2ac8a201cba66d" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="61b6f06d6bbc0554c9fd28da8df27295" ResourceName="AssetsHotfix/EntityPrefabs/Star_AA" />
+      <Asset Guid="622acad4fdaf61543a0bf02f50958256" ResourceName="AssetsHotfix/UI/UIForms/UIGameStop/UIGameStopForm" />
+      <Asset Guid="62f31a47eade44b4da36f17771096948" ResourceName="AssetsHotfix/TackorHotfix/Materials/FX_MAT_PowerUp_AA" />
+      <Asset Guid="643a1ee8917ae384d840fbb557f7d6a9" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="6479682aa19768b42bb2b02e46accafb" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="66c4607cd7948c440b2c1923cd6c4172" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="688b7c1c26ccd2a4bb857aadcce68ecb" ResourceName="AssetsNative/UI/UIArt/Atlas/jindut_di" />
+      <Asset Guid="69fed54f577abe0468fd92f3d5d01d96" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="6a059a129e1575d4fb9a6b8abce19c6e" ResourceName="AssetsNative/UI/UITemplate/UIButton" />
+      <Asset Guid="6ca0031d715559440bd716f04876665b" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="6fbf7a0e80ff2a040b95ccacd0440a46" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="709e6559fa6334240911d7ebe3dd3f9d" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="7128120a2b527eb46be1db4cdba62ff8" ResourceName="AssetsNative/UI/UIForms/UINativeLoading/UINativeLoadingForm" />
+      <Asset Guid="721b8a09e46b2924b9cdbe5ea9b262d5" ResourceName="AssetsHotfix/UI/UIArt/Atlas/Others" />
+      <Asset Guid="7247e1fea0760b54caa253020097fcdf" ResourceName="AssetsNative/UI/UITemplate/ScrollView/ScrollVItemPrefab" />
+      <Asset Guid="7274d92b32e105b4f97f8aa84a8aeb84" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="745e65d5ee916dd47944050290a22205" ResourceName="AssetsNative/UI/UITemplate/Joystick/Joystick" />
+      <Asset Guid="75400b30da658d94fa92891dc3e8a394" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="756cc686b2ac75c45b2ac4a3384a297b" ResourceName="AssetsHotfix/EntityPrefabs/Character_Ball_Base" />
+      <Asset Guid="78df2c4785a232141ad92d47e7d8ab04" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="79c70ee0411e15f41b1081f0d1955c30" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="7a1da81cd6d4d6e41a36c6e26523dba8" ResourceName="AssetsHotfix/UI/UIForms/UIBag/UIBagForm" />
+      <Asset Guid="7a31397f0c38d7342974de015897f4ae" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="7ac62536d548a514695e9da84d6d700a" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="7ad9932cbe4b0764fa3fe7ff9e009554" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="7c6dd281b8aecc94f9311258f9c68c26" ResourceName="AssetsHotfix/TackorHotfix/Materials/Ball_Base" />
+      <Asset Guid="7dd3d18b0ca1187469bebfe03f7a9481" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="7fec670294593b64e9dfac8731b13051" ResourceName="AssetsHotfix/UI/UIForms/UISettingAudio/UISettingAudioForm" />
+      <Asset Guid="8055b912f96350548bca44ae919f8967" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="805ea66278d2b704c87c0f6acc996932" ResourceName="AssetsHotfix/UI/UIForms/UIGameSettle/UIGameSettleForm" />
+      <Asset Guid="80a9390956026d548935e7833d3257fa" ResourceName="AssetsHotfix/UI/UIShootText/ShootText_Pure" />
+      <Asset Guid="82511fec482182d419fa1d98dbc674d6" ResourceName="AssetsHotfix/TackorHotfix/Materials/TrailMaterial" />
+      <Asset Guid="8346795b38ed24841977c404a2594553" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="834727237ad43674db061e96d536d32b" ResourceName="AssetsHotfix/Sound/Music/Game_Music" />
+      <Asset Guid="834c9dd3e41074b4684245b729aa5f9e" ResourceName="AssetsHotfix/TackorHotfix/Materials/ProBuild_Wall_Yellow" />
+      <Asset Guid="83bcff06832c4ba4ba53a5a46cc93226" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="87d4fa069ad37c547a991e03bb3c99e9" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="898f9d7defd9c8347b757df89f26dc45" ResourceName="AssetsHotfix/TackorHotfix/Materials/ProBuild_Gizmos_Acceleration" />
+      <Asset Guid="8a3f541ec81331c498908be4132a45b6" ResourceName="AssetsHotfix/TackorHotfix/Textures/Character/Ball" />
+      <Asset Guid="8cc4ca72a8284d94cb7bd97506f4faa5" ResourceName="AssetsHotfix/UI/UIForms/UISettings/UISettingsForm" />
+      <Asset Guid="965e76fe902d8584a875984188b83bc6" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="975d78522d5bdca42a5af541a724aef2" ResourceName="AssetsNative/UI/UITemplate/Progress" />
+      <Asset Guid="97676609501f51e468fb445f1620dcf4" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="981a0351a321c2044845c5b024a1dfa2" ResourceName="AssetsHotfix/EntityPrefabs/Ball_Foot" />
+      <Asset Guid="9c4748ee7ab11f846a02e076317d69d7" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="9c7b0e7398dd2d14e9557b9039acd07d" ResourceName="AssetsHotfix/TackorHotfix/Shaders/RimLight" />
+      <Asset Guid="9d67efc0c76ee5b41a02eb99d77d7e70" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="9ee12f1e83c3b8b4ba3ace758122a616" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="9ee43f6a9dc4a7642834a65f2836b5f2" ResourceName="AssetsHotfix/TackorHotfix/Materials/Ball_Foot_Orange" />
+      <Asset Guid="9fb74b578fc1da940b61b42870cd5e67" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="a493fd7876190a04b972bf7b3f90d962" ResourceName="AssetsNative/UI/UITemplate/ScrollView/HGridScrollView" />
+      <Asset Guid="a4d635c23abaae844938c6ebe703928a" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="a4ecbc6afc651d94888a4b56e95f846f" ResourceName="AssetsHotfix/UI/UIForms/UIBag/UIBag_SubUI" />
+      <Asset Guid="a575d362c791d0b41bc84618ef5faf84" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="a803b0eeb78fa374a87a6e8f0b203fa3" ResourceName="AssetsHotfix/Sound/UISound/Fx_02_V2" />
+      <Asset Guid="a972cae226f057a4495663dfdbbf131c" ResourceName="AssetsHotfix/UI/UIArt/Texture/SelectRace_Background" />
+      <Asset Guid="a9752c31e34113241b2135384ecfc07f" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="a9a4c0f39880adc43ae7375f527f6682" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="a9bb0d5df7af0c840935b6ee51debd27" ResourceName="AssetsHotfix/UI/UIArt/Texture/login_bg" />
+      <Asset Guid="ab2602c549feda64da7030ce9d8b9ea6" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="abfe43953bbcbc84aad59cca0919d72f" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="ac2ae1db70f95df48af99cf2aa680c1e" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="b05f8968878cf904ebfbd543483ee41f" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="b1ab36efd861cf949b8390e4d0d613af" ResourceName="AssetsHotfix/UI/UIForms/UISettingGameOptions/UISettingGameOptionsForm" />
+      <Asset Guid="b240c7f9278fb9246be54f55004124d1" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="b2daa51d292351d42a8b8c06ea8ee681" ResourceName="AssetsHotfix/TackorHotfix/Materials/ProBuild_Gizmos_White" />
+      <Asset Guid="b329cef85d01a66499fffb2938b20bad" ResourceName="AssetsHotfix/UI/UIForms/UIRaceSelection/UIRaceSelectionForm" />
+      <Asset Guid="b438a230bf3d75c40ad4e45e95c9e7b0" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="b5a5fcbac4609454eadc4f266ccee0b9" ResourceName="AssetsHotfix/TackorHotfix/Models/NPC_Far" />
+      <Asset Guid="b5b6e5e5b63377b4e9b3556b6812194d" ResourceName="AssetsHotfix/UI/UIForms/UITips/UITipsForm" />
+      <Asset Guid="b6d1ab3e67e4bea4a98d20c23cd060a4" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="b8ad02aa4fb00fb4f84b3968c201320a" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/SelectCharacter" />
+      <Asset Guid="bc4d431ab090d2941bcf6c1c68b3f55d" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="bd9bdf7a079626c478aaea26c3dcf40a" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="be03ecda72bf10d4281636a508c8ea12" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="be4e15397e627654d8385eaf3d2fc658" ResourceName="AssetsHotfix/UI/UIArt/Texture/MainMenu_Background" />
+      <Asset Guid="c26157493d3a4a64984ea34bd447e9b6" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="c3bacb295d4014847a8ef29520f9d1a2" ResourceName="AssetsHotfix/UI/UIShootText/Text_ShootText" />
+      <Asset Guid="c427dad7e5394c7449ab71008b531b36" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="c52adf2f2d0f66b45ae26740d0574ed6" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="c65a502dfc110354f8034e44717444a4" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="c7779f6b5a9e50d4e9963aafb1bbfe53" ResourceName="AssetsHotfix/EntityPrefabs/Character_Ball_Machine" />
+      <Asset Guid="c83a1d878c71de541ba651af0482dc44" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="c9df1a3f379c05b4ab0100637a5110af" ResourceName="AssetsHotfix/UI/UIArt/Atlas/SelectCharacter" />
+      <Asset Guid="ce4d8f39117eb5d49a010ceffc4a73d0" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="cf27146df2ccace4e817c7d58b2786b0" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="cf35edd81c3fe7649a230db74902f3a3" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="cf8830546239dcc46b316f0be5baa784" ResourceName="AssetsHotfix/Sound/UISound/Fx_01_V2" />
+      <Asset Guid="d021a4349078f974ca8eb3f903f1fbd6" ResourceName="AssetsNative/UI/UITemplate/UIToggle" />
+      <Asset Guid="d4a99aa13470bed49843434c33b63c0c" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="d5ac5cc365a9d7f469a91f84c485f9f2" ResourceName="AssetsNative/UI/UITemplate/UIModel" />
+      <Asset Guid="d64bc9831e9a3c44abd5731e44132c7a" ResourceName="AssetsHotfix/Scenes/RaceScene_0" />
+      <Asset Guid="d759832436236de43b79fe23de3f41e6" ResourceName="AssetsHotfix/EntityPrefabs/NPC_Far_Bullet_Sphere" />
+      <Asset Guid="d7c3d93930b9e334cb95e70cb6e62c3b" ResourceName="AssetsHotfix/UI/UIForms/UILoadingScene/UILoadingSceneForm" />
+      <Asset Guid="d821adb70e728f84c9d23646ed7c8f18" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="d866da1c3815d6246a6cd5ed87d483f0" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="d8fb44eb1694b664fa829b12ad9af480" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="d9b36ed0d3415ec469b3f5e90d903fd9" ResourceName="AssetsHotfix/EntityPrefabs/Ball_Base" />
+      <Asset Guid="da27e40db716bc04794c3c5ddc3a475c" ResourceName="AssetsHotfix/UI/UIForms/UIGameMode/UIGameModeForm" />
+      <Asset Guid="dabdc52a296bf934cbba06f16d4f9ee1" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="dbc1d4bc6018f1f4f928156f5e3ffe21" ResourceName="AssetsHotfix/GameConfigs/MainCameraBlends" />
+      <Asset Guid="dc5de4d0c5db3494188e2bc9f12b9378" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="df77fc3bb05acbb4280cc2736c030e48" ResourceName="AssetsHotfix/UI/UIArt/Atlas/Icon" />
+      <Asset Guid="e319643f1c5a01c498501d61cc05328d" ResourceName="AssetsHotfix/TackorHotfix/Textures/Character/BB8-Body-Texture" />
+      <Asset Guid="e370a323b2636a24c98a1adfa5f875ce" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="e3a3d21c166bd49408329dd8a1ff7d9c" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="e41de5d16c3cfa04da3d39b8aebad451" ResourceName="AssetsHotfix/UI/UIForms/UIDialog/UIDialogForm" />
+      <Asset Guid="e792bbe4827d7b6418d0cfe800c60db4" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="e827f6256d45d1a4c8936370bebe2973" ResourceName="AssetsNative/UI/UITemplate/UISpriteAnimation" />
+      <Asset Guid="e8988e5ac894cbc41ab5b1cb844073bf" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="e9957e6712c5de446a120dfeb75d425f" ResourceName="AssetsHotfix/TackorHotfix/Models/Sphere_Machine" />
+      <Asset Guid="ea6c2bd6b81ae3a4e952223803b300c4" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="eb8a17d9eeaf7634084b3e278e3ef4b0" ResourceName="AssetsHotfix/UI/UIForms/UILogin/UILoginForm" />
+      <Asset Guid="ec2ada8d5b3d0154a8edbefa51801e76" ResourceName="AssetsNative/UI/UITemplate/UIInputField" />
+      <Asset Guid="eca30febf41d67543803704b36f655bd" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="ed7dfbb703ef3a44c830907dba4e9c7d" ResourceName="AssetsHotfix/TackorHotfix/Materials/ProBuild_Ground_Green" />
+      <Asset Guid="ee434b8e75f92804ca01e3be759e7c7f" ResourceName="AssetsNative/UI/UITemplate/UIForm" />
+      <Asset Guid="eee6a12c6f7e73c419e79e928ac12f16" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="f1433529e0c41854c8981aa9c9eeaf10" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/Pause" />
+      <Asset Guid="f29a796feeff1ca40ac39825c1460b0e" ResourceName="AssetsHotfix/UI/UIForms/UIMenu/UIMenuForm" />
+      <Asset Guid="f2c62053d6b85fd448e30f22174d2315" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="f3ab0d53e9c425d4da9724fab4bfd7d9" ResourceName="AssetsHotfix/GF/Customs" />
+      <Asset Guid="f4fa68baee1efc34e801c1853c42e375" ResourceName="AssetsNative/UI/UITemplate/ScrollView/VListScrollView" />
+      <Asset Guid="f6b9908100d83b743b9d06053913ffc3" ResourceName="AssetsHotfix/UI/UIArt/AtlasCollection/SelectMode" />
+      <Asset Guid="f6c4890c8f316b54e99fe1ad0a90f53a" ResourceName="AssetsHotfix/EntityPrefabs/Ball_Machine" />
+      <Asset Guid="f6e2caa8747036942b9232ea10b6c3df" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="f86e7851fe668094b90395e8a220c64a" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="f8e646084847add4ea6950ebbe2c994c" ResourceName="AssetsHotfix/TackorHotfix/Models/Sphere_Foot" />
+      <Asset Guid="f948cddd52354284e9472f8d1707a4e1" ResourceName="AssetsHotfix/TackorHotfix/Models/FX_MSH_Star_AA" />
+      <Asset Guid="fa9bacaa10e997f4b9e2e83457f88e67" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="fc58ee618e4e1b94e8d8b43534596e4e" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="fc9393bb3ede3494fa6e9c40613d2f8a" ResourceName="AssetsHotfix/Assembly" />
+      <Asset Guid="fd3b7b3d85d29aa4b9f03b7e8836bc0b" ResourceName="AssetsHotfix/TackorHotfix/Materials/Ball_Foot_White" />
+      <Asset Guid="fe2a84a7ba1cf52419a10cf8577d43ae" ResourceName="AssetsHotfix/Assembly" />
     </Assets>
   </ResourceCollection>
 </UnityGameFramework>
