@@ -143,8 +143,8 @@ namespace HotfixBusiness.Entity
             {
                 desiredJump |= Input.GetButtonDown("Jump");
 
-                if (!desiresClimbing)
-                    desiresClimbing = Input.GetButton("Climb");
+                //if (!desiresClimbing)
+                //    desiresClimbing = Input.GetButton("Climb");
             }
 
             UpdateBall();

@@ -38,8 +38,30 @@ SpriteAtlas:
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: bd736f612e072ca459149bd3b78decc2, type: 3}
+  - {fileID: 21300000, guid: e37366b19f50c3d4ab38ee599d37b5c8, type: 3}
+  - {fileID: 21300000, guid: 1b2a19769225c464b97b444f22144a73, type: 3}
+  - {fileID: 21300000, guid: 5b02b917dc22f37498d43c53c93a578c, type: 3}
+  - {fileID: 21300000, guid: a39d2ec7b7569884cbc727bcaf4ce708, type: 3}
+  - {fileID: 21300000, guid: a198fe98483634b429df58c7235330cb, type: 3}
+  - {fileID: 21300000, guid: ac86faf861cadec4daaf35e774ad8513, type: 3}
+  - {fileID: 21300000, guid: 0d6bf45a3374f5d42b65dca0dd0dadd4, type: 3}
+  - {fileID: 21300000, guid: c97dc18b880c9194e89f7f68d864b4bf, type: 3}
+  - {fileID: 21300000, guid: 524b6ffcacd3366478b061357d8a93d7, type: 3}
+  - {fileID: 21300000, guid: 5d588d5d43458ec4eb4f0f7fec2d7479, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Parameters_Color_01
+  - Parameters_Color_05
+  - ChooseVehicle_Board
+  - ChooseVehicle_Player1_Color
+  - Parameters_Color_03
+  - Button_Triangle_Pressed_Rev
+  - ChooseVehicle_Player2_Color
+  - Button_Triangle_Pressed
+  - Parameters_Color_02
+  - Parameters_Color_04
+  - Parameters_Board
   m_RenderDataMap: {}
   m_Tag: SelectCharacter
   m_IsVariant: 0
