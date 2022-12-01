@@ -9,16 +9,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - UIModel
   - Ground
+  - Detailed
+  - Stairs
   - 
   - 
-  - 
-  - 
-  - 
+  - See-Through
   - 
   - 
   - 

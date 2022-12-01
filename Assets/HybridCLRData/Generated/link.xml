@@ -119,6 +119,11 @@
     <type fullname="SingletonMono`1" preserve="all" />
     <type fullname="UIButtonSuper" preserve="all" />
   </assembly>
+  <assembly fullname="MinimalistBarSystem">
+    <type fullname="Minimalist.Bar.Quantity.QuantityBhv" preserve="all" />
+    <type fullname="Minimalist.Bar.UI.BarBhv" preserve="all" />
+    <type fullname="Minimalist.Bar.UI.QuantitySubscriberBhv" preserve="all" />
+  </assembly>
   <assembly fullname="mscorlib">
     <type fullname="System.Action" preserve="all" />
     <type fullname="System.Action`1" preserve="all" />
@@ -213,6 +218,11 @@
     <type fullname="System.UInt64" preserve="all" />
     <type fullname="System.ValueType" preserve="all" />
   </assembly>
+  <assembly fullname="RaycastGizmosVisualizer">
+    <type fullname="Kit.Physic.IRayStructBase" preserve="all" />
+    <type fullname="Kit.Physic.RaycastHelper" preserve="all" />
+    <type fullname="Kit.Physic.SphereOverlapData" preserve="all" />
+  </assembly>
   <assembly fullname="Sirenix.Serialization">
     <type fullname="Sirenix.OdinInspector.SerializedScriptableObject" preserve="all" />
     <type fullname="Sirenix.Serialization.OdinSerializeAttribute" preserve="all" />
@@ -241,6 +251,9 @@
     <type fullname="System.Collections.Generic.HashSet`1" preserve="all" />
     <type fullname="System.Collections.Generic.HashSet`1/Enumerator" preserve="all" />
     <type fullname="System.Linq.Enumerable" preserve="all" />
+  </assembly>
+  <assembly fullname="UIExtensions">
+    <type fullname="tackor.UIExtension.HorizontalSelector" preserve="all" />
   </assembly>
   <assembly fullname="UniTask">
     <type fullname="Cysharp.Threading.Tasks.CompilerServices.AsyncUniTaskMethodBuilder" preserve="all" />

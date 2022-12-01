@@ -38,8 +38,22 @@ SpriteAtlas:
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 710c2483be39e5b4599499ac74a92a96, type: 3}
+  - {fileID: 21300000, guid: 36f43a39e69d84d4db813e498fb7de42, type: 3}
+  - {fileID: 21300000, guid: 54c9da89f7a53e146b4ac2746bf85073, type: 3}
+  - {fileID: 21300000, guid: 87fa4e8cd77907b4cb5d893ae2bfb945, type: 3}
+  - {fileID: 21300000, guid: 136ae77db91351440b67adf32f4ec81c, type: 3}
+  - {fileID: 21300000, guid: 18c562febc6780b428cdf121c09416b8, type: 3}
+  - {fileID: 21300000, guid: dcd6f3fef2ae31f4a805d60341502399, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - SelectMode_Icon_Timer
+  - SelectMode_Icon_Flag
+  - SelectMode_Icon_Cup
+  - SelectMode_Image_03
+  - SelectMode_Icon_Board
+  - SelectMode_Image_01
+  - SelectMode_Image_02
   m_RenderDataMap: {}
   m_Tag: SelectMode
   m_IsVariant: 0
