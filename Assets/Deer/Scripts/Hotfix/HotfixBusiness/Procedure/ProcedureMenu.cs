@@ -11,7 +11,6 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 public class ProcedureMenu : ProcedureBase
 {
     private int? m_UIFormSerialId;
-    Transform m_LightTrans;
 
     protected override void OnEnter(ProcedureOwner procedureOwner)
     {
@@ -22,15 +21,6 @@ public class ProcedureMenu : ProcedureBase
 		m_UIFormSerialId = GameEntry.UI.OpenUIForm(UIFormId.UIMenuForm, this);
 
         GameEntry.Sound.PlayMusic((int)SoundId.MenuBGM);
-
-        if (m_LightTrans == null)
-		{
-			m_LightTrans = GameObject.Find("Directional Light").transform;
-		}
-        if (m_LightTrans != null)
-		{
-			m_LightTrans.gameObject.SetActive(true);
-		}
 	}
 
     protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -55,8 +45,6 @@ public class ProcedureMenu : ProcedureBase
         m_ProcedureOwner.SetData<VarInt16>("RaceId", (short)raceId);
 
         ChangeState<ProcedureChangeScene>(m_ProcedureOwner);
-
-		GameObject.Find("Directional Light").SetActive(false);
 	}
 
 }
