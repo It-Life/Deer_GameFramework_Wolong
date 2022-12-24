@@ -34,7 +34,7 @@ public class ChangeNamespace : EditorWindow
     }
 
     //添加菜单栏用于打开窗口
-    [MenuItem("MyTools/Script/添加代码命名空间工具")]
+    [MenuItem("DeerTools/Script/添加代码命名空间工具")]
     static void showWindow()
     {
         assetsPaths.Clear();

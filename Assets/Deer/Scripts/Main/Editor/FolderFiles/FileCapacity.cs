@@ -25,7 +25,7 @@ public class FileCapacity
     private static List<string> DirList = new List<string>();
     private static bool isShowSize = true;
  
-    [MenuItem("MyTools/File/FileSize &K")]
+    [MenuItem("DeerTools/File/FileSize &K")]
     private static void OpenPlaySize()
     {
         isShowSize = !isShowSize;

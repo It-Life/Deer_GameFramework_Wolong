@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class GameObjectEdtior : MonoBehaviour
 {
-    [MenuItem("MyTools/Lazy/切换物体显隐状态 #A")]
+    [MenuItem("DeerTools/Lazy/切换物体显隐状态 #A")]
     static void SetObjActive()
     {
         GameObject[] selectObjs = Selection.gameObjects;
@@ -18,7 +18,7 @@ public class GameObjectEdtior : MonoBehaviour
     }
     
 
-    [MenuItem("MyTools/Lazy/删除物体 %#d", false, 11)]
+    [MenuItem("DeerTools/Lazy/删除物体 %#d", false, 11)]
     static void MyDeleteObject()
     {
         foreach (Object o in Selection.objects)
@@ -30,7 +30,7 @@ public class GameObjectEdtior : MonoBehaviour
     }
     
     //快捷键控制保存Prefab Shift + S
-    [MenuItem("MyTools/Lazy/Apply GameObject #S")]
+    [MenuItem("DeerTools/Lazy/Apply GameObject #S")]
     [System.Obsolete]
     public static void ApplyPrefab()
     {

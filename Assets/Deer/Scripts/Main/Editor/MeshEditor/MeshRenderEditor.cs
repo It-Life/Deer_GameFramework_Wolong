@@ -14,7 +14,7 @@ using UnityEngine;
 
 public class MeshRenderEditor : Editor
 {
-    [MenuItem("MyTools/CombineMesh")]
+    [MenuItem("DeerTools/CombineMesh")]
     public static void EditorTest()
     {
         CombineMesh();

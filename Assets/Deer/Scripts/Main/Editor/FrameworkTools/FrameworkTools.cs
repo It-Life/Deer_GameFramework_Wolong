@@ -17,12 +17,12 @@ using UnityEngine;
 /// </summary>
 public static class FrameworkTools
 {
-    [MenuItem("MyTools/FrameworkTools/GenerateProtobuf")]
+    [MenuItem("DeerTools/FrameworkTools/GenerateProtobuf")]
 	private static void GenProtoTools() 
 	{
 		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/Proto/gen_pb_code.bat"));
 	}
-	[MenuItem("MyTools/FrameworkTools/GenerateConfig")]
+	[MenuItem("DeerTools/FrameworkTools/GenerateConfig")]
 	private static void GenConfigToStreamingAssets()
 	{
 		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/BuildConfig_Wolong.bat"));

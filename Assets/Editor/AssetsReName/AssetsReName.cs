@@ -188,7 +188,7 @@ namespace Deer.Editor
 
         #region /*——GUI——*/
 
-        [MenuItem("MyTools/Asset/Asset ReName _&#_1")]
+        [MenuItem("DeerTools/Asset/Asset ReName _&#_1")]
         public static void NewWindow_AssetsReName()
         {
             GetWindow<AssetsReName>(true, "资源重命名");
