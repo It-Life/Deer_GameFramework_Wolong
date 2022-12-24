@@ -74,6 +74,18 @@ public static class BuildEventHandlerWolong
         }
     }
 
+    private static bool CheckHotUpdateAssembly(string assemblyName)
+    {
+        foreach (var dll in SettingsUtil.HotUpdateAssemblyFiles)
+        {
+            if (assemblyName == dll)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
         AOTMetaAssembliesHelper.FindAllAOTMetaAssemblies(buildTarget);
@@ -90,6 +102,10 @@ public static class BuildEventHandlerWolong
         }
         foreach (var dll in DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies)
         {
+            if (CheckHotUpdateAssembly(dll))
+            {
+                continue;
+            }
             string dllPath = $"{SettingsUtil.GetAssembliesPostIl2CppStripDir(buildTarget)}/{dll}";
             if (!File.Exists(dllPath))
             {
