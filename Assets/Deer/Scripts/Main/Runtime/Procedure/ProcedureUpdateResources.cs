@@ -67,9 +67,6 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Subscribe(DownloadStartEventArgs.EventId, OnDownloadStart);
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
-            GameEntryMain.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUISuccess);
-            GameEntryMain.Event.Subscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFailure);
-            //GameEntryMain.Messenger.RegisterEvent(EventName.EVENT_CS_UI_TIPS_CALLBACK, NoticeTipsUpdate);
 
             if (GameEntryMain.Base.EditorResourceMode)
             {
@@ -98,9 +95,6 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Unsubscribe(DownloadStartEventArgs.EventId, OnDownloadStart);
             GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
-            GameEntryMain.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUISuccess);
-            GameEntryMain.Event.Unsubscribe(OpenUIFormFailureEventArgs.EventId, OnOpenUIFailure);
-            //GameEntryMain.Messenger.UnRegisterEvent(EventName.EVENT_CS_UI_TIPS_CALLBACK, NoticeTipsUpdate);
         }
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -133,7 +127,7 @@ namespace Main.Runtime.Procedure
             m_NeedUpdateResources = updateCount > 0;
             m_UpdateResourceCount = updateCount;
             m_UpdateTotalZipLength += updateTotalZipLength;
-            m_NativeLoadingFormId = GameEntryMain.UI.OpenUIForm(Main.Runtime.AssetUtility.UI.GetUIFormAsset("UINativeLoadingForm"), "Default", this);
+            GameEntryMain.UI.DeerUIInitRootForm().OnOpenLoadingForm(true);
         }
 
         private void OnNoticeUpdate()
@@ -143,12 +137,13 @@ namespace Main.Runtime.Procedure
             {
                 string conetnt = Utility.Text.Format("有{0}更新", FileUtils.GetLengthString(m_UpdateTotalZipLength));
                 UnityGameFramework.Runtime.Log.Info(conetnt);
-                NativeMessageBoxOption nativeMessageBoxOption = new NativeMessageBoxOption();
-                nativeMessageBoxOption.title = "提示";
-                nativeMessageBoxOption.message = Utility.Text.Format("客官,有{0}更新，请立马更新！", FileUtils.GetLengthString(m_UpdateTotalZipLength));
-                nativeMessageBoxOption.onSure = () => { StartUpdate(); };
-                nativeMessageBoxOption.onCancel = () => { Application.Quit(); };
-                GameEntryMain.UI.OpenUIForm(AssetUtility.UI.GetUIFormAsset("UINativeMessageBoxForm"), "Default", nativeMessageBoxOption);
+                DialogParams dialogParams = new DialogParams();
+                dialogParams.Mode = 2;
+                dialogParams.Title = "提示";
+                dialogParams.Message = Utility.Text.Format("更新文件大小{0}，建议你在WIFI环境下进行下载，是否现在更新？", FileUtils.GetLengthString(m_UpdateTotalZipLength));
+                dialogParams.OnClickConfirm = (object o) => { StartUpdate(); };
+                dialogParams.OnClickCancel = (object o) => { Application.Quit(); };
+                GameEntryMain.UI.DeerUIInitRootForm().OnOpenUIDialogForm(dialogParams);
             }
             else
             {
@@ -215,8 +210,7 @@ namespace Main.Runtime.Procedure
             Log.Info($"当前下载:{FileUtils.GetByteLengthString(currentTotalUpdateLength)} 总下载:{FileUtils.GetByteLengthString(m_UpdateTotalZipLength)} 下载进度:{progressTotal}");
             Log.Info($"下载速度:{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}");*/
             var tips = $"{FileUtils.GetByteLengthString(currentTotalUpdateLength)}/{FileUtils.GetByteLengthString(m_UpdateTotalZipLength)}  当前下载速度每秒{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}";
-            var nativeLoadingForm = (UINativeLoadingForm)GameEntryMain.UI.GetUIForm(m_NativeLoadingFormId)?.Logic;
-            nativeLoadingForm?.RefreshProgress(currentTotalUpdateLength, m_UpdateTotalZipLength, tips);
+            GameEntryMain.UI.DeerUIInitRootForm().OnRefreshLoadingProgress(currentTotalUpdateLength, m_UpdateTotalZipLength, tips);
         }
         private void OnUpdateConfigsComplete(bool result)
         {
@@ -304,22 +298,6 @@ namespace Main.Runtime.Procedure
             }
             OnUpdateCompleteOne(ne.Name, 0, UpdateStateType.Failure);
         }
-
-        private void OnOpenUIFailure(object sender, GameEventArgs e)
-        {
-            
-        }
-
-        private void OnOpenUISuccess(object sender, GameEventArgs e)
-        {
-            OpenUIFormSuccessEventArgs ne = (OpenUIFormSuccessEventArgs)e;
-            if (ne.UIForm.SerialId == m_NativeLoadingFormId)
-            {
-                //关闭前置背景
-                GameEntryMain.UI.SettingForegroundSwitch(false);
-            }
-        }
-
         private void OnDownloadStart(object sender, GameEventArgs e)
         {
             DownloadStartEventArgs ne = (DownloadStartEventArgs)e;

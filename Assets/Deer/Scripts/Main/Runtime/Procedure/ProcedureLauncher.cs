@@ -21,7 +21,7 @@ namespace Main.Runtime.Procedure
             //Debug.Log("tackor ProcedureLauncher OnEnter");
 
             base.OnEnter(procedureOwner);
-            GameEntryMain.UI.SettingForegroundSwitch(true);
+            GameEntryMain.UI.OpenUIInitRootForm();
             ChangeState<ProcedureSplash>(procedureOwner);
         }
     }

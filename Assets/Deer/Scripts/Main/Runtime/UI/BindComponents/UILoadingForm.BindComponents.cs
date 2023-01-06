@@ -1,10 +1,12 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Main.Runtime.UI
 {
-	public partial class UINativeLoadingForm
+	public partial class UILoadingForm
 	{
 		private RectTransform m_Trans_Progress;
 		private Image m_Img_ProgressValue;

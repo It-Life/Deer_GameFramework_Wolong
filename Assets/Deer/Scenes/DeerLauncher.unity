@@ -130,14 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3584323862020619376, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 96
-      objectReference: {fileID: 0}
-    - target: {fileID: 3697501985222841089, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
-      propertyPath: m_EditorResourceMode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5402190822736383794, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
       propertyPath: m_Name
       value: DeerGF

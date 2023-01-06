@@ -77,6 +77,11 @@ namespace Deer.Editor
         {
             SaveObject(menuCommand, "ScrollView/VGridScrollView");
         }
+        [MenuItem("GameObject/UI/U_ScrollView/ScrollVItemPrefab", false, 26)]
+        static void CreateScrollVItemPrefab(MenuCommand menuCommand)
+        {
+            SaveObject(menuCommand, "ScrollView/ScrollVItemPrefab");
+        }
 
         [MenuItem("GameObject/UI/U_SpriteAnimation",false,2 )]
         static void CreateUGUISpriteAnimation(MenuCommand menuCommand)
@@ -90,7 +95,7 @@ namespace Deer.Editor
         }
         static GameObject SaveObject(MenuCommand menuCommand, string prefabName,string objName = "") 
         {
-            var path = Main.Runtime.FileUtils.GetPath($@"Assets\Deer\AssetsNative\UI\UITemplate\{ prefabName }.prefab");
+            var path = Main.Runtime.FileUtils.GetPath($@"Assets\Deer\AssetsHotfix\UI\UITemplate\{ prefabName }.prefab");
             GameObject prefab = (GameObject)AssetDatabase.LoadMainAssetAtPath(path);
             if (prefab)
             {

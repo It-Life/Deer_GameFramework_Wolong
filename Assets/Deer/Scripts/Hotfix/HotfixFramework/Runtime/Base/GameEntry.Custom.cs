@@ -82,11 +82,14 @@ public partial class GameEntry
             Resource.UnloadAsset(asset);
             return;
         }
-        GameObject gameObject = UnityEngine.Object.Instantiate((GameObject)asset);
+        GameObject gameObject = UnityEngine.Object.Instantiate((GameObject)asset, GameObject.Find("DeerGF").transform, true);
         gameObject.name = "Customs";
-        gameObject.transform.parent = GameObject.Find("DeerGF").transform;
+        gameObject.transform.position = Vector3.zero;
         ResetProcedure();
         ResetUIFormHelper();
+        //关闭启动界面
+        GameEntryMain.UI.DeerUIInitRootForm().OnCloseLaunchView();
+        GameEntryMain.UI.DeerUIInitRootForm().OnOpenLoadingForm(false);
     }
     private static List<Assembly> m_HotfixAssemblys;
     private static ProcedureBase m_EntranceProcedureBase;

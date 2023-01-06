@@ -107,15 +107,15 @@ public class AutoBindGlobalSetting : ScriptableObject
             return false;
         }
 
-        string filedName = strArray[strArray.Length - 1];
-
+        bool isFind = false;
+        string filedName = strArray[^1];
         for (int i = 0; i < strArray.Length - 1; i++)
         {
-            string str = strArray[i];
+            string str = strArray[i].Replace("#","");
             string comName;
             var _AutoBindGlobalSetting = GetAutoBindGlobalSetting();
             var _PrefixesDict = _AutoBindGlobalSetting.RulePrefixes;
-            bool isFind = false;
+            bool isFindComponent = false;
             foreach (var autoBindRulePrefix in _PrefixesDict)
             {
                 if (autoBindRulePrefix.Prefixe.Equals(str))
@@ -124,14 +124,18 @@ public class AutoBindGlobalSetting : ScriptableObject
                     filedNames.Add($"{str}_{filedName}");
                     componentTypeNames.Add(comName);
                     isFind = true;
+                    isFindComponent = true;
                     break;
                 }
             }
-            if (!isFind)
+            if (!isFindComponent)
             {
-                Debug.LogError($"{target.name}的命名中{str}不存在对应的组件类型，绑定失败");
-                return false;
+                Debug.LogWarning($"{target.name}的命名中{str}不存在对应的组件类型，绑定失败");
             }
+        }
+        if (!isFind)
+        {
+            return false;
         }
         return true;
     }

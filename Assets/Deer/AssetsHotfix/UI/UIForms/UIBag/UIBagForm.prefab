@@ -208,6 +208,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8735723801857023547}
     - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
+      propertyPath: m_BindComs.Array.data[3]
+      value: 
+      objectReference: {fileID: 7718438105969472905}
+    - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: BindDatas.Array.data[0].Name
       value: Trans_imge
       objectReference: {fileID: 0}
@@ -218,6 +222,10 @@ PrefabInstance:
     - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: BindDatas.Array.data[2].Name
       value: Btn_Test1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
+      propertyPath: BindDatas.Array.data[3].Name
+      value: Trans_SubUI
       objectReference: {fileID: 0}
     - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: BindDatas.Array.data[0].BindCom
@@ -231,6 +239,10 @@ PrefabInstance:
       propertyPath: BindDatas.Array.data[2].BindCom
       value: 
       objectReference: {fileID: 8735723801857023547}
+    - target: {fileID: 3573344967156380309, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
+      propertyPath: BindDatas.Array.data[3].BindCom
+      value: 
+      objectReference: {fileID: 7718438105969472905}
     - target: {fileID: 8982228020252818915, guid: ee434b8e75f92804ca01e3be759e7c7f, type: 3}
       propertyPath: m_Name
       value: UIBagForm
@@ -268,7 +280,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4376520349347892367, guid: a4ecbc6afc651d94888a4b56e95f846f, type: 3}
       propertyPath: m_Name
-      value: UIBag_SubUI
+      value: UIBagForm_SubUI
       objectReference: {fileID: 0}
     - target: {fileID: 4951199764087422905, guid: a4ecbc6afc651d94888a4b56e95f846f, type: 3}
       propertyPath: m_Pivot.x
@@ -354,8 +366,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8182157109141816313, guid: a4ecbc6afc651d94888a4b56e95f846f, type: 3}
+      propertyPath: m_ClassName
+      value: UIBagForm&SubUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4ecbc6afc651d94888a4b56e95f846f, type: 3}
+--- !u!224 &7718438105969472905 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4951199764087422905, guid: a4ecbc6afc651d94888a4b56e95f846f, type: 3}
+  m_PrefabInstance: {fileID: 3434935227159120432}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5252193438425755156
 PrefabInstance:
   m_ObjectHideFlags: 0

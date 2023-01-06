@@ -46,7 +46,7 @@ namespace Main.Runtime.Procedure
         {
             base.OnEnter(procedureOwner);
             //检查设备是否能够访问互联网
-            if (Application.internetReachability == NetworkReachability.ReachableViaCarrierDataNetwork)
+            if (Application.internetReachability == NetworkReachability.NotReachable)
             {
                 Log.Info("The device is not connected to the network");
                 return;

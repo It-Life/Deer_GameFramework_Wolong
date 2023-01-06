@@ -10,6 +10,7 @@ using GameFramework;
 using GameFramework.UI;
 using Main.Runtime.Procedure;
 using System.Collections;
+using Main.Runtime.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
@@ -129,17 +130,20 @@ namespace Main.Runtime
             {
             }
         }
-        public static void SettingForegroundSwitch(this UIComponent uiComponent, bool isOpen) 
+        public static void OpenUIInitRootForm(this UIComponent uiComponent) 
         {
-            var foregroundTrans = InstanceRoot.parent.Find("Foreground");
+            var foregroundTrans = InstanceRoot.Find("UIInitRootForm");
             if (foregroundTrans != null)
             {
-                foregroundTrans.gameObject.SetActive(isOpen);
-                if (isOpen)
-                {
-                    foregroundTrans.GetComponent<Canvas>().sortingOrder = short.MinValue;
-                }
+                foregroundTrans.gameObject.SetActive(true);
             }
         }
+
+        public static UIInitRootForm DeerUIInitRootForm(this UIComponent uiComponent)
+        {
+            return UIInitRootForm.Instance;
+        }
+
+
     }
 }

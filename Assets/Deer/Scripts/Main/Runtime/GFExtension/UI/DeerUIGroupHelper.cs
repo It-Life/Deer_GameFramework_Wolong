@@ -32,7 +32,7 @@ namespace Main.Runtime
         {
             m_Depth = depth;
             m_CachedCanvas.overrideSorting = true;
-            m_CachedCanvas.sortingOrder = DepthFactor * depth;
+            m_CachedCanvas.sortingOrder = DepthFactor + depth;
         }
 
         private void Awake()
@@ -44,7 +44,7 @@ namespace Main.Runtime
         private void Start()
         {
             m_CachedCanvas.overrideSorting = true;
-            m_CachedCanvas.sortingOrder = DepthFactor * m_Depth;
+            m_CachedCanvas.sortingOrder = DepthFactor + m_Depth;
             this.transform.localPosition = Vector3.zero;
             RectTransform transform = GetComponent<RectTransform>();
             transform.anchorMin = Vector2.zero;

@@ -113,7 +113,13 @@ public class ComponentAutoBindToolInspector : Editor
         {
             string className = !string.IsNullOrEmpty(m_Target.ClassName) ? m_Target.ClassName : m_Target.gameObject.name;
             if (!m_Target.gameObject.GetComponent(className))
-                m_Target.gameObject.AddComponent(GetTypeWithName(className));
+            {
+                Type _type = GetTypeWithName(className);
+                if (_type != null)
+                {
+                    m_Target.gameObject.AddComponent(_type);
+                }
+            }
         }
         EditorGUILayout.EndHorizontal();
     }
@@ -187,10 +193,14 @@ public class ComponentAutoBindToolInspector : Editor
             {
                 continue;
             }
-            ComponentAutoBindTool componentAuto = child.gameObject.GetComponentInParent<ComponentAutoBindTool>();
-            if (componentAuto != null && componentAuto != m_Target)
+            ComponentAutoBindTool componentAuto1 = child.gameObject.GetComponent<ComponentAutoBindTool>();
+            ComponentAutoBindTool componentAuto = child.gameObject.GetComponentInParent<ComponentAutoBindTool>(true);
+            if (componentAuto1 == null)
             {
-                continue;
+                if (componentAuto != null && componentAuto != m_Target)
+                {
+                    continue;
+                }
             }
             if (AutoBindGlobalSetting.IsValidBind(child, m_TempFiledNames, m_TempComponentTypeNames))
             {
@@ -203,7 +213,8 @@ public class ComponentAutoBindToolInspector : Editor
                     }
                     else
                     {
-                        AddBindData(m_TempFiledNames[i], child.GetComponent(m_TempComponentTypeNames[i]));
+                        string newFiledName = m_TempFiledNames[i].Replace("#", "");
+                        AddBindData(newFiledName, child.GetComponent(m_TempComponentTypeNames[i]));
                     }
 
                 }
@@ -778,7 +789,7 @@ public class ComponentAutoBindToolInspector : Editor
 
         for (int i = assmblies.Length - 1; i >= 0; i--)
         {
-            if (assmblies[i].GetName().Name != "HotfixBusiness") continue;
+            if (assmblies[i].GetName().Name != "HotfixBusiness" && assmblies[i].GetName().Name != "Main.Runtime") continue;
 
             Type[] __types = assmblies[i].GetTypes();
 
@@ -787,7 +798,6 @@ public class ComponentAutoBindToolInspector : Editor
                 if (__types[j].Name != typeName) continue;
                 return __types[j];
             }
-            break;
         }
         return null;
     }
