@@ -664,7 +664,7 @@ namespace UnityGameFramework.Editor.ResourceTools
             EditorUtility.DisplayProgressBar("Packing...", Utility.Text.Format("Packing assetsNative resources, {0}/{1} packed.", 0, 0), 0);
             foreach (Resource resource in m_Resources.Values)
             {
-                if (resource.Name.Contains("AssetsNative"))
+                if (resource.Name.Contains("AssetsPacked"))
                 {
                     resource.SetPacked(bPacked);
                 }

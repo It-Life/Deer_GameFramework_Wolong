@@ -76,7 +76,7 @@ public static class BuildEventHandlerWolong
 
     private static bool CheckHotUpdateAssembly(string assemblyName)
     {
-        foreach (var dll in SettingsUtil.HotUpdateAssemblyFiles)
+        foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesIncludePreserved)
         {
             if (assemblyName == dll)
             {
@@ -94,7 +94,7 @@ public static class BuildEventHandlerWolong
         {
             Directory.CreateDirectory(AssemblyTextAssetPath);
         }
-        foreach (var dll in SettingsUtil.HotUpdateAssemblyFiles)
+        foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesIncludePreserved)
         {
             string dllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(buildTarget)}/{dll}";
             string dllBytesPath = $"{AssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
@@ -115,7 +115,7 @@ public static class BuildEventHandlerWolong
             string dllBytesPath = $"{AssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
             File.Copy(dllPath, dllBytesPath, true);
         }
-        DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblyFiles);
+        DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblyFilesIncludePreserved);
         AddHotfixDllToResourceCollection();
         AssetDatabase.Refresh();
     }

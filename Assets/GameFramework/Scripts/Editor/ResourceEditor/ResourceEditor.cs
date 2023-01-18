@@ -493,10 +493,10 @@ namespace UnityGameFramework.Editor.ResourceTools
         public enum AssetsPackedType
         {
             PackedDefault,
+            PackedAssets,
             PackedAll,
-            PackedNative,
         }
-        private AssetsPackedType m_AssetsPackedType = AssetsPackedType.PackedNative;
+        private AssetsPackedType m_AssetsPackedType = AssetsPackedType.PackedAssets;
         private AssetsPackedType m_NowAssetsPackedType;
         private bool m_IsResetResourceList = false;
         #endregion
@@ -603,7 +603,7 @@ namespace UnityGameFramework.Editor.ResourceTools
                         PackedAllResource(true);
                         m_NowAssetsPackedType = m_AssetsPackedType;
                         break;
-                    case AssetsPackedType.PackedNative:
+                    case AssetsPackedType.PackedAssets:
                         PackedNativeResource(true);
                         m_NowAssetsPackedType = m_AssetsPackedType;
                         break;

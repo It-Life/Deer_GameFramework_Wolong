@@ -5,7 +5,7 @@
       <SourceAssetRootPath>Assets/Deer</SourceAssetRootPath>
       <SourceAssetSearchPaths>
         <SourceAssetSearchPath RelativePath="AssetsHotfix" />
-        <SourceAssetSearchPath RelativePath="AssetsNative" />
+        <SourceAssetSearchPath RelativePath="AssetsPacked" />
       </SourceAssetSearchPaths>
       <SourceAssetUnionTypeFilter>
         t:Scene t:Prefab t:Shader t:Model t:Material t:Texture t:AudioClip t:AnimationClip t:AnimatorController t:TextAsset t:ScriptableObject t:asset t:SpriteAtlas t:spriteatlas

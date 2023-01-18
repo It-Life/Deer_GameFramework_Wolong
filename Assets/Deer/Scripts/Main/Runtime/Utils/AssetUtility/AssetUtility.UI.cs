@@ -16,7 +16,7 @@ namespace Main.Runtime
 
             public static string GetUIFormAsset(string assetName)
             {
-                return Utility.Text.Format("Assets/Deer/AssetsNative/UI/UIForms/{0}/{1}.prefab", assetName.Replace("Form", ""), assetName);
+                return Utility.Text.Format("Assets/Deer/AssetsHotfix/UI/UIForms/{0}/{1}.prefab", assetName.Replace("Form", ""), assetName);
             }
 
             /// <summary>

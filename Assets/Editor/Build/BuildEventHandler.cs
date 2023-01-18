@@ -23,7 +23,7 @@ public class BuildEventHandler : IBuildEventHandler
     private List<string> StreamingAssetsPaths = new List<string>()
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix")),
-        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsNative")),
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsPacked")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName)),
     };
     private List<string> StreamingAssetsFilePaths = new List<string>()
@@ -211,42 +211,49 @@ public class BuildEventHandler : IBuildEventHandler
             m_VersionInfo.GameUpdateUrl = "";
             m_VersionInfo.LatestGameVersion = "";
             string versionInfoJson = JsonUtility.ToJson(m_VersionInfo);
-            Main.Runtime.FileUtils.CreateFile(Path.Combine(outputFullPath,DeerSettingsUtils.FrameworkGlobalSettings.ResourceVersionFileName),versionInfoJson);
-            string commitPath = CommitResourcesPath + "/" + platform;
-            if (!Directory.Exists(commitPath))
+            FileUtils.CreateFile(Path.Combine(outputFullPath,DeerSettingsUtils.FrameworkGlobalSettings.ResourceVersionFileName),versionInfoJson);
+            if (DeerSettingsUtils.ResourcesArea.WhetherCopyResToCommitPath)
             {
-                Directory.CreateDirectory(commitPath);
-            }
-            if (DeerSettingsUtils.ResourcesArea.CleanCommitPathRes)
-            {
-                FolderUtils.ClearFolder(commitPath);
-            }
-            List<string> commitAssetsPaths = new List<string>()
+                string commitPath = CommitResourcesPath + "/" + platform;
+                if (!Directory.Exists(commitPath))
+                {
+                    Directory.CreateDirectory(commitPath);
+                }
+                if (DeerSettingsUtils.ResourcesArea.CleanCommitPathRes)
+                {
+                    FolderUtils.ClearFolder(commitPath);
+                }
+                List<string> commitAssetsPaths = new List<string>()
                 {
                     Utility.Path.GetRegularPath(Path.Combine(commitPath, "AssetsHotfix")),
-                    Utility.Path.GetRegularPath(Path.Combine(commitPath, "AssetsNative")),
+                    Utility.Path.GetRegularPath(Path.Combine(commitPath, "AssetsPacked")),
                 };
-            foreach (var item in commitAssetsPaths)
-            {
-                FolderUtils.ClearFolder(item);
-            }
-            List<string> files = new List<string>(Directory.GetFiles(commitPath));
-            foreach (var file in files)
-            {
-                if (file.Contains("GameFrameworkVersion"))
+                foreach (var item in commitAssetsPaths)
                 {
-                    if (File.Exists(file))
+                    FolderUtils.ClearFolder(item);
+                }
+                List<string> files = new List<string>(Directory.GetFiles(commitPath));
+                foreach (var file in files)
+                {
+                    if (file.Contains("GameFrameworkVersion"))
                     {
-                        File.Delete(file);
-                        break;
+                        if (File.Exists(file))
+                        {
+                            File.Delete(file);
+                            break;
+                        }
                     }
                 }
+                if (FolderUtils.CopyFilesToRootPath(outputFullPath, commitPath, SearchOption.AllDirectories))
+                {
+                    Debug.Log("更新资源文件拷贝完毕！");
+                }
+                Application.OpenURL("file://"+ CommitResourcesPath);
             }
-            if (FolderUtils.CopyFilesToRootPath(outputFullPath, commitPath, SearchOption.AllDirectories))
+            else
             {
-                Debug.Log("更新资源文件拷贝完毕！");
+                Application.OpenURL("file://"+ outputFullPath);
             }
-            Application.OpenURL("file://"+ CommitResourcesPath);
         }
         BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
     }

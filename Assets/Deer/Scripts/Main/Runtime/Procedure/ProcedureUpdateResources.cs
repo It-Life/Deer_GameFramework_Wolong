@@ -140,6 +140,8 @@ namespace Main.Runtime.Procedure
                 DialogParams dialogParams = new DialogParams();
                 dialogParams.Mode = 2;
                 dialogParams.Title = "提示";
+                dialogParams.ConfirmText = "确定";
+                dialogParams.CancelText = "取消";
                 dialogParams.Message = Utility.Text.Format("更新文件大小{0}，建议你在WIFI环境下进行下载，是否现在更新？", FileUtils.GetLengthString(m_UpdateTotalZipLength));
                 dialogParams.OnClickConfirm = (object o) => { StartUpdate(); };
                 dialogParams.OnClickCancel = (object o) => { Application.Quit(); };

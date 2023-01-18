@@ -24,11 +24,14 @@ public class ResourcesArea
     [Tooltip("资源管理编号")]
     [SerializeField] private string m_ResAdminCode = "0";
     public string ResAdminCode { get { return m_ResAdminCode; } }
-    [SerializeField] private ServerTypeEnum m_ServerType = ServerTypeEnum.Intranet;
-    public ServerTypeEnum ServerType { get { return m_ServerType; } }
+    [Tooltip("是否Copy构建的ab资源到上传资源目录")]
+    [SerializeField] private bool m_WhetherCopyResToCommitPath = false;
+    public bool WhetherCopyResToCommitPath { get { return m_WhetherCopyResToCommitPath; } }
     [Tooltip("是否在构建资源的时候清理上传到服务端目录的老资源")]
     [SerializeField] private bool m_CleanCommitPathRes = true;
     public bool CleanCommitPathRes { get { return m_CleanCommitPathRes; } }
+    [SerializeField] private ServerTypeEnum m_ServerType = ServerTypeEnum.Intranet;
+    public ServerTypeEnum ServerType { get { return m_ServerType; } }
     [Tooltip("内网地址")]
     [SerializeField]
     private string m_InnerResourceSourceUrl = "http://121.4.195.168:8088";

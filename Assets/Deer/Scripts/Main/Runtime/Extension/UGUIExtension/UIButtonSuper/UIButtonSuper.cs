@@ -78,7 +78,7 @@ public enum ButtonSoundType
 public enum ButtonSoundAssetType
 {
     Hotfix,
-    Native,
+    Packed,
 }
 [Serializable]
 public class ButtonSoundCell
@@ -225,10 +225,10 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
         playSoundParams.VolumeInSoundGroup = 1;
         playSoundParams.SpatialBlend = 0;
         string soundPath = "";
-        if (buttonSound.ButtonSoundAssetType == ButtonSoundAssetType.Native)
+        if (buttonSound.ButtonSoundAssetType == ButtonSoundAssetType.Packed)
         {
             //UISound/ui_click button
-            soundPath = $"Assets/Deer/AssetsNative/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.mp3";
+            soundPath = $"Assets/Deer/AssetsPacked/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.mp3";
         }
         else
         {
