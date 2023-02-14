@@ -22,10 +22,10 @@ using UnityGameFramework.Runtime;
 public static class BuildEventHandlerWolong
 {
 
-    public static string AssemblyTextAssetPath 
+/*    public static string AssemblyTextAssetPath 
     {
         get { return Path.Combine(Application.dataPath, DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath); }    
-    }
+    }*/
 
     /// <summary>
     /// Convert UGF platform to Unity platform define
@@ -39,9 +39,9 @@ public static class BuildEventHandlerWolong
                 {Platform.MacOS, BuildTarget.StandaloneOSX},
                 {Platform.Linux, BuildTarget.StandaloneLinux64},
                 {Platform.IOS, BuildTarget.iOS},
-                {Platform.Android, BuildTarget.Android}
-                //{Platform.WindowsStore, BuildTarget.WSAPlayer},
-                //{Platform.WebGL, BuildTarget.WebGL}
+                {Platform.Android, BuildTarget.Android},
+                {Platform.WindowsStore, BuildTarget.WSAPlayer},
+                {Platform.WebGL, BuildTarget.WebGL}
         };
     public static bool IsPlatformSelected(Platform platforms, Platform platform)
     {
@@ -53,25 +53,25 @@ public static class BuildEventHandlerWolong
         {
             return;
         }
-        foreach (var item in Platform2BuildTargetDic)
-        {
-            if (IsPlatformSelected(platforms,item.Key))
-            {
-                CompileDllCommand.CompileDll(item.Value);
-                CopyDllBuildFiles(item.Value);
-            }
-        }
+        //foreach (var item in Platform2BuildTargetDic)
+        //{
+        //    if (IsPlatformSelected(platforms,item.Key))
+        //    {
+        //        CompileDllCommand.CompileDll(item.Value);
+        //        CopyDllBuildFiles(item.Value);
+        //    }
+        //}
     }
     public static void OnPreprocessPlatform(Platform platform) 
     {
-        if (Platform2BuildTargetDic.TryGetValue(platform, out BuildTarget buildTarget))
-        {
-            CopyDllBuildFiles(buildTarget);
-        }
-        else 
-        {
-            Log.Warning($"Cannot be generated on the current platform:{platform}");
-        }
+        //if (Platform2BuildTargetDic.TryGetValue(platform, out BuildTarget buildTarget))
+        //{
+        //    CopyDllBuildFiles(buildTarget);
+        //}
+        //else 
+        //{
+        //    Log.Warning($"Cannot be generated on the current platform:{platform}");
+        //}
     }
 
     private static bool CheckHotUpdateAssembly(string assemblyName)
@@ -86,7 +86,7 @@ public static class BuildEventHandlerWolong
         return false;
     }
 
-    private static void CopyDllBuildFiles(BuildTarget buildTarget) 
+    /*private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
         AOTMetaAssembliesHelper.FindAllAOTMetaAssemblies(buildTarget);
         FolderUtils.ClearFolder(AssemblyTextAssetPath);
@@ -118,7 +118,7 @@ public static class BuildEventHandlerWolong
         DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblyFilesIncludePreserved);
         AddHotfixDllToResourceCollection();
         AssetDatabase.Refresh();
-    }
+    }*/
 
     private static ResourceCollection resourceCollection;
     private static string resourcesName = "AssetsHotfix/Assembly";
