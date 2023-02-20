@@ -45,7 +45,7 @@ public class HybridCLRCustomGlobalSettings
     /// <summary>
     /// 程序集文本资产资源目录
     /// </summary>
-    public string AssemblyTextAssetPath = "Deer/AssetsHotfix/Assembly";
+    public string AssemblyTextAssetPath = "Deer/AssetsHotfix/Assemblies";
     /// <summary>
     /// Resources HybridCLRGlobalSettings Dir
     /// </summary>

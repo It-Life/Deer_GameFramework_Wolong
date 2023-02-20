@@ -180,4 +180,20 @@ public static class DeerSettingsUtils
                     Application.platform.ToString()));
         }
     }
+    
+    /// <summary>
+    /// 热更程序集文件资源地址
+    /// </summary>
+    public static string HotfixAssemblyTextAssetPath
+    {
+        get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, "Hotfix"); }
+    }
+
+    /// <summary>
+    /// AOT程序集文件资源地址
+    /// </summary>
+    public static string AOTAssemblyTextAssetPath
+    {
+        get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, "AOT"); }
+    }
 }

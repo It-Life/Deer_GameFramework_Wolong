@@ -11,33 +11,17 @@ using HybridCLR.Editor.Commands;
 public static class CopyAssemblies
 {
     /// <summary>
-    /// 热更程序集文件资源地址
-    /// </summary>
-    public static string HotfixAssemblyTextAssetPath
-    {
-        get { return Path.Combine(Application.dataPath, DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, "Hotfix"); }
-    }
-
-    /// <summary>
-    /// AOT程序集文件资源地址
-    /// </summary>
-    public static string AOTAssemblyTextAssetPath
-    {
-        get { return Path.Combine(Application.dataPath, DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, "AOT"); }
-    }
-
-    /// <summary>
     /// 复制热更程序集
     /// </summary>
     public static void DoCopyHotfixAssemblies(BuildTarget buildTarget)
     {
         // 清空热更程序集文件夹
-        FolderUtils.ClearFolder(HotfixAssemblyTextAssetPath);
+        FolderUtils.ClearFolder(DeerSettingsUtils.HotfixAssemblyTextAssetPath);
 
         // 检查文件夹是否存在
-        if (!Directory.Exists(HotfixAssemblyTextAssetPath))
+        if (!Directory.Exists(DeerSettingsUtils.HotfixAssemblyTextAssetPath))
         {
-            Directory.CreateDirectory(HotfixAssemblyTextAssetPath);
+            Directory.CreateDirectory(DeerSettingsUtils.HotfixAssemblyTextAssetPath);
         }
 
         // 编译dll
@@ -47,7 +31,7 @@ public static class CopyAssemblies
         foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesIncludePreserved)
         {
             string dllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(buildTarget)}/{dll}";
-            string dllBytesPath = $"{HotfixAssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
+            string dllBytesPath = $"{DeerSettingsUtils.HotfixAssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
             File.Copy(dllPath, dllBytesPath, true);
         }
 
@@ -68,12 +52,12 @@ public static class CopyAssemblies
         AOTMetaAssembliesHelper.FindAllAOTMetaAssemblies(buildTarget);
 
         // 清空AOT文件夹
-        FolderUtils.ClearFolder(AOTAssemblyTextAssetPath);
+        FolderUtils.ClearFolder(DeerSettingsUtils.AOTAssemblyTextAssetPath);
 
         //判断AOT文件夹是否存在
-        if (!Directory.Exists(AOTAssemblyTextAssetPath))
+        if (!Directory.Exists(DeerSettingsUtils.AOTAssemblyTextAssetPath))
         {
-            Directory.CreateDirectory(AOTAssemblyTextAssetPath);
+            Directory.CreateDirectory(DeerSettingsUtils.AOTAssemblyTextAssetPath);
         }
 
         // 复制AOT程序集到资源文件夹
@@ -85,7 +69,7 @@ public static class CopyAssemblies
                 Debug.LogError($"ab中添加AOT补充元数据dll:{dllPath} 时发生错误,文件不存在。裁剪后的AOT dll在BuildPlayer时才能生成，因此需要你先构建一次游戏App后再打包。");
                 continue;
             }
-            string dllBytesPath = $"{AOTAssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
+            string dllBytesPath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{dll}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}";
             File.Copy(dllPath, dllBytesPath, true);
         }
 
