@@ -48,7 +48,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectMode/SelectMode_Icon_Board.png
+      Data: Assets/Deer/UISprites/SelectMode/SelectModeIconBoard.png
     - Name: $v
       Entry: 10
       Data: 0

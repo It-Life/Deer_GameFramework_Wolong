@@ -86,6 +86,8 @@ namespace UGFExtensions.SpriteCollection
 
                 current = next;
             }
+
+            m_CheckCanReleaseTime = 0;
         }
     }
 }

@@ -46,7 +46,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Others/Button_s_Off.png
+      Data: Assets/Deer/UISprites/Others/ButtonOff.png
     - Name: $v
       Entry: 10
       Data: 0

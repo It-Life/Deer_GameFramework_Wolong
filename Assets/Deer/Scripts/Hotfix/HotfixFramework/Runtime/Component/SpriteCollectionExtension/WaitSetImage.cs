@@ -47,7 +47,10 @@ namespace UGFExtensions.SpriteCollection
 
         public void SetSprite(Sprite sprite)
         {
-            m_Image.sprite = sprite;
+            if (m_Image != null)
+            {
+                m_Image.sprite = sprite;
+            }
         }
 
         public bool IsCanRelease()

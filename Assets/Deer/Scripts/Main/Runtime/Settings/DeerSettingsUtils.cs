@@ -180,13 +180,15 @@ public static class DeerSettingsUtils
                     Application.platform.ToString()));
         }
     }
-    
+
+    public static string HotfixNode = "Hotfix";
+    public static string AotNode = "AOT";
     /// <summary>
     /// 热更程序集文件资源地址
     /// </summary>
     public static string HotfixAssemblyTextAssetPath
     {
-        get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, "Hotfix"); }
+        get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, HotfixNode); }
     }
 
     /// <summary>
@@ -194,6 +196,6 @@ public static class DeerSettingsUtils
     /// </summary>
     public static string AOTAssemblyTextAssetPath
     {
-        get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, "AOT"); }
+        get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, AotNode); }
     }
 }

@@ -16,8 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 21300000, guid: 30a01dcc2faf5b14eb5dbcfe608e1356, type: 3}
     - {fileID: 21300000, guid: e206b8436d2bbab499449709b0bd7e73, type: 3}
+    - {fileID: 21300000, guid: 30a01dcc2faf5b14eb5dbcfe608e1356, type: 3}
     - {fileID: 21300000, guid: bd8909369c0fb37429924ef4e06d22b2, type: 3}
     - {fileID: 102900000, guid: e9b4a4623757d4543a624e9aaa981657, type: 3}
     SerializedBytesString: 
@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SettingSubMenu/AudioSlider_Button_Pressed.png
+      Data: Assets/Deer/UISprites/SettingSubMenu/AudioSlider.png
     - Name: $v
       Entry: 10
       Data: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SettingSubMenu/Audio_Slider.png
+      Data: Assets/Deer/UISprites/SettingSubMenu/AudioSlider_Button_Pressed.png
     - Name: $v
       Entry: 10
       Data: 1

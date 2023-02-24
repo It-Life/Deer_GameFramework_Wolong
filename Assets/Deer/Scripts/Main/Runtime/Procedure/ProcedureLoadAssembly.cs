@@ -67,7 +67,7 @@ namespace Main.Runtime.Procedure
                     m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);
                     foreach (var hotUpdateDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
                     {
-                        var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, $"{hotUpdateDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
+                        var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath,DeerSettingsUtils.HotfixNode, $"{hotUpdateDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
                         Log.Debug($"LoadAsset: [ {assetPath} ]");
                         m_LoadAssetCount++;
                         GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
@@ -220,7 +220,7 @@ namespace Main.Runtime.Procedure
             m_LoadMetadataAssetCallbacks ??= new LoadAssetCallbacks(LoadMetadataAssetSuccess, LoadMetadataAssetFailure);
             foreach (var aotDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies)
             {
-                var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, $"{aotDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
+                var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath,DeerSettingsUtils.AotNode, $"{aotDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
                 Log.Debug($"LoadMetadataAsset: [ {assetPath} ]");
                 m_LoadMetadataAssetCount++;
                 GameEntryMain.Resource.LoadAsset(assetPath, m_LoadMetadataAssetCallbacks, aotDllName);

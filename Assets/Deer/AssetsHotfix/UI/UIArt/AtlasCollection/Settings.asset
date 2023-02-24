@@ -53,7 +53,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Audio.png
+      Data: Assets/Deer/UISprites/Settings/HubSettingsAudio.png
     - Name: $v
       Entry: 10
       Data: 0

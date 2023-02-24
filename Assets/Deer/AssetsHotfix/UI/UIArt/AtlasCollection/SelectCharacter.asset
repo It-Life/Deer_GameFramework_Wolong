@@ -52,7 +52,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectCharacter/Button_Triangle_Pressed.png
+      Data: Assets/Deer/UISprites/SelectCharacter/ButtonTrianglePressed.png
     - Name: $v
       Entry: 10
       Data: 0
