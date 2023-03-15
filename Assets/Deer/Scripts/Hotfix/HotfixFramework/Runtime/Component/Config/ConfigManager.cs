@@ -71,11 +71,10 @@ namespace Deer
         }
 
         #region 读表逻辑
-        public async UniTask<Tables> LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
+        public async UniTask<Tables> LoadAllUserConfig()
         {
             Tables tables = new Tables();
             await tables.LoadAsync(file => ConfigLoader(file));
-            loadConfigCompleteCallback(true);
             return tables;
         }
 

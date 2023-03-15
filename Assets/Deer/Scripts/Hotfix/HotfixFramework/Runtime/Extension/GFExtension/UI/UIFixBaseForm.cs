@@ -16,6 +16,33 @@ using Main.Runtime;
 public class UIFixBaseForm : UIBaseForm
 {
     protected Dictionary<UIFormId, int> OpenSubFormSerialIds = new Dictionary<UIFormId, int>();
+    protected UIFormData m_UIFormData;
+    protected bool m_IsShowFormView = true;
+    protected override void OnOpen(object userData)
+    {
+        base.OnOpen(userData);
+        m_UIFormData = userData as UIFormData;
+        if (m_UIFormData != null)
+        {
+            if (!m_UIFormData.isOpenView)
+            {
+                m_IsShowFormView = false;
+                Close(true);
+            }
+        }
+    }
+    protected override void OnClose(bool isShutdown, object userData)
+    {
+        base.OnClose(isShutdown, userData);
+        foreach (var openSubForm in OpenSubFormSerialIds)
+        {
+            if (GameEntry.UI.HasUIForm(openSubForm.Value))
+            {
+                GameEntry.UI.CloseUIForm(openSubForm.Value);
+            }
+        }
+        OpenSubFormSerialIds.Clear();
+    }
     protected void OpenSubForm(UIFormId uiFormId, object userData = null)
     {
         int serialId = (int)GameEntry.UI.OpenUIForm(uiFormId, userData);
@@ -30,19 +57,5 @@ public class UIFixBaseForm : UIBaseForm
         }
 
         return 0;
-    }
-
-    protected override void OnClose(bool isShutdown, object userData)
-    {
-        base.OnClose(isShutdown, userData);
-        //Debug.Log($"OpenSubFormSerialIds:{OpenSubFormSerialIds.Count}");
-        foreach (var openSubForm in OpenSubFormSerialIds)
-        {
-            if (GameEntry.UI.HasUIForm(openSubForm.Value))
-            {
-                GameEntry.UI.CloseUIForm(openSubForm.Value);
-            }
-        }
-        OpenSubFormSerialIds.Clear();
     }
 }

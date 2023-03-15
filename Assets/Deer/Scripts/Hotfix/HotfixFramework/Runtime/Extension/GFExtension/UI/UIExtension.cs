@@ -117,14 +117,13 @@ public static class UIExtension
         if (string.IsNullOrEmpty(uiGroupName))
         {
             uiForm = uiComponent.GetUIForm(assetName);
-            if (uiForm == null)
+            if (uiForm != null)
             {
-                return null;
+                return (UIBaseForm)uiForm.Logic;
             }
 
-            return (UIBaseForm)uiForm.Logic;
+            return null;
         }
-
         IUIGroup uiGroup = uiComponent.GetUIGroup(uiGroupName);
         if (uiGroup == null)
         {
@@ -132,16 +131,20 @@ public static class UIExtension
         }
 
         uiForm = (UIForm)uiGroup.GetUIForm(assetName);
-        if (uiForm == null)
+        if (uiForm != null)
         {
-            return null;
+            return (UIBaseForm)uiForm.Logic;
         }
 
-        return (UIBaseForm)uiForm.Logic;
+        return null;
     }
 
     public static void CloseUIForm(this UIComponent uiComponent, UIBaseForm uiForm)
     {
+        if (uiForm == null)
+        {
+            return;
+        }
         uiComponent.CloseUIForm(uiForm.UIForm);
     }
 

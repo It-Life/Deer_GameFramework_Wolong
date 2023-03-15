@@ -43,7 +43,15 @@ public class EntityData
         get => m_Position;
         set => m_Position = value;
     }
+    
+    private Quaternion m_Rotation;
 
+    public Quaternion Rotation
+    {
+        get => m_Rotation;
+        set => m_Rotation = value;
+    }
+    
     public bool IsOwner = false;
     
     public EntityData(int entityId, int typeId, string assetName)

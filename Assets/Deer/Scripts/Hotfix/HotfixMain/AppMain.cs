@@ -8,6 +8,7 @@
 // ===============================================
 using System.Collections;
 using System.Collections.Generic;
+using Main.Runtime;
 using UnityEngine;
 
 /// <summary>
@@ -17,6 +18,7 @@ public static class AppMain
 {
     public static void Entrance(object[] objects) 
     {
+        GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(true);
         GameEntry.Entrance(objects);
     }
 }

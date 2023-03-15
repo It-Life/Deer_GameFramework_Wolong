@@ -15,12 +15,12 @@ public static partial class Constant
     public static class UI 
     {
         public static Dictionary<string, int> UIGroups = new Dictionary<string, int>() {
-            {"AlwaysBottom",100},
-            {"Background",200 },
-            {"Common",300 },
-            {"AnimationOn",400 },
-            {"PopUI",500 },
-            {"Guide",600 },
+            {"AlwaysBottom",1000},
+            {"Background",2000 },
+            {"Common",3000 },
+            {"AnimationOn",4000 },
+            {"PopUI",5000 },
+            {"Guide",6000 },
         };
         public enum UIFormType
         {

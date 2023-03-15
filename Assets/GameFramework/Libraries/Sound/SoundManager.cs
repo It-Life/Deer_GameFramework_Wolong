@@ -8,7 +8,6 @@
 using GameFramework.Resource;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace GameFramework.Sound
 {
@@ -487,7 +486,6 @@ namespace GameFramework.Sound
             }
 
             m_SoundsBeingLoaded.Add(serialId);
-
             m_ResourceManager.LoadAsset(soundAssetName, priority, m_LoadAssetCallbacks, PlaySoundInfo.Create(serialId, soundGroup, playSoundParams, userData));
             return serialId;
         }
@@ -615,8 +613,6 @@ namespace GameFramework.Sound
 
         private void LoadAssetSuccessCallback(string soundAssetName, object soundAsset, float duration, object userData)
         {
-            //Debug.Log($"tackor Load Sound Success {soundAssetName}");
-
             PlaySoundInfo playSoundInfo = (PlaySoundInfo)userData;
             if (playSoundInfo == null)
             {
@@ -687,8 +683,6 @@ namespace GameFramework.Sound
 
         private void LoadAssetFailureCallback(string soundAssetName, LoadResourceStatus status, string errorMessage, object userData)
         {
-            //Debug.Log($"tackor Load Sound Failure {soundAssetName}");
-
             PlaySoundInfo playSoundInfo = (PlaySoundInfo)userData;
             if (playSoundInfo == null)
             {

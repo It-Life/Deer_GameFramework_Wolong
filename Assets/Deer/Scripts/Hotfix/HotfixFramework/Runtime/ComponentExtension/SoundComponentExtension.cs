@@ -10,7 +10,6 @@
 using cfg.Deer;
 using GameFramework;
 using GameFramework.Sound;
-using UnityEngine;
 using UnityGameFramework.Runtime;
 
 public static class SoundComponentExtension

@@ -292,6 +292,7 @@ namespace Main.Runtime.Procedure
             if (ne.RetryCount >= ne.TotalRetryCount)
             {
                 Log.Error("Update resource '{0}' failure from '{1}' with error message '{2}', retry count '{3}'.", ne.Name, ne.DownloadUri, ne.ErrorMessage, ne.RetryCount.ToString());
+                OpenDisplay("当前网络不可用，请检查是否连接可用wifi或移动网络");
                 return;
             }
             else
@@ -300,6 +301,7 @@ namespace Main.Runtime.Procedure
             }
             OnUpdateCompleteOne(ne.Name, 0, UpdateStateType.Failure);
         }
+        
         private void OnDownloadStart(object sender, GameEventArgs e)
         {
             DownloadStartEventArgs ne = (DownloadStartEventArgs)e;
@@ -327,7 +329,29 @@ namespace Main.Runtime.Procedure
             {
                 return;
             }
+            if (ne.ErrorMessage == "Received no data in response")
+            {
+                OpenDisplay("当前网络不可用，请检查是否连接可用wifi或移动网络");
+                return;
+            }
+
+            if (ne.ErrorMessage.Contains("HTTP/1.1 404 Not Found"))
+            {
+                OpenDisplay("当前资源路径不存在，请联系技术人员检查后重新进入");
+                return;
+            }
             OnUpdateCompleteOne(configInfo.Name, 0, UpdateStateType.Failure);
+        }
+        //弹出提示
+        private void OpenDisplay(string content)
+        {
+            DialogParams dialogParams = new DialogParams();
+            dialogParams.Mode = 1;
+            dialogParams.Title = "";
+            dialogParams.Message = content;
+            dialogParams.ConfirmText = "确认";
+            dialogParams.OnClickConfirm = (object o) => { Application.Quit(); };
+            GameEntryMain.UI.DeerUIInitRootForm().OnOpenUIDialogForm(dialogParams);
         }
         private class UpdateInfoData
         {

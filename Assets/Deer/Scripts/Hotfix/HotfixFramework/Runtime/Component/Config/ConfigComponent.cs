@@ -27,7 +27,8 @@ public class ConfigComponent : GameFrameworkComponent
     }
     public async void LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
     {
-        Tables = await m_ConfigManager.LoadAllUserConfig(loadConfigCompleteCallback);
+        Tables = await m_ConfigManager.LoadAllUserConfig();
+        loadConfigCompleteCallback(true);
     }
 
     public void MoveOnlyReadPathConfigVersionFile(MoveConfigToReadWriteCallback moveConfigToReadWriteCallback = null)

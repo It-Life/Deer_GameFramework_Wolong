@@ -30,7 +30,10 @@ namespace UGFExtensions.Texture
 
         public void SetTexture(Texture2D texture)
         {
-            m_RawImage.texture = texture;
+            if (m_RawImage!=null)
+            {
+                m_RawImage.texture = texture;
+            }
             Texture2D = texture;
         }
 

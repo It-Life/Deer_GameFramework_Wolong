@@ -252,7 +252,7 @@ public class ComponentAutoBindToolInspector : Editor
         foreach (GameObject go in Selection.gameObjects)
         {
             ComponentAutoBindTool autoBindTool = go.GetComponent<ComponentAutoBindTool>();
-            if (autoBindTool.RuleHelper == null)
+            if (autoBindTool != null && autoBindTool.RuleHelper == null)
             {
                 IAutoBindRuleHelper helper = (IAutoBindRuleHelper)CreateHelperInstance(m_HelperTypeName, s_AssemblyNames);
                 autoBindTool.RuleHelper = helper;
@@ -705,11 +705,11 @@ public class ComponentAutoBindToolInspector : Editor
             for (int i = 0; i < strArr.Length; i++)
             {
                 string str = strArr[i];
-                if (str.Equals(scriptEnd))
+                if (str.Contains(scriptEnd))
                 {
                     break;
                 }
-                if (str.Equals(btnStart))
+                if (str.Contains(btnStart))
                 {
                     strList.Add(btnStart);
                     stopWrite = true;
@@ -731,7 +731,7 @@ public class ComponentAutoBindToolInspector : Editor
                         writeNewOver = true;
                     }
                 }
-                if (str.Equals(btnEnd))
+                if (str.Contains(btnEnd))
                 {
                     strList.Add(btnEnd);
                     stopWrite = false;

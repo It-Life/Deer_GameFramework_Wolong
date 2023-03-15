@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GameFramework;
 using GameFramework.Event;
 using UnityEngine;
@@ -10,9 +11,10 @@ namespace UGFExtensions.Texture
     public partial class TextureSetComponent
     {
         private WebRequestComponent m_WebRequestComponent;
-        
+        private List<int> m_AllRemoveNetworkRequest;
         private void InitializedWeb()
         {
+            m_AllRemoveNetworkRequest = new List<int>();
             m_WebRequestComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<WebRequestComponent>();
             EventComponent eventComponent = UnityGameFramework.Runtime.GameEntry.GetComponent<EventComponent>();
             eventComponent.Subscribe(WebRequestSuccessEventArgs.EventId,OnWebGetTextureSuccess);
@@ -23,7 +25,7 @@ namespace UGFExtensions.Texture
         /// </summary>
         /// <param name="setTexture2dObject">需要设置图片的对象</param>
         /// <param name="saveFilePath">保存网络图片到本地的路径</param>
-        public void SetTextureByNetwork(ISetTexture2dObject setTexture2dObject, string saveFilePath = null)
+        public int SetTextureByNetwork(ISetTexture2dObject setTexture2dObject, string saveFilePath = null)
         {
             if (m_TexturePool.CanSpawn(setTexture2dObject.Texture2dFilePath))
             {
@@ -32,8 +34,16 @@ namespace UGFExtensions.Texture
             }
             else
             {
-                m_WebRequestComponent.AddWebRequest(setTexture2dObject.Texture2dFilePath, WebGetTextureData.Create(setTexture2dObject,this,saveFilePath));
+                return m_WebRequestComponent.AddWebRequest(setTexture2dObject.Texture2dFilePath, WebGetTextureData.Create(setTexture2dObject,this,saveFilePath));
             }
+
+            return 0;
+        }
+
+        public void RemoveWebRequest(int serialId)
+        {
+            m_AllRemoveNetworkRequest.Add(serialId);
+            m_WebRequestComponent.RemoveWebRequest(serialId);
         }
         
         private void OnWebGetTextureFailure(object sender, GameEventArgs e)
@@ -64,7 +74,14 @@ namespace UGFExtensions.Texture
                 SaveTexture(webGetTextureData.FilePath, bytes);
             }
             m_TexturePool.Register(TextureItemObject.Create(webGetTextureData.SetTexture2dObject.Texture2dFilePath, tex, TextureLoad.FromNet), true);
-            SetTexture(webGetTextureData.SetTexture2dObject, tex);
+            if (!m_AllRemoveNetworkRequest.Contains(webRequestSuccessEventArgs.Id))
+            {
+                SetTexture(webGetTextureData.SetTexture2dObject, tex);
+            }
+            else
+            {
+                m_AllRemoveNetworkRequest.Remove(webRequestSuccessEventArgs.Id);
+            }
             ReferencePool.Release(webGetTextureData);
         }
       

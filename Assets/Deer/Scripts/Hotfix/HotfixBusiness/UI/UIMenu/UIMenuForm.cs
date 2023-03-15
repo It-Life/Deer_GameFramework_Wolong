@@ -48,8 +48,8 @@ namespace HotfixBusiness.UI
         private void Btn_SoloEvent()
 		{
 			IsSolo = true;
-			GameEntry.UI.OpenUIForm(UIFormId.UIBagForm, this);
-			//GameEntry.UI.OpenUIForm(UIFormId.UIGameModeForm, this);
+			//GameEntry.UI.OpenUIForm(UIFormId.UIBagForm, this);
+			GameEntry.UI.OpenUIForm(UIFormId.UIGameModeForm, this);
 		}
 
 		private void Btn_VersusEvent()

@@ -7,6 +7,7 @@
 //版 本:0.1 
 // ===============================================
 
+using System;
 using HotfixFramework.Runtime;
 using UnityEngine;
 
@@ -17,12 +18,12 @@ namespace HotfixBusiness.UI
     /// </summary>
     public partial class UIScrollViewItemBase : MonoBehaviour
     {
-        public virtual void OnInit(object userData)
+        public int m_ItemIndex;
+        public virtual void OnInit(object userData){}
+
+        public virtual void SetItemData(int itemIndex, object itemData)
         {
-        }
-        public virtual void SetItemData(int itemIndex,object itemData)
-        {
-            
+            m_ItemIndex = itemIndex;
         }
     }
 }

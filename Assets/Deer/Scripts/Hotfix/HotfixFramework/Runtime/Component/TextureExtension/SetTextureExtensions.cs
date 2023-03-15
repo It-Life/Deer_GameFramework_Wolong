@@ -11,9 +11,13 @@ public static partial class SetTextureExtensions
     {
         GameEntry.TextureSet.SetTextureByFileSystem(SetRawImage.Create(rawImage, file));
     }
-    public static void SetTextureByNetwork(this RawImage rawImage, string file, string saveFilePath = null)
+    public static int SetTextureByNetwork(this RawImage rawImage, string file, string saveFilePath = null)
     {
-        GameEntry.TextureSet.SetTextureByNetwork(SetRawImage.Create(rawImage, file), saveFilePath);
+        return GameEntry.TextureSet.SetTextureByNetwork(SetRawImage.Create(rawImage, file), saveFilePath);
+    }
+    public static void RemoveNetworkTexture(this RawImage rawImage, int serialId)
+    {
+        GameEntry.TextureSet.RemoveWebRequest(serialId);
     }
     public static void SetTexture(this RawImage rawImage, string file)
     {

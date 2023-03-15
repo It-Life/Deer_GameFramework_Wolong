@@ -26,7 +26,30 @@ namespace Main.Runtime
             get;
             set;
         }
-
+        /// <summary>
+        /// 是否打开关闭按钮
+        /// </summary>
+        public bool ShowCloseBtn 
+        { 
+            get; 
+            set; 
+        }
+        /// <summary>
+        /// 是否SureNoCanCloseView
+        /// </summary>
+        public bool SureNoCanCloseView 
+        { 
+            get; 
+            set; 
+        }
+        /// <summary>
+        /// 是否BgCanCloseView
+        /// </summary>
+        public bool BgCanCloseView 
+        { 
+            get; 
+            set; 
+        }
         /// <summary>
         /// 标题。
         /// </summary>
@@ -102,6 +125,14 @@ namespace Main.Runtime
         /// 背景按钮回调。
         /// </summary>
         public GameFrameworkAction<object> OnClickBackground
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 背景按钮回调。
+        /// </summary>
+        public GameFrameworkAction<object> OnClickClose
         {
             get;
             set;

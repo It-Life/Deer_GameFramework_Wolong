@@ -67,15 +67,15 @@ public partial class GameEntry
     /// </summary>
     private static void LoadCustomComponent() 
     {
-        GameEntryMain.Resource.LoadAsset("Assets/Deer/AssetsHotfix/GF/Customs.prefab", new LoadAssetCallbacks(loadAssetSuccessCallback,loadAssetFailureCallback));
+        GameEntryMain.Resource.LoadAsset("Assets/Deer/AssetsHotfix/GF/Customs.prefab", new LoadAssetCallbacks(LoadAssetSuccessCallback,LoadAssetFailureCallback));
     }
 
-    private static void loadAssetFailureCallback(string assetName, LoadResourceStatus status, string errorMessage, object userData)
+    private static void LoadAssetFailureCallback(string assetName, LoadResourceStatus status, string errorMessage, object userData)
     {
         
     }
 
-    private static void loadAssetSuccessCallback(string assetName, object asset, float duration, object userData)
+    private static void LoadAssetSuccessCallback(string assetName, object asset, float duration, object userData)
     {
         if (GameObject.Find("DeerGF/Customs")!= null)
         {
