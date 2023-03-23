@@ -50,4 +50,7 @@ public class HybridCLRCustomGlobalSettings
     /// Resources HybridCLRGlobalSettings Dir
     /// </summary>
     public string HybridCLRGlobalSettings = "Settings/HybridCLRGlobalSettings";
+    
+    public string HybridCLRIosBuildPath = "HybridCLRData/iOSBuild";
+    public string HybridCLRIosXCodePath = "";
 }

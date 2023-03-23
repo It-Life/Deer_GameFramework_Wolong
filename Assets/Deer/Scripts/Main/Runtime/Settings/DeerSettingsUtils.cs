@@ -198,4 +198,13 @@ public static class DeerSettingsUtils
     {
         get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, AotNode); }
     }
+	    public static string GetLibil2cppBuildPath()
+    {
+        return $"{HybridCLRCustomGlobalSettings.HybridCLRIosBuildPath}/build";
+    }
+    
+    public static string GetOutputXCodePath()
+    {
+        return HybridCLRCustomGlobalSettings.HybridCLRIosXCodePath;
+    }
 }
