@@ -54,7 +54,7 @@ namespace UGFExtensions.Texture
             {
                 return;
             }
-            Log.Error("Can not download Texture2D from '{1}' with error message '{2}'.",webRequestSuccessEventArgs.WebRequestUri,webRequestSuccessEventArgs.ErrorMessage);
+            Log.Error("Can not download Texture2D from '{0}' with error message '{1}'.",webRequestSuccessEventArgs.WebRequestUri,webRequestSuccessEventArgs.ErrorMessage);
             ReferencePool.Release(webGetTextureData);
         }
 
