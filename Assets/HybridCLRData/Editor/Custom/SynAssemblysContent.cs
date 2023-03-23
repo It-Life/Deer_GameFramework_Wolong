@@ -10,25 +10,22 @@
 #if ENABLE_HYBRID_CLR_UNITY
 using HybridCLR.Editor;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// Please modify the description.
+/// 同步程序集内容
 /// </summary>
 [InitializeOnLoad]
 public class SynAssemblysContent
 {
-    private static float startTime;
-    private static float duration = 5f;
-	static SynAssemblysContent()
+    static SynAssemblysContent()
     {
-        EditorApplication.update -= EditorUpdate;
-        EditorApplication.update += EditorUpdate;
-        startTime = Time.time;
+        UnityEditor.EditorApplication.update -= EditorUpdate;
+        UnityEditor.EditorApplication.update += EditorUpdate;
     }
-
     static void EditorUpdate()
     {
         if (EditorApplication.isPlaying || EditorApplication.isPaused ||
@@ -36,38 +33,22 @@ public class SynAssemblysContent
         {
             return;
         }
-        if (Time.time >= startTime + duration) return;
-        startTime = Time.time;
-        FindTwinsHybridCLRGlobalSettings();
-        /*if (DeerSettingsUtils.HybridCLRCustomGlobalSettings != null && SettingsUtil.HotUpdateAssemblyFiles != DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
+
+        
+        if (DeerSettingsUtils.HybridCLRCustomGlobalSettings != null)
         {
-            DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies = SettingsUtil.HotUpdateAssemblyFiles;
-        }*/
+            bool areEqual = SettingsUtil.HotUpdateAssemblyFilesIncludePreserved.SequenceEqual(DeerSettingsUtils
+                .HybridCLRCustomGlobalSettings.HotUpdateAssemblies);
+            if (!areEqual)
+            {
+                DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies = SettingsUtil.HotUpdateAssemblyFilesIncludePreserved;
+            }
+        }
 
         if (DeerSettingsUtils.HybridCLRCustomGlobalSettings != null && SettingsUtil.Enable != DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable)
         {
             DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable = SettingsUtil.Enable;
         }
     }
-
-
-    static void FindTwinsHybridCLRGlobalSettings()
-    {
-        string[] globalAssetPaths = AssetDatabase.FindAssets("t:HybridCLRGlobalSettings");
-        if (globalAssetPaths != null && globalAssetPaths.Length > 1)
-        {
-            foreach (var assetPathU in globalAssetPaths)
-            {
-                string assetPath = AssetDatabase.GUIDToAssetPath(assetPathU);
-                if (!assetPath.Contains("CustomHybridCLR"))
-                {
-                    Debug.LogWarning($"Type HybridCLRGlobalSettings 不能创建多个，在 CustomHybridCLR/Settings下已经存在！");
-                    AssetDatabase.DeleteAsset(assetPath);
-                    AssetDatabase.Refresh();
-                }
-            }
-        }
-    }
-
 }
 #endif
