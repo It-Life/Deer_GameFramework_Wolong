@@ -38,8 +38,14 @@ SpriteAtlas:
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: e206b8436d2bbab499449709b0bd7e73, type: 3}
+  - {fileID: 21300000, guid: bd8909369c0fb37429924ef4e06d22b2, type: 3}
+  - {fileID: 21300000, guid: 30a01dcc2faf5b14eb5dbcfe608e1356, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - AudioSlider
+  - Line01v2
+  - AudioSliderButtonPressed
   m_RenderDataMap: {}
   m_Tag: SettingSubMenu
   m_IsVariant: 0

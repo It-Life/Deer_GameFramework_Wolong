@@ -38,8 +38,18 @@ SpriteAtlas:
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 286e4df74e44d33448b6dd82f9a8ec62, type: 3}
+  - {fileID: 21300000, guid: 856e2c0aee93ae849b2589e2d3f65134, type: 3}
+  - {fileID: 21300000, guid: 3e08550ee680a0342bb21fe381786c26, type: 3}
+  - {fileID: 21300000, guid: 8953ac3e784556840a245693ce834a7c, type: 3}
+  - {fileID: 21300000, guid: 8ecc92fe9c1cb5a48b194645c4ce92a6, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - PauseIconQuit
+  - Iconstar1light
+  - ButtonOff
+  - Iconstar1gray
+  - CoinHexagon
   m_RenderDataMap: {}
   m_Tag: Others
   m_IsVariant: 0

@@ -47,8 +47,8 @@ D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Dat
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Datas/T_例子业务逻辑/LevelData_3.xlsx,5D679951030B9C4C818E6A581B689,9783,1669551096761
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Datas/T_例子业务逻辑/PlayerData_Character.xlsx,16C343B159B7C7CA1BF7BDF91C5816A,10575,1669863385616
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Datas/T_例子业务逻辑/UIData_Character.xlsx,3A65556E764B7A8359E75C7EAD9DECF,10659,1669863339770
-D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Datas/T_例子业务逻辑/UIData_GameMode.xlsx,2E32C16EF5EF9EF3DCFC7D4B8267370,11815,1669551096762
-D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Datas/T_例子业务逻辑/UIData_Race.xlsx,9EC0CDD5C79292B71E31CC5ACE9EEFC6,10346,1669551096763
+D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Datas/T_例子业务逻辑/UIData_GameMode.xlsx,CDBA158BC60893E9A994061E58CB0,12531,1679670102837
+D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Datas/T_例子业务逻辑/UIData_Race.xlsx,77F3A21CAAB3FC2C1E69BF59705090E0,10902,1679669890552
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Datas/W_文字相关/Language_Config.xlsx,AC53C74B5DE3A5598D2426224C8C785,10237,1658665680231
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Defines/common.xml,7EE09048EF82B915316DCAA504A89BA,2041,1658665680233
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/DesignerConfigs/Defines/error_code.xml,67CBDA9E1F64EA940B3A822B3922ED8,5199,1658665680233
@@ -60,8 +60,8 @@ D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/Luban
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/deer_tbplayerdata_character.bytes,1E34DC7FCAB1D80A95C75BA5D7E56,166,1669863526424
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/deer_tbsounds_config.bytes,B214958580692658ADFDA303C7FA85D,150,1669551096765
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/deer_tbuidata_character.bytes,3765C1B315F0D0E12313251EE1E6EC15,205,1669863526424
-D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/deer_tbuidata_gamemode.bytes,1CE83AB73C8CD2B49D83AF41E342E8D4,266,1669551096765
-D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/deer_tbuidata_race.bytes,2DD921DCAF7A7F6161605557CC6CC95,235,1669551096766
+D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/deer_tbuidata_gamemode.bytes,3841F54BD0FCA51DFDB9EE1F88C7243,246,1679670110448
+D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/deer_tbuidata_race.bytes,BCE7C6286A359C95BA7CFDDEFEF9332,225,1679669932885
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/deer_tbuiform_config.bytes,AD55FE118AD6AA39A435EBDF6E8147,571,1669551096766
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/error_tbcodeinfo.bytes,59696553D110634F5ABE194D8C524DAE,860,1658665680237
 D:/Working/GitHub/Owner/Deer_GameFramework_Wolong/LubanTools/GenerateDatas/LubanConfig/error_tberrorinfo.bytes,BCD4D5B699F80E25AD584D86C1A8114,2267,1658665680237
