@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Icon
+  m_Name: Pause
   serializedVersion: 2
   m_EditorData:
     serializedVersion: 2
@@ -33,16 +33,14 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: b8463a8ab0e0b9a43a712e01b7cc284e, type: 3}
+    - {fileID: 102900000, guid: 0801ad7be27155f48b68baca41a0db75, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 8d188b75d1db5bf4faa7c8cbdc4f5458, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - Icon
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
-  m_Tag: Icon
+  m_Tag: Pause
   m_IsVariant: 0
   m_IsPlaceholder: 0

@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SettingSubMenu
+  m_Name: Icon
   serializedVersion: 2
   m_EditorData:
     serializedVersion: 2
@@ -33,20 +33,14 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: e9b4a4623757d4543a624e9aaa981657, type: 3}
+    - {fileID: 102900000, guid: b8463a8ab0e0b9a43a712e01b7cc284e, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: e206b8436d2bbab499449709b0bd7e73, type: 3}
-  - {fileID: 21300000, guid: bd8909369c0fb37429924ef4e06d22b2, type: 3}
-  - {fileID: 21300000, guid: 30a01dcc2faf5b14eb5dbcfe608e1356, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - Audio_Slider
-  - Line_01_v2
-  - AudioSlider_Button_Pressed
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
-  m_Tag: SettingSubMenu
+  m_Tag: Icon
   m_IsVariant: 0
   m_IsPlaceholder: 0

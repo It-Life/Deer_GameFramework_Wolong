@@ -44,7 +44,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SettingSubMenu/AudioSlider.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SettingSubMenu/AudioSlider.png
     - Name: $v
       Entry: 10
       Data: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SettingSubMenu/AudioSlider_Button_Pressed.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SettingSubMenu/AudioSliderButtonPressed.png
     - Name: $v
       Entry: 10
       Data: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SettingSubMenu/Line_01_v2.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SettingSubMenu/Line01v2.png
     - Name: $v
       Entry: 10
       Data: 2
@@ -97,4 +97,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  m_AtlasFolder: Assets/Deer/AssetsHotfix/UI/UIArt/Atlas
+  m_AtlasFolder: Assets/Deer/Atlas

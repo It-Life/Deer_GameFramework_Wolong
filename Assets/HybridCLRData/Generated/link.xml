@@ -116,7 +116,6 @@
     <type fullname="MessengerComponent" preserve="all" />
     <type fullname="MessengerInfo" preserve="all" />
     <type fullname="RegistFunction" preserve="all" />
-    <type fullname="SerializableDictionary`2" preserve="all" />
     <type fullname="Singleton`1" preserve="all" />
     <type fullname="SingletonMono`1" preserve="all" />
     <type fullname="UIButtonSuper" preserve="all" />

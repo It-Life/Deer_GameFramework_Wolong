@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Menu
+  m_Name: SelectCharacter
   serializedVersion: 2
   m_EditorData:
     serializedVersion: 2
@@ -33,24 +33,14 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: 064a2301df2007c4a9edeb911ebc427c, type: 3}
+    - {fileID: 102900000, guid: 0d6dab877d3927e418028ce1d43ecd3b, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 4fa05bb5cf0611a4d9cae4cc01194bf7, type: 3}
-  - {fileID: 21300000, guid: 1ba9fef6795f59644a661d051dee8f6c, type: 3}
-  - {fileID: 21300000, guid: 113d9c1831a604a4481c6b7d1553993b, type: 3}
-  - {fileID: 21300000, guid: 0e8bd0c923e544945b8739d634e12e83, type: 3}
-  - {fileID: 21300000, guid: cd7fb0eac14f22048abac8bfd630ed07, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - MainMenu_Image_04
-  - MainMenu_Image_05
-  - MainMenu_Image_01
-  - MainMenu_Image_03
-  - MainMenu_Image_02
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
-  m_Tag: Menu
+  m_Tag: SelectCharacter
   m_IsVariant: 0
   m_IsPlaceholder: 0

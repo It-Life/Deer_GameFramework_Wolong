@@ -94,7 +94,7 @@ public class FrameworkGlobalSettings
     [Header("SpriteCollection")]
     [SerializeField]
     [FolderPath]
-    private string m_AtlasFolder = "Assets/Deer/AssetsHotfix/UI/UIArt/Atlas";
+    private string m_AtlasFolder = "Assets/Deer/Atlas";
     public string AtlasFolder { get { return m_AtlasFolder; } }
 
     [Header("Hotfix")]

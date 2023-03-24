@@ -48,7 +48,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectMode/SelectModeIconBoard.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectMode/SelectModeIconBoard.png
     - Name: $v
       Entry: 10
       Data: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectMode/SelectMode_Icon_Cup.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectMode/SelectModeIconCup.png
     - Name: $v
       Entry: 10
       Data: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectMode/SelectMode_Icon_Flag.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectMode/SelectModeIconFlag.png
     - Name: $v
       Entry: 10
       Data: 2
@@ -84,7 +84,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectMode/SelectMode_Icon_Timer.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectMode/SelectModeIconTimer.png
     - Name: $v
       Entry: 10
       Data: 3
@@ -96,7 +96,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectMode/SelectMode_Image_01.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectMode/SelectModeImage01.png
     - Name: $v
       Entry: 10
       Data: 4
@@ -108,7 +108,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectMode/SelectMode_Image_02.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectMode/SelectModeImage02.png
     - Name: $v
       Entry: 10
       Data: 5
@@ -120,7 +120,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/SelectMode/SelectMode_Image_03.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectMode/SelectModeImage03.png
     - Name: $v
       Entry: 10
       Data: 6
@@ -149,4 +149,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  m_AtlasFolder: Assets/Deer/AssetsHotfix/UI/UIArt/Atlas
+  m_AtlasFolder: Assets/Deer/Atlas

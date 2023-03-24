@@ -53,7 +53,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettingsAudio.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsAudio.png
     - Name: $v
       Entry: 10
       Data: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_GameOptions.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsGameOptions.png
     - Name: $v
       Entry: 10
       Data: 1
@@ -77,7 +77,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Graphics.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsGraphics.png
     - Name: $v
       Entry: 10
       Data: 2
@@ -89,7 +89,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Inputs.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsInputs.png
     - Name: $v
       Entry: 10
       Data: 3
@@ -101,7 +101,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Shadow_Audio.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsShadowAudio.png
     - Name: $v
       Entry: 10
       Data: 4
@@ -113,7 +113,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Shadow_GameOptions.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsShadowGameOptions.png
     - Name: $v
       Entry: 10
       Data: 5
@@ -125,7 +125,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Shadow_Graphics.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsShadowGraphics.png
     - Name: $v
       Entry: 10
       Data: 6
@@ -137,7 +137,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Shadow_Inputs.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsShadowInputs.png
     - Name: $v
       Entry: 10
       Data: 7
@@ -149,7 +149,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Texte_Audio.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsTexteAudio.png
     - Name: $v
       Entry: 10
       Data: 8
@@ -161,7 +161,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Texte_GameOptions.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsTexteGameOptions.png
     - Name: $v
       Entry: 10
       Data: 9
@@ -173,7 +173,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Texte_Graphics.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsTexteGraphics.png
     - Name: $v
       Entry: 10
       Data: 10
@@ -185,7 +185,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Assets/Deer/UISprites/Settings/HubSettings_Texte_Inputs.png
+      Data: Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings/HubSettingsTexteInputs.png
     - Name: $v
       Entry: 10
       Data: 11
@@ -214,4 +214,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  m_AtlasFolder: Assets/Deer/AssetsHotfix/UI/UIArt/Atlas
+  m_AtlasFolder: Assets/Deer/Atlas
