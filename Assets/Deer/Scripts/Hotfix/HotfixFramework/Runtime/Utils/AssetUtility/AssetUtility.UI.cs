@@ -119,7 +119,7 @@ public static partial class AssetUtility
         /// <returns></returns>
         public static string GetSpritePath(string spriteName)
         {
-            return $"Assets/Deer/UISprites/{spriteName}.png";
+            return $"Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/{spriteName}.png";
         }
         /// <summary>
         /// 获取精灵资源收集器
