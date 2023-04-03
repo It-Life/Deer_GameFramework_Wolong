@@ -30,7 +30,7 @@ public class AutoSetSpriteFormat : AssetPostprocessor
             textureImporter.mipmapEnabled = false;
             textureImporter.alphaIsTransparency = true;
         }
-        else if (assetPath.Contains("Assets/Deer/UISprites"))
+        else if (assetPath.Contains("Assets/Deer/AssetsHotfix/UI/UIArt/UISprites"))
         {
             textureImporter.textureType = TextureImporterType.Sprite;
             textureImporter.maxTextureSize = 512;
