@@ -127,6 +127,10 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
     private float clickIntervalTime = 0;
     private int clickTimes = 0;
     void Update() {
+        if (!interactable)
+        {
+            return;
+        }
         if (isDown) {
             if (!m_CanLongPress)
             {
@@ -144,6 +148,7 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
         if (clickTimes >= 1) {
             if (!m_CanLongPress && !m_CanDoubleClick && m_CanClick)
             {
+                
                 onClick.Invoke();
                 clickTimes = 0;
             }
@@ -228,11 +233,11 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
         if (buttonSound.ButtonSoundAssetType == ButtonSoundAssetType.Packed)
         {
             //UISound/ui_click button
-            soundPath = $"Assets/Deer/AssetsPacked/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.mp3";
+            soundPath = $"Assets/Deer/AssetsPacked/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.wav";
         }
         else
         {
-            soundPath = $"Assets/Deer/AssetsHotfix/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.mp3";
+            soundPath = $"Assets/Deer/AssetsHotfix/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.wav";
         }
 
         int audioId = GameEntryMain.Sound.PlaySound(soundPath, soundGroup, 50, playSoundParams);
@@ -241,11 +246,19 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
     public override void OnPointerEnter(PointerEventData eventData)
     {
         base.OnPointerEnter(eventData);
+        if (!interactable)
+        {
+            return;
+        }
         PlayButtonSound(ButtonSoundType.Enter);
     }
 
     public override void OnPointerDown(PointerEventData eventData) {
         base.OnPointerDown(eventData);
+        if (!interactable)
+        {
+            return;
+        }
         if (eventData.pointerId < -1 || IsDraging) return; //适配 Touch：只响应一个Touch；适配鼠标：只响应左键
         fingerId = eventData.pointerId;
         isDown = true;
@@ -255,6 +268,10 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
     }
     public override void OnPointerUp(PointerEventData eventData) {
         base.OnPointerUp(eventData);
+        if (!interactable)
+        {
+            return;
+        }
         if (fingerId != eventData.pointerId) return;//正确的手指抬起时才会；
         fingerId = int.MinValue;
         isDown = false;
@@ -263,12 +280,20 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
     }
     public override void OnPointerExit(PointerEventData eventData) {
         base.OnPointerExit(eventData);
+        if (!interactable)
+        {
+            return;
+        }
         if (fingerId != eventData.pointerId) return;//正确的手指抬起时才会；
         isPress = false;
         isDownExit = true ;
         PlayButtonSound(ButtonSoundType.Exit);
     }
     public override void OnPointerClick(PointerEventData eventData) {
+        if (!interactable)
+        {
+            return;
+        }
         if (!isPress ) {
             clickTimes += 1;
         }
@@ -288,5 +313,11 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
     public void OnEndDrag(PointerEventData eventData)
     {
         onEndDrag?.Invoke(eventData);
+    }
+    public override void OnSubmit(BaseEventData eventData)
+    {
+#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_EDITOR
+        base.OnSubmit(eventData);
+#endif
     }
 }

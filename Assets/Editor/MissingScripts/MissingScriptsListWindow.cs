@@ -25,7 +25,7 @@ namespace plyoung
 
 		// ------------------------------------------------------------------------------------------------------------------
 
-		[MenuItem("Window/Missing Scripts Finder")]
+		[MenuItem("DeerTools/Asset/Missing Scripts Finder")]
 		private static void ShowWindow()
 		{
 			GetWindow<MissingScriptsListWindow>(true, "Missing Scripts", true);

@@ -76,7 +76,6 @@ namespace UGFExtensions.SpriteCollection
                 Object obj = m_Objects[i];
                 HandlePackable(obj);
             }
-
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
         }
@@ -154,13 +153,13 @@ namespace UGFExtensions.SpriteCollection
             };
             sa.SetTextureSettings(textureSet);
             AssetDatabase.CreateAsset(sa, atlas);
-
             sa.Add(m_Objects.ToArray());
-
+            
+            SpriteAtlasUtility.PackAtlases(new SpriteAtlas[] { sa }, EditorUserBuildSettings.activeBuildTarget,false);
+            
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
-
         void HandlePackable(Object obj)
         {
             string path = AssetDatabase.GetAssetPath(obj);

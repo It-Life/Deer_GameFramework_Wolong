@@ -52,9 +52,13 @@ public enum UIFormId
     /// </summary>
     UITipsForm = 3,
     /// <summary>
-    /// 加载界面。
+    /// 业务逻辑加载界面。
     /// </summary>
-    UILoadingForm = 100,
+    UILoadingForm = 4,
+    /// <summary>
+    /// 业务逻辑单次请求加载界面。
+    /// </summary>
+    UILoadingOneForm = 5,
     /// <summary>
     /// 登录界面。
     /// </summary>

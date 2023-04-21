@@ -5,20 +5,38 @@ using UnityEditor;
 
 public class GameObjectEdtior : MonoBehaviour
 {
-    [MenuItem("DeerTools/Lazy/切换物体显隐状态 #A")]
+    [MenuItem("DeerTools/GameObjet/切换物体显隐状态 #A")]
     static void SetObjActive()
     {
         GameObject[] selectObjs = Selection.gameObjects;
         int objCtn = selectObjs.Length;
         for (int i = 0; i < objCtn; i++)
         {
-            bool isAcitve = selectObjs[i].activeSelf;
-            selectObjs[i].SetActive(!isAcitve);
+            GameObject editingPrefabChild = selectObjs[i];
+            bool isActive = selectObjs[i].activeSelf;
+            editingPrefabChild.SetActive(!isActive);
+            // 获取Prefab Asset 或连接该对象的Prefab Asset
+            /*GameObject editingPrefabRoot = PrefabUtility.GetCorrespondingObjectFromSource(editingPrefabChild) as GameObject;
+
+            // 确保我们已获取到一个Prefab
+            if (editingPrefabRoot != null && PrefabUtility.GetPrefabAssetType(editingPrefabRoot) == PrefabAssetType.Regular)
+            {
+                // 打印预制件路径
+                string prefabPath = AssetDatabase.GetAssetPath(editingPrefabRoot);
+                // 保存预制件
+                PrefabUtility.SaveAsPrefabAsset(editingPrefabRoot, prefabPath);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
+            else
+            {
+                Debug.Log("Selected object is not a Prefab Asset or a child object of a Prefab Asset.");
+            }*/
         }  
     }
     
 
-    [MenuItem("DeerTools/Lazy/删除物体 %#d", false, 11)]
+    [MenuItem("DeerTools/GameObjet/删除物体 %#d", false, 11)]
     static void MyDeleteObject()
     {
         foreach (Object o in Selection.objects)
@@ -30,7 +48,7 @@ public class GameObjectEdtior : MonoBehaviour
     }
     
     //快捷键控制保存Prefab Shift + S
-    [MenuItem("DeerTools/Lazy/Apply GameObject #S")]
+    [MenuItem("DeerTools/GameObjet/Apply GameObject #S")]
     [System.Obsolete]
     public static void ApplyPrefab()
     {

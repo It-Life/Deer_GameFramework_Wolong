@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aed87558357b5d49a95b05d3135a2a4, type: 3}
+  m_Name: AssetDanshariSetting
+  m_EditorClassIdentifier: 
+  m_AssetReferenceInfos:
+  - title: "\u754C\u9762"
+    referenceFolder: '"Assets/Deer/AssetsHotfix/UI/UIForms"'
+    assetFolder: '"Assets/Deer/AssetsHotfix/UI/UIArt/UISprites"'
+    assetCommonFolder: '"Assets/Simple UI/PNG/Common"'
+  - title: "\u5B57\u4F53"
+    referenceFolder: '"Assets/Simple UI/Samples"'
+    assetFolder: '"Assets/Simple UI/Fonts"'
+    assetCommonFolder: 
+  - title: "\u5168\u5C40\uFF08\u614E\u7528\uFF09"
+    referenceFolder: '"Assets"'
+    assetFolder: '"Assets"'
+    assetCommonFolder: 

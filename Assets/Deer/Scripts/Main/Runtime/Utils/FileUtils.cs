@@ -364,5 +364,81 @@ namespace Main.Runtime
             return _Configs;
             //StartCoroutine(IEMoveConfigFileToReadWritePath(moveConfigToReadWriteCallback));
         }
+
+        public static string localFilePath = "/u3dres/xxx";
+        public static string GetLocalPathByUri(string uri)
+        {
+            if (string.IsNullOrEmpty(uri))
+                return null;
+            string fileName =  uri.Substring(uri.LastIndexOf('/') + 1);
+            string localPath = GetLocalFilePath();
+            return localPath + "/" + fileName;
+        }
+        public static string GetLocalFilePath()
+        {
+            string path = Application.persistentDataPath + localFilePath;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path;
+        }
+        /// <summary>
+        /// 根据URL获取本地资源名字
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetAssetBundleNameByUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+                return null;
+            string fileName = url.Substring(url.LastIndexOf('/') + 1);
+            return fileName;
+        }
+
+        /// <summary>
+        /// 根据URL获取本地资源地址
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetAssetBundleLocalPathByUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+                return null;
+            string localPath = GetAssetBundleLocalFilePath();
+            return localPath + "/" + GetAssetBundleNameByUrl(url);
+        }
+        /// <summary>
+        /// 获取本地ab包存储地址
+        /// </summary>
+        /// <returns></returns>
+        public static string GetAssetBundleLocalFilePath()
+        {
+            String platform = "";
+#if UNITY_IOS
+            platform = "IOS";
+#elif UNITY_ANDROID
+            platform = "Android";
+#endif
+            string path = Application.persistentDataPath + localFilePath + "/" + platform;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path;
+        }
+        /// <summary>
+        /// 获取本地资源文件名称
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public static string GetLocalFileNameWithoutExtension(string uri)
+        {
+            if (string.IsNullOrEmpty(uri))
+            {
+                return null;
+            }
+            return Path.GetFileNameWithoutExtension(GetAssetBundleLocalPathByUrl(uri));
+        }
     }
 }

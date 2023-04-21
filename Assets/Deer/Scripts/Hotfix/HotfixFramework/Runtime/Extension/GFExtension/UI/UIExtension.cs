@@ -23,7 +23,7 @@ public static class UIExtension
     private static IUIManager m_UIManager;
     private static string m_UIGroupHelperTypeName = "Main.Runtime.DeerUIGroupHelper";
     private static UIGroupHelperBase m_CustomUIGroupHelper = null;
-
+    private static int? UILoadingOneFormId;
     /// <summary>
     /// 血条节点
     /// </summary>
@@ -194,6 +194,38 @@ public static class UIExtension
     public static void OpenDialog(this UIComponent uiComponent, DialogParams dialogParams)
     {
         uiComponent.OpenUIForm(UIFormId.DialogForm, dialogParams);
+    }
+
+    public static void OpenUILoadingOneForm(this UIComponent uiComponent,object userData = null)
+    {
+        UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get((int)UIFormId.UILoadingOneForm);
+        if (uIForm_Config == null)
+        {
+            return;
+        }
+        string assetName = AssetUtility.UI.GetUIFormAsset(uIForm_Config.AssetName);
+
+        if (uiComponent.HasUIForm(assetName))
+        {
+            if (uiComponent.GetUIForm(assetName).Logic.Available)
+            {
+                return;
+            }
+        }
+        if (uiComponent.IsLoadingUIForm(assetName))
+        {
+            return;
+        }
+        UILoadingOneFormId = uiComponent.OpenUIForm(UIFormId.UILoadingOneForm, userData);
+    }
+
+    public static void CloseUILoadingOneForm(this UIComponent uiComponent)
+    {
+        Log.Info($"UILoadingOneFormId：{UILoadingOneFormId.Value}    {uiComponent.HasUIForm(UILoadingOneFormId.Value)}");
+        if (UILoadingOneFormId != null && (uiComponent.HasUIForm(UILoadingOneFormId.Value) || uiComponent.IsLoadingUIForm(UILoadingOneFormId.Value)))
+        {
+            uiComponent.CloseUIForm(UILoadingOneFormId.Value);
+        }
     }
     /// <summary>
     /// 打开飘字提示框
