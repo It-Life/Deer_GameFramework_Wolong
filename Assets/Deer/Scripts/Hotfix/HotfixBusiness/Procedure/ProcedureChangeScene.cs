@@ -9,7 +9,6 @@
 using cfg.Deer;
 using GameFramework;
 using GameFramework.Event;
-using HotfixBusiness.Entity;
 using HotfixFramework.Runtime;
 using Main.Runtime.Procedure;
 using System.Collections.Generic;
@@ -100,9 +99,11 @@ namespace HotfixBusiness.Procedure
 
             string scenePath = AssetUtility.Scene.GetSceneAsset(sceneName);
             GameEntry.Scene.LoadScene(scenePath, Constant.AssetPriority.SceneAsset);
-
-            //设置主相机位置
+#if UNITY_ENABLE_DEER_EXAMPLE
+             //设置主相机位置
             SetMainCamTrans();
+#endif
+            
 		}
 
         void UnloadAllScene() 
@@ -131,10 +132,8 @@ namespace HotfixBusiness.Procedure
 		{
 			List<UIData_Race> ractDataList = GameEntry.Config.Tables.TbUIData_Race.DataList;
 
-            Debug.Log($"tackor {m_NextLevelId},  {ractDataList.Count}");
             Camera.main.transform.position = ractDataList[m_NextLevelId].PlayerPos;
 
-			Debug.Log($"tackor_预先设置相机位置: {m_NextLevelId}, {Camera.main.transform.position}");
 			Camera.main.transform.rotation = Quaternion.Euler(45, 0, 0);
 		}
     }

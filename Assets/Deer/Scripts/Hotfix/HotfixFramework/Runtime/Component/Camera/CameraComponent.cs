@@ -11,18 +11,6 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityGameFramework.Runtime;
 
-public enum CameraType 
-{
-    FollowCamera = 0,
-    RotateCamera = 1,
-}
-
-public class CameraModel 
-{
-    //public CinemachineVirtualCamera CinemachineVirtual;
-    public CameraType CameraType = CameraType.FollowCamera;
-}
-
 public enum BaseCamera:int
 {
     MainCamera,

@@ -6,8 +6,9 @@
 //修改时间:2022-09-16 11-44-29
 //版 本:0.1 
 // ===============================================
-using System.Collections;
-using System.Collections.Generic;
+
+using Sirenix.OdinInspector;
+using Unity.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -16,6 +17,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DeerGlobalSettings", menuName = "Deer/GlobalSettings")]
 public class DeerSettings : ScriptableObject
 {
+    [Header("General")] 
+    [Sirenix.OdinInspector.ReadOnly]
+    public bool m_UseDeerExample;
+
     [Header("Framework")]
     [SerializeField]
     private FrameworkGlobalSettings m_FrameworkGlobalSettings;
@@ -25,6 +30,5 @@ public class DeerSettings : ScriptableObject
     private HybridCLRCustomGlobalSettings m_BybridCLRCustomGlobalSettings;
 
     public HybridCLRCustomGlobalSettings BybridCLRCustomGlobalSettings { get { return m_BybridCLRCustomGlobalSettings; } }
-
 
 }

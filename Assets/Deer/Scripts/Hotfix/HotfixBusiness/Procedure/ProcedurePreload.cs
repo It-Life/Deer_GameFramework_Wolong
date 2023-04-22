@@ -28,7 +28,6 @@ namespace HotfixBusiness.Procedure
 
             m_procedureOwner = procedureOwner;
             //初始化所有角色信息管理器
-            DataUserManager.Instance.enabled = true;
             PreloadConfig();
             if (GameEntry.Base.EditorResourceMode)
             {
@@ -40,8 +39,11 @@ namespace HotfixBusiness.Procedure
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             if (IsPreloadFinish())
             {
-                //ChangeState<ProcedureLogin>(procedureOwner);
+#if UNITY_ENABLE_DEER_EXAMPLE
                 ChangeState<ProcedureMenu>(procedureOwner);
+#else
+                ChangeState<ProcedureLogin>(procedureOwner);
+#endif
             }
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -81,6 +83,7 @@ namespace HotfixBusiness.Procedure
             if (result)
             {
                 m_LoadConfigFlag.Remove("Config");
+                PreloadAfterLoadingConfig();
             }
             else
             {
@@ -88,5 +91,20 @@ namespace HotfixBusiness.Procedure
             }
         }
         #endregion
+        /// <summary>
+        /// 加载完 config 之后，重新加载游戏配置
+        /// </summary>
+        private void PreloadAfterLoadingConfig()
+        {
+            //初始化所有角色信息管理器
+            DataUserManager.Instance.enabled = true;
+            PreloadView();
+        }
+
+        private void PreloadView()
+        {
+
+
+        }
     }
 }
