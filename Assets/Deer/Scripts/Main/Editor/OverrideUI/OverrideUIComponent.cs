@@ -16,8 +16,8 @@ namespace Deer.Editor
 {
     public class OverrideUIComponent
     {
-        //[MenuItem("GameObject/UI/U_Text",false,20)]
-        [MenuItem("GameObject/UI/U_Text - TextMeshPro", false,10)]
+        //[MenuItem("GameObject/UI/Deer/Text",false,20)]
+        [MenuItem("GameObject/UI/Deer/Text - TextMeshPro", false, 11)]
         static TextMeshProUGUI CreateText()
         {
             var text = CreateComponent<TextMeshProUGUI>("Text");
@@ -28,7 +28,7 @@ namespace Deer.Editor
             return text;
         }
 
-        [MenuItem("GameObject/UI/U_Image",false,11)]
+        [MenuItem("GameObject/UI/Deer/Image", false, 10)]
         static Image CreateUImage()
         {
             string defaultName = "Image";
@@ -39,7 +39,7 @@ namespace Deer.Editor
             return image;
         }
 
-        [MenuItem("GameObject/UI/U_Raw Image",false,12)]
+        [MenuItem("GameObject/UI/Deer/Raw Image", false, 12)]
         static RawImage CreateRawImage()
         {
             var image = CreateComponent<RawImage>("Raw Image");
@@ -48,7 +48,7 @@ namespace Deer.Editor
             image.maskable = false;
             return image;
         }
-        
+
         /// <summary>
         /// 创建ui组件
         /// </summary>
@@ -103,17 +103,19 @@ namespace Deer.Editor
             return canvas;
         }
 
-        private static string DefaultTextureName<T>()where T : UIBehaviour
+        private static string DefaultTextureName<T>() where T : UIBehaviour
         {
             if (typeof(T) == typeof(Image))
             {
-                
-            }else if (typeof(T) == typeof(RawImage))
+
+            }
+            else if (typeof(T) == typeof(RawImage))
             {
-                
-            }else if (typeof(T) == typeof(UIButtonSuper))
+
+            }
+            else if (typeof(T) == typeof(UIButtonSuper))
             {
-                
+
             }
             return string.Empty;
         }

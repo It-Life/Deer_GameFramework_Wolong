@@ -7,11 +7,7 @@
 //版 本 : 0.1 
 // ===============================================
 using Main.Runtime;
-using System.Collections.Generic;
-using TMPro;
 using UnityEditor;
-using UnityEditor.Presets;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,91 +15,125 @@ namespace Deer.Editor
 {
     public class CreateUITemplatePrefab
     {
-        [MenuItem("GameObject/UI/U_UIForm", false, 0)]
+        #region 0 - 9
+        [MenuItem("GameObject/UI/Deer/UIForm", false, 0)]
         static void CreateUIPanelObj(MenuCommand menuCommand)
         {
             GameObject panel = SaveObject(menuCommand, "UIForm");
-            panel.GetComponent<RectTransform>().anchorMin = new Vector2(0,0);
-            panel.GetComponent<RectTransform>().anchorMax = new Vector2(1,1);
-            panel.GetComponent<RectTransform>().offsetMin = new Vector2(0,0);
-            panel.GetComponent<RectTransform>().offsetMax = new Vector2(0,0);
+            panel.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+            panel.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+            panel.GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
+            panel.GetComponent<RectTransform>().offsetMax = new Vector2(0, 0);
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
         }
-        [MenuItem("GameObject/UI/U_Progress",false,1)]
-        static void CreateProgressObj(MenuCommand menuCommand)
-        {
-            SaveObject(menuCommand, "Progress");
-        }
-        [MenuItem("GameObject/UI/U_Button - TextMeshPro", false,20)]
-        static void CreateUISuperButton(MenuCommand menuCommand)
-        {
-            SaveObject(menuCommand, "UIButton");
-        }
-        [MenuItem("GameObject/UI/U_Toggle - TextMeshPro", false, 21)]
-        static void CreateUIToggle(MenuCommand menuCommand)
-        {
-            SaveObject(menuCommand, "UIToggle");
-        }
-        [MenuItem("GameObject/UI/U_InputField - TextMeshPro", false, 22)]
-        static void CreateUIInputField(MenuCommand menuCommand)
-        {
-            SaveObject(menuCommand, "UIInputField");
-        }
-        [MenuItem("GameObject/UI/U_UIModel", false, 23)]
+
+        #endregion
+
+        #region 10 - 19
+        //10 - 12  In OverrideUIComponent class
+        [MenuItem("GameObject/UI/Deer/UIModel", false, 13)]
         static void CreateUIModel(MenuCommand menuCommand)
         {
             SaveObject(menuCommand, "UIModel");
         }
-        [MenuItem("GameObject/UI/U_ScrollView/HListScroll View", false, 22)]
-        static void CreateHListScroll(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI/Deer/Toggle - TextMeshPro", false, 14)]
+        static void CreateUIToggle(MenuCommand menuCommand)
         {
-            SaveObject(menuCommand, "ScrollView/HListScrollView");
+            SaveObject(menuCommand, "UIToggle");
         }
-        [MenuItem("GameObject/UI/U_ScrollView/HGridScroll View", false, 23)]
-        static void CreateHGridScroll(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI/Deer/Button - TextMeshPro", false, 15)]
+        static void CreateUISuperButton(MenuCommand menuCommand)
         {
-            SaveObject(menuCommand, "ScrollView/HGridScrollView");
+            SaveObject(menuCommand, "UIButton");
         }
-
-        [MenuItem("GameObject/UI/U_ScrollView/VListScroll View", false, 24)]
-        static void CreateVListScroll(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI/Deer/ButtonPro", false, 16)]
+        static void CreateUIButtonPro(MenuCommand menuCommand)
         {
-            SaveObject(menuCommand, "ScrollView/VListScrollView");
+            SaveObject(menuCommand, "ButtonPro");
         }
-
-        [MenuItem("GameObject/UI/U_ScrollView/VGridScroll View", false, 25)]
-        static void CreateVGridScroll(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI/Deer/ButtonPro - TextMeshPro", false, 17)]
+        static void CreateUIButtonProTmp(MenuCommand menuCommand)
         {
-            SaveObject(menuCommand, "ScrollView/VGridScrollView");
+            SaveObject(menuCommand, "ButtonPro(TMP)");
         }
-        [MenuItem("GameObject/UI/U_ScrollView/ScrollVItemPrefab", false, 26)]
-        static void CreateScrollVItemPrefab(MenuCommand menuCommand)
+        [MenuItem("GameObject/UI/Deer/InputField - TextMeshPro", false, 18)]
+        static void CreateUIInputField(MenuCommand menuCommand)
         {
-            SaveObject(menuCommand, "ScrollView/ScrollVItemPrefab");
+            SaveObject(menuCommand, "UIInputField");
         }
 
-        [MenuItem("GameObject/UI/U_SpriteAnimation",false,2 )]
-        static void CreateUGUISpriteAnimation(MenuCommand menuCommand)
-        {
-            SaveObject(menuCommand, "UISpriteAnimation");
-        }
-        [MenuItem("GameObject/UI/U_UIHealthBar", false, 3)]
+
+        #endregion
+
+        #region 60 - 69
+        [MenuItem("GameObject/UI/Deer/UIHealthBar", false, 60)]
         static void CreateUIHealthbar(MenuCommand menuCommand)
         {
             SaveObject(menuCommand, "UIHealthBar");
         }
-        static GameObject SaveObject(MenuCommand menuCommand, string prefabName,string objName = "") 
+        [MenuItem("GameObject/UI/Deer/SpriteAnimation", false, 61)]
+        static void CreateUGUISpriteAnimation(MenuCommand menuCommand)
         {
-            var path = Main.Runtime.FileUtils.GetPath($@"Assets\Deer\AssetsHotfix\UITemplate\{ prefabName }.prefab");
+            SaveObject(menuCommand, "UISpriteAnimation");
+        }
+        #endregion
+
+        #region All ScrollView
+        [MenuItem("GameObject/UI/Deer/All ScrollView/HListScroll View", false, 101)]
+        static void CreateHListScroll(MenuCommand menuCommand)
+        {
+            SaveObject(menuCommand, "ScrollView/HListScrollView");
+        }
+        [MenuItem("GameObject/UI/Deer/All ScrollView/HGridScroll View", false, 102)]
+        static void CreateHGridScroll(MenuCommand menuCommand)
+        {
+            SaveObject(menuCommand, "ScrollView/HGridScrollView");
+        }
+        [MenuItem("GameObject/UI/Deer/All ScrollView/VListScroll View", false, 103)]
+        static void CreateVListScroll(MenuCommand menuCommand)
+        {
+            SaveObject(menuCommand, "ScrollView/VListScrollView");
+        }
+        [MenuItem("GameObject/UI/Deer/All ScrollView/VGridScroll View", false, 104)]
+        static void CreateVGridScroll(MenuCommand menuCommand)
+        {
+            SaveObject(menuCommand, "ScrollView/VGridScrollView");
+        }
+        [MenuItem("GameObject/UI/Deer/All ScrollView/ScrollVItemPrefab", false, 105)]
+        static void CreateScrollVItemPrefab(MenuCommand menuCommand)
+        {
+            SaveObject(menuCommand, "ScrollView/ScrollVItemPrefab");
+        }
+        #endregion
+
+        static GameObject SaveObject(MenuCommand menuCommand, string prefabName, string objName = "")
+        {
+            var path = FileUtils.GetPath($@"Assets\Deer\AssetsHotfix\UITemplate\{prefabName}.prefab");
             GameObject prefab = (GameObject)AssetDatabase.LoadMainAssetAtPath(path);
             if (prefab)
             {
-                GameObject inst = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+                #region Check display conditions
+                Canvas _canvas = GameObject.Find("UI Form Instances").GetComponent<Canvas>();
+                if (!_canvas)
+                    _canvas = Object.FindObjectOfType<Canvas>();
+                if (!_canvas)
+                {
+                    _canvas = new GameObject("Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster)).GetComponent<Canvas>();
+                    _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+                }
+                #endregion
+
+                GameObject inst = (GameObject)PrefabUtility.InstantiateAttachedAsset(prefab);
                 if (!string.IsNullOrEmpty(objName))
                 {
-                    inst.gameObject.name = objName;
+                    inst.name = objName;
                 }
+                if (inst.name.Contains("(Clone)"))
+                {
+                    inst.name = inst.name[..^7];
+                }
+
                 var img = inst.GetComponent<Image>();
                 if (img)
                 {
@@ -114,6 +144,7 @@ namespace Deer.Editor
                 {
                     text.text = "";
                 }
+                inst.transform.SetParent(_canvas.transform, false);
                 GameObjectUtility.SetParentAndAlign(inst, menuCommand.context as GameObject);
                 Undo.RegisterCreatedObjectUndo(inst, $"Create {inst.name}__" + inst.name);
                 Selection.activeObject = inst;
