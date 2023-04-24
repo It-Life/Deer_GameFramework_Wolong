@@ -22,7 +22,7 @@ public class AutoBindRulePrefixe
 /// <summary>
 /// 自动绑定全局设置
 /// </summary>
-[CreateAssetMenu(fileName = "AutoBindGlobalSetting", menuName = "Deer/AutoBindGlobalSetting")]
+[CreateAssetMenu(fileName = "AutoBindGlobalSetting", menuName = "Deer/Auto Bind Setting", order = 41)]
 public class AutoBindGlobalSetting : ScriptableObject
 {
     [SerializeField]
@@ -50,6 +50,7 @@ public class AutoBindGlobalSetting : ScriptableObject
         new AutoBindRulePrefixe("GGroup","GridLayoutGroup"),
         new AutoBindRulePrefixe("TGroup","ToggleGroup"),
         new AutoBindRulePrefixe("Btn","UIButtonSuper"),
+        new AutoBindRulePrefixe("BtnP","ButtonPro"),
         new AutoBindRulePrefixe("Img","Image"),
         new AutoBindRulePrefixe("RImg","RawImage"),
         new AutoBindRulePrefixe("Txt","Text"),
@@ -67,6 +68,7 @@ public class AutoBindGlobalSetting : ScriptableObject
         new AutoBindRulePrefixe("HGridV","LoopGridView"),
         new AutoBindRulePrefixe("VListV","LoopListView2"),
         new AutoBindRulePrefixe("HListV","LoopListView2"),
+        new AutoBindRulePrefixe("Map","RadarMap"),
     };
 
     public List<AutoBindRulePrefixe> RulePrefixes

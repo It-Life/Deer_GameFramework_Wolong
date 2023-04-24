@@ -182,5 +182,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8767777304685698808, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
+      propertyPath: BindDatas.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767777304685698808, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
+      propertyPath: m_BindComs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767777304685698808, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
+      propertyPath: m_BindComs.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767777304685698808, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
+      propertyPath: m_BindComs.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767777304685698808, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
+      propertyPath: BindDatas.Array.data[3].Name
+      value: BtnP_SSSS
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767777304685698808, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
+      propertyPath: BindDatas.Array.data[4].Name
+      value: Map_qqqq
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767777304685698808, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
+      propertyPath: BindDatas.Array.data[3].BindCom
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767777304685698808, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}
+      propertyPath: BindDatas.Array.data[4].BindCom
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c010b67b5d150b45a764cb66e2e007a, type: 3}

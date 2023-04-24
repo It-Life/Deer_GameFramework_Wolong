@@ -1,10 +1,9 @@
-﻿using UnityEditor;
-using UnityEngine;
-using System;
-using System.IO;
-using UnityEditor.ProjectWindowCallback;
+﻿using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using UnityEditor;
+using UnityEditor.ProjectWindowCallback;
+using UnityEngine;
 
 public class CreateTemplateScript
 {
@@ -13,37 +12,40 @@ public class CreateTemplateScript
     private const string TemplateMainUIFormScriptPath = "Assets/Deer/Scripts/Main/Editor/GenScriptTool/Template/MyTemplateMainUIFormScript.cs.txt";
     private const string TemplateBusinessUIFormScriptPath = "Assets/Deer/Scripts/Main/Editor/GenScriptTool/Template/MyTemplateBusinessUIFormScript.cs.txt";
     private const string TemplateProcedureScriptPath = "Assets/Deer/Scripts/Main/Editor/GenScriptTool/Template/MyTemplateProcedureScript.cs.txt";
-/*    private const string TemplateLuaScriptPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLua.lua.txt";
+    
+    /*  
+    private const string TemplateLuaScriptPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLua.lua.txt";
     private const string TemplateLuaDataConfigPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaDataConfig.lua.txt";
     private const string TemplateLuaDataManagerPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaDataManager.lua.txt";
     private const string TemplateLuaProcedurePath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaProcedure.lua.txt";
     private const string TemplateLuaComponentPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaComponent.lua.txt";
     private const string TemplateLuaSingletonManagerPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaSingletonManager.lua.txt";
-    private const string TemplateLuaSceneScriptPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaSceneScript.lua.txt";*/
+    private const string TemplateLuaSceneScriptPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaSceneScript.lua.txt";
+    */
 
     //菜单项
-     [MenuItem("Assets/Create/Deer/CSharpScript/C# FrameScript", false, 1)]
+     [MenuItem("Assets/Create/Deer/C# Script/FrameScript", false, 1)]
     static void CreateScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewBehaviourScript.cs",
         null, TemplateScriptPath);
     }
-    [MenuItem("Assets/Create/Deer/CSharpScript/C# MainFrameUIScript", false, 2)]
+    [MenuItem("Assets/Create/Deer/C# Script/MainFrameUIScript", false, 2)]
     static void CreateMainUIFormScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewUIFormScript.cs",
         null, TemplateMainUIFormScriptPath);
     }
-    [MenuItem("Assets/Create/Deer/CSharpScript/C# BusinessFrameUIScript", false, 3)]
+    [MenuItem("Assets/Create/Deer/C# Script/BusinessFrameUIScript", false, 3)]
     static void CreateHotfixBusinessUIFormScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewUIFormScript.cs",
         null, TemplateBusinessUIFormScriptPath);
     }
-    [MenuItem("Assets/Create/Deer/CSharpScript/C# FrameProcedureScript", false, 4)]
+    [MenuItem("Assets/Create/Deer/C# Script/FrameProcedureScript", false, 4)]
     static void CreateProcedureScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),

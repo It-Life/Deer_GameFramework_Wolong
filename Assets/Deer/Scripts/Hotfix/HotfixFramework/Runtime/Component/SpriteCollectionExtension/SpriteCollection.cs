@@ -21,7 +21,7 @@ using Object = UnityEngine.Object;
 
 namespace UGFExtensions.SpriteCollection
 {
-    [CreateAssetMenu(fileName = "SpriteCollection", menuName = "Deer/SpriteCollection", order = 0)]
+    [CreateAssetMenu(fileName = "SpriteCollection", menuName = "Deer/Sprite Collection", order = 20)]
 #if ODIN_INSPECTOR
     public class SpriteCollection : SerializedScriptableObject
     {

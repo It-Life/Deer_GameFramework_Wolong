@@ -9,11 +9,11 @@ namespace DevLocker.Tools
 	/// <summary>
 	/// Helpful menu items like:
 	/// - Copy selected GUIDs
-	/// - Edit With Notepad++ or Sublime
+	/// - Deer Notepad++ or Sublime
 	/// </summary>
 	public static class MiscUtils
 	{
-		[MenuItem("Assets/Copy to Clipboard/Copy GUIDs", false, -990)]
+		[MenuItem("Assets/Deer/Copy GUIDs", false, 10)]
 		private static void CopySelectedGuid()
 		{
 			List<string> guids = new List<string>(Selection.objects.Length);
@@ -40,7 +40,7 @@ namespace DevLocker.Tools
 			te.Copy();
 		}
 
-		[MenuItem("Assets/Copy to Clipboard/Copy Asset Names", false, -990)]
+		[MenuItem("Assets/Deer/Copy Asset Names", false, 11)]
 		private static void CopySelectedAssetNames()
 		{
 			// Get by selected guids.
@@ -65,7 +65,7 @@ namespace DevLocker.Tools
 			te.Copy();
 		}
 
-		[MenuItem("Assets/Copy to Clipboard/Copy Relative Paths", false, -990)]
+		[MenuItem("Assets/Deer/Copy Relative Paths", false, 12)]
 		private static void CopySelectedAssetPaths()
 		{
 			// Get by selected guids.
@@ -84,7 +84,7 @@ namespace DevLocker.Tools
 			te.Copy();
 		}
 
-		[MenuItem("Assets/Copy to Clipboard/Copy Absolute Paths", false, -990)]
+		[MenuItem("Assets/Deer/Copy Absolute Paths", false, 13)]
 		private static void CopySelectedAbsolutePaths()
 		{
 			var projectRoot = Path.GetDirectoryName(Application.dataPath);
@@ -164,28 +164,28 @@ namespace DevLocker.Tools
 			@"/Applications/Sublime Text.app/Contents/MacOS/sublime_text",
 		};
 #if UNITY_EDITOR_WIN
-		[MenuItem("Assets/Edit With/Notepad++", false, -980)]
+		[MenuItem("Assets/Deer/Notepad++", false, 30)]
 		private static void EditWithNotepadPlusPlus()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, false));
 			EditWithApp(_notepadPaths, args);
 		}
 
-		[MenuItem("Assets/Edit With/Notepad++ Metas", false, -980)]
+		[MenuItem("Assets/Deer/Notepad++ Metas", false, 31)]
 		private static void EditWithNotepadPlusPlusMetas()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, true));
 			EditWithApp(_notepadPaths, args);
 		}
 #endif
-		[MenuItem("Assets/Edit With/Sublime", false, -980)]
+		[MenuItem("Assets/Deer/Sublime", false, 32)]
 		private static void EditWithSublime()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, false));
 			EditWithApp(_sublimePaths, args);
 		}
 
-		[MenuItem("Assets/Edit With/Sublime Metas", false, -980)]
+		[MenuItem("Assets/Deer/Sublime Metas", false, 33)]
 		private static void EditWithSublimeMetas()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, true));

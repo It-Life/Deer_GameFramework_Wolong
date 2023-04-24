@@ -30,7 +30,7 @@ namespace Deer.Editor
 
         #endregion
 
-        #region 10 - 19
+        #region 10 - 59
         //10 - 12  In OverrideUIComponent class
         [MenuItem("GameObject/UI/Deer/UIModel", false, 13)]
         static void CreateUIModel(MenuCommand menuCommand)
@@ -62,7 +62,11 @@ namespace Deer.Editor
         {
             SaveObject(menuCommand, "UIInputField");
         }
-
+        [MenuItem("GameObject/UI/Deer/Radar Map", false, 19)]
+        static void CreateUIRadarMap(MenuCommand menuCommand)
+        {
+            SaveObject(menuCommand, "Radar Map");
+        }
 
         #endregion
 
@@ -114,7 +118,10 @@ namespace Deer.Editor
             if (prefab)
             {
                 #region Check display conditions
-                Canvas _canvas = GameObject.Find("UI Form Instances").GetComponent<Canvas>();
+                GameObject _go = GameObject.Find("UI Form Instances");
+                Canvas _canvas = null;
+                if (_go)
+                    _canvas = _go.GetComponent<Canvas>();
                 if (!_canvas)
                     _canvas = Object.FindObjectOfType<Canvas>();
                 if (!_canvas)

@@ -16,7 +16,6 @@ namespace Deer.Editor
 {
     public class OverrideUIComponent
     {
-        //[MenuItem("GameObject/UI/Deer/Text",false,20)]
         [MenuItem("GameObject/UI/Deer/Text - TextMeshPro", false, 11)]
         static TextMeshProUGUI CreateText()
         {

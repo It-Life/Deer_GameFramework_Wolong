@@ -14,7 +14,7 @@ using UnityEngine;
 /// <summary>
 /// Please modify the description.
 /// </summary>
-[CreateAssetMenu(fileName = "DeerGlobalSettings", menuName = "Deer/GlobalSettings")]
+[CreateAssetMenu(fileName = "DeerGlobalSettings", menuName = "Deer/Global Settings", order = 40)]
 public class DeerSettings : ScriptableObject
 {
     [Header("General")] 

@@ -38,6 +38,8 @@ MonoBehaviour:
     FullName: ToggleGroup
   - Prefixe: Btn
     FullName: UIButtonSuper
+  - Prefixe: BtnP
+    FullName: ButtonPro
   - Prefixe: Img
     FullName: Image
   - Prefixe: RImg
@@ -80,3 +82,5 @@ MonoBehaviour:
     FullName: BarBhv
   - Prefixe: HSelector
     FullName: HorizontalSelector
+  - Prefixe: Map
+    FullName: RadarMap
