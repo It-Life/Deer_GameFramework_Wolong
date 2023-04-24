@@ -161,6 +161,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -32.1055
       objectReference: {fileID: 0}
+    - target: {fileID: 5403560298771184261, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: BindDatas.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403560298771184261, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: m_BindComs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403560298771184261, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: BindDatas.Array.data[3].Name
+      value: BtnP_SSSS
+      objectReference: {fileID: 0}
+    - target: {fileID: 5403560298771184261, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
+      propertyPath: BindDatas.Array.data[4].Name
+      value: Map_qqqq
+      objectReference: {fileID: 0}
     - target: {fileID: 8142064538168835992, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
