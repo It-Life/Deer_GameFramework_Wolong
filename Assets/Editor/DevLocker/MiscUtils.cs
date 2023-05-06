@@ -216,7 +216,7 @@ namespace DevLocker.Tools
 				_path = defaultPath.FirstOrDefault(File.Exists);
 				if (string.IsNullOrEmpty(_path))
                 {
-                    EditorUtility.DisplayDialog("Error.错误", $"The program could not be found.\n" +
+                    EditorUtility.DisplayDialog("Error", $"The program could not be found.\n" +
                         $"Please go to Settings to configure the path first.\n" +
                         $"DeerTools > Settings > Path Setting", "ok");
                     return;
