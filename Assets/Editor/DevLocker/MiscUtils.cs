@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -131,33 +131,65 @@ namespace DevLocker.Tools
 			System.Diagnostics.Process.Start(processInfo);
 		}
 
+        private static string[] _notepadPaths = new string[] {
+            @"C:\Program Files\Notepad++\notepad++.exe",
+            @"C:\Program Files (x86)\Notepad++\notepad++.exe",
+            @"C:\Programs\Notepad++\notepad++.exe",
+
+            @"D:\Program Files\Notepad++\notepad++.exe",
+            @"D:\Program Files (x86)\Notepad++\notepad++.exe",
+            @"D:\Programs\Notepad++\notepad++.exe",
+        };
+        private static string[] _sublimePaths = new string[] {
+            @"C:\Program Files\Sublime Text 3\subl.exe",
+            @"C:\Program Files\Sublime Text 3\sublime_text.exe",
+            @"C:\Program Files\Sublime Text 2\sublime_text.exe",
+            @"C:\Program Files (x86)\Sublime Text 3\subl.exe",
+            @"C:\Program Files (x86)\Sublime Text 3\sublime_text.exe",
+            @"C:\Program Files (x86)\Sublime Text 2\sublime_text.exe",
+            @"C:\Programs\Sublime Text 3\subl.exe",
+            @"C:\Programs\Sublime Text 3\sublime_text.exe",
+            @"C:\Programs\Sublime Text 2\sublime_text.exe",
+
+            @"D:\Program Files\Sublime Text 3\subl.exe",
+            @"D:\Program Files\Sublime Text 3\sublime_text.exe",
+            @"D:\Program Files\Sublime Text 2\sublime_text.exe",
+            @"D:\Program Files (x86)\Sublime Text 3\subl.exe",
+            @"D:\Program Files (x86)\Sublime Text 3\sublime_text.exe",
+            @"D:\Program Files (x86)\Sublime Text 2\sublime_text.exe",
+            @"D:\Programs\Sublime Text 3\subl.exe",
+            @"D:\Programs\Sublime Text 3\sublime_text.exe",
+            @"D:\Programs\Sublime Text 2\sublime_text.exe",
+            @"/Applications/Sublime Text.app/Contents/MacOS/sublime_text",
+        };
+
 #if UNITY_EDITOR_WIN
-		[MenuItem("Assets/Deer/Notepad++", false, 30)]
+        [MenuItem("Assets/Deer/Notepad++", false, 30)]
 		private static void EditWithNotepadPlusPlus()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, false));
-			EditWithApp(DeerSettingsUtils.PathConfig.NotepadPath, args);
+			EditWithApp(DeerSettingsUtils.PathConfig.NotepadPath, args, _notepadPaths);
 		}
 
 		[MenuItem("Assets/Deer/Notepad++ Metas", false, 31)]
 		private static void EditWithNotepadPlusPlusMetas()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, true));
-			EditWithApp(DeerSettingsUtils.PathConfig.NotepadPath, args);
+			EditWithApp(DeerSettingsUtils.PathConfig.NotepadPath, args, _notepadPaths);
 		}
 #endif
 		[MenuItem("Assets/Deer/Sublime", false, 32)]
 		private static void EditWithSublime()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, false));
-			EditWithApp(DeerSettingsUtils.PathConfig.SublimePath, args);
+			EditWithApp(DeerSettingsUtils.PathConfig.SublimePath, args, _sublimePaths);
 		}
 
 		[MenuItem("Assets/Deer/Sublime Metas", false, 33)]
 		private static void EditWithSublimeMetas()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, true));
-			EditWithApp(DeerSettingsUtils.PathConfig.SublimePath, args);
+			EditWithApp(DeerSettingsUtils.PathConfig.SublimePath, args, _sublimePaths);
 		}
 
 		private static IEnumerable<string> GetPathsOfAssets(Object[] objects, bool metas) {
@@ -175,16 +207,22 @@ namespace DevLocker.Tools
         /// </summary>
         /// <param name="appPath">IDE path</param>
         /// <param name="filePath">Selection objcet path</param>
-        private static void EditWithApp(string appPath, string filePath)
+        private static void EditWithApp(string appPath, string filePath, string[] defaultPath)
         {
-            if (!File.Exists(appPath))
-            {
-                EditorUtility.DisplayDialog("Error.´íÎó", $"The program could not be found.\n" +
-                    $"Please go to Settings to configure the path first.\n" +
-                    $"DeerTools > Settings > Path Setting", "ok");
-                return;
+			string _path = appPath;
+            bool _hasPath = File.Exists(_path);
+			if (!_hasPath)
+			{
+				_path = defaultPath.FirstOrDefault(File.Exists);
+				if (string.IsNullOrEmpty(_path))
+                {
+                    EditorUtility.DisplayDialog("Error.é”™è¯¯", $"The program could not be found.\n" +
+                        $"Please go to Settings to configure the path first.\n" +
+                        $"DeerTools > Settings > Path Setting", "ok");
+                    return;
+				}
             }
-            System.Diagnostics.Process.Start(appPath, filePath);
+            System.Diagnostics.Process.Start(_path, filePath);
         }
     }
 }
