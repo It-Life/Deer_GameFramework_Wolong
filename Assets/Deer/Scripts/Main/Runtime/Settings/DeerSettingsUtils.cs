@@ -6,6 +6,8 @@
 //修改时间:2022-06-05 23-28-07
 //版 本:0.1 
 // ===============================================
+using Deer.Setting;
+using DG.DOTweenEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,12 +20,22 @@ using UnityEngine;
 /// </summary>
 public static class DeerSettingsUtils
 {
-
     private static readonly string DeerGlobalSettingsPath = $"Settings/DeerGlobalSettings";
     private static DeerSettings m_DeerGlobalSettings;
     public static FrameworkGlobalSettings FrameworkGlobalSettings { get { return DeerGlobalSettings.FrameworkGlobalSettings; } }
     public static HybridCLRCustomGlobalSettings HybridCLRCustomGlobalSettings { get { return DeerGlobalSettings.BybridCLRCustomGlobalSettings; } }
-
+    static DeerPathSetting m_DeerPathSetting;
+    public static DeerPathSetting PathConfig
+    {
+        get
+        {
+            if (m_DeerPathSetting == null)
+            {
+                m_DeerPathSetting = GetSingletonAssetsByResources<DeerPathSetting>("Settings/DeerPathSetting");
+            }
+            return m_DeerPathSetting;
+        }
+    }
     public static DeerSettings DeerGlobalSettings
     {
         get
