@@ -91,11 +91,6 @@ public class FrameworkGlobalSettings
     [SerializeField]
     private ResourcesArea m_ResourcesArea;
     public ResourcesArea ResourcesArea { get { return m_ResourcesArea; } }
-    [Header("SpriteCollection")]
-    [SerializeField]
-    [FolderPath]
-    private string m_AtlasFolder = "Assets/Deer/Atlas";
-    public string AtlasFolder { get { return m_AtlasFolder; } }
 
     [Header("Hotfix")]
     [SerializeField]
