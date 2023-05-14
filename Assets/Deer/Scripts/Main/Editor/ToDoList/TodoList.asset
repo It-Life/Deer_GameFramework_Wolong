@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f958145dc24921c4d95f3544ca648fbf, type: 3}
+  m_Name: TodoList
+  m_EditorClassIdentifier: 
+  TaskCount: 5
+  Mark: 0000000000
+  Enabled: 0000000000
+  Progress: 0000000000000000000000000000000000000000
+  Title:
+  - "\u89D2\u91CD\u751F"
+  - "\u96C6\u6210EGamePlay\u63D2\u4EF6"
+  - "AB\u5C4F\u6D4B\u8BD5"
+  - GameResConfiguration
+  - "demo\u573A\u666F"
+  Description:
+  - 
+  - "\u96C6\u6210EGamePlay\u63D2\u4EF6"
+  - "AB\u5C4F\u68C0\u6D4B\nAB\u5C4F\u8F93\u5165\u7CFB\u7EDF"
+  - 
+  - "\u573A\u666F\n\u82F1\u96C4\n\u602A\u7269"
