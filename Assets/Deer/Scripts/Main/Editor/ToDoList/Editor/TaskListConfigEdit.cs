@@ -176,16 +176,17 @@ namespace Deer.Editor.TaskList
                     if (i != 0 && GUILayout.Button(new GUIContent("Move Up", "上移")))
                     {
                         Mark.MoveArrayElement(i, i - 1);
+                        Title.MoveArrayElement(i, i - 1);
                         Enabled.MoveArrayElement(i, i - 1);
                         Progress.MoveArrayElement(i, i - 1);
-                        Title.MoveArrayElement(i, i - 1);
                         Description.MoveArrayElement(i, i - 1);
                     }
                     if (i != (TaskCount.intValue - 1) && GUILayout.Button(new GUIContent("Move Down", "下移")))
                     {
                         Mark.MoveArrayElement(i, i + 1);
-                        Progress.MoveArrayElement(i, i + 1);
                         Title.MoveArrayElement(i, i + 1);
+                        Enabled.MoveArrayElement(i, i + 1);
+                        Progress.MoveArrayElement(i, i + 1);
                         Description.MoveArrayElement(i, i + 1);
                     }
                     if (GUILayout.Button(new GUIContent("Delete Task", "删除任务"), m_DeleteStyle))

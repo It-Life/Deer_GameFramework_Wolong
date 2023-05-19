@@ -131,7 +131,7 @@ namespace Deer.Editor
                 }
                 #endregion
 
-                GameObject inst = (GameObject)PrefabUtility.InstantiateAttachedAsset(prefab);
+                GameObject inst = GameObject.Instantiate(prefab);
                 if (!string.IsNullOrEmpty(objName))
                 {
                     inst.name = objName;
