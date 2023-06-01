@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SelectRace
+  serializedVersion: 2
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 0
+      maxTextureSize: 0
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 56e8c210bdf3e0d49a26879a32107688, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 47022650e9d7d4b43adc4a8597128d92, type: 3}
+  - {fileID: 21300000, guid: 3ca4a3018e19102449398f585286054f, type: 3}
+  - {fileID: 21300000, guid: b72b1111775d1844f98f41f3723b7bbd, type: 3}
+  - {fileID: 21300000, guid: 50d34de33b084324aa7de571819fe3cd, type: 3}
+  - {fileID: 21300000, guid: 3a311997e25dafd49b394538280309c0, type: 3}
+  - {fileID: 21300000, guid: a03de0284eee2f541b5849a18c410e7c, type: 3}
+  - {fileID: 21300000, guid: 0b8b597955a2b504eabca11b09872c9c, type: 3}
+  - {fileID: 21300000, guid: c024f83a935575c43bae2f966232ecbe, type: 3}
+  - {fileID: 21300000, guid: 4593cd7ae1ee77e459abf7d8a288ea6b, type: 3}
+  - {fileID: 21300000, guid: e21bdb3c9146c2a44bd6a6df1f5e0721, type: 3}
+  - {fileID: 21300000, guid: 454cb32e9bdd3444e97d1c0099d71310, type: 3}
+  - {fileID: 21300000, guid: 0dc3044ef8e0b01469abafef25bf5783, type: 3}
+  - {fileID: 21300000, guid: b26ac10f2f1104049adae725a5e21d6e, type: 3}
+  - {fileID: 21300000, guid: 7cde59df6da47304bb92eeb070ecb061, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - SelectRaceNameBoard
+  - SelectRaceRace02
+  - Tuto01Thumb
+  - SelectRaceRace06
+  - InfosBoard01
+  - SelectRaceLock
+  - SelectRaceFrame
+  - SelectRaceIcon
+  - SelectRaceRace04
+  - SelectRaceRace05
+  - SelectRaceRace03
+  - BlankSlot
+  - SelectRacePointsLeft
+  - SelectRacePointsCenter
+  m_RenderDataMap: {}
+  m_Tag: SelectRace
+  m_IsVariant: 0
+  m_IsPlaceholder: 0

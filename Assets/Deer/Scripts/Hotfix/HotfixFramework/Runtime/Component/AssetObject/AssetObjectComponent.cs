@@ -10,18 +10,21 @@ using GameFramework;
 using GameFramework.ObjectPool;
 using GameFramework.Resource;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
+using Object = UnityEngine.Object;
 
 namespace HotfixFramework.Runtime
 {
     public delegate void LoadAssetObjectComplete(bool success, object assetObj, int nLoadSerial);
 
     [DisallowMultipleComponent]
-    [AddComponentMenu("Deer/AssetPrefab")]
+    [AddComponentMenu("Deer/AssetObject")]
     public class AssetObjectComponent : GameFrameworkComponent
     {
+        private static int s_SerialId;
         private IObjectPool<AssetInstanceObject> m_InstancePool; //AssetObject资源池   
         private LoadAssetCallbacks m_LoadAssetCallbacks; //AssetObject加载回调
         private Dictionary<int, string> m_AssetObjectBeingLoaded; //正在加载的AssetObject列表      
@@ -122,8 +125,9 @@ namespace HotfixFramework.Runtime
             m_LoadAssetCallbacks = null;
             m_InstancePool = null;
         }
-        public void LoadAssetAsync(int nLoadSerial, string strPath, string strShowName,Type assetType, LoadAssetObjectComplete loadAssetObjectComplete = null)
+        public int LoadAssetAsync(string strPath, string strShowName,Type assetType, LoadAssetObjectComplete loadAssetObjectComplete = null)
         {
+            int nLoadSerial = GenSerialId();
             m_LoadAssetObjectComplete.Add(nLoadSerial, loadAssetObjectComplete);
             AssetInstanceObject assetObject = m_InstancePool.Spawn(strPath);
             if (assetObject == null)
@@ -136,8 +140,28 @@ namespace HotfixFramework.Runtime
             {
                 CallFunction("LoadAssetObjectSuccessCallback", assetObject.Target, nLoadSerial);
             }
-        }
 
+            return nLoadSerial;
+        }
+        public int LoadAssetAsyncWithOtherBundle(string strPath, string strShowName,Type assetType, LoadAssetObjectComplete loadAssetObjectComplete = null)
+        {
+            int nLoadSerial = GenSerialId();
+            m_LoadAssetObjectComplete.Add(nLoadSerial, loadAssetObjectComplete);
+            AssetInstanceObject assetObject = m_InstancePool.Spawn(strPath);
+            if (assetObject == null)
+            {
+                AssetObjectInfo assetObjectInfo = AssetObjectInfo.Create(nLoadSerial, strPath, strShowName,true);
+                m_AssetObjectBeingLoaded.Add(nLoadSerial, strPath);
+                //GameEntry.Resource.LoadAsset(strPath, assetType, Constant.AssetPriority.SceneUnit, m_LoadAssetCallbacks, assetObjectInfo);
+                StartCoroutine(IELoadBundle(assetObjectInfo));
+            }
+            else
+            {
+                CallFunction("LoadAssetObjectSuccessCallback", assetObject.Target, nLoadSerial);
+            }
+
+            return nLoadSerial;
+        }
         public void HideObject(int serialId) 
         {
             RecycleAsset(serialId);
@@ -176,6 +200,20 @@ namespace HotfixFramework.Runtime
         public bool IsLoadingAssetObjectById(int serialId)
         {
             return m_AssetObjectBeingLoaded.ContainsKey(serialId);
+        }
+        private IEnumerator IELoadBundle(AssetObjectInfo assetObjectInfo)
+        {
+            string localUrl = assetObjectInfo.AssetObjectName;
+            AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(localUrl);
+            yield return request;
+            AssetBundle bundle =  request.assetBundle;
+            //加载Bundle中某个资源
+            Object asset = bundle.LoadAsset(bundle.name);
+            m_AssetObjectBeingLoaded.Remove(assetObjectInfo.SerialId);
+            AssetInstanceObject assetObject = AssetInstanceObject.Create(localUrl, asset,Instantiate(asset));
+            m_InstancePool.Register(assetObject, true);
+            CallFunction("LoadAssetObjectSuccessCallback", assetObject.Target, assetObjectInfo.SerialId);
+            ReferencePool.Release(assetObjectInfo);
         }
         /// <summary>
         /// 是否正在加载预制体
@@ -264,9 +302,9 @@ namespace HotfixFramework.Runtime
                 loadAssetObjectComplete?.Invoke(true, gameObject, serialId);
             }
         }
-        public int GenSerialId()
+        private int GenSerialId()
         {
-            m_nLoadSerial += 1;
+            m_nLoadSerial = ++s_SerialId;
             return m_nLoadSerial;
         }
     }

@@ -163,7 +163,7 @@ namespace HotfixFramework.Runtime
 			}
 			BundleDownInfo bundleDownInfo = ReferencePool.Acquire<BundleDownInfo>();
 			bundleDownInfo.downUrl = url;
-			bundleDownInfo.localUrl = FileUtils.GetAssetBundleLocalPathByUrl(url);
+			//bundleDownInfo.localUrl = FileUtils.GetAssetBundleLocalPathByUrl(url);
 			bundleDownInfo.userData = userData;
 			bundleDownInfo.successAction = successAction;
 			bundleDownInfo.failureAction = failureAction;
@@ -355,7 +355,7 @@ namespace HotfixFramework.Runtime
 				try
 				{
 					string serverMd5 = string.Empty;
-					m_DicServerVersion.TryGetValue(FileUtils.GetAssetBundleNameByUrl(downUrl), out serverMd5);
+					m_DicServerVersion.TryGetValue(Path.GetFileName(downUrl), out serverMd5);
 					if (localFileMd5 == serverMd5)
 					{
 						downLoadSuccessAction?.Invoke(bundleDownInfo);

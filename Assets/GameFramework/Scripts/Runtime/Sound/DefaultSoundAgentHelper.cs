@@ -26,6 +26,8 @@ namespace UnityGameFramework.Runtime
         private bool m_ApplicationPauseFlag = false;
         private EventHandler<ResetSoundAgentEventArgs> m_ResetSoundAgentEventHandler = null;
 
+        private bool m_IsPause = false;
+        
         /// <summary>
         /// 获取当前是否正在播放。
         /// </summary>
@@ -279,6 +281,7 @@ namespace UnityGameFramework.Runtime
             }
             else
             {
+                m_IsPause = true;
                 m_AudioSource.Pause();
             }
         }
@@ -290,7 +293,7 @@ namespace UnityGameFramework.Runtime
         public override void Resume(float fadeInSeconds)
         {
             StopAllCoroutines();
-
+            m_IsPause = false;
             m_AudioSource.UnPause();
             if (fadeInSeconds > 0f)
             {
@@ -311,6 +314,7 @@ namespace UnityGameFramework.Runtime
             m_AudioSource.clip = null;
             m_BindingEntityLogic = null;
             m_VolumeWhenPause = 0f;
+            m_IsPause = false;
         }
 
         /// <summary>
@@ -370,7 +374,7 @@ namespace UnityGameFramework.Runtime
 
         private void Update()
         {
-            if (!m_ApplicationPauseFlag && !IsPlaying && m_AudioSource.clip != null && m_ResetSoundAgentEventHandler != null)
+            if (!m_ApplicationPauseFlag && !m_IsPause && !IsPlaying && m_AudioSource.clip != null && m_ResetSoundAgentEventHandler != null)
             {
                 ResetSoundAgentEventArgs resetSoundAgentEventArgs = ResetSoundAgentEventArgs.Create();
                 m_ResetSoundAgentEventHandler(this, resetSoundAgentEventArgs);
@@ -414,6 +418,7 @@ namespace UnityGameFramework.Runtime
         private IEnumerator PauseCo(float fadeOutSeconds)
         {
             yield return FadeToVolume(m_AudioSource, 0f, fadeOutSeconds);
+            m_IsPause = true;
             m_AudioSource.Pause();
         }
 

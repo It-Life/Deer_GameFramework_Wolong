@@ -80,7 +80,15 @@ public static class DeerSettingsUtils
 
     public static string GetResDownLoadPath(string fileName = "")
     {
-        return Path.Combine(CompleteDownLoadPath, $"{ResourcesArea.ResAdminType}_{ResourcesArea.ResAdminCode}", GetPlatformName(), fileName).Replace("\\","/");
+        string adminDir = ResourcesArea.ResAdminType+ResourcesArea.ResAdminCode;
+        if (string.IsNullOrEmpty(adminDir))
+        {   
+            return Path.Combine(CompleteDownLoadPath , GetPlatformName(), fileName).Replace("\\","/");
+        }
+        else
+        {
+            return Path.Combine(CompleteDownLoadPath,adminDir , GetPlatformName(), fileName).Replace("\\","/");
+        }
     }
     public static string CompleteDownLoadPath
     {

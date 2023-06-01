@@ -15,7 +15,7 @@ using Main.Runtime;
 /// </summary>
 public class UIFixBaseForm : UIBaseForm
 {
-    protected Dictionary<UIFormId, int> OpenSubFormSerialIds = new Dictionary<UIFormId, int>();
+    protected Dictionary<ConstantUI.EUIFormId, int> OpenSubFormSerialIds = new Dictionary<ConstantUI.EUIFormId, int>();
     protected UIFormData m_UIFormData;
     protected bool m_IsShowFormView = true;
     protected override void OnOpen(object userData)
@@ -43,13 +43,13 @@ public class UIFixBaseForm : UIBaseForm
         }
         OpenSubFormSerialIds.Clear();
     }
-    protected void OpenSubForm(UIFormId uiFormId, object userData = null)
+    protected void OpenSubForm(ConstantUI.EUIFormId uiFormId, object userData = null)
     {
         int serialId = (int)GameEntry.UI.OpenUIForm(uiFormId, userData);
         OpenSubFormSerialIds.Add(uiFormId,serialId);
     }
 
-    protected int GetSubFormSerialId(UIFormId uiFormId)
+    protected int GetSubFormSerialId(ConstantUI.EUIFormId uiFormId)
     {
         foreach (var openSubForm in OpenSubFormSerialIds)
         {

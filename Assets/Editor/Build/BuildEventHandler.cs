@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using GameFramework;
 using Main.Runtime;
+using UGFExtensions.Editor.ResourceTools;
 using UnityEditor;
 using UnityEngine;
 using UnityGameFramework.Editor.ResourceTools;
@@ -19,14 +20,14 @@ public class BuildEventHandler : IBuildEventHandler
 {
     public bool ContinueOnFailure => false;
 
-    private string CommitResourcesPath = Application.dataPath + $"/../CommitResources/{DeerSettingsUtils.ResourcesArea.ResAdminType}_{DeerSettingsUtils.ResourcesArea.ResAdminCode}/";
-    private List<string> StreamingAssetsPaths = new List<string>()
+    private readonly string CommitResourcesPath = Application.dataPath + $"/../CommitResources/{DeerSettingsUtils.ResourcesArea.ResAdminType}_{DeerSettingsUtils.ResourcesArea.ResAdminCode}/";
+    private readonly List<string> StreamingAssetsPaths = new List<string>()
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsPacked")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName)),
     };
-    private List<string> StreamingAssetsFilePaths = new List<string>()
+    private readonly List<string> StreamingAssetsFilePaths = new List<string>()
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkList.dat")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkVersion.dat")),
@@ -79,6 +80,15 @@ public class BuildEventHandler : IBuildEventHandler
             }
         }
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
+        if (string.IsNullOrEmpty(DeerSettingsUtils.PathConfig.ResourceCollectionPath))
+        {
+            ResourceRuleEditorUtility.RefreshResourceCollection();
+        }
+        else
+        {
+            ResourceRuleEditorUtility.RefreshResourceCollection(DeerSettingsUtils.PathConfig.ResourceCollectionPath);
+        }
+
 #if ENABLE_HYBRID_CLR_UNITY
         BuildEventHandlerWolong.OnPreprocessAllPlatforms(platforms);
 #endif

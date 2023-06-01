@@ -110,10 +110,20 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
     public float m_LongPressDurationTime = 1;
     [Tooltip("长按事件")]
     public ButtonClickedEvent onPress;
-    //public ButtonClickedEvent onClick;
     public ButtonBeginDragCallback onBeginDrag;
     public ButtonDragCallback onDrag;
     public ButtonEndDragCallback onEndDrag;
+
+    #region PC
+    public ButtonClickedEvent onClickLeft;
+    public ButtonClickedEvent onClickRight;
+    public ButtonClickedEvent onDoubleClickLeft;
+    public ButtonClickedEvent onDoubleClickRight;
+    public ButtonClickedEvent onPressLeft;
+    public ButtonClickedEvent onPressRight;
+    private PointerEventData pointerDownEventData;
+    #endregion
+
  
     private bool isDown = false;
     private bool isPress = false;
@@ -142,14 +152,15 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
             downTime += Time.deltaTime;
             if (downTime > m_LongPressDurationTime) {
                 isPress = true;
-                onPress.Invoke();
+                onPress?.Invoke();
+                OnDoAction(onPressLeft,onPressRight);
             }
         }
         if (clickTimes >= 1) {
             if (!m_CanLongPress && !m_CanDoubleClick && m_CanClick)
             {
-                
-                onClick.Invoke();
+                onClick?.Invoke();
+                OnDoAction(onClickLeft,onClickRight);
                 clickTimes = 0;
             }
             else 
@@ -161,14 +172,16 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
                     {
                         if (m_CanDoubleClick)
                         {
-                            onDoubleClick.Invoke();
+                            onDoubleClick?.Invoke();
+                            OnDoAction(onDoubleClickLeft,onDoubleClickRight);
                         }
                     }
                     else
                     {
                         if (m_CanClick)
                         {
-                            onClick.Invoke();
+                            onClick?.Invoke();
+                            OnDoAction(onClickLeft,onClickRight);
                         }
                     }
                     clickTimes = 0;
@@ -178,6 +191,21 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
 
         }
     }
+
+    void OnDoAction(ButtonClickedEvent leftAction, ButtonClickedEvent rightAction)
+    {
+        if (pointerDownEventData != null)
+        {
+            if (pointerDownEventData.button == PointerEventData.InputButton.Right)
+            {
+                rightAction?.Invoke();
+            }else if (pointerDownEventData.button == PointerEventData.InputButton.Left)
+            {
+                leftAction?.Invoke();
+            }
+        }
+    }
+
     /// <summary>
     /// 是否按钮按下
     /// </summary>
@@ -264,6 +292,7 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
         isDown = true;
         isDownExit = false;
         downTime = 0;
+        pointerDownEventData = eventData;
         PlayButtonSound(ButtonSoundType.Down);
     }
     public override void OnPointerUp(PointerEventData eventData) {
@@ -276,6 +305,7 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
         fingerId = int.MinValue;
         isDown = false;
         isDownExit = true;
+        pointerDownEventData = null;
         PlayButtonSound(ButtonSoundType.Up);
     }
     public override void OnPointerExit(PointerEventData eventData) {
@@ -294,6 +324,7 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
         {
             return;
         }
+        pointerDownEventData = eventData;
         if (!isPress ) {
             clickTimes += 1;
         }

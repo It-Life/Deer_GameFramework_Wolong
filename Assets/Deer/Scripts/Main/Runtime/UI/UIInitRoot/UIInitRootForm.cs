@@ -47,6 +47,11 @@ namespace Main.Runtime.UI
 			m_Trans_LoadingForm.gameObject.SetActive(false);
 			m_Trans_UIDialogForm.gameObject.SetActive(false);
 		}
+		public void OnOpenLaunchView(bool isLandscape = true)
+		{
+			Logger.Debug<UIInitRootForm>("OnOpenLaunchView");
+			m_Trans_LaunchView.gameObject.SetActive(true);
+		}
 		public void OnCloseLaunchView()
 		{
 			m_Trans_LaunchView.gameObject.SetActive(false);

@@ -20,10 +20,20 @@ public class ResourcesArea
 {
     [Tooltip("资源管理类型")]
     [SerializeField] private string m_ResAdminType = "Default";
-    public string ResAdminType { get { return m_ResAdminType; } }
+
+    public string ResAdminType
+    {
+        get { return m_ResAdminType; }
+    }
+
     [Tooltip("资源管理编号")]
     [SerializeField] private string m_ResAdminCode = "0";
-    public string ResAdminCode { get { return m_ResAdminCode; } }
+
+    public string ResAdminCode
+    {
+        get { return m_ResAdminCode; }
+    }
+
     [Tooltip("是否Copy构建的ab资源到上传资源目录")]
     [SerializeField] private bool m_WhetherCopyResToCommitPath = false;
     public bool WhetherCopyResToCommitPath { get { return m_WhetherCopyResToCommitPath; } }

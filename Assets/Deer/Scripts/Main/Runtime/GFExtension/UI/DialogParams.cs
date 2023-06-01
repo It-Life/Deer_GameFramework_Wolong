@@ -6,17 +6,16 @@
 //修改时间:2022-06-17 16-58-34
 //版 本:0.1 
 // ===============================================
+
+using System;
 using GameFramework;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Main.Runtime 
 {
     /// <summary>
     /// 对话框显示数据。
     /// </summary>
-    public class DialogParams
+    public class DialogParams:IReference
     {
         /// <summary>
         /// 模式，即按钮数量。取值 1、2、3。
@@ -80,7 +79,7 @@ namespace Main.Runtime
         /// <summary>
         /// 确定按钮回调。
         /// </summary>
-        public GameFrameworkAction<object> OnClickConfirm
+        public Action<object> OnClickConfirm
         {
             get;
             set;
@@ -98,7 +97,7 @@ namespace Main.Runtime
         /// <summary>
         /// 取消按钮回调。
         /// </summary>
-        public GameFrameworkAction<object> OnClickCancel
+        public Action<object> OnClickCancel
         {
             get;
             set;
@@ -116,7 +115,7 @@ namespace Main.Runtime
         /// <summary>
         /// 其它按钮回调。
         /// </summary>
-        public GameFrameworkAction<object> OnClickOther
+        public Action<object> OnClickOther
         {
             get;
             set;
@@ -124,7 +123,7 @@ namespace Main.Runtime
         /// <summary>
         /// 背景按钮回调。
         /// </summary>
-        public GameFrameworkAction<object> OnClickBackground
+        public Action<object> OnClickBackground
         {
             get;
             set;
@@ -132,7 +131,7 @@ namespace Main.Runtime
         /// <summary>
         /// 背景按钮回调。
         /// </summary>
-        public GameFrameworkAction<object> OnClickClose
+        public Action<object> OnClickClose
         {
             get;
             set;
@@ -140,10 +139,29 @@ namespace Main.Runtime
         /// <summary>
         /// 用户自定义数据。
         /// </summary>
-        public string UserData
+        public object UserData
         {
             get;
             set;
+        }
+
+        public void Clear()
+        {
+            Mode = 0;
+            ShowCloseBtn = false;
+            SureNoCanCloseView = false;
+            BgCanCloseView = false;
+            Title = "";
+            Message = "";
+            ConfirmText = "";
+            OnClickConfirm = null;
+            CancelText = "";
+            OnClickCancel = null;
+            OtherText = "";
+            OnClickOther = null;
+            OnClickBackground = null;
+            OnClickClose = null;
+            UserData = "";
         }
     }
 }

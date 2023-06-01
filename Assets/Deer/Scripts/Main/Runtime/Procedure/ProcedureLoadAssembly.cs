@@ -48,11 +48,13 @@ namespace Main.Runtime.Procedure
         private bool m_LoadMetadataAssemblyWait;
         private Assembly m_MainLogicAssembly;
         private List<Assembly> m_HotfixAssemblys;
+        private Dictionary<string,byte[]> m_m_HotfixAssemblyBytes;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             m_LoadAssemblyComplete = false;
             m_HotfixAssemblys = new List<Assembly>();
+            m_m_HotfixAssemblyBytes = new Dictionary<string, byte[]>();
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 m_MainLogicAssembly = GetMainLogicAssembly();
@@ -65,7 +67,7 @@ namespace Main.Runtime.Procedure
                     foreach (var hotUpdateDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
                     {
                         var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath,DeerSettingsUtils.HotfixNode, $"{hotUpdateDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
-                        Log.Debug($"LoadAsset: [ {assetPath} ]");
+                        Logger.Debug<ProcedureLoadAssembly>($"LoadAsset: [ {assetPath} ]");
                         m_LoadAssetCount++;
                         GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
                     }
@@ -139,38 +141,52 @@ namespace Main.Runtime.Procedure
         private void LoadAssetSuccess(string assetName, object asset, float duration, object userData)
         {
             m_LoadAssetCount--;
-            Log.Debug($"LoadAssetSuccess, assetName: [ {assetName} ], duration: [ {duration} ], userData: [ {userData} ]");
+            Logger.Debug<ProcedureLoadAssembly>($"LoadAssetSuccess, assetName: [ {assetName} ], duration: [ {duration} ], userData: [ {userData} ]");
             var textAsset = asset as TextAsset;
             if (null == textAsset)
             {
-                Log.Debug($"Load text asset [ {assetName} ] failed.");
+                Logger.Debug<ProcedureLoadAssembly>($"Load text asset [ {assetName} ] failed.");
                 return;
             }
 
-            try
+            if (userData is string asmName)
             {
-                var asm = Assembly.Load(textAsset.bytes);
-                if (string.Compare(DeerSettingsUtils.HybridCLRCustomGlobalSettings.LogicMainDllName, userData as string, StringComparison.Ordinal) == 0)
-                    m_MainLogicAssembly = asm;
-
-                m_HotfixAssemblys.Add(asm);
-                Log.Debug($"Assembly [ {asm.GetName().Name} ] loaded");
-            }
-            catch (Exception e)
-            {
-                m_FailureAssetCount++;
-                Log.Fatal(e);
-                throw;
-            }
-            finally
-            {
-                m_LoadAssemblyComplete = m_LoadAssemblyWait && 0 == m_LoadAssetCount;
+                m_m_HotfixAssemblyBytes.Add(asmName,textAsset.bytes);
+                if (m_m_HotfixAssemblyBytes.Count == DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies.Count)
+                {
+                    try
+                    {
+                        for (int i = 0; i <  DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies.Count; i++)
+                        {
+                            string _asmName = DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies[i];
+                            if (m_m_HotfixAssemblyBytes.ContainsKey(_asmName))
+                            {
+                                var asm = Assembly.Load(m_m_HotfixAssemblyBytes[_asmName]);
+                                if (string.Compare(DeerSettingsUtils.HybridCLRCustomGlobalSettings.LogicMainDllName, _asmName, StringComparison.Ordinal) == 0)
+                                    m_MainLogicAssembly = asm;
+                                m_HotfixAssemblys.Add(asm);
+                                Logger.Debug<ProcedureLoadAssembly>($"Assembly [ {asm.GetName().Name} ] loaded");
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        m_FailureAssetCount++;
+                        Logger.Fatal<ProcedureLoadAssembly>(e.ToString());
+                        throw;
+                    }
+                    finally
+                    {
+                        m_LoadAssemblyComplete = true;
+                        //m_LoadAssemblyComplete = m_LoadAssemblyWait && 0 == m_LoadAssetCount;
+                    }
+                }
             }
         }
 
         private void LoadAssetFailure(string assetName, LoadResourceStatus status, string errorMessage, object userData)
         {
-            Log.Warning($"LoadAssetFailure, assetName: [ {assetName} ], status: [ {status} ], errorMessage: [ {errorMessage} ], userData: [ {userData} ]");
+            Logger.Error<ProcedureLoadAssembly>($"LoadAssetFailure, assetName: [ {assetName} ], status: [ {status} ], errorMessage: [ {errorMessage} ], userData: [ {userData} ]");
             m_LoadAssetCount--;
             m_FailureAssetCount++;
         }
@@ -179,19 +195,19 @@ namespace Main.Runtime.Procedure
         {
             if (null == m_MainLogicAssembly)
             {
-                Log.Fatal("Main logic assembly missing.");
+                Logger.Fatal<ProcedureLoadAssembly>("Main logic assembly missing.");
                 return;
             }
             var appType = m_MainLogicAssembly.GetType("AppMain");
             if (null == appType)
             {
-                Log.Fatal("Main logic type 'AppMain' missing.");
+                Logger.Fatal<ProcedureLoadAssembly>("Main logic type 'AppMain' missing.");
                 return;
             }
             var entryMethod = appType.GetMethod("Entrance");
             if (null == entryMethod)
             {
-                Log.Fatal("Main logic entry method 'Entrance' missing.");
+                Logger.Fatal<ProcedureLoadAssembly>("Main logic entry method 'Entrance' missing.");
                 return;
             }
             object[] objects = new object[] { new object[] { m_HotfixAssemblys } };
@@ -218,7 +234,7 @@ namespace Main.Runtime.Procedure
             foreach (var aotDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies)
             {
                 var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath,DeerSettingsUtils.AotNode, $"{aotDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
-                Log.Debug($"LoadMetadataAsset: [ {assetPath} ]");
+                Logger.Debug<ProcedureLoadAssembly>($"LoadMetadataAsset: [ {assetPath} ]");
                 m_LoadMetadataAssetCount++;
                 GameEntryMain.Resource.LoadAsset(assetPath, m_LoadMetadataAssetCallbacks, aotDllName);
             }

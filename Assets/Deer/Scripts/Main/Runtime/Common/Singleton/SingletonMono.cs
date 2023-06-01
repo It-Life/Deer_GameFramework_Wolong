@@ -1,11 +1,13 @@
 /* ================================================
  * Introduction：xxx 
- * Creator：XinDu 
+ * Creator：AlanDu 
  * CreationTime：2022-03-25 16-39-57
- * ChangeCreator：XinDu 
+ * ChangeCreator：AlanDu 
  * ChangeTime：2022-03-25 16-39-57
  * CreateVersion：0.1
  *  =============================================== */
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +19,7 @@ using UnityEngine;
 /// </summary>
 public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
 {
-    static T instance;
+    protected static T instance;
     public static T Instance
     {
         get
@@ -30,6 +32,22 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
                 DontDestroyOnLoad(gameObject);
             }
             return instance;
+        }
+    }
+
+    protected virtual void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this as T;
+        }
+    }
+    public virtual void Clear()
+    {
+        if (instance != null)
+        {
+            Destroy(instance.gameObject);
+            instance = null;
         }
     }
 }

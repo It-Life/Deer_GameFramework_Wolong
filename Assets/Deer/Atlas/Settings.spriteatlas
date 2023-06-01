@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Settings
+  serializedVersion: 2
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 0
+      maxTextureSize: 0
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 66097ae18bab5ec45ae77bddcc66a40b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0a04f24070c254c4984db94c18bb2483, type: 3}
+  - {fileID: 21300000, guid: ec9b88b0e66f84947979122ac3946632, type: 3}
+  - {fileID: 21300000, guid: 449fb521201c6d94280392e284f8ca5c, type: 3}
+  - {fileID: 21300000, guid: b7c5b5f3a199ebd4a86bcb8d9f4f7a48, type: 3}
+  - {fileID: 21300000, guid: ab645d36145d9f245925a95272fe06e6, type: 3}
+  - {fileID: 21300000, guid: 8e1bca5868e2e8448b5f3e516e8569c5, type: 3}
+  - {fileID: 21300000, guid: bf36aab813e90fe4c9bf7b64bb16ed99, type: 3}
+  - {fileID: 21300000, guid: 4694e759cf995894d8187715e6298f1d, type: 3}
+  - {fileID: 21300000, guid: 16f17c4cbd248ed4e8f63a3c24845fb5, type: 3}
+  - {fileID: 21300000, guid: ec707f5eab1dc8c46a3b85dd4bf73511, type: 3}
+  - {fileID: 21300000, guid: d535b0ee47587714d80719585fda5a52, type: 3}
+  - {fileID: 21300000, guid: f43aad5f638ba5246a8af2294cc70099, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - HubSettingsShadowAudio
+  - HubSettingsGraphics
+  - HubSettingsTexteGraphics
+  - HubSettingsShadowInputs
+  - HubSettingsShadowGraphics
+  - HubSettingsInputs
+  - HubSettingsTexteInputs
+  - HubSettingsGameOptions
+  - HubSettingsTexteGameOptions
+  - HubSettingsAudio
+  - HubSettingsTexteAudio
+  - HubSettingsShadowGameOptions
+  m_RenderDataMap: {}
+  m_Tag: Settings
+  m_IsVariant: 0
+  m_IsPlaceholder: 0

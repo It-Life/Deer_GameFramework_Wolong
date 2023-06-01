@@ -12,8 +12,8 @@ namespace UGFExtensions.Await
 {
     public static partial class AwaitableExtensions
     {
-        private static readonly Dictionary<int, TaskCompletionSource<UIForm>> s_UIFormTcs =
-            new Dictionary<int, TaskCompletionSource<UIForm>>();
+        private static readonly Dictionary<int, TaskCompletionSource<UnityGameFramework.Runtime.UIForm>> s_UIFormTcs =
+            new Dictionary<int, TaskCompletionSource<UnityGameFramework.Runtime.UIForm>>();
 
         private static readonly Dictionary<int, TaskCompletionSource<Entity>> s_EntityTcs =
             new Dictionary<int, TaskCompletionSource<Entity>>();
@@ -72,13 +72,13 @@ namespace UGFExtensions.Await
         /// <summary>
         /// 打开界面（可等待）
         /// </summary>
-        public static Task<UIForm> OpenUIFormAsync(this UIComponent uiComponent,string uiFormAssetName, string uiGroupName, int priority, bool pauseCoveredUIForm, object userData)
+        public static Task<UnityGameFramework.Runtime.UIForm> OpenUIFormAsync(this UIComponent uiComponent,string uiFormAssetName, string uiGroupName, int priority, bool pauseCoveredUIForm, object userData)
         {
 #if UNITY_EDITOR
             TipsSubscribeEvent();
 #endif
             int serialId = uiComponent.OpenUIForm(uiFormAssetName, uiGroupName, priority, pauseCoveredUIForm, userData);
-            var tcs = new TaskCompletionSource<UIForm>();
+            var tcs = new TaskCompletionSource<UnityGameFramework.Runtime.UIForm>();
             s_UIFormTcs.Add(serialId, tcs);
             return tcs.Task;
         }
@@ -86,7 +86,7 @@ namespace UGFExtensions.Await
         private static void OnOpenUIFormSuccess(object sender, GameEventArgs e)
         {
             OpenUIFormSuccessEventArgs ne = (OpenUIFormSuccessEventArgs)e;
-            s_UIFormTcs.TryGetValue(ne.UIForm.SerialId, out TaskCompletionSource<UIForm> tcs);
+            s_UIFormTcs.TryGetValue(ne.UIForm.SerialId, out TaskCompletionSource<UnityGameFramework.Runtime.UIForm> tcs);
             if (tcs != null)
             {
                 tcs.SetResult(ne.UIForm);
@@ -97,7 +97,7 @@ namespace UGFExtensions.Await
         private static void OnOpenUIFormFailure(object sender, GameEventArgs e)
         {
             OpenUIFormFailureEventArgs ne = (OpenUIFormFailureEventArgs)e;
-            s_UIFormTcs.TryGetValue(ne.SerialId, out TaskCompletionSource<UIForm> tcs);
+            s_UIFormTcs.TryGetValue(ne.SerialId, out TaskCompletionSource<UnityGameFramework.Runtime.UIForm> tcs);
             if (tcs != null)
             {
                 tcs.SetException(new GameFrameworkException(ne.ErrorMessage));

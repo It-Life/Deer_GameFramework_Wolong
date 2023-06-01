@@ -34,6 +34,7 @@ namespace Main.Runtime
                 return m_InstanceRoot;
             } 
         }
+        private static CanvasScaler m_CanvasScalar;
         private static IUIManager m_UIManager;
         public static IUIManager UIManager
         {
@@ -46,11 +47,50 @@ namespace Main.Runtime
                 return m_UIManager;
             } 
         }
+        private static Camera m_UICamera;
+        public static Camera UICamera 
+        { 
+            get
+            {
+                if (m_UICamera == null)
+                {
+                    m_UICamera = GameEntryMain.UI.transform.Find("UICamera").gameObject.GetComponent<Camera>();
+                }
+                return m_UICamera;
+            } 
+        }
+        
         private static string m_UIGroupHelperTypeName = "Main.Runtime.DeerUIGroupHelper";
         private static UIGroupHelperBase m_CustomUIGroupHelper = null;
         public static Transform GetInstanceRoot(this UIComponent uIComponent) 
         {
             return InstanceRoot;
+        }
+        public static Camera GetUICamera(this UIComponent uIComponent) 
+        {
+            return UICamera;
+        }
+        /// <summary>
+        /// 获取InstanceRoot上CanvasScalar组件
+        /// </summary>
+        /// <param name="uIComponent"></param>
+        /// <returns></returns>
+        public static CanvasScaler GetCanvasScalar(this UIComponent uIComponent)
+        {
+            if (m_CanvasScalar == null)
+            {
+                m_CanvasScalar = InstanceRoot.GetComponent<CanvasScaler>();
+            }
+            return m_CanvasScalar;
+        }
+        /// <summary>
+        /// 重新设置分辨率
+        /// </summary>
+        /// <param name="uIComponent"></param>
+        /// <param name="resolution"></param>
+        public static void ReloadCanvasScalar(this UIComponent uIComponent, Vector2 resolution)
+        {
+            uIComponent.GetCanvasScalar().referenceResolution = resolution;
         }
 
         public static bool AddUIGroup(this UIComponent uIComponent, string uiGroupName, int depth, bool isDefaultUIGroupHelper)
@@ -124,12 +164,6 @@ namespace Main.Runtime
             }
         }
 
-        public static void OpenNativeDialog(this UIComponent uiComponent, DialogParams dialogParams)
-        {
-            if (((ProcedureBase)GameEntryMain.Procedure.CurrentProcedure).UseNativeDialog)
-            {
-            }
-        }
         public static void OpenUIInitRootForm(this UIComponent uiComponent) 
         {
             var foregroundTrans = InstanceRoot.Find("UIInitRootForm");

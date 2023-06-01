@@ -394,10 +394,13 @@ namespace GameFramework.Sound
                 m_SoundAgentHelper.Reset();
             }
 
-            internal bool SetSoundAsset(object soundAsset)
+            internal bool SetSoundAsset(object soundAsset,bool isSetSoundAsset = true)
             {
                 Reset();
-                m_SoundAsset = soundAsset;
+                if (isSetSoundAsset)
+                {
+                    m_SoundAsset = soundAsset;
+                }
                 m_SetSoundAssetTime = DateTime.UtcNow;
                 return m_SoundAgentHelper.SetSoundAsset(soundAsset);
             }

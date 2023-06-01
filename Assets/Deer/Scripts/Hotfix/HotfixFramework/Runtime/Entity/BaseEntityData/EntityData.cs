@@ -36,6 +36,15 @@ public class EntityData
         set => m_AssetName = value;
     }
 
+    private string m_GroupName;
+    /// <summary>
+    /// 实体资源路径。
+    /// </summary>
+    public string GroupName
+    {
+        get => m_GroupName;
+        set => m_GroupName = value;
+    }
     private Vector3 m_Position;
 
     public Vector3 Position
@@ -54,10 +63,11 @@ public class EntityData
     
     public bool IsOwner = false;
     
-    public EntityData(int entityId, int typeId, string assetName)
+    public EntityData(int entityId, int typeId, string groupName,string assetName)
     {
         m_Id = entityId;
         m_TypeId = typeId;
+        m_GroupName = groupName;
         m_AssetName = assetName;
     }
 }

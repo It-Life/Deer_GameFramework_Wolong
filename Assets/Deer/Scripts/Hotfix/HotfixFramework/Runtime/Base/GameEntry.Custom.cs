@@ -17,7 +17,6 @@ using UnityGameFramework.Runtime;
 /// </summary>
 public partial class GameEntry
 {
-
     public static MessengerComponent Messenger => _messenger ??= UnityGameFramework.Runtime.GameEntry.GetComponent<MessengerComponent>();
     private static MessengerComponent _messenger;
 
@@ -44,7 +43,81 @@ public partial class GameEntry
 
     public static AssetObjectComponent AssetObject => _assetObject ??= UnityGameFramework.Runtime.GameEntry.GetComponent<AssetObjectComponent>();
     private static AssetObjectComponent _assetObject;
+    
+    public static FileDownloadComponent FileDownload => _fileDownload ??= UnityGameFramework.Runtime.GameEntry.GetComponent<FileDownloadComponent>();
+    private static FileDownloadComponent _fileDownload;
+    
+    public static CrossPlatformComponent CrossPlatform => _crossPlatform ??= UnityGameFramework.Runtime.GameEntry.GetComponent<CrossPlatformComponent>();
+    private static CrossPlatformComponent _crossPlatform;
+    /// <summary>
+    /// 获取热更程序集
+    /// </summary>
+    /// <returns></returns>
+    public static List<Assembly> GetHotfixAssemblys()
+    {
+        if (m_HotfixAssemblys is { Count: > 0 })
+        {
+            return m_HotfixAssemblys;
+        }
 
+        return null;
+    }
+
+    public static ProcedureBase GetProcedureByName(string procedureName)
+    {
+        if (GetHotfixAssemblys() == null ||  procedureName == null)
+        {
+            return null;
+        }
+        //创建新的流程 HotfixFramework.Runtime
+        string[] m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), GetHotfixAssemblys());
+        ProcedureBase procedures;
+        for (int i = 0; i < m_ProcedureTypeNames.Length; i++)
+        {
+            Type procedureType = GameFramework.Utility.Assembly.GetType(m_ProcedureTypeNames[i]);
+            if (procedureType == null)
+            {
+                Log.Error("Can not find procedure type '{0}'.", m_ProcedureTypeNames[i]);
+                continue;
+            }
+            procedures = (ProcedureBase)Activator.CreateInstance(procedureType);
+            if (procedures == null)
+            {
+                Log.Error("Can not create procedure instance '{0}'.", m_ProcedureTypeNames[i]);
+                continue;
+            }
+            if (procedureName == m_ProcedureTypeNames[i])
+            {
+                return procedures;
+            }
+        }
+        return null;
+    }
+    public static ProcedureBase[] GetProcedures()
+    {
+        if (GetHotfixAssemblys() == null)
+        {
+            return null;
+        }
+        //创建新的流程 HotfixFramework.Runtime
+        string[] m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), GetHotfixAssemblys());
+        ProcedureBase[] procedures = new ProcedureBase[m_ProcedureTypeNames.Length];
+        for (int i = 0; i < m_ProcedureTypeNames.Length; i++)
+        {
+            Type procedureType = GameFramework.Utility.Assembly.GetType(m_ProcedureTypeNames[i]);
+            if (procedureType == null)
+            {
+                Log.Error("Can not find procedure type '{0}'.", m_ProcedureTypeNames[i]);
+                continue;
+            }
+            procedures[i] = (ProcedureBase)Activator.CreateInstance(procedureType);
+            if (procedures[i] == null)
+            {
+                Log.Error("Can not create procedure instance '{0}'.", m_ProcedureTypeNames[i]);
+            }
+        }
+        return procedures;
+    }
 
     private static void InitCustomDebuggers()
     {
@@ -67,7 +140,7 @@ public partial class GameEntry
     /// </summary>
     private static void LoadCustomComponent() 
     {
-        GameEntryMain.Resource.LoadAsset("Assets/Deer/AssetsHotfix/GF/Customs.prefab", new LoadAssetCallbacks(LoadAssetSuccessCallback,LoadAssetFailureCallback));
+        GameEntryMain.Resource.LoadAsset("Assets/Deer/AssetsHotfix/BaseAssets/GF/Customs.prefab", new LoadAssetCallbacks(LoadAssetSuccessCallback,LoadAssetFailureCallback));
     }
 
     private static void LoadAssetFailureCallback(string assetName, LoadResourceStatus status, string errorMessage, object userData)
@@ -107,30 +180,13 @@ public partial class GameEntry
         Fsm.DestroyFsm<GameFramework.Procedure.IProcedureManager>();
         GameFramework.Procedure.IProcedureManager procedureManager = GameFramework.GameFrameworkEntry.GetModule<GameFramework.Procedure.IProcedureManager>();
         //创建新的流程 HotfixFramework.Runtime
-        string[] m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), m_HotfixAssemblys);
-        ProcedureBase[] procedures = new ProcedureBase[m_ProcedureTypeNames.Length];
-        for (int i = 0; i < m_ProcedureTypeNames.Length; i++)
+        ProcedureBase[] procedures = GetProcedures();
+        if (procedures == null)
         {
-            Type procedureType = GameFramework.Utility.Assembly.GetType(m_ProcedureTypeNames[i]);
-            if (procedureType == null)
-            {
-                Log.Error("Can not find procedure type '{0}'.", m_ProcedureTypeNames[i]);
-                return;
-            }
-
-            procedures[i] = (ProcedureBase)Activator.CreateInstance(procedureType);
-            if (procedures[i] == null)
-            {
-                Log.Error("Can not create procedure instance '{0}'.", m_ProcedureTypeNames[i]);
-                return;
-            }
-
-            if (m_EntranceProcedureTypeName == m_ProcedureTypeNames[i])
-            {
-                m_EntranceProcedureBase = procedures[i];
-            }
+            Log.Error("Procedures is invalid.");
+            return;
         }
-
+        m_EntranceProcedureBase = GetProcedureByName(m_EntranceProcedureTypeName);
         if (m_EntranceProcedureBase == null)
         {
             Log.Error("Entrance procedure is invalid.");
@@ -164,9 +220,9 @@ public partial class GameEntry
         transform.localScale = Vector3.one;
         uIManager.SetUIFormHelper(uiFormHelper);
 
-        foreach (var item in Constant.UI.UIGroups)
+        foreach (var item in ConstantUI.UIGroups)
         {
-            UI.AddUIGroup(item.Key, item.Value, false);
+            UI.AddUIGroup(item.Key.ToString(), item.Value, false);
         }
     }
     public static void Entrance(object[] objects) 

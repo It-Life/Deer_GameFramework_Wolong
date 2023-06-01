@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UseDeerExample: 0
   m_FrameworkGlobalSettings:
-    m_ScriptAuthor: Xiaohei.Wang(Wenhao)
+    m_ScriptAuthor: AlanDu
     m_ScriptVersion: 0.1
     m_AppStage: 1
     m_DefaultFont: wryhSDF
@@ -27,7 +27,6 @@ MonoBehaviour:
       m_InnerResourceSourceUrl: http://192.168.29.51:9091/frame
       m_ExtraResourceSourceUrl: http://43.142.25.208:18786
       m_FormalResourceSourceUrl: http://43.142.25.208:18786
-    m_AtlasFolder: Assets/Deer/Atlas
     m_ResourceVersionFileName: ResourceVersion.txt
     WindowsAppUrl: 
     MacOSAppUrl: 
@@ -52,7 +51,6 @@ MonoBehaviour:
     m_Gitee: 1
     HotUpdateAssemblies:
     - HotfixCommon.dll
-    - HotfixMain.dll
     - HotfixFramework.Runtime.dll
     - HotfixBusiness.dll
     AOTMetaAssemblies:
@@ -148,7 +146,7 @@ MonoBehaviour:
     - UnityEngine.VRModule.dll
     - UnityEngine.XRModule.dll
     - UnityGameFramework.Runtime.dll
-    LogicMainDllName: HotfixMain.dll
+    LogicMainDllName: HotfixFramework.Runtime.dll
     AssemblyTextAssetExtension: .bytes
     AssemblyTextAssetPath: Deer/AssetsHotfix/Assemblies
     HybridCLRGlobalSettings: Settings/HybridCLRGlobalSettings

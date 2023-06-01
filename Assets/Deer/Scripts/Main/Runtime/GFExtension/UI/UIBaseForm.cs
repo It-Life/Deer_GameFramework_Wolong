@@ -76,7 +76,7 @@ namespace Main.Runtime
 
             gameObject.GetOrAddComponent<GraphicRaycaster>();
 
-            Text[] texts = GetComponentsInChildren<Text>(true);
+            /*Text[] texts = GetComponentsInChildren<Text>(true);
             for (int i = 0; i < texts.Length; i++)
             {
                 texts[i].font = s_MainFont;
@@ -84,7 +84,7 @@ namespace Main.Runtime
                 {
                     texts[i].text = GameEntryMain.Localization.GetString(texts[i].text);
                 }
-            }
+            }*/
         }
 
         protected override void OnOpen(object userData)

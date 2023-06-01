@@ -12,4 +12,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b93107d7bc31740838a156d99e161c, type: 3}
   m_Name: ResourceRuleEditor
   m_EditorClassIdentifier: 
-  rules: []
+  rules:
+  - valid: 1
+    name: BaseAssets/Assemblies/AOT
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Assemblies/AOT
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/Assemblies/Hotfix
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Assemblies/Hotfix
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/GameConfigs
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/GameConfigs
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/GF
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/GF
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/Sounds/Music
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Sounds/Music
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/Sounds/UISound
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Sounds/UISound
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/UI
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UI
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/UITemplate
+    variant: 
+    fileSystem: 
+    groups: 
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UITemplate
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'

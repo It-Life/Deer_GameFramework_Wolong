@@ -54,8 +54,7 @@ public class HealthBar : MonoBehaviour {
 		this.curHealth = curHealth;
 		lastHealth = defaultHealth;
 		healthbarSize = healthSizeDelta;
-		m_SerialId = GameEntry.AssetObject.GenSerialId();
-		GameEntry.AssetObject.LoadGameObject(m_SerialId, strHealthPrefabPath, "HealthBar",delegate(bool result, object gameObject,int serialId) {
+		m_SerialId = GameEntry.AssetObject.LoadGameObject(strHealthPrefabPath, "HealthBar",delegate(bool result, object gameObject,int serialId) {
 			if (result)
 			{
 				HealthbarPrefab = ((GameObject)gameObject).transform.GetComponent<RectTransform>();
@@ -63,7 +62,7 @@ public class HealthBar : MonoBehaviour {
 				GameEntry.UI.GetHealthbarRoot().AddHealthBar(HealthbarPrefab);
 				HealthbarPrefab.position = new Vector2(-1000,-1000);
 				HealthbarPrefab.rotation = Quaternion.identity;
-				HealthbarPrefab.name = $"HealthBar - {m_SerialId}";
+				HealthbarPrefab.name = $"HealthBar - {serialId}";
 				HealthbarPrefab.SetParent(healthbarRoot, false);
 				canvasGroup = HealthbarPrefab.GetComponent<CanvasGroup>();
 

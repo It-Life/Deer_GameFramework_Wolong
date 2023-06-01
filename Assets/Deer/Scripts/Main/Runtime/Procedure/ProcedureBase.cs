@@ -7,6 +7,7 @@
 //版 本:0.1 
 // ===============================================
 using System;
+using Deer;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
 namespace Main.Runtime.Procedure
@@ -17,7 +18,7 @@ namespace Main.Runtime.Procedure
         {
             get { return false; }
         }
-
+        
         protected ProcedureOwner m_ProcedureOwner;
         public virtual ProcedureOwner ProcedureOwner => m_ProcedureOwner;
 
@@ -30,6 +31,36 @@ namespace Main.Runtime.Procedure
         {
             base.OnEnter(procedureOwner);
             m_ProcedureOwner = procedureOwner;
+        }
+
+        protected void UnloadAllResources()
+        {
+            UnloadAllScene();
+            GameEntryMain.Entity.HideAllLoadedEntities();
+            GameEntryMain.Entity.HideAllLoadingEntities();
+            GameEntryMain.ObjectPool.ReleaseAllUnused();
+            GameEntryMain.Resource.ForceUnloadUnusedAssets(true);
+        }
+
+        protected void UnloadAllScene() 
+        {
+            string[] loadedSceneAssetNames = GameEntryMain.Scene.GetLoadedSceneAssetNames();
+            string[] unloadScenes = GameEntryMain.Scene.GetUnloadingSceneAssetNames();
+            foreach (string sceneAssetName in loadedSceneAssetNames)
+            {
+                bool isFind = false;
+                foreach (var unloadScene in unloadScenes)
+                {
+                    if (sceneAssetName == unloadScene)
+                    {
+                        isFind = true;
+                    }
+                }
+                if (!isFind)
+                {
+                    GameEntryMain.Scene.UnloadScene(sceneAssetName);
+                }
+            }
         }
     }
 }

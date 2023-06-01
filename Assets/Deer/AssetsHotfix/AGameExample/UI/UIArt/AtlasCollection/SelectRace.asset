@@ -1,0 +1,243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d326122dba59474fa04d550e63ada33b, type: 3}
+  m_Name: SelectRace
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 0dc3044ef8e0b01469abafef25bf5783, type: 3}
+    - {fileID: 21300000, guid: 3a311997e25dafd49b394538280309c0, type: 3}
+    - {fileID: 21300000, guid: 0b8b597955a2b504eabca11b09872c9c, type: 3}
+    - {fileID: 21300000, guid: c024f83a935575c43bae2f966232ecbe, type: 3}
+    - {fileID: 21300000, guid: a03de0284eee2f541b5849a18c410e7c, type: 3}
+    - {fileID: 21300000, guid: 47022650e9d7d4b43adc4a8597128d92, type: 3}
+    - {fileID: 21300000, guid: 7cde59df6da47304bb92eeb070ecb061, type: 3}
+    - {fileID: 21300000, guid: b26ac10f2f1104049adae725a5e21d6e, type: 3}
+    - {fileID: 21300000, guid: 3ca4a3018e19102449398f585286054f, type: 3}
+    - {fileID: 21300000, guid: 454cb32e9bdd3444e97d1c0099d71310, type: 3}
+    - {fileID: 21300000, guid: 4593cd7ae1ee77e459abf7d8a288ea6b, type: 3}
+    - {fileID: 21300000, guid: e21bdb3c9146c2a44bd6a6df1f5e0721, type: 3}
+    - {fileID: 21300000, guid: 50d34de33b084324aa7de571819fe3cd, type: 3}
+    - {fileID: 21300000, guid: b72b1111775d1844f98f41f3723b7bbd, type: 3}
+    - {fileID: 102900000, guid: 56e8c210bdf3e0d49a26879a32107688, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: m_Sprites
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 14
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/BlankSlot.png
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/InfosBoard01.png
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceFrame.png
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceIcon.png
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceLock.png
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceNameBoard.png
+    - Name: $v
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRacePointsCenter.png
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRacePointsLeft.png
+    - Name: $v
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceRace02.png
+    - Name: $v
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceRace03.png
+    - Name: $v
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceRace04.png
+    - Name: $v
+      Entry: 10
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceRace05.png
+    - Name: $v
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/SelectRaceRace06.png
+    - Name: $v
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectRace/Tuto01Thumb.png
+    - Name: $v
+      Entry: 10
+      Data: 13
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_Objects
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[UnityEngine.Object, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 14
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  m_AtlasFolder: Assets/Deer/Atlas

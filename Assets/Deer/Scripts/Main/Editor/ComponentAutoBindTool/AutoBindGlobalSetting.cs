@@ -120,9 +120,10 @@ public class AutoBindGlobalSetting : ScriptableObject
             bool isFindComponent = false;
             foreach (var autoBindRulePrefix in _PrefixesDict)
             {
-                if (autoBindRulePrefix.Prefixe.Equals(str))
+                if (autoBindRulePrefix.Prefixe.ToLower().Equals(str.ToLower()))
                 {
                     comName = autoBindRulePrefix.FullName;
+                    str = char.ToUpper(str[0]) + str.Substring(1);
                     filedNames.Add($"{str}_{filedName}");
                     componentTypeNames.Add(comName);
                     isFind = true;

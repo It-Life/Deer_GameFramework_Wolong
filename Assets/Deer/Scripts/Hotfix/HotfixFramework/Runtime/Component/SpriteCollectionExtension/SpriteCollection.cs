@@ -35,6 +35,8 @@ namespace UGFExtensions.SpriteCollection
         }
         public Dictionary<string, Sprite> GetSprites()
             { return m_Sprites; }
+
+#region UNITY_EDITOR
 #if UNITY_EDITOR
         protected override void OnBeforeSerialize()
         {
@@ -122,7 +124,10 @@ namespace UGFExtensions.SpriteCollection
 
             //创建图集
             string atlas = Utility.Path.GetRegularPath(Path.Combine(m_AtlasFolder, this.name + ".spriteatlas"));
-
+            if (!Directory.Exists(m_AtlasFolder))
+            {
+                Directory.CreateDirectory(m_AtlasFolder);
+            }
             if (File.Exists(atlas))
             {
                 bool result = EditorUtility.DisplayDialog("提示", $"存在同名图集,是否覆盖？", "确定", "取消");
@@ -238,6 +243,7 @@ namespace UGFExtensions.SpriteCollection
             return objects.OfType<Sprite>().ToArray();
         }
 #endif
+#endregion
     }
 #else
     public class SpriteCollection : ScriptableObject
@@ -253,6 +259,7 @@ namespace UGFExtensions.SpriteCollection
         { 
             return m_Sprites; 
         }
+#region UNITY_EDITOR
 #if UNITY_EDITOR
         [SerializeField] private List<Object> m_Objects;
 
@@ -404,6 +411,7 @@ namespace UGFExtensions.SpriteCollection
             return objects.OfType<Sprite>().ToArray();
         }
 #endif
+#endregion
     }
 #endif
 }

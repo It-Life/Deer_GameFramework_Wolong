@@ -1,0 +1,230 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d326122dba59474fa04d550e63ada33b, type: 3}
+  m_Name: Pause
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 8af1a88e7adc0094a934e51de30fa37e, type: 3}
+    - {fileID: 21300000, guid: 176e05bf53f9343498681bc82e960b91, type: 3}
+    - {fileID: 21300000, guid: 4870b6bf16d301540873459d2a9649b3, type: 3}
+    - {fileID: 21300000, guid: 9120db105c31aff4b8d2dc4f9c4bae59, type: 3}
+    - {fileID: 21300000, guid: fd6cd73479ccf7b42a8c407f626430a7, type: 3}
+    - {fileID: 21300000, guid: 4a797b0c36b7d85479b8c97d14eed930, type: 3}
+    - {fileID: 21300000, guid: 7ec84ca7dcd32bb47a238c8773c5fa05, type: 3}
+    - {fileID: 21300000, guid: 9cfd94a346ea1b943ab7a692a135d4a7, type: 3}
+    - {fileID: 21300000, guid: 6f3bb198973abdf47835520d6046d6d8, type: 3}
+    - {fileID: 21300000, guid: 3d333cd0329fd1a49876030a56423ec7, type: 3}
+    - {fileID: 21300000, guid: 30f340fc58c456345bca27940e211c00, type: 3}
+    - {fileID: 21300000, guid: 997ea98864b26f24b9fb3ccb3009dcd7, type: 3}
+    - {fileID: 21300000, guid: dba8a2427fd6aa041bbd4d48afae9cc6, type: 3}
+    - {fileID: 102900000, guid: 8fae23475361bcb439daaed2a4b52233, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: m_Sprites
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 13
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/gamePlay.png
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseBoardQuit.png
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseBoardRestart.png
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseBoardResume.png
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseBoardSettings.png
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseBoardShadow.png
+    - Name: $v
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseIconQuit.png
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseIconRestart.png
+    - Name: $v
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseIconResume.png
+    - Name: $v
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseIconSettings.png
+    - Name: $v
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseTextQuit.png
+    - Name: $v
+      Entry: 10
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseTextRestartResume.png
+    - Name: $v
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Pause/PauseTextSettings.png
+    - Name: $v
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_Objects
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[UnityEngine.Object, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 13
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  m_AtlasFolder: Assets/Deer/Atlas

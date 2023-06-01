@@ -17,7 +17,6 @@ public sealed class Tables
     public Common.TbGlobalConfig TbGlobalConfig {get; private set; }
     public Error.TbErrorInfo TbErrorInfo {get; private set; }
     public Error.TbCodeInfo TbCodeInfo {get; private set; }
-    public Deer.TbUIForm_Config TbUIForm_Config {get; private set; }
     public Deer.TbSounds_Config TbSounds_Config {get; private set; }
     public Deer.TbLanguage_Config TbLanguage_Config {get; private set; }
     public Deer.TbUIData_GameMode TbUIData_GameMode {get; private set; }
@@ -38,8 +37,6 @@ public sealed class Tables
         tables.Add("Error.TbErrorInfo", TbErrorInfo);
         TbCodeInfo = new Error.TbCodeInfo(await loader("error_tbcodeinfo")); 
         tables.Add("Error.TbCodeInfo", TbCodeInfo);
-        TbUIForm_Config = new Deer.TbUIForm_Config(await loader("deer_tbuiform_config")); 
-        tables.Add("Deer.TbUIForm_Config", TbUIForm_Config);
         TbSounds_Config = new Deer.TbSounds_Config(await loader("deer_tbsounds_config")); 
         tables.Add("Deer.TbSounds_Config", TbSounds_Config);
         TbLanguage_Config = new Deer.TbLanguage_Config(await loader("deer_tblanguage_config")); 
@@ -60,7 +57,6 @@ public sealed class Tables
         TbGlobalConfig.Resolve(tables); 
         TbErrorInfo.Resolve(tables); 
         TbCodeInfo.Resolve(tables); 
-        TbUIForm_Config.Resolve(tables); 
         TbSounds_Config.Resolve(tables); 
         TbLanguage_Config.Resolve(tables); 
         TbUIData_GameMode.Resolve(tables); 
@@ -76,7 +72,6 @@ public sealed class Tables
         TbGlobalConfig.TranslateText(translator); 
         TbErrorInfo.TranslateText(translator); 
         TbCodeInfo.TranslateText(translator); 
-        TbUIForm_Config.TranslateText(translator); 
         TbSounds_Config.TranslateText(translator); 
         TbLanguage_Config.TranslateText(translator); 
         TbUIData_GameMode.TranslateText(translator); 

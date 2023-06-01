@@ -1,10 +1,10 @@
 ﻿// ================================================
 //描 述 :  
-//作 者 : 杜鑫 
-//创建时间 : 2021-09-04 20-37-10  
-//修改作者 : 杜鑫 
-//修改时间 : 2021-09-04 20-37-10  
-//版 本 : 0.1 
+//作 者 :杜鑫 
+//创建时间 : 2021-09-04 20-37-10
+//修改作者 :杜鑫 
+//修改时间 : 2023-05-30 20-37-10
+//版 本 :0.1 
 // ===============================================
 using GameFramework;
 using GameFramework.Network;
@@ -18,7 +18,7 @@ using UnityGameFramework.Runtime;
 
 [DisallowMultipleComponent]
 [AddComponentMenu("Deer/NetConnector")]
-public class NetConnectorComponent : GameFrameworkComponent
+public partial class NetConnectorComponent : GameFrameworkComponent
 {
 
     private Dictionary<string, INetworkChannel> m_ListNetworkChannel = new Dictionary<string, INetworkChannel>();

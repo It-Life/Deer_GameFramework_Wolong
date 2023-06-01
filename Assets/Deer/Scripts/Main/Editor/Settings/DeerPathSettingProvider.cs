@@ -29,6 +29,7 @@ namespace Deer.Editor
         private SerializedProperty m_SublimePath;
         private SerializedProperty m_NotepadPath;
         private SerializedProperty m_AtlasFolder;
+        private SerializedProperty m_ResourceCollectionPath;
         private SerializedObject m_CustomSettings;
 
         GUIStyle UIStyle;
@@ -50,6 +51,7 @@ namespace Deer.Editor
             m_SublimePath = m_CustomSettings.FindProperty("m_SublimePath");
             m_NotepadPath = m_CustomSettings.FindProperty("m_NotepadPath");
             m_AtlasFolder = m_CustomSettings.FindProperty("m_AtlasFolder");
+            m_ResourceCollectionPath = m_CustomSettings.FindProperty("m_ResourceCollectionPath");
         }
 
         public override void OnGUI(string searchContext)
@@ -62,6 +64,7 @@ namespace Deer.Editor
             SelectionEXEPath("Sublime文件路径：", "选择Sublime路径", new string[] { "sublime_text", "subl" }, m_SublimePath);
             SelectionEXEPath("Notepad++文件路径：", "选择Notepad++路径", new string[] { "notepad" }, m_NotepadPath);
             SelectionFolderPath("SpriteCollection 图集保存路径：", "选择图集保存路径", m_AtlasFolder);
+            EditorGUILayout.PropertyField(m_ResourceCollectionPath);
 
             if (!changeCheckScope.changed) return;
             m_CustomSettings.ApplyModifiedPropertiesWithoutUndo();

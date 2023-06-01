@@ -24,7 +24,7 @@ namespace HotfixBusiness.Procedure
         {
             base.OnEnter(procedureOwner);
 
-            Debug.Log("tackor HotFix ProcedurePreload OnEnter");
+            Logger.Debug("tackor HotFix ProcedurePreload OnEnter");
 
             m_procedureOwner = procedureOwner;
             //初始化所有角色信息管理器
@@ -39,11 +39,7 @@ namespace HotfixBusiness.Procedure
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             if (IsPreloadFinish())
             {
-#if UNITY_ENABLE_DEER_EXAMPLE
-                ChangeState<ProcedureMenu>(procedureOwner);
-#else
-                ChangeState<ProcedureLogin>(procedureOwner);
-#endif
+                ChangeState<ProcedureMainMenu>(procedureOwner);
             }
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

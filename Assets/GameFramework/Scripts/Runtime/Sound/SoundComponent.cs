@@ -487,6 +487,11 @@ namespace UnityGameFramework.Runtime
             return m_SoundManager.PlaySound(soundAssetName, soundGroupName, priority, playSoundParams, PlaySoundInfo.Create(null, worldPosition, userData));
         }
 
+        public int PlaySound(string soundAssetName, string soundGroupName, PlaySoundParams playSoundParams, object userData,OnLoadAudioClip onLoadAudioClip)
+        {
+            return m_SoundManager.PlaySoundLocalFile(soundAssetName, soundGroupName, playSoundParams, PlaySoundInfo.Create(null, Vector3.zero, userData),onLoadAudioClip);
+        }
+        
         /// <summary>
         /// 停止播放声音。
         /// </summary>

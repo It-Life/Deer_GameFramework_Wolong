@@ -32,7 +32,7 @@ namespace UnityGameFramework.Runtime
         /// <summary>
         /// 默认调试器窗口缩放比例。
         /// </summary>
-        internal static readonly float DefaultWindowScale = 1f;
+        internal static readonly float DefaultWindowScale = 2f;
 
         private static readonly TextEditor s_TextEditor = new TextEditor();
         private IDebuggerManager m_DebuggerManager = null;
