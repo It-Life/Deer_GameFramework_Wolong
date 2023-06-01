@@ -3,7 +3,7 @@ using Lean.Touch;
 using System.Collections.Generic;
 using UnityEngine.U2D;
 
-[RequireComponent(typeof(Camera))]
+//[RequireComponent(typeof(Camera))]
 public class OrbitCamera : MonoBehaviour {
 
 	public Transform Focus = default;

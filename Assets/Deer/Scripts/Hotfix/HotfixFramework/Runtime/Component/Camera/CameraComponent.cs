@@ -48,10 +48,16 @@ public partial class CameraComponent : GameFrameworkComponent
         m_MainCamera = transform.Find("MainCamera").GetComponent<Camera>();
         m_MainCameraUniData = m_MainCamera.GetComponent<UniversalAdditionalCameraData>();
         m_CurUseCamera = m_MainCamera;
-        OnFreeLookAwark();
-        
+        OnFreeLookAwake();
+        OnOrbitAwake();
         OnUICameraAwark();
-        CinemachineCore.GetInputAxis = GetAxisCustom;
+        //CinemachineCore.GetInputAxis = GetAxisCustom;
+    }
+
+    public void OpenVCamera(int type)
+    {
+        FollowFreeIsShow(type == 1);
+        OrbitIsShow(type == 2);
     }
 
     public float GetAxisCustom(string axisName)
@@ -80,34 +86,4 @@ public partial class CameraComponent : GameFrameworkComponent
         }
         return 0;
     }
-
-
-/*    #region 小地图相机管理
-    /// <summary>
-    /// 设置小地图跟随主角
-    /// </summary>
-    /// <param name="transform"></param>
-    public void SetMiniMapFollowTarget(Transform transform)
-    {
-        m_MiniMapFollowTarget = transform;
-        m_FollowMiniMapCamera.transform.position = transform.position + new Vector3(0, 10, 0);
-        m_FollowMiniMapCamera.transform.LookAt(transform);
-        m_OffsetPosition = m_FollowMiniMapCamera.transform.position - transform.position;
-    }
-    /// <summary>
-    /// 小地图变焦放大
-    /// </summary>
-    public void MiniMapZoomIn()
-    {
-        m_FollowMiniMapCamera.fieldOfView += 40;
-    }
-    /// <summary>
-    /// 小地图变焦缩小
-    /// </summary>
-    public void MiniMapZoomOut()
-    {
-        m_FollowMiniMapCamera.fieldOfView -= 40;
-    }
-    #endregion*/
-
 }

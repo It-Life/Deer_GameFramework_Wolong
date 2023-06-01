@@ -35,6 +35,9 @@ public class AutoBindGlobalSetting : ScriptableObject
     //[FolderPath]
     //[LabelText("默认挂载代码保存路径")]
     private string m_MountCodePath;
+    
+    [SerializeField] [LabelText("默认挂载代码搜寻程序集")]
+    private List<string> m_MountScriptListAssemblys;
 
     [SerializeField] [LabelText("组件的缩略名字映射")]
     private List<AutoBindRulePrefixe> m_RulePrefixes= new List<AutoBindRulePrefixe>()
@@ -97,6 +100,14 @@ public class AutoBindGlobalSetting : ScriptableObject
         get
         {
             return m_ComCodePath;
+        }
+    }
+    
+    public List<string> MountScriptListAssemblys
+    {
+        get
+        {
+            return m_MountScriptListAssemblys;
         }
     }
     

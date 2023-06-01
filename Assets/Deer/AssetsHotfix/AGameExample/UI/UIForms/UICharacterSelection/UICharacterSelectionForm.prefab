@@ -1236,7 +1236,8 @@ MonoBehaviour:
   m_ButtonUISounds:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
-    ButtonUISoundName: ui_click_button
+    ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -2110,7 +2111,8 @@ MonoBehaviour:
   m_ButtonUISounds:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
-    ButtonUISoundName: ui_click_button
+    ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -2265,7 +2267,8 @@ MonoBehaviour:
   m_ButtonUISounds:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
-    ButtonUISoundName: ui_click_button
+    ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -4143,7 +4146,8 @@ MonoBehaviour:
   m_ButtonUISounds:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
-    ButtonUISoundName: ui_click_button
+    ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -4680,7 +4684,8 @@ MonoBehaviour:
   m_ButtonUISounds:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
-    ButtonUISoundName: ui_click_button
+    ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1

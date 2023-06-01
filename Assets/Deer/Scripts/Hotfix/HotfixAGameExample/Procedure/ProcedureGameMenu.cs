@@ -41,12 +41,11 @@ namespace HotfixAGameExample.Procedure
 
     public void PlayGame(int raceId, Vector3 playerPos)
     {
-        GameEntry.Setting.SetInt("raceId", raceId);
         Logger.Debug<ProcedureGameMenu>($"tackor : {raceId} {playerPos}");
-
         m_ProcedureOwner.SetData<VarString>("nextProcedure", Constant.Procedure.ProcedureGamePlay);
         UIData_Race tmpRaceData = GameEntry.Config.Tables.TbUIData_Race.Get(raceId);
-		GameEntry.Setting.SetFloat("NextRaceIndex",tmpRaceData.RaceIndex);
+        GameEntry.Setting.SetInt("RaceId",raceId);
+        GameEntry.Setting.SetFloat("NextRaceIndex",tmpRaceData.RaceIndex);
         ChangeState<ProcedureChangeScene>(m_ProcedureOwner);
 	}
 

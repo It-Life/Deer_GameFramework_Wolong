@@ -18,6 +18,7 @@ public sealed partial class Sounds_Config :  Bright.Config.BeanBase
     public Sounds_Config(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
+        GroupName = _buf.ReadString();
         SoundName = _buf.ReadString();
         SoundPriority = _buf.ReadString();
         SoundVolume = _buf.ReadFloat();
@@ -36,6 +37,10 @@ public sealed partial class Sounds_Config :  Bright.Config.BeanBase
     /// 唯一标识
     /// </summary>
     public int Id { get; private set; }
+    /// <summary>
+    /// 音效资源组
+    /// </summary>
+    public string GroupName { get; private set; }
     /// <summary>
     /// 音效名字
     /// </summary>
@@ -77,6 +82,7 @@ public sealed partial class Sounds_Config :  Bright.Config.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
+        + "GroupName:" + GroupName + ","
         + "SoundName:" + SoundName + ","
         + "SoundPriority:" + SoundPriority + ","
         + "SoundVolume:" + SoundVolume + ","

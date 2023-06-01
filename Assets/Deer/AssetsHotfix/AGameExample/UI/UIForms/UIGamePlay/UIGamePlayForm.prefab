@@ -2465,7 +2465,8 @@ MonoBehaviour:
   m_ButtonUISounds:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
-    ButtonUISoundName: ui_click_button
+    ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -2476,6 +2477,24 @@ MonoBehaviour:
   m_ResponseOnceByPress: 0
   m_LongPressDurationTime: 1
   onPress:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClickLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClickRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressRight:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1915686362128302278
@@ -3618,7 +3637,8 @@ MonoBehaviour:
   m_ButtonUISounds:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
-    ButtonUISoundName: ui_click_button
+    ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -3629,6 +3649,24 @@ MonoBehaviour:
   m_ResponseOnceByPress: 0
   m_LongPressDurationTime: 1
   onPress:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClickLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClickRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressRight:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2894629327707570434
@@ -4238,7 +4276,8 @@ MonoBehaviour:
   m_ButtonUISounds:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
-    ButtonUISoundName: ui_click_button
+    ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -4249,6 +4288,24 @@ MonoBehaviour:
   m_ResponseOnceByPress: 0
   m_LongPressDurationTime: 1
   onPress:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClickLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClickRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressRight:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &3211179353437144179

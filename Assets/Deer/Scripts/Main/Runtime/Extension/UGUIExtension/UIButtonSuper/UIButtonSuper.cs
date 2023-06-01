@@ -86,6 +86,7 @@ public class ButtonSoundCell
     public ButtonSoundAssetType ButtonSoundAssetType = ButtonSoundAssetType.Hotfix;
     public ButtonSoundType ButtonSoundType = ButtonSoundType.Click;
     public string ButtonUISoundName = "ui_click_button";
+    public string ButtonUISoundAssetGroup = "BaseAssets";
 }
 
 public delegate void ButtonBeginDragCallback(PointerEventData eventData);
@@ -261,11 +262,11 @@ public class UIButtonSuper : Button, IBeginDragHandler,IDragHandler,IEndDragHand
         if (buttonSound.ButtonSoundAssetType == ButtonSoundAssetType.Packed)
         {
             //UISound/ui_click button
-            soundPath = $"Assets/Deer/AssetsPacked/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.wav";
+            soundPath = $"Assets/Deer/AssetsPacked/{buttonSound.ButtonUISoundAssetGroup}/Sounds/{soundGroup}/{buttonSound.ButtonUISoundName}.wav";
         }
         else
         {
-            soundPath = $"Assets/Deer/AssetsHotfix/Sound/{soundGroup}/{buttonSound.ButtonUISoundName}.wav";
+            soundPath = $"Assets/Deer/AssetsHotfix/{buttonSound.ButtonUISoundAssetGroup}/Sounds/{soundGroup}/{buttonSound.ButtonUISoundName}.wav";
         }
 
         int audioId = GameEntryMain.Sound.PlaySound(soundPath, soundGroup, 50, playSoundParams);

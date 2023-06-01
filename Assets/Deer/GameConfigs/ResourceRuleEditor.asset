@@ -17,7 +17,7 @@ MonoBehaviour:
     name: BaseAssets/Assemblies/AOT
     variant: 
     fileSystem: 
-    groups: 
+    groups: BaseAssets
     assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Assemblies/AOT
     loadType: 0
     packed: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
     name: BaseAssets/Assemblies/Hotfix
     variant: 
     fileSystem: 
-    groups: 
+    groups: BaseAssets
     assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Assemblies/Hotfix
     loadType: 0
     packed: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     name: BaseAssets/GameConfigs
     variant: 
     fileSystem: 
-    groups: 
+    groups: BaseAssets
     assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/GameConfigs
     loadType: 0
     packed: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     name: BaseAssets/GF
     variant: 
     fileSystem: 
-    groups: 
+    groups: BaseAssets
     assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/GF
     loadType: 0
     packed: 0
@@ -57,7 +57,7 @@ MonoBehaviour:
     name: BaseAssets/Sounds/Music
     variant: 
     fileSystem: 
-    groups: 
+    groups: BaseAssets
     assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Sounds/Music
     loadType: 0
     packed: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
     name: BaseAssets/Sounds/UISound
     variant: 
     fileSystem: 
-    groups: 
+    groups: BaseAssets
     assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Sounds/UISound
     loadType: 0
     packed: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
     name: BaseAssets/UI
     variant: 
     fileSystem: 
-    groups: 
+    groups: BaseAssets
     assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UI
     loadType: 0
     packed: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
     name: BaseAssets/UITemplate
     variant: 
     fileSystem: 
-    groups: 
+    groups: BaseAssets
     assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UITemplate
     loadType: 0
     packed: 0

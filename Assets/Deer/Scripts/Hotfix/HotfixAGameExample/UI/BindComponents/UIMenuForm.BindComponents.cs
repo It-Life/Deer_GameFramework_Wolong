@@ -12,6 +12,7 @@ namespace HotfixBusiness.UI
 		private UIButtonSuper m_Btn_Leaderboard;
 		private UIButtonSuper m_Btn_Credits;
 		private UIButtonSuper m_Btn_Exit;
+		private UIButtonSuper m_Btn_Back;
 
 		private void GetBindComponents(GameObject go)
 		{
@@ -24,6 +25,7 @@ namespace HotfixBusiness.UI
 			m_Btn_Leaderboard = autoBindTool.GetBindComponent<UIButtonSuper>(4);
 			m_Btn_Credits = autoBindTool.GetBindComponent<UIButtonSuper>(5);
 			m_Btn_Exit = autoBindTool.GetBindComponent<UIButtonSuper>(6);
+			m_Btn_Back = autoBindTool.GetBindComponent<UIButtonSuper>(7);
 		}
 	}
 }

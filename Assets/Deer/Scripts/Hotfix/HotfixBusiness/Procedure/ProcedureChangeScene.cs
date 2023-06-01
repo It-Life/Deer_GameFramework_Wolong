@@ -36,7 +36,7 @@ namespace HotfixBusiness.Procedure
             GameEntry.Event.Subscribe(LoadSceneDependencyAssetEventArgs.EventId, OnHandleLoadSceneDependencyAsset);
 
 			//m_UIFormSerialId = GameEntry.UI.OpenUIForm(ConstantUI.EUIFormId.UILoadingSceneForm, this);
-            Debug.Log($"tackor ProcedureChangeScene OnEnter {m_UIFormSerialId}");
+            Logger.Debug<ProcedureChangeScene>($"tackor ProcedureChangeScene OnEnter {m_UIFormSerialId}");
 
 		}
 
@@ -59,10 +59,10 @@ namespace HotfixBusiness.Procedure
             GameEntry.Event.Unsubscribe(LoadSceneUpdateEventArgs.EventId, OnHandleLoadSceneUpdate);
             GameEntry.Event.Unsubscribe(LoadSceneDependencyAssetEventArgs.EventId, OnHandleLoadSceneDependencyAsset);
 
-			Debug.Log($"tackor ProcedureChangeScene OnLeave {m_UIFormSerialId}");
+            Logger.Debug<ProcedureChangeScene>($"tackor ProcedureChangeScene OnLeave {m_UIFormSerialId}");
 			if (m_UIFormSerialId != 0 && GameEntry.UI.HasUIForm((int)m_UIFormSerialId))
             {
-                Debug.Log("tackor Clost UI");
+                Logger.Debug<ProcedureChangeScene>("tackor Clost UI");
 
                 GameEntry.UI.CloseUIForm((int)m_UIFormSerialId);
             }
@@ -72,10 +72,7 @@ namespace HotfixBusiness.Procedure
 
 		void OnStartLoadScene() 
         {
-            UnloadAllScene();
-            GameEntry.Entity.HideAllLoadedEntities();
-            GameEntry.ObjectPool.ReleaseAllUnused();
-            GameEntry.Resource.ForceUnloadUnusedAssets(true);
+            UnloadAllResources();
             bool isJumpScene = Constant.Procedure.IsJumpScene(m_NextProcedure);
             if (isJumpScene)
             {

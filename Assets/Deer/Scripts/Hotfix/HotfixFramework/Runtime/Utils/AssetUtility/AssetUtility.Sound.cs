@@ -5,21 +5,17 @@ public static partial class AssetUtility
 {
     public static class Sound
     {
-        public static string GetMusicAsset(string assetName)
+        public static string GetMusicAsset(string groupName,string assetName)
         {
-            return Utility.Text.Format("Assets/Deer/AssetsHotfix/Sound/{0}.mp3", assetName);
+            return $"Assets/Deer/AssetsHotfix/{groupName}/Sounds/{assetName}.mp3";
         }
-        public static string GetUISoundAsset(string assetName)
+        public static string GetUISoundAsset(string groupName,string assetName)
         {
-            return Utility.Text.Format("Assets/Deer/AssetsHotfix/Sound/{0}.mp3", assetName);
+            return $"Assets/Deer/AssetsHotfix/{groupName}/Sounds/{assetName}.wav";
         }
-        public static string GetCommonSoundAsset(string assetName)
+        public static string GetSoundAsset(string groupName,string assetName)
         {
-            return Utility.Text.Format("Assets/Deer/AssetsHotfix/Sound/{0}.mp3", assetName);
-        }
-        public static string GetSoundAsset(string assetName)
-        {
-            return Utility.Text.Format("Assets/Deer/AssetsHotfix/Sound/{0}.mp3", assetName);
+            return $"Assets/Deer/AssetsHotfix/{groupName}/Sounds/{assetName}.wav";
         }
     }
 }

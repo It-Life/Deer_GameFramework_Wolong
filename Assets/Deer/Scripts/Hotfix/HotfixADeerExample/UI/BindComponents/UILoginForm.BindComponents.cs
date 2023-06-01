@@ -14,6 +14,7 @@ namespace HotfixADeerExample.UI
 		private RawImage m_RImg_NetImage;
 		private UIButtonSuper m_Btn_UIButtonTestTips;
 		private UIButtonSuper m_Btn_UIButtonTestDialog;
+		private UIButtonSuper m_Btn_Back;
 
 		private void GetBindComponents(GameObject go)
 		{
@@ -27,6 +28,7 @@ namespace HotfixADeerExample.UI
 			m_RImg_NetImage = autoBindTool.GetBindComponent<RawImage>(5);
 			m_Btn_UIButtonTestTips = autoBindTool.GetBindComponent<UIButtonSuper>(6);
 			m_Btn_UIButtonTestDialog = autoBindTool.GetBindComponent<UIButtonSuper>(7);
+			m_Btn_Back = autoBindTool.GetBindComponent<UIButtonSuper>(8);
 		}
 	}
 }

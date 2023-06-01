@@ -37,6 +37,8 @@ public static partial class Constant
     public static class Procedure
     {
         
+        public const string ProcedureMainMenu = "HotfixBusiness.Procedure.ProcedureMainMenu";
+        
         public const string ProcedureADeerExample = "HotfixADeerExample.Procedure.ProcedureADeerExample";
         public const string ProcedureDeerMain = "HotfixADeerExample.Procedure.ProcedureDeerMain";
         public const string ProcedureDeerLogin = "HotfixADeerExample.Procedure.ProcedureDeerLogin";
@@ -46,6 +48,7 @@ public static partial class Constant
         public const string ProcedureGameMenu = "HotfixAGameExample.Procedure.ProcedureGameMenu";
         private static Dictionary<string, ProcedureInfo> ProcedureInfos = new Dictionary<string, ProcedureInfo>()
         {
+            {ProcedureMainMenu,new ProcedureInfo(ProcedureMainMenu,false,false,"BaseAssets","")},
             {ProcedureADeerExample,new ProcedureInfo(ProcedureADeerExample,true,false,"ADeerExample","")},
             {ProcedureDeerLogin,new ProcedureInfo(ProcedureDeerLogin,false,true,"ADeerExample","")},
             {ProcedureDeerMain,new ProcedureInfo(ProcedureDeerMain,false,true,"ADeerExample","Main")},

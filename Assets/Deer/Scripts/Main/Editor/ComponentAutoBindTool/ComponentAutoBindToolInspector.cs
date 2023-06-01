@@ -779,24 +779,18 @@ public class ComponentAutoBindToolInspector : Editor
         return folderName;
     }
 
-    private static List<string> m_ListAssemblys = new List<string>()
-    {
-        "HotfixBusiness",
-        "Main.Runtime",
-    };
-
     /// <summary>
     /// Get a type with name.
     /// 根据名字获取一个类型
     /// </summary>
-    public static Type GetTypeWithName(string typeName,string nameSpace)
+    private Type GetTypeWithName(string typeName,string nameSpace)
     {
         Assembly[] assmblies = AppDomain.CurrentDomain.GetAssemblies();
 
         for (int i = assmblies.Length - 1; i >= 0; i--)
         {
             bool isFind = false;
-            foreach (var assemblyName in m_ListAssemblys)
+            foreach (var assemblyName in m_Setting.MountScriptListAssemblys)
             {
                 if (assemblyName == assmblies[i].GetName().Name)
                 {

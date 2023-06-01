@@ -126,6 +126,7 @@ MonoBehaviour:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
     ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -417,6 +418,7 @@ MonoBehaviour:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
     ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -573,6 +575,7 @@ MonoBehaviour:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
     ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -709,10 +712,12 @@ MonoBehaviour:
     BindCom: {fileID: 7421262528479220783}
   - Name: Btn_Exit
     BindCom: {fileID: 4834398697242150314}
+  - Name: Btn_Back
+    BindCom: {fileID: 573687988644827260}
   m_ClassName: UIMenuForm
   m_Namespace: HotfixBusiness.UI
-  m_ComCodePath: Deer/Scripts/HotFix/HotFixBusiness/UI/BindComponents
-  m_MountCodePath: Deer/Scripts/HotFix/HotFixBusiness/UI
+  m_ComCodePath: Deer/Scripts/Hotfix/HotfixAGameExample/UI/BindComponents
+  m_MountCodePath: Deer/Scripts/Hotfix/HotfixAGameExample/UI
   m_BindComs:
   - {fileID: 3883779947278812474}
   - {fileID: 4375046318703199826}
@@ -721,6 +726,7 @@ MonoBehaviour:
   - {fileID: 2343683923860534397}
   - {fileID: 7421262528479220783}
   - {fileID: 4834398697242150314}
+  - {fileID: 573687988644827260}
 --- !u!114 &1048173968802067062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,6 +1136,7 @@ MonoBehaviour:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
     ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -1197,6 +1204,7 @@ RectTransform:
   - {fileID: 8517606067417159333}
   - {fileID: 8924329643806704348}
   - {fileID: 7442510346068195229}
+  - {fileID: 1538582555894072548}
   m_Father: {fileID: 7444149120176247787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1339,6 +1347,7 @@ MonoBehaviour:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
     ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -1765,6 +1774,7 @@ MonoBehaviour:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
     ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -2264,6 +2274,7 @@ MonoBehaviour:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
     ButtonUISoundName: Fx_02_V2
+    ButtonUISoundAssetGroup: AGameExample
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -2294,3 +2305,132 @@ MonoBehaviour:
   onPressRight:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &2187965165162329508
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3022696828197807750}
+    m_Modifications:
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 142
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -67
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 856699967206211115, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635818207794938138, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_Name
+      value: btn_Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_ButtonUISounds.Array.data[0].ButtonUISoundName
+      value: Fx_02_V2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_ButtonUISounds.Array.data[0].ButtonUISoundAssetGroup
+      value: AGameExample
+      objectReference: {fileID: 0}
+    - target: {fileID: 8898194497509721920, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+      propertyPath: m_text
+      value: "\u8FD4\u56DE"
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+--- !u!114 &573687988644827260 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1849590308757087704, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+  m_PrefabInstance: {fileID: 2187965165162329508}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a3aa0c9331dc641a6585dbabb1860d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &1538582555894072548 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 794623751391031616, guid: 6a059a129e1575d4fb9a6b8abce19c6e, type: 3}
+  m_PrefabInstance: {fileID: 2187965165162329508}
+  m_PrefabAsset: {fileID: 0}

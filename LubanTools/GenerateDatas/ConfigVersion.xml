@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Root ClientVersion="1.0.0.3">
+<Root ClientVersion="1.0.0.5">
   <FileVersion name="common_tbglobalconfig.bytes" file="common_tbglobalconfig.bytes" md5="3a47fb9cb20f3270a83b7fee75c980a9" size="1" />
   <FileVersion name="deer_tbentitydata.bytes" file="deer_tbentitydata.bytes" md5="1e03c19de2ad2aee26dece04fb74e807" size="1" />
   <FileVersion name="deer_tblanguage_config.bytes" file="deer_tblanguage_config.bytes" md5="6b423c9255740e161d2fb6afe295380b" size="1" />
   <FileVersion name="deer_tbleveldata.bytes" file="deer_tbleveldata.bytes" md5="48ed2dbf3f000777f23864b83cb4e185" size="1" />
   <FileVersion name="deer_tbplayerdata_character.bytes" file="deer_tbplayerdata_character.bytes" md5="c92577008900c38eda4b6f884eb71ce9" size="1" />
-  <FileVersion name="deer_tbsounds_config.bytes" file="deer_tbsounds_config.bytes" md5="b2149585806926580adfda303c7fa85d" size="1" />
+  <FileVersion name="deer_tbsounds_config.bytes" file="deer_tbsounds_config.bytes" md5="cb63d80d360d8bcdfaffed77b5bbecfe" size="1" />
   <FileVersion name="deer_tbuidata_character.bytes" file="deer_tbuidata_character.bytes" md5="a315bf673cfbb108a1b23e583d4c0b19" size="1" />
   <FileVersion name="deer_tbuidata_gamemode.bytes" file="deer_tbuidata_gamemode.bytes" md5="3841f54bd0fca51dfd0b9ee1f88c7243" size="1" />
   <FileVersion name="deer_tbuidata_race.bytes" file="deer_tbuidata_race.bytes" md5="bce7c6286a359c95ba7cfdde0fef9332" size="1" />

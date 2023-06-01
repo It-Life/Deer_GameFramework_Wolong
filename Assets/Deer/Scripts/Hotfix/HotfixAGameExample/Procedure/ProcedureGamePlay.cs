@@ -48,12 +48,12 @@ namespace HotfixAGameExample.Procedure
             {
                 List<UIData_Race> ractDataList = GameEntry.Config.Tables.TbUIData_Race.DataList;
 
-				m_CurRaceId = procedureOwner.GetData<VarInt16>("RaceId");
+				m_CurRaceId = global::GameEntry.Setting.GetInt("RaceId");
 				UIData_Race tmpRaceData;
 				GameEntry.Config.Tables.TbUIData_Race.DataMap.TryGetValue(m_CurRaceId, out tmpRaceData);
 				int levelIndex = tmpRaceData.RaceIndex;
 
-                Logger.Debug<ProcedureGamePlay>($"tackor GamePlay ��ǰ��Level {levelIndex}");
+                Logger.Debug<ProcedureGamePlay>($"tackor GamePlay Level {levelIndex}");
 
 				List<PlayerData_Character> playerDataList = GameEntry.Config.Tables.TbPlayerData_Character.DataList;
 				int selectedCharacterIndex = GameEntry.Setting.GetInt("characterIndex");
@@ -178,7 +178,7 @@ namespace HotfixAGameExample.Procedure
 		private void OnHandleTrigStarPlayer(object send, GameEventArgs e)
 		{
 			TrigStarEventArgs ne = (TrigStarEventArgs)e;
-            Logger.Debug<ProcedureGamePlay>($"��ȡ������: {ne.StarNum}");
+            Logger.Debug<ProcedureGamePlay>($": {ne.StarNum}");
             m_CurStarNum++;
 
             if (m_CurStarNum >= 3)
