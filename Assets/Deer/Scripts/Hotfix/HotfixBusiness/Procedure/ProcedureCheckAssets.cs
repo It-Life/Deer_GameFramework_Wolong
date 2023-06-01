@@ -94,6 +94,7 @@ namespace HotfixBusiness.Procedure
 
         private void OnStartLoadAsset()
         {
+            UnloadAllResources();
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 m_LoadAssetFinish = true;

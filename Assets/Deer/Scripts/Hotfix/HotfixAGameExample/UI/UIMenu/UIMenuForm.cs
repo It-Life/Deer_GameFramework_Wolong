@@ -3,7 +3,7 @@
 //作 者:AlanDu
 //创建时间:2022-11-11 10-02-27
 //修改作者:AlanDu
-//修改时间:2022-11-11 10-02-27
+//修改时间:2023-06-01 21-42-34
 //版 本:0.1 
 // ===============================================
 
@@ -12,7 +12,10 @@ using Main.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using HotfixAGameExample.Procedure;
+using HotfixBusiness.Procedure;
+using Main.Runtime.Procedure;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace HotfixBusiness.UI
 {
@@ -30,13 +33,14 @@ namespace HotfixBusiness.UI
 			 GetBindComponents(gameObject);
 
 /*--------------------Auto generate start button listener.Do not modify!--------------------*/
-			m_Btn_Solo.onClick.AddListener(Btn_SoloEvent);
-			m_Btn_Versus.onClick.AddListener(Btn_VersusEvent);
-			m_Btn_Garage.onClick.AddListener(Btn_GarageEvent);
-			m_Btn_Setting.onClick.AddListener(Btn_SettingEvent);
-			m_Btn_Leaderboard.onClick.AddListener(Btn_LeaderboardEvent);
-			m_Btn_Credits.onClick.AddListener(Btn_CreditsEvent);
-			m_Btn_Exit.onClick.AddListener(Btn_ExitEvent);
+			 m_Btn_Solo.onClick.AddListener(Btn_SoloEvent);
+			 m_Btn_Versus.onClick.AddListener(Btn_VersusEvent);
+			 m_Btn_Garage.onClick.AddListener(Btn_GarageEvent);
+			 m_Btn_Setting.onClick.AddListener(Btn_SettingEvent);
+			 m_Btn_Leaderboard.onClick.AddListener(Btn_LeaderboardEvent);
+			 m_Btn_Credits.onClick.AddListener(Btn_CreditsEvent);
+			 m_Btn_Exit.onClick.AddListener(Btn_ExitEvent);
+			 m_Btn_Back.onClick.AddListener(Btn_BackEvent);
 /*--------------------Auto generate end button listener.Do not modify!----------------------*/
 		}
 
@@ -89,6 +93,15 @@ namespace HotfixBusiness.UI
 				//GameEntry.UI.OpenTips("害，你点击了取消！");
 			};
 			GameEntry.UI.OpenDialog(dialogParams);
+		}
+
+		private void Btn_BackEvent()
+		{
+			if (GameEntry.Procedure.CurrentProcedure is ProcedureBase procedureBase)
+			{
+				procedureBase.ProcedureOwner.SetData<VarString>("nextProcedure", Constant.Procedure.ProcedureMainMenu);
+				procedureBase.ChangeStateByType(procedureBase.ProcedureOwner,typeof(ProcedureCheckAssets));
+			}
 		}
 /*--------------------Auto generate footer.Do not add anything below the footer!------------*/
 	}

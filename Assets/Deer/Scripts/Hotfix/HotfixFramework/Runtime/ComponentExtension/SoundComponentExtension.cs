@@ -148,7 +148,7 @@ public static class SoundComponentExtension
         playSoundParams.VolumeInSoundGroup = config.SoundVolume;
         playSoundParams.FadeInSeconds = m_FadeVolumeDuration;
         playSoundParams.SpatialBlend = config.SpatialBlend;
-        var soundAssetName = AssetUtility.Sound.GetMusicAsset(config.SoundName);
+        var soundAssetName = AssetUtility.Sound.GetMusicAsset(config.GroupName,config.SoundName);
         m_MusicSerialId = soundComponent.PlaySound(soundAssetName, "Music", Constant.AssetPriority.MusicAsset,
             playSoundParams, null, userData);
         return m_MusicSerialId;
@@ -179,7 +179,7 @@ public static class SoundComponentExtension
         playSoundParams.Loop = config.Loop == 1;
         playSoundParams.VolumeInSoundGroup = config.SoundVolume;
         playSoundParams.SpatialBlend = config.SpatialBlend;
-        return soundComponent.PlaySound(AssetUtility.Sound.GetSoundAsset(config.SoundName), "Sound",
+        return soundComponent.PlaySound(AssetUtility.Sound.GetSoundAsset(config.GroupName,config.SoundName), "Sound",
             Constant.AssetPriority.SoundAsset, playSoundParams, bindingEntity != null ? bindingEntity.Entity : null,
             userData);
     }
@@ -207,7 +207,7 @@ public static class SoundComponentExtension
         playSoundParams.Loop = config.Loop == 1;
         playSoundParams.VolumeInSoundGroup = config.SoundVolume;
         playSoundParams.SpatialBlend = config.SpatialBlend;
-        return soundComponent.PlaySound(AssetUtility.Sound.GetUISoundAsset(config.SoundName), "UISound",
+        return soundComponent.PlaySound(AssetUtility.Sound.GetUISoundAsset(config.GroupName,config.SoundName), "UISound",
             Constant.AssetPriority.UISoundAsset, playSoundParams, userData);
     }
     

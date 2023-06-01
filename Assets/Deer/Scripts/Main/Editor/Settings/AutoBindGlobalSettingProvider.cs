@@ -14,6 +14,8 @@ public class AutoBindGlobalSettingProvider : SettingsProvider
     private SerializedProperty m_RulePrefixes;
     private SerializedProperty m_ComCodePath;
     private SerializedProperty m_MountCodePath;
+    private SerializedProperty m_MountScriptListAssemblys;
+
     internal static SerializedObject GetSerializedSettings()
     {
         var m_Setting = AutoBindGlobalSetting.GetAutoBindGlobalSetting();
@@ -30,6 +32,7 @@ public class AutoBindGlobalSettingProvider : SettingsProvider
         m_CustomSettings = GetSerializedSettings();
         m_ComCodePath = m_CustomSettings.FindProperty("m_ComCodePath");
         m_MountCodePath = m_CustomSettings.FindProperty("m_MountCodePath");
+        m_MountScriptListAssemblys = m_CustomSettings.FindProperty("m_MountScriptListAssemblys");
         m_RulePrefixes = m_CustomSettings.FindProperty("m_RulePrefixes");
     }
 
@@ -73,7 +76,9 @@ public class AutoBindGlobalSettingProvider : SettingsProvider
             }
         }
         EditorGUILayout.EndHorizontal();
-        EditorGUILayout.LabelField("RulePrefixes");
+        EditorGUILayout.LabelField("默认挂载代码搜寻程序集：");
+        EditorGUILayout.PropertyField(m_MountScriptListAssemblys);
+        EditorGUILayout.LabelField("组件的缩略名字映射：");
         EditorGUILayout.PropertyField(m_RulePrefixes);
         EditorGUILayout.Space(20);
         if ( !changeCheckScope.changed ) return;

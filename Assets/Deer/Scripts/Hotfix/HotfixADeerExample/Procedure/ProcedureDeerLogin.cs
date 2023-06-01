@@ -18,8 +18,7 @@ namespace HotfixADeerExample.Procedure
 {
     public class ProcedureDeerLogin : ProcedureBase
     {
-        private ProcedureOwner m_ProcedureOwner;
-        private int? m_UIFormSerialId;
+        private int m_UIFormSerialId;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -29,7 +28,7 @@ namespace HotfixADeerExample.Procedure
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            if (m_UIFormSerialId!=0)
+            if (m_UIFormSerialId!=0 && GameEntry.UI.HasUIForm(m_UIFormSerialId))
             {
                 GameEntry.UI.CloseUIForm((int)m_UIFormSerialId);
             }

@@ -15,6 +15,11 @@ MonoBehaviour:
   m_Namespace: HotfixBusiness.UI
   m_ComCodePath: Deer/Scripts/HotFix/HotFixBusiness/UI/BindComponents
   m_MountCodePath: Deer/Scripts/HotFix/HotFixBusiness/UI
+  m_MountScriptListAssemblys:
+  - Main.Runtime
+  - HotfixBusiness
+  - HotfixADeerExample
+  - HotfixAGameExample
   m_RulePrefixes:
   - Prefixe: Trans
     FullName: Transform

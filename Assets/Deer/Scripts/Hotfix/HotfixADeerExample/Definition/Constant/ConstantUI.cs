@@ -16,6 +16,7 @@ public static class ADeerConstantUI
     private static Dictionary<EUIFormId, ConstantUI.UIFormInfo> uiForms = new Dictionary<EUIFormId, ConstantUI.UIFormInfo>()
     {
         {EUIFormId.UILoginForm, new ConstantUI.UIFormInfo(ConstantUI.EUIFormType.MainForm,"ADeerExample","UILoginForm",ConstantUI.EUIGroupName.Background,false,true)},
+        {EUIFormId.UIDeerGamePlayForm, new ConstantUI.UIFormInfo(ConstantUI.EUIFormType.MainForm,"ADeerExample","UIDeerGamePlayForm",ConstantUI.EUIGroupName.Background,false,true)},
     };
 
     public static ConstantUI.UIFormInfo GetUIFormInfo(EUIFormId euiFormId)
@@ -51,6 +52,7 @@ public static class ADeerConstantUI
     {
         Undefined = 0,
         UILoginForm = 1,
+        UIDeerGamePlayForm = 2,
     }
 }
 

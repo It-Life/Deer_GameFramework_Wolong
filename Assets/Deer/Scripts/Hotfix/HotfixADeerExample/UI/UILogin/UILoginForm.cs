@@ -3,7 +3,7 @@
 //作 者:杜鑫
 //创建时间:2022-06-18 00-19-22
 //修改作者:AlanDu
-//修改时间:2022-11-09 21-26-27
+//修改时间:2023-06-01 21-26-33
 //版 本:0.1 
 // ===============================================
 
@@ -11,6 +11,7 @@ using HotfixADeerExample.Procedure;
 using HotfixBusiness.Procedure;
 using HotfixFramework.Runtime;
 using Main.Runtime;
+using Main.Runtime.Procedure;
 using UnityGameFramework.Runtime;
 
 namespace HotfixADeerExample.UI 
@@ -30,6 +31,7 @@ namespace HotfixADeerExample.UI
 			 m_Btn_UIButtonTest.onClick.AddListener(Btn_UIButtonTestEvent);
 			 m_Btn_UIButtonTestTips.onClick.AddListener(Btn_UIButtonTestTipsEvent);
 			 m_Btn_UIButtonTestDialog.onClick.AddListener(Btn_UIButtonTestDialogEvent);
+			 m_Btn_Back.onClick.AddListener(Btn_BackEvent);
 /*--------------------Auto generate end button listener.Do not modify!----------------------*/
 	        string groupName = Constant.Procedure.FindAssetGroup(GameEntry.Procedure.CurrentProcedure.GetType().FullName);
             m_RImg_bg.SetTexture(AssetUtility.UI.GetTexturePath(groupName,"login_bg"));
@@ -70,6 +72,15 @@ namespace HotfixADeerExample.UI
 	        };
 	        dialogParams.Message = $"哈喽，我是提示信息框！！！";
 	        GameEntry.UI.OpenDialog(dialogParams);
+        }
+
+        private void Btn_BackEvent()
+        {
+	        if (GameEntry.Procedure.CurrentProcedure is ProcedureBase procedureBase)
+	        {
+		        procedureBase.ProcedureOwner.SetData<VarString>("nextProcedure", Constant.Procedure.ProcedureMainMenu);
+		        procedureBase.ChangeStateByType(procedureBase.ProcedureOwner,typeof(ProcedureCheckAssets));
+	        }
         }
 /*--------------------Auto generate footer.Do not add anything below the footer!------------*/
 	}

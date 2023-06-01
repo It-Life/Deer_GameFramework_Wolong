@@ -53,6 +53,8 @@ MonoBehaviour:
     - HotfixCommon.dll
     - HotfixFramework.Runtime.dll
     - HotfixBusiness.dll
+    - HotfixADeerExample.dll
+    - HotfixAGameExample.dll
     AOTMetaAssemblies:
     - Assembly-CSharp-firstpass.dll
     - Assembly-CSharp.dll
@@ -148,7 +150,7 @@ MonoBehaviour:
     - UnityGameFramework.Runtime.dll
     LogicMainDllName: HotfixFramework.Runtime.dll
     AssemblyTextAssetExtension: .bytes
-    AssemblyTextAssetPath: Deer/AssetsHotfix/Assemblies
+    AssemblyTextAssetPath: Deer/AssetsHotfix/BaseAssets/Assemblies
     HybridCLRGlobalSettings: Settings/HybridCLRGlobalSettings
     HybridCLRIosBuildPath: HybridCLRData/iOSBuild
     HybridCLRIosXCodePath: 
