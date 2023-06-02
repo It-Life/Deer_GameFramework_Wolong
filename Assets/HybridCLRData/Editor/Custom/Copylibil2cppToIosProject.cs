@@ -42,7 +42,7 @@ public class Copylibil2cppToIosProject : IPostprocessBuildWithReport
 		var srcPathFile = $"{DeerSettingsUtils.GetLibil2cppBuildPath()}/{fileName}";
 		if (!File.Exists(srcPathFile))
 		{
-			Debug.LogError($"[Copylibil2cppToIosProject] You need start call build_libil2cpp.sh file. path:{DeerSettingsUtils.HybridCLRCustomGlobalSettings.HybridCLRIosBuildPath}");
+			Debug.LogError($"[Copylibil2cppToIosProject] You need start call build_libil2cpp.sh file. path:{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRIosBuildPath}");
 			return;
 		}
 		var dstPath = DeerSettingsUtils.GetOutputXCodePath();

@@ -1,17 +1,17 @@
 // ================================================
 //描 述:
 //作 者:杜鑫
-//创建时间:2022-09-16 14-15-39
+//创建时间:2022-09-16 11-44-29
 //修改作者:杜鑫
-//修改时间:2022-09-16 14-15-39
+//修改时间:2022-09-16 11-44-29
 //版 本:0.1 
 // ===============================================
-using Sirenix.OdinInspector;
+
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 /// <summary>
 /// 资源存放地
 /// </summary>
@@ -75,13 +75,17 @@ public class ServerChannelInfo
     public string CurUseServerName;
     public List<ServerIpAndPort> ServerIpAndPorts;
 }
-
 /// <summary>
-/// Please modify the description.
+/// 框架设置
 /// </summary>
-[Serializable]
-public class FrameworkGlobalSettings
+[CreateAssetMenu(fileName = "DeerGlobalSettings", menuName = "Deer/Global Settings", order = 40)]
+public class DeerGlobalSettings : ScriptableObject
 {
+    [Header("General")] 
+    [Sirenix.OdinInspector.ReadOnly]
+    public bool m_UseDeerExample;
+
+    [Header("Framework")]
     [SerializeField]
     [Tooltip("脚本作者名")]
     private string m_ScriptAuthor = "Default";
@@ -97,6 +101,7 @@ public class FrameworkGlobalSettings
     private string m_DefaultFont = "wryhSDF";
     public string DefaultFont => m_DefaultFont;
     [Header("Resources")]
+    public string BaseAssetsRootName = "BaseAssets";
     [Tooltip("资源存放地")]
     [SerializeField]
     private ResourcesArea m_ResourcesArea;
@@ -135,5 +140,5 @@ public class FrameworkGlobalSettings
     [SerializeField]
     private string m_ConfigFolderName = "LubanConfig";
     public string ConfigFolderName { get { return m_ConfigFolderName; } }
-
+    
 }

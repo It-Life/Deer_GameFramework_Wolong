@@ -8,14 +8,28 @@
 // ===============================================
 using System;
 using System.Collections.Generic;
+using HybridCLR.Editor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-/// <summary>
-/// Please modify the description.
-/// </summary>
 [Serializable]
-public class HybridCLRCustomGlobalSettings
+public class HotUpdateAssemblie
+{
+    public string AssetGroupName;
+    public string Assembly;
+
+    public HotUpdateAssemblie(string assetGroupName,string assembly)
+    {
+        AssetGroupName = assetGroupName;
+        Assembly = assembly;
+    }
+}
+
+/// <summary>
+/// HybridCLR 自定义全局设置
+/// </summary>
+[CreateAssetMenu(fileName = "DeerHybridCLRSettings", menuName = "Deer/HybridCLR Settings", order = 41)]
+public class DeerHybridCLRSettings:ScriptableObject
 {
     [Header("Auto sync with [HybridCLRGlobalSettings]")]
     [Tooltip("You should modify the file form file path [Assets/CustomHybridCLR/Settings/HybridCLRGlobalSettings.asset]")]
@@ -28,10 +42,11 @@ public class HybridCLRCustomGlobalSettings
         set { m_Gitee = value; }
     }
     [Header("Auto sync with [HybridCLRGlobalSettings]")]
-    [Tooltip("You should modify the file form file path [Assets/CustomHybridCLR/Settings/HybridCLRGlobalSettings.asset]")]
-    public List<string> HotUpdateAssemblies;
-    [Header("Need manual setting!")]
-    public List<string> AOTMetaAssemblies;
+    //[Tooltip("You should modify the file form file path [Assets/CustomHybridCLR/Settings/HybridCLRGlobalSettings.asset]")]
+    
+    [SerializeField] public List<HotUpdateAssemblie> HotUpdateAssemblies;
+    //[Header("Need manual setting!")]
+    [SerializeField] public List<string> AOTMetaAssemblies;
     /// <summary>
     /// Dll of main business logic assembly
     /// </summary>
@@ -40,17 +55,21 @@ public class HybridCLRCustomGlobalSettings
     /// <summary>
     /// 程序集文本资产打包Asset后缀名
     /// </summary>
-    public string AssemblyTextAssetExtension = ".bytes";
-
+    public string AssemblyAssetExtension = ".bytes";
     /// <summary>
     /// 程序集文本资产资源目录
+    /// Deer/AssetsHotfix/BaseAssets/Assemblies   
     /// </summary>
-    public string AssemblyTextAssetPath = "Deer/AssetsHotfix/Assemblies";
-    /// <summary>
-    /// Resources HybridCLRGlobalSettings Dir
-    /// </summary>
-    public string HybridCLRGlobalSettings = "Settings/HybridCLRGlobalSettings";
-    
+    public string AssemblyAssetPath = "Deer/AssetsHotfix";
+    public string AssemblyAssetsRootName = "Assemblies";
     public string HybridCLRIosBuildPath = "HybridCLRData/iOSBuild";
     public string HybridCLRIosXCodePath = "";
+
+
+
+    public static void RefreshAssembly()
+    {
+        DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblyFilesIncludePreserved);
+        DeerSettingsUtils.DeerHybridCLRSettings.Enable = SettingsUtil.Enable;
+    }
 }

@@ -21,9 +21,10 @@ using UnityEngine;
 public static class DeerSettingsUtils
 {
     private static readonly string DeerGlobalSettingsPath = $"Settings/DeerGlobalSettings";
-    private static DeerSettings m_DeerGlobalSettings;
-    public static FrameworkGlobalSettings FrameworkGlobalSettings { get { return DeerGlobalSettings.FrameworkGlobalSettings; } }
-    public static HybridCLRCustomGlobalSettings HybridCLRCustomGlobalSettings { get { return DeerGlobalSettings.BybridCLRCustomGlobalSettings; } }
+    private static readonly string DeerHybridCLRSettingsPath = $"Settings/DeerHybridCLRSettings";
+    private static DeerGlobalSettings _mDeerGlobalGlobalSettings;
+    private static DeerHybridCLRSettings _mDeerHybridCLRSettings;
+
     static DeerPathSetting m_DeerPathSetting;
     public static DeerPathSetting PathConfig
     {
@@ -36,29 +37,90 @@ public static class DeerSettingsUtils
             return m_DeerPathSetting;
         }
     }
-    public static DeerSettings DeerGlobalSettings
+    public static DeerGlobalSettings DeerGlobalSettings
     {
         get
         {
-            if (m_DeerGlobalSettings == null)
+            if (_mDeerGlobalGlobalSettings == null)
             {
-                m_DeerGlobalSettings = GetSingletonAssetsByResources<DeerSettings>(DeerGlobalSettingsPath);
+                _mDeerGlobalGlobalSettings = GetSingletonAssetsByResources<DeerGlobalSettings>(DeerGlobalSettingsPath);
             }
-            return m_DeerGlobalSettings;
+            return _mDeerGlobalGlobalSettings;
         }
     }
-
-    public static ResourcesArea ResourcesArea { get { return DeerGlobalSettings.FrameworkGlobalSettings.ResourcesArea; } }
+    public static DeerHybridCLRSettings DeerHybridCLRSettings
+    {
+        get
+        {
+            if (_mDeerHybridCLRSettings == null)
+            {
+                _mDeerHybridCLRSettings = GetSingletonAssetsByResources<DeerHybridCLRSettings>(DeerHybridCLRSettingsPath);
+            }
+            return _mDeerHybridCLRSettings;
+        }
+    }
+    public static ResourcesArea ResourcesArea { get { return DeerGlobalSettings.ResourcesArea; } }
 
     public static void SetHybridCLRHotUpdateAssemblies(List<string> hotUpdateAssemblies) 
     {
-        HybridCLRCustomGlobalSettings.HotUpdateAssemblies = hotUpdateAssemblies;
+        foreach (var hotUpdate in hotUpdateAssemblies)
+        {
+            bool isFind = false;
+            List<string> _RepetitionAssembly = new List<string>();
+            foreach (var hotUpdateAssembly in DeerHybridCLRSettings.HotUpdateAssemblies)
+            {
+                if (hotUpdate == hotUpdateAssembly.Assembly)
+                {
+                    if (isFind)
+                    {
+                        //_RepetitionAssembly.Add(hotUpdate);
+                        Logger.Error("HotUpdateAssemblie is repetition. Name:"+hotUpdate);
+                    }
+                    isFind = true;
+                }
+            }
+            if (!isFind)
+            {
+                DeerHybridCLRSettings.HotUpdateAssemblies.Add(new HotUpdateAssemblie("",hotUpdate));
+            }
+        }
+        foreach (var hotUpdateAssembly in DeerHybridCLRSettings.HotUpdateAssemblies)
+        {
+            bool isFind = false;
+            foreach (var hotUpdate in hotUpdateAssemblies)
+            {
+                if (hotUpdate == hotUpdateAssembly.Assembly)
+                {
+                    isFind = true;
+                }
+            }
+            if (!isFind)
+            {
+                DeerHybridCLRSettings.HotUpdateAssemblies.Remove(hotUpdateAssembly);
+            }
+        }
+        
+        //HybridCLRCustomGlobalSettings.HotUpdateAssemblies = hotUpdateAssemblies;
     }
 
     public static void SetHybridCLRAOTMetaAssemblies(List<string> aOTMetaAssemblies)
     {
-        HybridCLRCustomGlobalSettings.AOTMetaAssemblies = aOTMetaAssemblies;
+        DeerHybridCLRSettings.AOTMetaAssemblies = aOTMetaAssemblies;
     }
+
+    public static List<string> GetHotUpdateAssemblies(string assetGroupName)
+    {
+        List<string> hotUpdateAssemblies = new List<string>();
+        foreach (var hotUpdateAssembly in DeerHybridCLRSettings.HotUpdateAssemblies)
+        {
+            if (hotUpdateAssembly.AssetGroupName == assetGroupName)
+            {
+                hotUpdateAssemblies.Add(hotUpdateAssembly.Assembly);
+            }
+        }
+        return hotUpdateAssemblies;
+    }
+
     /// <summary>
     /// app 下载地址
     /// </summary>
@@ -67,13 +129,13 @@ public static class DeerSettingsUtils
     {
         string url = null;
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-        url = FrameworkGlobalSettings.WindowsAppUrl;
+        url = DeerGlobalSettings.WindowsAppUrl;
 #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-            url = FrameworkGlobalSettings.MacOSAppUrl;
+            url = DeerGlobalSettings.MacOSAppUrl;
 #elif UNITY_IOS
-            url = FrameworkGlobalSettings.IOSAppUrl;
+            url = DeerGlobalSettings.IOSAppUrl;
 #elif UNITY_ANDROID
-            url = FrameworkGlobalSettings.AndroidAppUrl;
+            url = DeerGlobalSettings.AndroidAppUrl;
 #endif
         return url;
     }
@@ -114,9 +176,9 @@ public static class DeerSettingsUtils
     {
         if (string.IsNullOrEmpty(channelName))
         {
-            channelName = FrameworkGlobalSettings.CurUseServerChannel;
+            channelName = DeerGlobalSettings.CurUseServerChannel;
         }
-        foreach (var serverChannelInfo in FrameworkGlobalSettings.ServerChannelInfos)
+        foreach (var serverChannelInfo in DeerGlobalSettings.ServerChannelInfos)
         {
             if (serverChannelInfo.ChannelName.Equals(channelName))
             {
@@ -206,9 +268,9 @@ public static class DeerSettingsUtils
     /// <summary>
     /// 热更程序集文件资源地址
     /// </summary>
-    public static string HotfixAssemblyTextAssetPath
+    public static string HotfixAssemblyTextAssetPath(string groupName)
     {
-        get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, HotfixNode); }
+        return Path.Combine(Application.dataPath, DeerHybridCLRSettings.AssemblyAssetPath,groupName,DeerHybridCLRSettings.AssemblyAssetsRootName, HotfixNode);
     }
 
     /// <summary>
@@ -216,15 +278,15 @@ public static class DeerSettingsUtils
     /// </summary>
     public static string AOTAssemblyTextAssetPath
     {
-        get { return Path.Combine(Application.dataPath, HybridCLRCustomGlobalSettings.AssemblyTextAssetPath, AotNode); }
+        get { return Path.Combine(Application.dataPath, DeerHybridCLRSettings.AssemblyAssetPath,DeerGlobalSettings.BaseAssetsRootName,DeerHybridCLRSettings.AssemblyAssetsRootName, AotNode); }
     }
 	    public static string GetLibil2cppBuildPath()
     {
-        return $"{HybridCLRCustomGlobalSettings.HybridCLRIosBuildPath}/build";
+        return $"{DeerHybridCLRSettings.HybridCLRIosBuildPath}/build";
     }
     
     public static string GetOutputXCodePath()
     {
-        return HybridCLRCustomGlobalSettings.HybridCLRIosXCodePath;
+        return DeerHybridCLRSettings.HybridCLRIosXCodePath;
     }
 }

@@ -25,13 +25,13 @@ public class BuildEventHandler : IBuildEventHandler
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsPacked")),
-        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName)),
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName)),
     };
     private readonly List<string> StreamingAssetsFilePaths = new List<string>()
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkList.dat")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkVersion.dat")),
-        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName)),
+        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName)),
     };
     private VersionInfo m_VersionInfo = new VersionInfo();
 
@@ -221,7 +221,7 @@ public class BuildEventHandler : IBuildEventHandler
             m_VersionInfo.GameUpdateUrl = "";
             m_VersionInfo.LatestGameVersion = "";
             string versionInfoJson = JsonUtility.ToJson(m_VersionInfo);
-            FileUtils.CreateFile(Path.Combine(outputFullPath,DeerSettingsUtils.FrameworkGlobalSettings.ResourceVersionFileName),versionInfoJson);
+            FileUtils.CreateFile(Path.Combine(outputFullPath,DeerSettingsUtils.DeerGlobalSettings.ResourceVersionFileName),versionInfoJson);
             if (DeerSettingsUtils.ResourcesArea.WhetherCopyResToCommitPath)
             {
                 string commitPath = CommitResourcesPath + "/" + platform;

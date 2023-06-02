@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class DeerSettingsProvider : SettingsProvider
 {
     const string k_DeerSettingsPath = "Assets/Deer/Resources/Settings/DeerGlobalSettings.asset";
-    private const string headerName = "Deer/DeerSettings";
+    private const string headerName = "Deer/DeerGlobalSettings";
     private SerializedObject m_CustomSettings;
     SerializedProperty m_UseDeerExampleField;
     internal static SerializedObject GetSerializedSettings()
@@ -35,8 +35,22 @@ public class DeerSettingsProvider : SettingsProvider
         EditorGUI.BeginDisabledGroup(true);
         EditorGUILayout.PropertyField(m_UseDeerExampleField);
         EditorGUI.EndDisabledGroup();
-        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_FrameworkGlobalSettings"));
-        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_BybridCLRCustomGlobalSettings"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_ScriptAuthor"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_ScriptVersion"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_AppStage"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_DefaultFont"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("BaseAssetsRootName"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_ResourcesArea"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_ResourceVersionFileName"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("WindowsAppUrl"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("MacOSAppUrl"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("IOSAppUrl"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AndroidAppUrl"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_CurUseServerChannel"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_ServerChannelInfos"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_IsReadLocalConfigInEditor"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_ConfigVersionFileName"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_ConfigFolderName"));
         EditorGUILayout.Space(20);
         if ( !changeCheckScope.changed ) return;
         m_CustomSettings.ApplyModifiedPropertiesWithoutUndo();
@@ -51,7 +65,7 @@ public class DeerSettingsProvider : SettingsProvider
         if (IsSettingsAvailable())
         {
             var provider = new DeerSettingsProvider(headerName, SettingsScope.Project);
-            provider.keywords = GetSearchKeywordsFromGUIContentProperties<DeerSettings>();
+            provider.keywords = GetSearchKeywordsFromGUIContentProperties<DeerGlobalSettings>();
             return provider;
         }
         return null;

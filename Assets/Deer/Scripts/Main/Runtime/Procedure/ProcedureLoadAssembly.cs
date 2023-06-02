@@ -48,25 +48,29 @@ namespace Main.Runtime.Procedure
         private bool m_LoadMetadataAssemblyWait;
         private Assembly m_MainLogicAssembly;
         private List<Assembly> m_HotfixAssemblys;
-        private Dictionary<string,byte[]> m_m_HotfixAssemblyBytes;
+        private Dictionary<string,byte[]> m_HotfixAssemblyBytes;
+        private List<string> m_HotUpdateAsm;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             m_LoadAssemblyComplete = false;
             m_HotfixAssemblys = new List<Assembly>();
-            m_m_HotfixAssemblyBytes = new Dictionary<string, byte[]>();
+            m_HotfixAssemblyBytes = new Dictionary<string, byte[]>();
+            m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies("BaseAssets");
+
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 m_MainLogicAssembly = GetMainLogicAssembly();
             }
             else
             {
-                if (DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable)
+                if (DeerSettingsUtils.DeerHybridCLRSettings.Enable)
                 {
                     m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);
-                    foreach (var hotUpdateDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
+                    foreach (var hotUpdateDllName in DeerSettingsUtils.DeerHybridCLRSettings.HotUpdateAssemblies)
                     {
-                        var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath,DeerSettingsUtils.HotfixNode, $"{hotUpdateDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
+                        var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetPath,hotUpdateDllName.AssetGroupName,
+                            DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetsRootName,DeerSettingsUtils.HotfixNode, $"{hotUpdateDllName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
                         Logger.Debug<ProcedureLoadAssembly>($"LoadAsset: [ {assetPath} ]");
                         m_LoadAssetCount++;
                         GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
@@ -79,7 +83,7 @@ namespace Main.Runtime.Procedure
                 }
             }
 
-            if (DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable)
+            if (DeerSettingsUtils.DeerHybridCLRSettings.Enable)
             {
 #if !UNITY_EDITOR
                 m_LoadMetadataAssemblyComplete = false;
@@ -101,19 +105,19 @@ namespace Main.Runtime.Procedure
             Assembly mainLogicAssembly = null;
             foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
             {
-                if (string.Compare(DeerSettingsUtils.HybridCLRCustomGlobalSettings.LogicMainDllName, $"{asm.GetName().Name}.dll",
+                if (string.Compare(DeerSettingsUtils.DeerHybridCLRSettings.LogicMainDllName, $"{asm.GetName().Name}.dll",
                         StringComparison.Ordinal) == 0)
                 {
                     mainLogicAssembly = asm;
                 }
-                foreach (var hotUpdateDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies)
+                foreach (var hotUpdateDllName in m_HotUpdateAsm)
                 {
                     if (hotUpdateDllName == $"{asm.GetName().Name}.dll")
                     {
                         m_HotfixAssemblys.Add(asm);
                     }
                 }
-                if (mainLogicAssembly != null && m_HotfixAssemblys.Count == DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies.Count)
+                if (mainLogicAssembly != null && m_HotfixAssemblys.Count == DeerSettingsUtils.DeerHybridCLRSettings.HotUpdateAssemblies.Count)
                 {
                     break;
                 }
@@ -151,18 +155,18 @@ namespace Main.Runtime.Procedure
 
             if (userData is string asmName)
             {
-                m_m_HotfixAssemblyBytes.Add(asmName,textAsset.bytes);
-                if (m_m_HotfixAssemblyBytes.Count == DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies.Count)
+                m_HotfixAssemblyBytes.Add(asmName,textAsset.bytes);
+                if (m_HotfixAssemblyBytes.Count == DeerSettingsUtils.DeerHybridCLRSettings.HotUpdateAssemblies.Count)
                 {
                     try
                     {
-                        for (int i = 0; i <  DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies.Count; i++)
+                        for (int i = 0; i <  m_HotUpdateAsm.Count; i++)
                         {
-                            string _asmName = DeerSettingsUtils.HybridCLRCustomGlobalSettings.HotUpdateAssemblies[i];
-                            if (m_m_HotfixAssemblyBytes.ContainsKey(_asmName))
+                            string _asmName = m_HotUpdateAsm[i];
+                            if (m_HotfixAssemblyBytes.ContainsKey(_asmName))
                             {
-                                var asm = Assembly.Load(m_m_HotfixAssemblyBytes[_asmName]);
-                                if (string.Compare(DeerSettingsUtils.HybridCLRCustomGlobalSettings.LogicMainDllName, _asmName, StringComparison.Ordinal) == 0)
+                                var asm = Assembly.Load(m_HotfixAssemblyBytes[_asmName]);
+                                if (string.Compare(DeerSettingsUtils.DeerHybridCLRSettings.LogicMainDllName, _asmName, StringComparison.Ordinal) == 0)
                                     m_MainLogicAssembly = asm;
                                 m_HotfixAssemblys.Add(asm);
                                 Logger.Debug<ProcedureLoadAssembly>($"Assembly [ {asm.GetName().Name} ] loaded");
@@ -225,15 +229,16 @@ namespace Main.Runtime.Procedure
 
             // 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
             // 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
-            if (DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies.Count == 0)
+            if (DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies.Count == 0)
             {
                 m_LoadMetadataAssemblyComplete = true;
                 return;
             }
             m_LoadMetadataAssetCallbacks ??= new LoadAssetCallbacks(LoadMetadataAssetSuccess, LoadMetadataAssetFailure);
-            foreach (var aotDllName in DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies)
+            foreach (var aotDllName in DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies)
             {
-                var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetPath,DeerSettingsUtils.AotNode, $"{aotDllName}{DeerSettingsUtils.HybridCLRCustomGlobalSettings.AssemblyTextAssetExtension}"));
+                var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetPath,
+                    DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,DeerSettingsUtils.AotNode, $"{aotDllName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
                 Logger.Debug<ProcedureLoadAssembly>($"LoadMetadataAsset: [ {assetPath} ]");
                 m_LoadMetadataAssetCount++;
                 GameEntryMain.Resource.LoadAsset(assetPath, m_LoadMetadataAssetCallbacks, aotDllName);

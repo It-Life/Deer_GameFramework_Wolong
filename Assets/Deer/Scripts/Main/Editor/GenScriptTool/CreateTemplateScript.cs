@@ -164,13 +164,13 @@ class CreateScriptAsset : EndNameEditAction
             System.DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"));
         //把#Author# 替换
         annotationStr = annotationStr.Replace("#Author#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptAuthor);
         //把#ChangeAuthor# 替换
         annotationStr = annotationStr.Replace("#ChangeAuthor#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptAuthor);
         //把#Version# 替换
         annotationStr = annotationStr.Replace("#Version#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptVersion);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptVersion);
         //把内容重新写入脚本
         bool encoderShouldEmitUTF8Identifier = false;
         bool throwOnInvalidBytes = false;

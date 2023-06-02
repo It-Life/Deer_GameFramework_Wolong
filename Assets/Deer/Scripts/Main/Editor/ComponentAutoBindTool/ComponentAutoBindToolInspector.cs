@@ -593,13 +593,13 @@ public class ComponentAutoBindToolInspector : Editor
             System.DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"));
         //把#Author# 替换
         annotationStr = annotationStr.Replace("#Author#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptAuthor);
         //把#ChangeAuthor# 替换
         annotationStr = annotationStr.Replace("#ChangeAuthor#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptAuthor);
         //把#Version# 替换
         annotationStr = annotationStr.Replace("#Version#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptVersion);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptVersion);
         return annotationStr;
     }
     string strChangeAuthor = "//修改作者:";
@@ -610,7 +610,7 @@ public class ComponentAutoBindToolInspector : Editor
         {
             if (strList[i].Contains(strChangeAuthor))
             {
-                strList[i] = $"{strChangeAuthor}{DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor}";
+                strList[i] = $"{strChangeAuthor}{DeerSettingsUtils.DeerGlobalSettings.ScriptAuthor}";
             }
             if (strList[i].Contains(strChangeTime))
             {

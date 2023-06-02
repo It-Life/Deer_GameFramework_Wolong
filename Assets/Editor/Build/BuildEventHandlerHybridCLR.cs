@@ -44,7 +44,7 @@ public static class BuildEventHandlerWolong
     }
     public static void OnPreprocessAllPlatforms(Platform platforms) 
     {
-        if (!DeerSettingsUtils.HybridCLRCustomGlobalSettings.Enable)
+        if (!DeerSettingsUtils.DeerHybridCLRSettings.Enable)
         {
             return;
         }
