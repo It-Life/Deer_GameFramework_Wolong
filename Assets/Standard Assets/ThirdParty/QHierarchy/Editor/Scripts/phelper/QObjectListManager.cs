@@ -139,7 +139,7 @@ namespace qtools.qhierarchy.phelper
                     }   
 
                     lastActiveScene = EditorSceneManager.GetActiveScene();
-                    lastSceneCount = EditorSceneManager.loadedSceneCount;
+                    lastSceneCount = SceneManager.loadedSceneCount;
                 }
             }
             catch 
@@ -164,7 +164,7 @@ namespace qtools.qhierarchy.phelper
 
         public bool isSceneChanged()
         {
-            if (lastActiveScene != EditorSceneManager.GetActiveScene() || lastSceneCount != EditorSceneManager.loadedSceneCount)
+            if (lastActiveScene != EditorSceneManager.GetActiveScene() || lastSceneCount != SceneManager.loadedSceneCount)
                 return true;
             else 
                 return false;

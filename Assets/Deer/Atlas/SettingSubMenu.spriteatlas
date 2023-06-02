@@ -7,7 +7,6 @@ SpriteAtlas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SettingSubMenu
-  serializedVersion: 2
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -37,6 +36,10 @@ SpriteAtlas:
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - e206b8436d2bbab499449709b0bd7e73: 21300000
+    - bd8909369c0fb37429924ef4e06d22b2: 21300000
+    - 30a01dcc2faf5b14eb5dbcfe608e1356: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: e206b8436d2bbab499449709b0bd7e73, type: 3}
@@ -49,4 +52,3 @@ SpriteAtlas:
   m_RenderDataMap: {}
   m_Tag: SettingSubMenu
   m_IsVariant: 0
-  m_IsPlaceholder: 0

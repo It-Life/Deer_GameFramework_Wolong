@@ -7,7 +7,6 @@ SpriteAtlas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SelectCharacter
-  serializedVersion: 2
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -37,6 +36,18 @@ SpriteAtlas:
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - bd736f612e072ca459149bd3b78decc2: 21300000
+    - e37366b19f50c3d4ab38ee599d37b5c8: 21300000
+    - 1b2a19769225c464b97b444f22144a73: 21300000
+    - 5b02b917dc22f37498d43c53c93a578c: 21300000
+    - a39d2ec7b7569884cbc727bcaf4ce708: 21300000
+    - a198fe98483634b429df58c7235330cb: 21300000
+    - ac86faf861cadec4daaf35e774ad8513: 21300000
+    - 0d6bf45a3374f5d42b65dca0dd0dadd4: 21300000
+    - c97dc18b880c9194e89f7f68d864b4bf: 21300000
+    - 524b6ffcacd3366478b061357d8a93d7: 21300000
+    - 5d588d5d43458ec4eb4f0f7fec2d7479: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: bd736f612e072ca459149bd3b78decc2, type: 3}
@@ -65,4 +76,3 @@ SpriteAtlas:
   m_RenderDataMap: {}
   m_Tag: SelectCharacter
   m_IsVariant: 0
-  m_IsPlaceholder: 0
