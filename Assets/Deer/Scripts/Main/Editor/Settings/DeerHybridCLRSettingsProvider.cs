@@ -33,9 +33,12 @@ public class DeerHybridCLRSettingsProvider : SettingsProvider
         using var changeCheckScope = new EditorGUI.ChangeCheckScope();
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_Enable"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("m_Gitee"));
-        if ( GUILayout.Button( "Refresh" ) )
+        if ( GUILayout.Button( "Refresh HotUpdateAssemblies" ) )
         {
-            DeerHybridCLRSettings.RefreshAssembly();
+            SynAssemblysContent.RefreshAssembly();
+            m_CustomSettings.ApplyModifiedProperties();
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("HotUpdateAssemblies"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AOTMetaAssemblies"));

@@ -18,6 +18,8 @@ namespace Pathfinding {
 		static GUILayoutOption[] noOptions = new GUILayoutOption[0];
 		public static System.Func<string> getDocumentationURL;
 
+		protected HashSet<string> remainingUnhandledProperties;
+
 		static void LoadMeta () {
 			if (cachedTooltips == null) {
 				var filePath = EditorResourceHelper.editorAssets + "/tooltips.tsv";
@@ -92,7 +94,10 @@ namespace Pathfinding {
 			serializedObject.Update();
 			try {
 				Inspector();
+				InspectorForRemainingAttributes(false, true);
 			} catch (System.Exception e) {
+				// This exception type should never be caught. See https://docs.unity3d.com/ScriptReference/ExitGUIException.html
+				if (e is ExitGUIException) throw e;
 				Debug.LogException(e, target);
 			}
 			serializedObject.ApplyModifiedProperties();
@@ -111,11 +116,64 @@ namespace Pathfinding {
 		}
 
 		protected virtual void Inspector () {
-			// Basically the same as DrawDefaultInspector, but with tooltips
-			bool enterChildren = true;
+			InspectorForRemainingAttributes(true, false);
+		}
 
-			for (var prop = serializedObject.GetIterator(); prop.NextVisible(enterChildren); enterChildren = false) {
-				PropertyField(prop.propertyPath);
+		/// <summary>Draws an inspector for all fields that are likely not handled by the editor script itself</summary>
+		protected virtual void InspectorForRemainingAttributes (bool showHandled, bool showUnhandled) {
+			if (remainingUnhandledProperties == null) {
+				remainingUnhandledProperties = new HashSet<string>();
+
+				var tp = serializedObject.targetObject.GetType();
+				var handledAssemblies = new List<System.Reflection.Assembly>();
+
+				// Find all types for which we have a [CustomEditor(type)] attribute.
+				// Unity hides this field, so we have to use reflection to get it.
+				var customEditorAttrs = this.GetType().GetCustomAttributes(typeof(CustomEditor), true).Cast<CustomEditor>().ToArray();
+				foreach (var attr in customEditorAttrs) {
+					var inspectedTypeField = attr.GetType().GetField("m_InspectedType", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+					var inspectedType = inspectedTypeField.GetValue(attr) as System.Type;
+					if (!handledAssemblies.Contains(inspectedType.Assembly)) {
+						handledAssemblies.Add(inspectedType.Assembly);
+					}
+				}
+				bool enterChildren = true;
+				for (var prop = serializedObject.GetIterator(); prop.NextVisible(enterChildren); enterChildren = false) {
+					var name = prop.propertyPath;
+					var field = tp.GetField(name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+					if (field == null) {
+						// Can happen for some built-in Unity fields. They are not important
+						continue;
+					} else {
+						var declaringType = field.DeclaringType;
+						var foundOtherAssembly = false;
+						var foundThisAssembly = false;
+						while (declaringType != null) {
+							if (handledAssemblies.Contains(declaringType.Assembly)) {
+								foundThisAssembly = true;
+								break;
+							} else {
+								foundOtherAssembly = true;
+							}
+							declaringType = declaringType.BaseType;
+						}
+						if (foundOtherAssembly && foundThisAssembly) {
+							// This is a field in a class in a different assembly, which inherits from a class in one of the handled assemblies.
+							// That probably means the editor script doesn't explicitly know about that field and we should show it anyway.
+							remainingUnhandledProperties.Add(prop.propertyPath);
+						}
+					}
+				}
+			}
+
+			// Basically the same as DrawDefaultInspector, but with tooltips
+			bool enterChildren2 = true;
+
+			for (var prop = serializedObject.GetIterator(); prop.NextVisible(enterChildren2); enterChildren2 = false) {
+				var handled = !remainingUnhandledProperties.Contains(prop.propertyPath);
+				if ((showHandled && handled) || (showUnhandled && !handled)) {
+					PropertyField(prop.propertyPath);
+				}
 			}
 		}
 
@@ -128,6 +186,16 @@ namespace Pathfinding {
 		protected void Section (string label) {
 			EditorGUILayout.Separator();
 			EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
+		}
+
+		/// <summary>Bounds field using center/size instead of center/extent</summary>
+		protected void BoundsField (string propertyPath) {
+			PropertyField(propertyPath + ".m_Center", "Center");
+			var extentsProp = FindProperty(propertyPath + ".m_Extent");
+			var r = EditorGUILayout.GetControlRect();
+			var label = EditorGUI.BeginProperty(r, new GUIContent("Size"), extentsProp);
+			extentsProp.vector3Value = 0.5f * EditorGUI.Vector3Field(r, label, extentsProp.vector3Value * 2.0f);
+			EditorGUI.EndProperty();
 		}
 
 		protected void FloatField (string propertyPath, string label = null, string tooltip = null, float min = float.NegativeInfinity, float max = float.PositiveInfinity) {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace Pathfinding.Examples {
 	/// <summary>Helper script in the example scene 'Turn Based'</summary>
 	[RequireComponent(typeof(Animator))]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_hexagon_trigger.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_hexagon_trigger.php")]
 	public class HexagonTrigger : MonoBehaviour {
 		public Button button;
 		Animator anim;

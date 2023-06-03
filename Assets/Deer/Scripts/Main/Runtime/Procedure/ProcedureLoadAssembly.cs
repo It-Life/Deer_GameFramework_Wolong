@@ -44,7 +44,6 @@ namespace Main.Runtime.Procedure
         private int m_FailureMetadataAssetCount;
         private bool m_LoadAssemblyComplete;
         private bool m_LoadMetadataAssemblyComplete;
-        private bool m_LoadAssemblyWait;
         private bool m_LoadMetadataAssemblyWait;
         private Assembly m_MainLogicAssembly;
         private List<Assembly> m_HotfixAssemblys;
@@ -56,7 +55,7 @@ namespace Main.Runtime.Procedure
             m_LoadAssemblyComplete = false;
             m_HotfixAssemblys = new List<Assembly>();
             m_HotfixAssemblyBytes = new Dictionary<string, byte[]>();
-            m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies("BaseAssets");
+            m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName);
 
             if (GameEntryMain.Base.EditorResourceMode)
             {
@@ -67,15 +66,14 @@ namespace Main.Runtime.Procedure
                 if (DeerSettingsUtils.DeerHybridCLRSettings.Enable)
                 {
                     m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);
-                    foreach (var hotUpdateDllName in DeerSettingsUtils.DeerHybridCLRSettings.HotUpdateAssemblies)
+                    foreach (var hotUpdateDllName in m_HotUpdateAsm)
                     {
-                        var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetPath,hotUpdateDllName.AssetGroupName,
+                        var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetPath,hotUpdateDllName,
                             DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetsRootName,DeerSettingsUtils.HotfixNode, $"{hotUpdateDllName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
                         Logger.Debug<ProcedureLoadAssembly>($"LoadAsset: [ {assetPath} ]");
                         m_LoadAssetCount++;
                         GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
                     }
-                    m_LoadAssemblyWait = true;
                 }
                 else
                 {
@@ -117,7 +115,7 @@ namespace Main.Runtime.Procedure
                         m_HotfixAssemblys.Add(asm);
                     }
                 }
-                if (mainLogicAssembly != null && m_HotfixAssemblys.Count == DeerSettingsUtils.DeerHybridCLRSettings.HotUpdateAssemblies.Count)
+                if (mainLogicAssembly != null && m_HotfixAssemblys.Count == m_HotUpdateAsm.Count)
                 {
                     break;
                 }
@@ -156,7 +154,7 @@ namespace Main.Runtime.Procedure
             if (userData is string asmName)
             {
                 m_HotfixAssemblyBytes.Add(asmName,textAsset.bytes);
-                if (m_HotfixAssemblyBytes.Count == DeerSettingsUtils.DeerHybridCLRSettings.HotUpdateAssemblies.Count)
+                if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
                 {
                     try
                     {
@@ -182,7 +180,6 @@ namespace Main.Runtime.Procedure
                     finally
                     {
                         m_LoadAssemblyComplete = true;
-                        //m_LoadAssemblyComplete = m_LoadAssemblyWait && 0 == m_LoadAssetCount;
                     }
                 }
             }

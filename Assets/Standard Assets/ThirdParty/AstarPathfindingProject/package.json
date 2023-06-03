@@ -4,6 +4,7 @@
         "name": "Aron Granberg",
         "url": "https://www.arongranberg.com"
     },
+    "changelogUrl": "http://arongranberg.com/astar/documentation/stable/changelog.html",
     "dependencies": {
         "com.unity.modules.animation": "1.0.0",
         "com.unity.modules.assetbundle": "1.0.0",
@@ -18,7 +19,7 @@
     },
     "description": "The A* Pathfinding Project is a powerful and easy to use pathfinding system for Unity. With blazing fast pathfinding your AIs will be able to find the player in complex mazes in no time at all.\nPerfect for TD, FPS and RTS games.\nFeatures:\nSupports grid, navmesh, point and hexagonal graphs. Automatic navmesh generation to save you from doing it manually. Fully multithreaded so it will barely affect the frame rate. Path post-processing using raycasting, smoothing and using the funnel algorithm. A single line of code for a pathfinding call. Graphs can be saved to files. Local Avoidance both in the XZ and XY plane. Source code included. Supports updating graphs during runtime.",
     "displayName": "A* Pathfinding Project",
-    "documentation": "https://arongranberg.com/astar/docs",
+    "documentationUrl": "http://arongranberg.com/astar/documentation/stable",
     "keywords": [
         "pathfinding",
         "ai",
@@ -38,5 +39,5 @@
     ],
     "unity": "2019.3",
     "unityRelease": "0f3",
-    "version": "4.2.17"
+    "version": "4.2.18"
 }

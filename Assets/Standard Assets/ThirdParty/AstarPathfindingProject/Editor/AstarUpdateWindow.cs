@@ -17,11 +17,7 @@ namespace Pathfinding {
 			window.position = new Rect(Screen.currentResolution.width/2 - 300, Mathf.Max(5, Screen.currentResolution.height/3 - 150), 600, 400);
 			window.version = version;
 			window.summary = summary;
-#if UNITY_4_6 || UNITY_5_0
-			window.title = "New Version of the A* Pathfinding Project";
-#else
 			window.titleContent = new GUIContent("New Version of the A* Pathfinding Project");
-#endif
 			return window;
 		}
 

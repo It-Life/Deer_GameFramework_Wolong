@@ -1,3 +1,46 @@
+## 4.2.18 (2022-11-08)
+- This release contains fixes and features that have been backported from the 4.3 beta.
+		You can download the 4.3 beta at https://www.arongranberg.com/astar/download.
+- Added a documentation page on the architecture of the package: \ref architecture.
+- Added a tutorial on migrating from Unity's pathfinding to this package: \ref migrating-from-unity.
+- Added a tutorial on how to deal with pathfinding in large worlds: \ref large-worlds.
+- Nearest node queries on layered grid graphs are now significantly faster.
+- Improved performance of linecasts on grid graphs by approximately a factor of 2.
+- Improved accuracy of linecasts on grid graphs. In particular, many edge cases were previously undefined and were not consistently handled.
+	  Now linecasts which only touch corners of obstacles are always allowed, and also linecasts which go right on the border between walkable and unwalkable nodes.
+- Add \reflink{GridNodeBase.NormalizePoint} and \reflink{GridNodeBase.UnNormalizePoint}.
+- Various documentation improvements across the whole package.
+- The game view will now automatically repaint after a graph is scanned in the editor. Previously only the scene view was repainted.
+- Grid graphs and layered grid graphs now have support for \reflink{NNConstraint.distanceXZ}.
+		This makes \reflink{AIPath.constrainInsideGraph} work a lot better for grid graphs which have slopes.
+- Changed the color of gizmos drawn for the \reflink{NavmeshAdd} component from green to purple to avoid confusion with the \reflink{Seeker}s gizmos.
+- If you have a persistent (DontDestroyOnLoad) AstarPath component while loading a new scene with an existing AstarPath component, the newly loaded AstarPath component
+		will disable itself instead of logging an error and leaving both components in inconsistent states. This will make it easier to keep a single AstarPath component
+		around for the whole duration of the game.
+- A garbage collection will no longer be forced immediately after scanning graphs. Unity has decent support for incremental GC now, and it's best to rely on that instead.
+		This may improve performance when scanning graphs.
+- Renamed AutoRepathPolicy.interval/maximumInterval to \reflink{AutoRepathPolicy.period}/maximumPeriod since that's a more descriptive name.
+- Changed \reflink{AutoRepathPolicy} to make it usable for custom movement scripts without having to implement the \reflink{IAstarAI} interface.
+- Increased artificial limit for the maximum length of paths from 2048 to 16384.
+- \reflink{GridNodeBase.RemoveConnection} now also works for grid connection, not just custom connections.
+- \reflink{GridNodeBase.AddConnection} will now remove an existing grid connection (if it exists) to the same node, before adding the new custom connection.
+		Before, you could get two connections between the nodes instead of one, like you'd expect.
+- Using \reflink{IAstarAI.SetPath} will now set the destination of the movement script to the end point of the path by default.
+		If you pass a \reflink{RandomPath}, \reflink{FleePath} or \reflink{MultiTargetPath}, the destination will be set once the path has been calculated since that's when it is first known.
+		This makes properties like \reflink{IAstarAI.reachedDestination} and \reflink{IAstarAI.remainingDistance} work out of the box for those path types.
+- Created a property drawer for the \reflink{GraphMask} struct. So now you can include GraphMask fields in your own scripts and they will show up nicely in the inspector.
+- Improved error checking in \reflink{FloodPath} for if the start node was destroyed before the path calculation started.
+- Fixed saving or loading graphs could deadlock on WebGL since the zip library tired to use threads, which doesn't work on WebGL.
+- Fixed linecasts on grid graphs would not always return a hit if the start point or end point was outside the graph.
+- Fixed ExitGUIException could show up in the console sometimes when editing component properties.
+- Fixed floating point errors causing the \reflink{FunnelModifier} to simplify the path incorrectly in rare cases.
+- Fixed not being able to check for updates in Unity 2022.1+ because https must now be used for all web requests.
+- Fixed inheriting from scripts in this package (e.g. AIPath) and adding new fields, would not make those fields show up in the inspector unless you had a custom editor script too.
+		Now all fields the editor scripts cannot handle will show up automatically.
+- Deprecated \reflink{AstarPath.prioritizeGraphs}.
+- Deprecated some older linecast overloads for grid graphs.
+- Deprecated \reflink{LevelGridNode.GetConnection} in favor of \reflink{LevelGridNode.HasConnectionInDirection}.
+
 ## 4.2.17 (2021-11-06)
 - Fixed RVO example scenes not working properly (regression introduced in 4.2.16).
 

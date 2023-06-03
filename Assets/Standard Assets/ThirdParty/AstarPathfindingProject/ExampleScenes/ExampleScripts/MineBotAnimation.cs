@@ -4,9 +4,9 @@ namespace Pathfinding.Examples {
 	/// <summary>
 	/// Animation helper specifically made for the spider robot in the example scenes.
 	/// The spider robot (or mine-bot) which has been copied from the Unity Example Project
-	/// can have this script attached to be able to pathfind around with animations working properly.\n
+	/// can have this script attached to be able to pathfind around with animations working properly.
 	/// This script should be attached to a parent GameObject however since the original bot has Z+ as up.
-	/// This component requires Z+ to be forward and Y+ to be up.\n
+	/// This component requires Z+ to be forward and Y+ to be up.
 	///
 	/// A movement script (e.g AIPath) must also be attached to the same GameObject to actually move the unit.
 	///
@@ -15,7 +15,7 @@ namespace Pathfinding.Examples {
 	/// done so that it won't spawn effects too close to the previous spawn-point.
 	/// [Open online documentation to see images]
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_mine_bot_animation.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_mine_bot_animation.php")]
 	public class MineBotAnimation : VersionedMonoBehaviour {
 		/// <summary>
 		/// Animation component.

@@ -27,8 +27,6 @@ namespace Pathfinding {
 	/// See Pathfinding.FloodPath for examples on how to use this path type
 	///
 	/// [Open online documentation to see images]
-	///
-	/// \ingroup paths
 	/// </summary>
 	public class FloodPathTracer : ABPath {
 		/// <summary>Reference to the FloodPath which searched the path originally</summary>

@@ -337,7 +337,7 @@
         <member name="M:DG.Tweening.CustomPlugins.PureQuaternionPlugin.GetSpeedBasedDuration(DG.Tweening.Plugins.Options.NoOptions,System.Single,UnityEngine.Quaternion)">
             <summary>INTERNAL: do not use</summary>
         </member>
-        <member name="M:DG.Tweening.CustomPlugins.PureQuaternionPlugin.EvaluateAndApply(DG.Tweening.Plugins.Options.NoOptions,DG.Tweening.Tween,System.Boolean,DG.Tweening.Core.DOGetter{UnityEngine.Quaternion},DG.Tweening.Core.DOSetter{UnityEngine.Quaternion},System.Single,UnityEngine.Quaternion,UnityEngine.Quaternion,System.Single,System.Boolean,DG.Tweening.Core.Enums.UpdateNotice)">
+        <member name="M:DG.Tweening.CustomPlugins.PureQuaternionPlugin.EvaluateAndApply(DG.Tweening.Plugins.Options.NoOptions,DG.Tweening.Tween,System.Boolean,DG.Tweening.Core.DOGetter{UnityEngine.Quaternion},DG.Tweening.Core.DOSetter{UnityEngine.Quaternion},System.Single,UnityEngine.Quaternion,UnityEngine.Quaternion,System.Single,System.Boolean,System.Int32,DG.Tweening.Core.Enums.UpdateNotice)">
             <summary>INTERNAL: do not use</summary>
         </member>
         <member name="T:DG.Tweening.DOCurve">
@@ -407,8 +407,16 @@
             <para>Default: FALSE</para></summary>
         </member>
         <member name="F:DG.Tweening.DOTween.timeScale">
-            <summary>Global DOTween timeScale.
-            <para>Default: 1</para></summary>
+            <summary>Global DOTween global timeScale (default: 1).<para/>
+            The final timeScale of a non-timeScaleIndependent tween is:<para/>
+            <code>Unity's Time.timeScale * DOTween.timeScale * tween.timeScale</code><para/>
+            while the final timeScale of a timeScaleIndependent tween is:<para/>
+            <code>DOTween.unscaledTimeScale * DOTween.timeScale * tween.timeScale</code></summary>
+        </member>
+        <member name="F:DG.Tweening.DOTween.unscaledTimeScale">
+            <summary>DOTween timeScale applied only to timeScaleIndependent tweens (default: 1).<para/>
+            The final timeScale of a timeScaleIndependent tween is:<para/>
+            <code>DOTween.unscaledTimeScale * DOTween.timeScale * tween.timeScale</code></summary>
         </member>
         <member name="F:DG.Tweening.DOTween.useSmoothDeltaTime">
             <summary>If TRUE, DOTween will use Time.smoothDeltaTime instead of Time.deltaTime for UpdateType.Normal and UpdateType.Late tweens
@@ -719,7 +727,7 @@
             1 creates a full oscillation between the direction and the opposite decaying direction,
             while 0 oscillates only between the starting position and the decaying direction</param>
         </member>
-        <member name="M:DG.Tweening.DOTween.Shake(DG.Tweening.Core.DOGetter{UnityEngine.Vector3},DG.Tweening.Core.DOSetter{UnityEngine.Vector3},System.Single,System.Single,System.Int32,System.Single,System.Boolean,System.Boolean)">
+        <member name="M:DG.Tweening.DOTween.Shake(DG.Tweening.Core.DOGetter{UnityEngine.Vector3},DG.Tweening.Core.DOSetter{UnityEngine.Vector3},System.Single,System.Single,System.Int32,System.Single,System.Boolean,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Vector3 with the given values.</summary>
             <param name="getter">A getter for the field or property to tween.
             <para>Example usage with lambda:</para><code>()=> myProperty</code></param>
@@ -732,8 +740,9 @@
             Setting it to 0 will shake along a single direction and behave like a random punch.</param>
             <param name="ignoreZAxis">If TRUE only shakes on the X Y axis (looks better with things like cameras).</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.DOTween.Shake(DG.Tweening.Core.DOGetter{UnityEngine.Vector3},DG.Tweening.Core.DOSetter{UnityEngine.Vector3},System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.DOTween.Shake(DG.Tweening.Core.DOGetter{UnityEngine.Vector3},DG.Tweening.Core.DOSetter{UnityEngine.Vector3},System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Vector3 with the given values.</summary>
             <param name="getter">A getter for the field or property to tween.
             <para>Example usage with lambda:</para><code>()=> myProperty</code></param>
@@ -745,6 +754,7 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction and behave like a random punch.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
         <member name="M:DG.Tweening.DOTween.ToArray(DG.Tweening.Core.DOGetter{UnityEngine.Vector3},DG.Tweening.Core.DOSetter{UnityEngine.Vector3},UnityEngine.Vector3[],System.Single[])">
             <summary>Tweens a property or field to the given values using default plugins.
@@ -919,8 +929,20 @@
         </member>
         <member name="M:DG.Tweening.DOTween.TotalActiveTweens">
             <summary>
-            Returns the total number of active tweens.
+            Returns the total number of active tweens (so both Tweeners and Sequences).
             A tween is considered active if it wasn't killed, regardless if it's playing or paused
+            </summary>
+        </member>
+        <member name="M:DG.Tweening.DOTween.TotalActiveTweeners">
+            <summary>
+            Returns the total number of active Tweeners.
+            A Tweener is considered active if it wasn't killed, regardless if it's playing or paused
+            </summary>
+        </member>
+        <member name="M:DG.Tweening.DOTween.TotalActiveSequences">
+            <summary>
+            Returns the total number of active Sequences.
+            A Sequence is considered active if it wasn't killed, regardless if it's playing or paused
             </summary>
         </member>
         <member name="M:DG.Tweening.DOTween.TotalPlayingTweens">
@@ -928,6 +950,12 @@
             Returns the total number of active and playing tweens.
             A tween is considered as playing even if its delay is actually playing
             </summary>
+        </member>
+        <member name="M:DG.Tweening.DOTween.TotalTweensById(System.Object,System.Boolean)">
+            <summary>
+            Returns a the total number of active tweens with the given id.
+            </summary>
+            <param name="playingOnly">If TRUE returns only the tweens with the given ID that are currently playing</param>
         </member>
         <member name="M:DG.Tweening.DOTween.PlayingTweens(System.Collections.Generic.List{DG.Tweening.Tween})">
             <summary>
@@ -1037,6 +1065,37 @@
             <param name="period">Eventual period to use with Elastic easeType</param>
         </member>
         <member name="M:DG.Tweening.DOVirtual.EasedValue(System.Single,System.Single,System.Single,UnityEngine.AnimationCurve)">
+            <summary>Returns a value based on the given ease and lifetime percentage (0 to 1)</summary>
+            <param name="from">The value to start from when lifetimePercentage is 0</param>
+            <param name="to">The value to reach when lifetimePercentage is 1</param>
+            <param name="lifetimePercentage">The time percentage (0 to 1) at which the value should be taken</param>
+            <param name="easeCurve">The AnimationCurve to use for ease</param>
+        </member>
+        <member name="M:DG.Tweening.DOVirtual.EasedValue(UnityEngine.Vector3,UnityEngine.Vector3,System.Single,DG.Tweening.Ease)">
+            <summary>Returns a value based on the given ease and lifetime percentage (0 to 1)</summary>
+            <param name="from">The value to start from when lifetimePercentage is 0</param>
+            <param name="to">The value to reach when lifetimePercentage is 1</param>
+            <param name="lifetimePercentage">The time percentage (0 to 1) at which the value should be taken</param>
+            <param name="easeType">The type of ease</param>
+        </member>
+        <member name="M:DG.Tweening.DOVirtual.EasedValue(UnityEngine.Vector3,UnityEngine.Vector3,System.Single,DG.Tweening.Ease,System.Single)">
+            <summary>Returns a value based on the given ease and lifetime percentage (0 to 1)</summary>
+            <param name="from">The value to start from when lifetimePercentage is 0</param>
+            <param name="to">The value to reach when lifetimePercentage is 1</param>
+            <param name="lifetimePercentage">The time percentage (0 to 1) at which the value should be taken</param>
+            <param name="easeType">The type of ease</param>
+            <param name="overshoot">Eventual overshoot to use with Back ease</param>
+        </member>
+        <member name="M:DG.Tweening.DOVirtual.EasedValue(UnityEngine.Vector3,UnityEngine.Vector3,System.Single,DG.Tweening.Ease,System.Single,System.Single)">
+            <summary>Returns a value based on the given ease and lifetime percentage (0 to 1)</summary>
+            <param name="from">The value to start from when lifetimePercentage is 0</param>
+            <param name="to">The value to reach when lifetimePercentage is 1</param>
+            <param name="lifetimePercentage">The time percentage (0 to 1) at which the value should be taken</param>
+            <param name="easeType">The type of ease</param>
+            <param name="amplitude">Eventual amplitude to use with Elastic easeType</param>
+            <param name="period">Eventual period to use with Elastic easeType</param>
+        </member>
+        <member name="M:DG.Tweening.DOVirtual.EasedValue(UnityEngine.Vector3,UnityEngine.Vector3,System.Single,UnityEngine.AnimationCurve)">
             <summary>Returns a value based on the given ease and lifetime percentage (0 to 1)</summary>
             <param name="from">The value to start from when lifetimePercentage is 0</param>
             <param name="to">The value to reach when lifetimePercentage is 1</param>
@@ -1284,6 +1343,17 @@
             <summary>
             Custom characters
             </summary>
+        </member>
+        <member name="T:DG.Tweening.ShakeRandomnessMode">
+            <summary>
+            Type of randomness to apply to a shake tween
+            </summary>
+        </member>
+        <member name="F:DG.Tweening.ShakeRandomnessMode.Full">
+            <summary>Default, full randomness</summary>
+        </member>
+        <member name="F:DG.Tweening.ShakeRandomnessMode.Harmonic">
+            <summary>Creates a more balanced randomness that looks more harmonic</summary>
         </member>
         <member name="T:DG.Tweening.TweenExtensions">
             <summary>
@@ -1562,7 +1632,7 @@
             Also stores the camera as the tween's target so it can be used for filtered operations</summary>
             <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakePosition(UnityEngine.Camera,System.Single,System.Single,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakePosition(UnityEngine.Camera,System.Single,System.Single,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Camera's localPosition along its relative X Y axes with the given values.
             Also stores the camera as the tween's target so it can be used for filtered operations</summary>
             <param name="duration">The duration of the tween</param>
@@ -1571,8 +1641,9 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakePosition(UnityEngine.Camera,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakePosition(UnityEngine.Camera,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Camera's localPosition along its relative X Y axes with the given values.
             Also stores the camera as the tween's target so it can be used for filtered operations</summary>
             <param name="duration">The duration of the tween</param>
@@ -1581,8 +1652,9 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeRotation(UnityEngine.Camera,System.Single,System.Single,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeRotation(UnityEngine.Camera,System.Single,System.Single,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Camera's localRotation.
             Also stores the camera as the tween's target so it can be used for filtered operations</summary>
             <param name="duration">The duration of the tween</param>
@@ -1591,8 +1663,9 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeRotation(UnityEngine.Camera,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeRotation(UnityEngine.Camera,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Camera's localRotation.
             Also stores the camera as the tween's target so it can be used for filtered operations</summary>
             <param name="duration">The duration of the tween</param>
@@ -1601,6 +1674,7 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
         <member name="M:DG.Tweening.ShortcutExtensions.DOColor(UnityEngine.Light,UnityEngine.Color,System.Single)">
             <summary>Tweens a Light's color to the given value.
@@ -1881,7 +1955,7 @@
             1 creates a full oscillation between the punch rotation and the opposite rotation,
             while 0 oscillates only between the punch and the start rotation</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakePosition(UnityEngine.Transform,System.Single,System.Single,System.Int32,System.Single,System.Boolean,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakePosition(UnityEngine.Transform,System.Single,System.Single,System.Int32,System.Single,System.Boolean,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Transform's localPosition with the given values.</summary>
             <param name="duration">The duration of the tween</param>
             <param name="strength">The shake strength</param>
@@ -1890,8 +1964,9 @@
             Setting it to 0 will shake along a single direction.</param>
             <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakePosition(UnityEngine.Transform,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakePosition(UnityEngine.Transform,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Transform's localPosition with the given values.</summary>
             <param name="duration">The duration of the tween</param>
             <param name="strength">The shake strength on each axis</param>
@@ -1900,8 +1975,9 @@
             Setting it to 0 will shake along a single direction.</param>
             <param name="snapping">If TRUE the tween will smoothly snap all values to integers</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeRotation(UnityEngine.Transform,System.Single,System.Single,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeRotation(UnityEngine.Transform,System.Single,System.Single,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Transform's localRotation.</summary>
             <param name="duration">The duration of the tween</param>
             <param name="strength">The shake strength</param>
@@ -1909,8 +1985,9 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeRotation(UnityEngine.Transform,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeRotation(UnityEngine.Transform,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Transform's localRotation.</summary>
             <param name="duration">The duration of the tween</param>
             <param name="strength">The shake strength on each axis</param>
@@ -1918,8 +1995,9 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeScale(UnityEngine.Transform,System.Single,System.Single,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeScale(UnityEngine.Transform,System.Single,System.Single,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Transform's localScale.</summary>
             <param name="duration">The duration of the tween</param>
             <param name="strength">The shake strength</param>
@@ -1927,8 +2005,9 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
-        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeScale(UnityEngine.Transform,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean)">
+        <member name="M:DG.Tweening.ShortcutExtensions.DOShakeScale(UnityEngine.Transform,System.Single,UnityEngine.Vector3,System.Int32,System.Single,System.Boolean,DG.Tweening.ShakeRandomnessMode)">
             <summary>Shakes a Transform's localScale.</summary>
             <param name="duration">The duration of the tween</param>
             <param name="strength">The shake strength on each axis</param>
@@ -1936,6 +2015,7 @@
             <param name="randomness">Indicates how much the shake will be random (0 to 180 - values higher than 90 kind of suck, so beware). 
             Setting it to 0 will shake along a single direction.</param>
             <param name="fadeOut">If TRUE the shake will automatically fadeOut smoothly within the tween's duration, otherwise it will not</param>
+            <param name="randomnessMode">Randomness mode</param>
         </member>
         <member name="M:DG.Tweening.ShortcutExtensions.DOJump(UnityEngine.Transform,UnityEngine.Vector3,System.Single,System.Int32,System.Single,System.Boolean)">
             <summary>Tweens a Transform's position to the given value, while also applying a jump effect along the Y axis.
@@ -2289,7 +2369,15 @@
         </member>
         <member name="M:DG.Tweening.TweenParams.SetId(System.Object)">
             <summary>Sets an ID for the tween, which can then be used as a filter with DOTween's static methods.</summary>
-            <param name="id">The ID to assign to this tween. Can be an int, a string, an object or anything else.</param>
+            <param name="objectId">The ID to assign to this tween. Can be an int, a string, an object or anything else.</param>
+        </member>
+        <member name="M:DG.Tweening.TweenParams.SetId(System.String)">
+            <summary>Sets an ID for the tween, which can then be used as a filter with DOTween's static methods.</summary>
+            <param name="stringId">The ID to assign to this tween. Can be an int, a string, an object or anything else.</param>
+        </member>
+        <member name="M:DG.Tweening.TweenParams.SetId(System.Int32)">
+            <summary>Sets an ID for the tween, which can then be used as a filter with DOTween's static methods.</summary>
+            <param name="intId">The ID to assign to this tween. Can be an int, a string, an object or anything else.</param>
         </member>
         <member name="M:DG.Tweening.TweenParams.SetTarget(System.Object)">
             <summary>Sets the target for the tween, which can then be used as a filter with DOTween's static methods.

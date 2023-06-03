@@ -8,6 +8,9 @@ namespace Pathfinding {
 
 	/// <summary>
 	/// AI for following paths.
+	///
+	/// [Open online documentation to see images]
+	///
 	/// This AI is the default movement script which comes with the A* Pathfinding Project.
 	/// It is in no way required by the rest of the system, so feel free to write your own. But I hope this script will make it easier
 	/// to set up movement for the characters in your game.
@@ -300,6 +303,15 @@ namespace Pathfinding {
 
 			// Replace the old path
 			path = p;
+
+			// The RandomPath and MultiTargetPath do not have a well defined destination that could have been
+			// set before the paths were calculated. So we instead set the destination here so that some properties
+			// like #reachedDestination and #remainingDistance work correctly.
+			if (path is RandomPath rpath) {
+				destination = rpath.originalEndPoint;
+			} else if (path is MultiTargetPath mpath) {
+				destination = mpath.originalEndPoint;
+			}
 
 			// Make sure the path contains at least 2 points
 			if (path.vectorPath.Count == 1) path.vectorPath.Add(path.vectorPath[0]);

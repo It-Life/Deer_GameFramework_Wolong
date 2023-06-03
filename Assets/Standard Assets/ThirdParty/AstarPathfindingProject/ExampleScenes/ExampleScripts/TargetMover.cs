@@ -10,7 +10,7 @@ namespace Pathfinding {
 	///
 	/// It is not meant to be pretty, but it does the job.
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_target_mover.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_target_mover.php")]
 	public class TargetMover : MonoBehaviour {
 		/// <summary>Mask for the raycast placement</summary>
 		public LayerMask mask;

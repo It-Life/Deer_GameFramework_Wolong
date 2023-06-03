@@ -229,7 +229,7 @@ namespace Pathfinding.RVO {
 		///
 		/// Saves found simulator in <see cref="sim"/>.
 		///
-		/// \throws System.InvalidOperationException When no RVOSimulator could be found.
+		/// Throws: System.InvalidOperationException When no RVOSimulator could be found.
 		/// </summary>
 		protected void FindSimulator () {
 			if (RVOSimulator.active == null) throw new System.InvalidOperationException("No RVOSimulator could be found in the scene. Please add one to any GameObject");

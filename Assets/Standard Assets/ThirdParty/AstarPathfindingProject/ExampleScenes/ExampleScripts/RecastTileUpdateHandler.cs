@@ -42,7 +42,7 @@ namespace Pathfinding {
 	/// want to use navmesh cutting instead. See navmeshcutting (view in online documentation for working links).
 	/// </summary>
 	[AddComponentMenu("Pathfinding/Navmesh/RecastTileUpdateHandler")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_recast_tile_update_handler.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_recast_tile_update_handler.php")]
 	public class RecastTileUpdateHandler : MonoBehaviour {
 		/// <summary>Graph that handles the updates</summary>
 		RecastGraph graph;

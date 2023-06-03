@@ -6,7 +6,7 @@ namespace Pathfinding {
 
 	/// <summary>
 	/// Simplifies a path using raycasting.
-	/// \ingroup modifiers
+	///
 	/// This modifier will try to remove as many nodes as possible from the path using raycasting (linecasting) to validate the node removal.
 	/// You can use either graph raycasting or Physics.Raycast.
 	/// When using graph raycasting, the graph will be traversed and checked for obstacles. When physics raycasting is used, the Unity physics system
@@ -37,7 +37,7 @@ namespace Pathfinding {
 	[AddComponentMenu("Pathfinding/Modifiers/Raycast Modifier")]
 	[RequireComponent(typeof(Seeker))]
 	[System.Serializable]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_raycast_modifier.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_raycast_modifier.php")]
 	public class RaycastModifier : MonoModifier {
 #if UNITY_EDITOR
 		[UnityEditor.MenuItem("CONTEXT/Seeker/Add Raycast Simplifier Modifier")]

@@ -5,8 +5,6 @@ namespace Pathfinding {
 	[CustomEditor(typeof(NavmeshCut))]
 	[CanEditMultipleObjects]
 	public class NavmeshCutEditor : EditorBase {
-		string[] graphLabels = new string[32];
-
 		protected override void Inspector () {
 			EditorGUI.BeginChangeCheck();
 			var type = FindProperty("type");
@@ -51,19 +49,8 @@ namespace Pathfinding {
 			PropertyField("isDual");
 			PropertyField("cutsAddedGeom");
 
-			for (int i = 0; i < graphLabels.Length; i++) {
-				if (AstarPath.active == null || AstarPath.active.data.graphs == null || i >= AstarPath.active.data.graphs.Length || AstarPath.active.data.graphs[i] == null) graphLabels[i] = "Graph " + i + (i == 31 ? "+" : "");
-				else {
-					if (AstarPath.active.data.graphs[i] is NavmeshBase) {
-						graphLabels[i] = AstarPath.active.data.graphs[i].name + " (graph " + i + ")";
-					} else {
-						graphLabels[i] = AstarPath.active.data.graphs[i].name + " (not a recast/navmesh graph)";
-					}
-				}
-			}
-
 			EditorGUI.BeginChangeCheck();
-			Mask("graphMask.value", graphLabels, "Affected Graphs");
+			PropertyField("graphMask", "Affected Graphs");
 			bool changedMask = EditorGUI.EndChangeCheck();
 
 			serializedObject.ApplyModifiedProperties();

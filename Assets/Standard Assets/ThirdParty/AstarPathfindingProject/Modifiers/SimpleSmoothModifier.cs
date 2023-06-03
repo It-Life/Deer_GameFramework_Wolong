@@ -8,16 +8,15 @@ namespace Pathfinding {
 	[System.Serializable]
 	[RequireComponent(typeof(Seeker))]
 	/// <summary>
-	/// Modifier which smooths the path. This modifier can smooth a path by either moving the points closer together (Simple) or using Bezier curves (Bezier).\n
-	/// \ingroup modifiers
+	/// Modifier which smooths the path. This modifier can smooth a path by either moving the points closer together (Simple) or using Bezier curves (Bezier).
+	///
 	/// Attach this component to the same GameObject as a Seeker component.
-	/// \n
+	///
 	/// This component will hook in to the Seeker's path post-processing system and will post process any paths it searches for.
 	/// Take a look at the Modifier Priorities settings on the Seeker component to determine where in the process this modifier should process the path.
-	/// \n
-	/// \n
+	///
 	/// Several smoothing types are available, here follows a list of them and a short description of what they do, and how they work.
-	/// But the best way is really to experiment with them yourself.\n
+	/// But the best way is really to experiment with them yourself.
 	///
 	/// - <b>Simple</b> Smooths the path by drawing all points close to each other. This results in paths that might cut corners if you are not careful.
 	/// It will also subdivide the path to create more more points to smooth as otherwise it would still be quite rough.
@@ -31,7 +30,7 @@ namespace Pathfinding {
 	/// Note: Modifies vectorPath array
 	/// TODO: Make the smooth modifier take the world geometry into account when smoothing
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_simple_smooth_modifier.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_simple_smooth_modifier.php")]
 	public class SimpleSmoothModifier : MonoModifier {
 #if UNITY_EDITOR
 		[UnityEditor.MenuItem("CONTEXT/Seeker/Add Simple Smooth Modifier")]

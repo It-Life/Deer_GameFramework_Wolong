@@ -9,7 +9,7 @@ namespace Pathfinding {
 	/// See: Pathfinding.RecastGraph.relevantGraphSurfaceMode
 	/// </summary>
 	[AddComponentMenu("Pathfinding/Navmesh/RelevantGraphSurface")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_relevant_graph_surface.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_relevant_graph_surface.php")]
 	public class RelevantGraphSurface : VersionedMonoBehaviour {
 		private static RelevantGraphSurface root;
 

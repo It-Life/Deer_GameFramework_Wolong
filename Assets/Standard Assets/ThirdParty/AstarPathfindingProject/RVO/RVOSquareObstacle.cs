@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Pathfinding.RVO {
 	/// <summary>Square Obstacle for RVO Simulation.</summary>
 	[AddComponentMenu("Pathfinding/Local Avoidance/Square Obstacle")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_r_v_o_1_1_r_v_o_square_obstacle.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_r_v_o_1_1_r_v_o_square_obstacle.php")]
 	public class RVOSquareObstacle : RVOObstacle {
 		/// <summary>Height of the obstacle</summary>
 		public float height = 1;

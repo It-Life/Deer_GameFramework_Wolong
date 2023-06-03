@@ -7,6 +7,9 @@ namespace Pathfinding {
 
 	/// <summary>
 	/// Linearly interpolating movement script.
+	///
+	/// [Open online documentation to see images]
+	///
 	/// This movement script will follow the path exactly, it uses linear interpolation to move between the waypoints in the path.
 	/// This is desirable for some types of games.
 	/// It also works in 2D.
@@ -31,33 +34,31 @@ namespace Pathfinding {
 	/// [Open online documentation to see images]
 	/// [Open online documentation to see images]
 	/// You may also want to tweak the <see cref="rotationSpeed"/>.
-	///
-	/// \ingroup movementscripts
 	/// </summary>
 	[RequireComponent(typeof(Seeker))]
 	[AddComponentMenu("Pathfinding/AI/AILerp (2D,3D)")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_a_i_lerp.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_a_i_lerp.php")]
 	public class AILerp : VersionedMonoBehaviour, IAstarAI {
 		/// <summary>
 		/// Determines how often it will search for new paths.
 		/// If you have fast moving targets or AIs, you might want to set it to a lower value.
 		/// The value is in seconds between path requests.
 		///
-		/// Deprecated: This has been renamed to \reflink{autoRepath.interval}.
-		/// See: \reflink{AutoRepathPolicy}
+		/// Deprecated: This has been renamed to <see cref="autoRepath.period"/>.
+		/// See: <see cref="AutoRepathPolicy"/>
 		/// </summary>
 		public float repathRate {
 			get {
-				return this.autoRepath.interval;
+				return this.autoRepath.period;
 			}
 			set {
-				this.autoRepath.interval = value;
+				this.autoRepath.period = value;
 			}
 		}
 
 		/// <summary>
 		/// \copydoc Pathfinding::IAstarAI::canSearch
-		/// Deprecated: This has been superseded by \reflink{autoRepath.mode}.
+		/// Deprecated: This has been superseded by <see cref="autoRepath.mode"/>.
 		/// </summary>
 		public bool canSearch {
 			get {
@@ -427,7 +428,7 @@ namespace Pathfinding {
 		/// <summary>True if the path should be automatically recalculated as soon as possible</summary>
 		protected virtual bool shouldRecalculatePath {
 			get {
-				return canSearchAgain && autoRepath.ShouldRecalculatePath((IAstarAI)this);
+				return canSearchAgain && autoRepath.ShouldRecalculatePath(position, 0.0f, destination);
 			}
 		}
 
@@ -463,7 +464,7 @@ namespace Pathfinding {
 
 			// Create a new path request
 			// The OnPathComplete method will later be called with the result
-			SetPath(ABPath.Construct(currentPosition, destination, null));
+			SetPath(ABPath.Construct(currentPosition, destination, null), false);
 		}
 
 		/// <summary>
@@ -509,6 +510,15 @@ namespace Pathfinding {
 			path = p;
 			reachedEndOfPath = false;
 
+			// The RandomPath and MultiTargetPath do not have a well defined destination that could have been
+			// set before the paths were calculated. So we instead set the destination here so that some properties
+			// like #reachedDestination and #remainingDistance work correctly.
+			if (path is RandomPath rpath) {
+				destination = rpath.originalEndPoint;
+			} else if (path is MultiTargetPath mpath) {
+				destination = mpath.originalEndPoint;
+			}
+
 			// Just for the rest of the code to work, if there
 			// is only one waypoint in the path add another one
 			if (path.vectorPath != null && path.vectorPath.Count == 1) {
@@ -552,7 +562,11 @@ namespace Pathfinding {
 		}
 
 		/// <summary>\copydoc Pathfinding::IAstarAI::SetPath</summary>
-		public void SetPath (Path path) {
+		public void SetPath (Path path, bool updateDestinationFromPath = true) {
+			if (updateDestinationFromPath && path is ABPath abPath && !(path is RandomPath)) {
+				this.destination = abPath.originalEndPoint;
+			}
+
 			if (path == null) {
 				ClearPath();
 			} else if (path.PipelineState == PathState.Created) {
@@ -695,7 +709,7 @@ namespace Pathfinding {
 
 		public virtual void OnDrawGizmos () {
 			tr = transform;
-			autoRepath.DrawGizmos((IAstarAI)this);
+			autoRepath.DrawGizmos(this.position, 0.0f);
 		}
 	}
 }

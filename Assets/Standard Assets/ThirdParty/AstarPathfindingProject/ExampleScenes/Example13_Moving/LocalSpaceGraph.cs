@@ -3,7 +3,7 @@ namespace Pathfinding {
 	using Pathfinding.Util;
 
 	/// <summary>Helper for <see cref="Pathfinding.Examples.LocalSpaceRichAI"/></summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_local_space_graph.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_local_space_graph.php")]
 	public class LocalSpaceGraph : VersionedMonoBehaviour {
 		Matrix4x4 originalMatrix;
 		public GraphTransform transformation { get; private set; }

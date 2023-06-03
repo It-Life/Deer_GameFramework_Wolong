@@ -336,7 +336,11 @@ namespace Pathfinding {
 					// Check intersections with every portal segment
 					var next2D = idx >= 0 ? leftArr[idx] : rightArr[-idx];
 					for (int j = prevIdx + 1; j < System.Math.Abs(idx); j++) {
-						var factor = VectorMath.LineIntersectionFactorXZ(FromXZ(leftArr[j]), FromXZ(rightArr[j]), FromXZ(prev2D), FromXZ(next2D));
+						// var factor = VectorMath.LineIntersectionFactorXZ(FromXZ(leftArr[j]), FromXZ(rightArr[j]), FromXZ(prev2D), FromXZ(next2D));
+						if (!VectorMath.LineLineIntersectionFactor(leftArr[j], rightArr[j] - leftArr[j], prev2D, next2D - prev2D, out float factor)) {
+							// This really shouldn't happen
+							factor = 0.5f;
+						}
 						result.Add(Vector3.Lerp(funnel.left[j], funnel.right[j], factor));
 					}
 

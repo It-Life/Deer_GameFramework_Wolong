@@ -17,7 +17,7 @@ namespace Pathfinding.Examples {
 	///
 	/// A few GUI buttons will be drawn by this script with which the user can change the number of agents.
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_lightweight_r_v_o.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_lightweight_r_v_o.php")]
 	public class LightweightRVO : MonoBehaviour {
 		/// <summary>Number of agents created at start</summary>
 		public int agentCount = 100;

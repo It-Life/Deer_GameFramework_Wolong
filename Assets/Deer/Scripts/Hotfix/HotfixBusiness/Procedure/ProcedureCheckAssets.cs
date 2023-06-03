@@ -9,6 +9,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
@@ -50,6 +52,13 @@ namespace HotfixBusiness.Procedure
         private bool m_NoticeUpdate = false;
         private float m_LastUpdateTime = 0;
         private List<UpdateInfoData> m_UpdateInfoDatas = new List<UpdateInfoData>();
+        private List<string> m_HotUpdateAsm;
+        private List<Assembly> m_HotfixAssemblys = new List<Assembly>();
+        private LoadAssetCallbacks m_LoadAssetCallbacks;
+        private int m_LoadAssetCount;
+        private bool m_LoadAssemblyWait;
+        private int m_FailureAssetCount;
+        private bool m_IsResetProcedure;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -57,6 +66,8 @@ namespace HotfixBusiness.Procedure
             m_NextProcedure = procedureOwner.GetData<VarString>("nextProcedure");
             m_NoticeUpdate = false;
             m_UpdateTotalZipLength = 0;
+            m_LoadAssetFinish = false;
+            m_IsResetProcedure = false;
             OnStartLoadAsset();
             GameEntry.Event.Subscribe(ResourceUpdateStartEventArgs.EventId, OnResourceUpdateStart);
             GameEntry.Event.Subscribe(ResourceUpdateChangedEventArgs.EventId, OnResourceUpdateChanged);
@@ -70,15 +81,14 @@ namespace HotfixBusiness.Procedure
             if (m_LoadAssetFinish)
             {
                 GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(false);
-                bool isJumpScene = Constant.Procedure.IsJumpScene(m_NextProcedure);
-                if (isJumpScene)
+                GameEntry.Setting.SetString("nextProcedure",m_NextProcedure);
+                if (m_IsResetProcedure)
                 {
-                    m_ProcedureOwner.SetData<VarString>("nextProcedure", m_NextProcedure);
-                    ChangeState<ProcedureChangeScene>(m_ProcedureOwner);
+                    GameEntry.ResetProcedure(Constant.Procedure.ProcedureResetMain);
                 }
                 else
                 {
-                    ChangeState(procedureOwner, Utility.Assembly.GetType(m_NextProcedure));
+                    ChangeState<ProcedureResetMain>(m_ProcedureOwner);
                 }
             }
         }
@@ -95,9 +105,14 @@ namespace HotfixBusiness.Procedure
         private void OnStartLoadAsset()
         {
             UnloadAllResources();
+            string groupName = Constant.Procedure.FindAssetGroup(m_NextProcedure);
+            m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies(groupName);
             if (GameEntryMain.Base.EditorResourceMode)
             {
-                m_LoadAssetFinish = true;
+                if (AddHotAssemblyToArray())
+                {
+                    m_LoadAssetFinish = true;
+                }
             }
             else
             {
@@ -107,7 +122,6 @@ namespace HotfixBusiness.Procedure
                     OnNoticeUpdate();
                     return;
                 }
-                string groupName = Constant.Procedure.FindAssetGroup(m_NextProcedure);
                 if (string.IsNullOrEmpty(groupName))
                 {
                     OnNoticeUpdate();
@@ -128,6 +142,77 @@ namespace HotfixBusiness.Procedure
                 OnNoticeUpdate();
             }
         }
+
+        private bool IsAddAllFinish(string aAssembly =null)
+        {
+            bool isAllAddFinish = true;
+            List<Assembly> _assemblies = GameEntry.GetHotfixAssemblys();
+            if (aAssembly != null)
+            {
+                foreach (var assembly in _assemblies)
+                {
+                    if (aAssembly == $"{assembly.GetName().Name}.dll")
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            foreach (var hotUpdateAsm in m_HotUpdateAsm)
+            {
+                bool isFind = false;
+                foreach (var assembly in _assemblies)
+                {
+                    if (hotUpdateAsm == $"{assembly.GetName().Name}.dll")
+                    {
+                        isFind = true;
+                    }
+                }
+                if (!isFind)
+                {
+                    isAllAddFinish = false;
+                    break;
+                }
+            }
+            if (isAllAddFinish)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool AddHotAssemblyToArray()
+        {
+            if (m_HotUpdateAsm.Count == 0)
+            {
+                return true;
+            }
+
+            if (IsAddAllFinish())
+            {
+                return true;
+            }
+            m_HotfixAssemblys.Clear();
+            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (var hotUpdateDllName in m_HotUpdateAsm)
+                {
+                    if (hotUpdateDllName == $"{asm.GetName().Name}.dll")
+                    {
+                        m_HotfixAssemblys.Add(asm);
+                        m_IsResetProcedure = true;
+                        GameEntry.AddHotfixAssemblys(asm);
+                    }
+                }
+                if (m_HotfixAssemblys.Count == m_HotUpdateAsm.Count)
+                {
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void OnNoticeUpdate()
         {
             if (m_NoticeUpdate)
@@ -155,6 +240,31 @@ namespace HotfixBusiness.Procedure
             }*/
             UpdateResources();
         }
+
+        private void LoadHotUpdateAssembly()
+        {
+            if (DeerSettingsUtils.DeerHybridCLRSettings.Enable)
+            {
+                m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);
+                foreach (var hotUpdateDllName in m_HotUpdateAsm)
+                {
+                    var assetPath = Utility.Path.GetRegularPath(Path.Combine("Assets",DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetPath,hotUpdateDllName,
+                        DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetsRootName,DeerSettingsUtils.HotfixNode, $"{hotUpdateDllName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
+                    Logger.Debug<ProcedureCheckAssets>($"LoadAsset: [ {assetPath} ]");
+                    m_LoadAssetCount++;
+                    GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
+                }
+                m_LoadAssemblyWait = true;
+            }
+            else
+            {
+                if (AddHotAssemblyToArray())
+                {
+                    m_LoadAssetFinish = true;
+                }
+            }
+        }
+
         private void UpdateResources()
         {
             string groupName = Constant.Procedure.FindAssetGroup(m_NextProcedure);
@@ -166,14 +276,21 @@ namespace HotfixBusiness.Procedure
             else
             {
                 m_LoadAssetFinish = true;
+
+                if (DeerSettingsUtils.DeerHybridCLRSettings.Enable)
+                {
+ 
+                }
             }
         }
+        
+        
         //这个是下载成功之后的监听
         private void OnUpdateResourcesComplete(IResourceGroup resourceGroup, bool result)
         {
             if (result)
             {
-                m_LoadAssetFinish = true;
+                LoadHotUpdateAssembly();
             }
             else
             {
@@ -287,6 +404,41 @@ namespace HotfixBusiness.Procedure
                 UnityGameFramework.Runtime.Log.Info("Update resource '{0}' failure from '{1}' with error message '{2}', retry count '{3}'.", ne.Name, ne.DownloadUri, ne.ErrorMessage, ne.RetryCount.ToString());
             }
             OnUpdateCompleteOne(ne.Name, 0, UpdateStateType.Failure);
+        }
+        
+        private void LoadAssetSuccess(string assetName, object asset, float duration, object userData)
+        {
+            m_LoadAssetCount--;
+            Logger.Debug<ProcedureLoadAssembly>($"LoadAssetSuccess, assetName: [ {assetName} ], duration: [ {duration} ], userData: [ {userData} ]");
+            var textAsset = asset as TextAsset;
+            if (null == textAsset)
+            {
+                Logger.Debug<ProcedureLoadAssembly>($"Load text asset [ {assetName} ] failed.");
+                return;
+            }
+            if (userData is string asmName)
+            {
+                if (!IsAddAllFinish(asmName))
+                {
+                    Assembly asm = Assembly.Load(textAsset.bytes);
+                    m_IsResetProcedure = true;
+                    GameEntry.AddHotfixAssemblys(asm);
+                }
+            }
+            if (m_LoadAssetCount == 0)
+            {
+                m_LoadAssetFinish = true;
+            }
+        }
+
+        private void LoadAssetFailure(string assetName, LoadResourceStatus status, string errorMessage, object userData)
+        {
+            Logger.Error<ProcedureLoadAssembly>($"LoadAssetFailure, assetName: [ {assetName} ], status: [ {status} ], errorMessage: [ {errorMessage} ], userData: [ {userData} ]");
+            m_LoadAssetCount--;
+            if (m_LoadAssetCount == 0)
+            {
+                m_LoadAssetFinish = true;
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Pathfinding.Examples {
 	/// <summary>Example script used in the example scenes</summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_door_controller.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_door_controller.php")]
 	public class DoorController : MonoBehaviour {
 		private bool open = false;
 

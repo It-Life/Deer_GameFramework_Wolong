@@ -11,6 +11,7 @@ namespace Pathfinding.Serialization.Zip {
 	public class ZipFile {
 		public System.Text.Encoding AlternateEncoding;
 		public ZipOption AlternateEncodingUsage = ZipOption.Always;
+		public int ParallelDeflateThreshold = 0;
 
 		Dictionary<string, ZipEntry> dict = new Dictionary<string, ZipEntry>();
 

@@ -31,21 +31,21 @@ namespace Pathfinding {
 		/// See: <see cref="shouldRecalculatePath"/>
 		/// See: <see cref="SearchPath"/>
 		///
-		/// Deprecated: This has been renamed to \reflink{autoRepath.interval}.
-		/// See: \reflink{AutoRepathPolicy}
+		/// Deprecated: This has been renamed to <see cref="autoRepath.period"/>.
+		/// See: <see cref="AutoRepathPolicy"/>
 		/// </summary>
 		public float repathRate {
 			get {
-				return this.autoRepath.interval;
+				return this.autoRepath.period;
 			}
 			set {
-				this.autoRepath.interval = value;
+				this.autoRepath.period = value;
 			}
 		}
 
 		/// <summary>
 		/// \copydoc Pathfinding::IAstarAI::canSearch
-		/// Deprecated: This has been superseded by \reflink{autoRepath.mode}.
+		/// Deprecated: This has been superseded by <see cref="autoRepath.mode"/>.
 		/// </summary>
 		public bool canSearch {
 			get {
@@ -337,7 +337,7 @@ namespace Pathfinding {
 		/// <summary>True if the path should be automatically recalculated as soon as possible</summary>
 		protected virtual bool shouldRecalculatePath {
 			get {
-				return !waitingForPathCalculation && autoRepath.ShouldRecalculatePath((IAstarAI)this);
+				return !waitingForPathCalculation && autoRepath.ShouldRecalculatePath(position, radius, destination);
 			}
 		}
 
@@ -481,7 +481,7 @@ namespace Pathfinding {
 
 			// Request a path to be calculated from our current position to the destination
 			ABPath p = ABPath.Construct(start, end, null);
-			SetPath(p);
+			SetPath(p, false);
 		}
 
 		/// <summary>
@@ -510,7 +510,11 @@ namespace Pathfinding {
 		protected abstract void ClearPath();
 
 		/// <summary>\copydoc Pathfinding::IAstarAI::SetPath</summary>
-		public void SetPath (Path path) {
+		public void SetPath (Path path, bool updateDestinationFromPath = true) {
+			if (updateDestinationFromPath && path is ABPath abPath && !(path is RandomPath)) {
+				this.destination = abPath.originalEndPoint;
+			}
+
 			if (path == null) {
 				CancelCurrentPathRequest();
 				ClearPath();
@@ -748,7 +752,7 @@ namespace Pathfinding {
 
 			if (!float.IsPositiveInfinity(destination.x) && Application.isPlaying) Draw.Gizmos.CircleXZ(destination, 0.2f, Color.blue);
 
-			autoRepath.DrawGizmos((IAstarAI)this);
+			autoRepath.DrawGizmos(position, radius);
 		}
 
 		protected override void Reset () {

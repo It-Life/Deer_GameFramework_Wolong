@@ -5,11 +5,8 @@ using UnityEngine;
 namespace Pathfinding {
 	[AddComponentMenu("Pathfinding/Modifiers/Advanced Smooth")]
 	[System.Serializable]
-	/// <summary>
-	/// \ingroup modifiers
-	/// Smoothing by dividing path into turns and straight segments.
-	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_advanced_smooth.php")]
+	/// <summary>Smoothing by dividing path into turns and straight segments.</summary>
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_advanced_smooth.php")]
 	public class AdvancedSmooth : MonoModifier {
 		public override int Order { get { return 40; } }
 
@@ -369,7 +366,7 @@ namespace Pathfinding {
 		public abstract class TurnConstructor {
 			/// <summary>
 			/// Constant bias to add to the path lengths.
-			/// This can be used to favor certain turn types before others.\n
+			/// This can be used to favor certain turn types before others.
 			/// By for example setting this to -5, paths from this path constructor will be chosen
 			/// if there are no other paths more than 5 world units shorter than this one (as opposed to just any shorter path)
 			/// </summary>

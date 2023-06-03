@@ -8,7 +8,6 @@
 // ===============================================
 using System;
 using System.Collections.Generic;
-using HybridCLR.Editor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -41,7 +40,7 @@ public class DeerHybridCLRSettings:ScriptableObject
     public bool Gitee { get { return m_Gitee; }
         set { m_Gitee = value; }
     }
-    [Header("Auto sync with [HybridCLRGlobalSettings]")]
+    [Header("Click up button sync with [HybridCLRGlobalSettings]")]
     //[Tooltip("You should modify the file form file path [Assets/CustomHybridCLR/Settings/HybridCLRGlobalSettings.asset]")]
     
     [SerializeField] public List<HotUpdateAssemblie> HotUpdateAssemblies;
@@ -50,7 +49,7 @@ public class DeerHybridCLRSettings:ScriptableObject
     /// <summary>
     /// Dll of main business logic assembly
     /// </summary>
-    public string LogicMainDllName = "HotfixMain.dll";
+    public string LogicMainDllName = "HotfixFramework.Runtime.dll";
 
     /// <summary>
     /// 程序集文本资产打包Asset后缀名
@@ -64,12 +63,5 @@ public class DeerHybridCLRSettings:ScriptableObject
     public string AssemblyAssetsRootName = "Assemblies";
     public string HybridCLRIosBuildPath = "HybridCLRData/iOSBuild";
     public string HybridCLRIosXCodePath = "";
-
-
-
-    public static void RefreshAssembly()
-    {
-        DeerSettingsUtils.SetHybridCLRHotUpdateAssemblies(SettingsUtil.HotUpdateAssemblyFilesIncludePreserved);
-        DeerSettingsUtils.DeerHybridCLRSettings.Enable = SettingsUtil.Enable;
-    }
+    
 }

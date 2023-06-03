@@ -11,7 +11,7 @@ namespace Pathfinding.Legacy {
 	///
 	/// Deprecated: Use the RichAI class instead. This class only exists for compatibility reasons.
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_legacy_1_1_legacy_rich_a_i.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_legacy_1_1_legacy_rich_a_i.php")]
 	public class LegacyRichAI : RichAI {
 		/// <summary>
 		/// Use a 3rd degree equation for calculating slowdown acceleration instead of a 2nd degree.

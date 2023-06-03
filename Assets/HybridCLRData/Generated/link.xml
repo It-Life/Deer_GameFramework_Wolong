@@ -7,15 +7,22 @@
     <type fullname="Pathfinding.Path" preserve="all" />
     <type fullname="Pathfinding.Seeker" preserve="all" />
   </assembly>
+  <assembly fullname="CatJson">
+    <type fullname="CatJson.Extensions" preserve="all" />
+    <type fullname="CatJson.JsonParser" preserve="all" />
+  </assembly>
   <assembly fullname="Cinemachine">
-    <type fullname="Cinemachine.CinemachineCore" preserve="all" />
-    <type fullname="Cinemachine.CinemachineCore/AxisInputDelegate" preserve="all" />
     <type fullname="Cinemachine.CinemachineFreeLook" preserve="all" />
+    <type fullname="Cinemachine.CinemachineVirtualCamera" preserve="all" />
     <type fullname="Cinemachine.CinemachineVirtualCameraBase" preserve="all" />
   </assembly>
   <assembly fullname="DOTween">
     <type fullname="DG.Tweening.Core.TweenerCore`3" preserve="all" />
+    <type fullname="DG.Tweening.Ease" preserve="all" />
+    <type fullname="DG.Tweening.LoopType" preserve="all" />
+    <type fullname="DG.Tweening.Plugins.Options.QuaternionOptions" preserve="all" />
     <type fullname="DG.Tweening.Plugins.Options.VectorOptions" preserve="all" />
+    <type fullname="DG.Tweening.RotateMode" preserve="all" />
     <type fullname="DG.Tweening.ShortcutExtensions" preserve="all" />
     <type fullname="DG.Tweening.TweenCallback" preserve="all" />
     <type fullname="DG.Tweening.TweenSettingsExtensions" preserve="all" />
@@ -29,7 +36,6 @@
     <type fullname="GameFramework.Fsm.FsmState`1" preserve="all" />
     <type fullname="GameFramework.Fsm.IFsm`1" preserve="all" />
     <type fullname="GameFramework.Fsm.IFsmManager" preserve="all" />
-    <type fullname="GameFramework.GameFrameworkAction`1" preserve="all" />
     <type fullname="GameFramework.GameFrameworkAction`2" preserve="all" />
     <type fullname="GameFramework.GameFrameworkEntry" preserve="all" />
     <type fullname="GameFramework.GameFrameworkException" preserve="all" />
@@ -47,6 +53,7 @@
     <type fullname="GameFramework.Procedure.ProcedureBase" preserve="all" />
     <type fullname="GameFramework.ReferencePool" preserve="all" />
     <type fullname="GameFramework.Resource.HasAssetResult" preserve="all" />
+    <type fullname="GameFramework.Resource.IResourceGroup" preserve="all" />
     <type fullname="GameFramework.Resource.LoadAssetCallbacks" preserve="all" />
     <type fullname="GameFramework.Resource.LoadAssetDependencyAssetCallback" preserve="all" />
     <type fullname="GameFramework.Resource.LoadAssetFailureCallback" preserve="all" />
@@ -54,7 +61,10 @@
     <type fullname="GameFramework.Resource.LoadAssetUpdateCallback" preserve="all" />
     <type fullname="GameFramework.Resource.LoadResourceStatus" preserve="all" />
     <type fullname="GameFramework.Resource.ResourceMode" preserve="all" />
+    <type fullname="GameFramework.Resource.UpdateResourcesCompleteCallback" preserve="all" />
     <type fullname="GameFramework.Sound.ISoundGroup" preserve="all" />
+    <type fullname="GameFramework.Sound.OnLoadAudioClip" preserve="all" />
+    <type fullname="GameFramework.Sound.OnLoadAudioClipFinish" preserve="all" />
     <type fullname="GameFramework.Sound.PlaySoundParams" preserve="all" />
     <type fullname="GameFramework.UI.IUIForm" preserve="all" />
     <type fullname="GameFramework.UI.IUIFormHelper" preserve="all" />
@@ -64,6 +74,7 @@
     <type fullname="GameFramework.Utility/Assembly" preserve="all" />
     <type fullname="GameFramework.Utility/Path" preserve="all" />
     <type fullname="GameFramework.Utility/Text" preserve="all" />
+    <type fullname="GameFramework.Variable`1" preserve="all" />
   </assembly>
   <assembly fullname="Google.Protobuf">
     <type fullname="Google.Protobuf.ByteString" preserve="all" />
@@ -103,19 +114,24 @@
     <type fullname="ColorType" preserve="all" />
     <type fullname="ComponentAutoBindTool" preserve="all" />
     <type fullname="ConfigInfo" preserve="all" />
+    <type fullname="CrossPlatformComponent" preserve="all" />
+    <type fullname="DeerGlobalSettings" preserve="all" />
+    <type fullname="DeerHybridCLRSettings" preserve="all" />
     <type fullname="DeerSettingsUtils" preserve="all" />
-    <type fullname="FrameworkGlobalSettings" preserve="all" />
     <type fullname="GameEntryMain" preserve="all" />
     <type fullname="Logger" preserve="all" />
     <type fullname="Main.Runtime.DialogParams" preserve="all" />
     <type fullname="Main.Runtime.FileUtils" preserve="all" />
     <type fullname="Main.Runtime.Procedure.ProcedureBase" preserve="all" />
+    <type fullname="Main.Runtime.Procedure.ProcedureLoadAssembly" preserve="all" />
+    <type fullname="Main.Runtime.Procedure.UpdateStateType" preserve="all" />
     <type fullname="Main.Runtime.UI.UIInitRootForm" preserve="all" />
     <type fullname="Main.Runtime.UIBaseForm" preserve="all" />
     <type fullname="Main.Runtime.UIExtension" preserve="all" />
     <type fullname="MessengerComponent" preserve="all" />
     <type fullname="MessengerInfo" preserve="all" />
     <type fullname="RegistFunction" preserve="all" />
+    <type fullname="SerializableDictionary`2" preserve="all" />
     <type fullname="Singleton`1" preserve="all" />
     <type fullname="SingletonMono`1" preserve="all" />
     <type fullname="UIButtonSuper" preserve="all" />
@@ -130,6 +146,7 @@
     <type fullname="System.Action`1" preserve="all" />
     <type fullname="System.Action`2" preserve="all" />
     <type fullname="System.Activator" preserve="all" />
+    <type fullname="System.AppDomain" preserve="all" />
     <type fullname="System.Array" preserve="all" />
     <type fullname="System.AsyncCallback" preserve="all" />
     <type fullname="System.Boolean" preserve="all" />
@@ -187,6 +204,7 @@
     <type fullname="System.ParamArrayAttribute" preserve="all" />
     <type fullname="System.Predicate`1" preserve="all" />
     <type fullname="System.Reflection.Assembly" preserve="all" />
+    <type fullname="System.Reflection.AssemblyName" preserve="all" />
     <type fullname="System.Reflection.BindingFlags" preserve="all" />
     <type fullname="System.Reflection.DefaultMemberAttribute" preserve="all" />
     <type fullname="System.Reflection.FieldInfo" preserve="all" />
@@ -276,11 +294,19 @@
     <type fullname="UnityEngine.Animator" preserve="all" />
     <type fullname="UnityEngine.AnimatorStateInfo" preserve="all" />
   </assembly>
+  <assembly fullname="UnityEngine.AssetBundleModule">
+    <type fullname="UnityEngine.AssetBundle" preserve="all" />
+    <type fullname="UnityEngine.AssetBundleCreateRequest" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.AudioModule">
+    <type fullname="UnityEngine.AudioClip" preserve="all" />
+  </assembly>
   <assembly fullname="UnityEngine.CoreModule">
     <type fullname="UnityEngine.AddComponentMenu" preserve="all" />
     <type fullname="UnityEngine.AnimationCurve" preserve="all" />
     <type fullname="UnityEngine.Application" preserve="all" />
     <type fullname="UnityEngine.AsyncOperation" preserve="all" />
+    <type fullname="UnityEngine.AudioType" preserve="all" />
     <type fullname="UnityEngine.Behaviour" preserve="all" />
     <type fullname="UnityEngine.Bounds" preserve="all" />
     <type fullname="UnityEngine.Camera" preserve="all" />
@@ -320,6 +346,7 @@
     <type fullname="UnityEngine.Screen" preserve="all" />
     <type fullname="UnityEngine.SerializeField" preserve="all" />
     <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.TextAsset" preserve="all" />
     <type fullname="UnityEngine.Texture" preserve="all" />
     <type fullname="UnityEngine.Texture2D" preserve="all" />
     <type fullname="UnityEngine.TextureFormat" preserve="all" />
@@ -383,9 +410,15 @@
     <type fullname="UnityEngine.CanvasGroup" preserve="all" />
     <type fullname="UnityEngine.RectTransformUtility" preserve="all" />
   </assembly>
+  <assembly fullname="UnityEngine.UnityWebRequestAudioModule">
+    <type fullname="UnityEngine.Networking.DownloadHandlerAudioClip" preserve="all" />
+    <type fullname="UnityEngine.Networking.UnityWebRequestMultimedia" preserve="all" />
+  </assembly>
   <assembly fullname="UnityEngine.UnityWebRequestModule">
+    <type fullname="UnityEngine.Networking.CertificateHandler" preserve="all" />
     <type fullname="UnityEngine.Networking.DownloadHandler" preserve="all" />
     <type fullname="UnityEngine.Networking.UnityWebRequest" preserve="all" />
+    <type fullname="UnityEngine.Networking.UnityWebRequest/Result" preserve="all" />
     <type fullname="UnityEngine.Networking.UnityWebRequestAsyncOperation" preserve="all" />
     <type fullname="UnityEngine.WWWForm" preserve="all" />
   </assembly>
@@ -401,6 +434,7 @@
     <type fullname="UnityGameFramework.Runtime.DownloadComponent" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.DownloadFailureEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.DownloadSuccessEventArgs" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.DownloadUpdateEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.Entity" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.EntityComponent" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.EntityLogic" preserve="all" />
@@ -427,6 +461,10 @@
     <type fullname="UnityGameFramework.Runtime.OpenUIFormSuccessEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.ProcedureComponent" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.ResourceComponent" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ResourceUpdateChangedEventArgs" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ResourceUpdateFailureEventArgs" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ResourceUpdateStartEventArgs" preserve="all" />
+    <type fullname="UnityGameFramework.Runtime.ResourceUpdateSuccessEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.SceneComponent" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.SettingComponent" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.ShowEntityFailureEventArgs" preserve="all" />
@@ -440,7 +478,6 @@
     <type fullname="UnityGameFramework.Runtime.UnloadSceneFailureEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.UnloadSceneSuccessEventArgs" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.VarBoolean" preserve="all" />
-    <type fullname="UnityGameFramework.Runtime.VarInt16" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.VarString" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.WebRequestComponent" preserve="all" />
     <type fullname="UnityGameFramework.Runtime.WebRequestFailureEventArgs" preserve="all" />

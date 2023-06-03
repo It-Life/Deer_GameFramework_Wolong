@@ -1,7 +1,5 @@
 using UnityEngine;
-#if UNITY_5_5_OR_NEWER
 using UnityEngine.Profiling;
-#endif
 
 namespace Pathfinding.RVO {
 	using Pathfinding.Util;
@@ -23,7 +21,7 @@ namespace Pathfinding.RVO {
 	/// </summary>
 	[ExecuteInEditMode]
 	[AddComponentMenu("Pathfinding/Local Avoidance/RVO Simulator")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_r_v_o_1_1_r_v_o_simulator.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_r_v_o_1_1_r_v_o_simulator.php")]
 	public class RVOSimulator : VersionedMonoBehaviour {
 		/// <summary>First RVOSimulator in the scene (usually there is only one)</summary>
 		public static RVOSimulator active { get; private set; }

@@ -67,19 +67,28 @@ namespace Pathfinding {
 				// (in particular Unity 2017.4 seems to miss marking the PSM build target as obsolete, the other ones seem accurate)
 				if (deprecatedBuildTargets.Contains(nonDeprecatedBuildTypes[i])) continue;
 
+#if UNITY_2021_3_OR_NEWER
+				PlayerSettings.GetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(nonDeprecatedBuildTypes[i]), out var defines);
+#else
 				string defineString = PlayerSettings.GetScriptingDefineSymbolsForGroup(nonDeprecatedBuildTypes[i]);
 				if (defineString == null) continue;
 
-				var defines = defineString.Split(';').Select(s => s.Trim()).ToList();
-				result[nonDeprecatedBuildTypes[i]] = defines;
+				var defines = defineString.Split(';').Select(s => s.Trim());
+#endif
+				result[nonDeprecatedBuildTypes[i]] = defines.ToList();
 			}
 			return result;
 		}
 
 		static void SetDefineSymbols (Dictionary<BuildTargetGroup, List<string> > symbols) {
 			foreach (var pair in symbols) {
+#if UNITY_2021_3_OR_NEWER
+				string[] symbolsArr = pair.Value.Distinct().ToArray();
+				PlayerSettings.SetScriptingDefineSymbols(UnityEditor.Build.NamedBuildTarget.FromBuildTargetGroup(pair.Key), symbolsArr);
+#else
 				var defineString = string.Join(";", pair.Value.Distinct().ToArray());
 				PlayerSettings.SetScriptingDefineSymbolsForGroup(pair.Key, defineString);
+#endif
 			}
 		}
 

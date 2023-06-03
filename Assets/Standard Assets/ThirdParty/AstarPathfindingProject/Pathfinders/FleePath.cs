@@ -3,9 +3,9 @@ using UnityEngine;
 namespace Pathfinding {
 	/// <summary>
 	/// Returns a path heading away from a specified point to avoid.
-	/// The search will terminate when G \> length (passed to the constructor) + FleePath.spread.\n
-	/// \ingroup paths
-	/// Can be used to make an AI to flee from an enemy (cannot guarantee that it will not be forced into corners though :D )\n
+	/// The search will terminate when G \> length (passed to the constructor) + FleePath.spread.
+	///
+	/// Can be used to make an AI to flee from an enemy (cannot guarantee that it will not be forced into corners though :D )
 	/// <code>
 	///
 	/// // Call a FleePath call like this, assumes that a Seeker is attached to the GameObject

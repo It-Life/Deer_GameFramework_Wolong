@@ -15,7 +15,7 @@ namespace Pathfinding.Examples {
 	/// </summary>
 	[RequireComponent(typeof(RVOController))]
 	[RequireComponent(typeof(Seeker))]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_r_v_o_example_agent.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_r_v_o_example_agent.php")]
 	public class RVOExampleAgent : MonoBehaviour {
 		public float repathRate = 1;
 

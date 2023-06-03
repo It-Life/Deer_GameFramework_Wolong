@@ -510,7 +510,7 @@ namespace Pathfinding {
 		static bool NodeIntersectsCircle (TriangleMeshNode node, Vector3 p, float radius) {
 			if (float.IsPositiveInfinity(radius)) return true;
 
-			/// <summary>\bug Is not correct on the Y axis</summary>
+			/// <summary>Bug: Is not correct on the Y axis</summary>
 			return (p - node.ClosestPointOnNode(p)).sqrMagnitude < radius*radius;
 		}
 

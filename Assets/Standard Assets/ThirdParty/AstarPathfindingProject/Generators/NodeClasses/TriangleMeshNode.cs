@@ -293,7 +293,7 @@ namespace Pathfinding {
 		/// Returns the edge which is shared with other.
 		/// If no edge is shared, -1 is returned.
 		/// If there is a connection with the other node, but the connection is not marked as using a particular edge of the shape of the node
-		/// then 0xFF will be returned.
+		/// then Connection.NoSharedEdge will be returned.
 		///
 		/// The vertices in the edge can be retrieved using
 		/// <code>
@@ -334,7 +334,7 @@ namespace Pathfinding {
 			var edge = SharedEdge(toTriNode);
 
 			// A connection was found, but it specifically didn't use an edge
-			if (edge == 0xFF) return false;
+			if (edge == Connection.NoSharedEdge) return false;
 
 			// No connection was found between the nodes
 			// Check if there is a node link that connects them
@@ -385,7 +385,7 @@ namespace Pathfinding {
 				var otherEdge = toTriNode.SharedEdge(this);
 
 				// A connection was found, but it specifically didn't use an edge. This is odd since the connection in the other direction did use an edge
-				if (otherEdge == 0xFF) throw new System.Exception("Connection used edge in one direction, but not in the other direction. Has the wrong overload of AddConnection been used?");
+				if (otherEdge == Connection.NoSharedEdge) throw new System.Exception("Connection used edge in one direction, but not in the other direction. Has the wrong overload of AddConnection been used?");
 
 				// If it is -1 then it must be a one-way connection. Fall back to using the whole edge
 				if (otherEdge != -1) {

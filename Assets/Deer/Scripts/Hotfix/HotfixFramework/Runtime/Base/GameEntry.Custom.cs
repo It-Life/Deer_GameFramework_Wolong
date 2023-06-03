@@ -62,7 +62,41 @@ public partial class GameEntry
 
         return null;
     }
+    /// <summary>
+    /// 获取热更程序集
+    /// </summary>
+    /// <returns></returns>
+    public static void AddHotfixAssemblys(Assembly hotFixAssembly)
+    {
+        if (m_HotfixAssemblys is { Count: > 0 })
+        {
+            bool isFind = false;
+            foreach (var assembly in m_HotfixAssemblys)
+            {
+                if (hotFixAssembly == assembly)
+                {
+                    isFind = true;
+                }
+            }
+            if (!isFind)
+            {
+                m_HotfixAssemblys.Add(hotFixAssembly);
+            }
+        }
+        else
+        {
+            if (m_HotfixAssemblys != null)
+            {
+                m_HotfixAssemblys.Add(hotFixAssembly);
+            }
+            else
+            {
+                m_HotfixAssemblys = new List<Assembly>();
+                m_HotfixAssemblys.Add(hotFixAssembly);
+            }
+        }
 
+    }
     public static ProcedureBase GetProcedureByName(string procedureName)
     {
         if (GetHotfixAssemblys() == null ||  procedureName == null)
@@ -165,9 +199,12 @@ public partial class GameEntry
         GameEntryMain.UI.DeerUIInitRootForm().OnOpenLoadingForm(false);
     }
     private static List<Assembly> m_HotfixAssemblys;
-    private static ProcedureBase m_EntranceProcedureBase;
     private static string m_EntranceProcedureTypeName = "HotfixBusiness.Procedure.ProcedurePreload";
-    private static void ResetProcedure() 
+    private static void ResetProcedure()
+    {
+        ResetProcedure(m_EntranceProcedureTypeName);
+    }
+    public static void ResetProcedure(string procedureName) 
     {
 #if UNITY_EDITOR
         if (m_HotfixAssemblys.Count == 0)
@@ -186,14 +223,14 @@ public partial class GameEntry
             Log.Error("Procedures is invalid.");
             return;
         }
-        m_EntranceProcedureBase = GetProcedureByName(m_EntranceProcedureTypeName);
-        if (m_EntranceProcedureBase == null)
+        ProcedureBase _EntranceProcedureBase = GetProcedureByName(procedureName);
+        if (_EntranceProcedureBase == null)
         {
             Log.Error("Entrance procedure is invalid.");
             return;
         }
         procedureManager.Initialize(GameFramework.GameFrameworkEntry.GetModule<GameFramework.Fsm.IFsmManager>(), procedures);
-        procedureManager.StartProcedure(m_EntranceProcedureBase.GetType());
+        procedureManager.StartProcedure(_EntranceProcedureBase.GetType());
     }
     private static string m_UIFormHelperTypeName = "Main.Runtime.DeerUIFormHelper";
     private static UIFormHelperBase m_CustomUIFormHelper = null;

@@ -428,7 +428,7 @@ namespace Pathfinding {
 			}
 		}
 
-		/// <summary>Draws the inspector for a \link Pathfinding.GraphCollision GraphCollision class \endlink</summary>
+		/// <summary>Draws the inspector for a <see cref="Pathfinding.GraphCollision GraphCollision"/></summary>
 		protected virtual void DrawCollisionEditor (GraphCollision collision) {
 			collision = collision ?? new GraphCollision();
 

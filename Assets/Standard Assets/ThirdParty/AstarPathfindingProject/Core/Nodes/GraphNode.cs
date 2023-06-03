@@ -20,7 +20,7 @@ namespace Pathfinding {
 		/// Side of the node shape which this connection uses.
 		/// Used for mesh nodes.
 		/// A value of 0 corresponds to using the side for vertex 0 and vertex 1 on the node. 1 corresponds to vertex 1 and 2, etc.
-		/// A negative value means that this connection does not use any side at all (this is mostly used for off-mesh links).
+		/// A value of <see cref="NoSharedEdge"/> means that this connection does not use any side at all (this is mostly used for off-mesh links).
 		///
 		/// Note: Due to alignment, the <see cref="node"/> and <see cref="cost"/> fields use 12 bytes which will be padded
 		/// to 16 bytes when used in an array even if this field would be removed.
@@ -31,7 +31,9 @@ namespace Pathfinding {
 		/// </summary>
 		public byte shapeEdge;
 
-		public Connection (GraphNode node, uint cost, byte shapeEdge = 0xFF) {
+		public const byte NoSharedEdge = 0xFF;
+
+		public Connection (GraphNode node, uint cost, byte shapeEdge = NoSharedEdge) {
 			this.node = node;
 			this.cost = cost;
 			this.shapeEdge = shapeEdge;
@@ -650,7 +652,7 @@ namespace Pathfinding {
 		/// <param name="node">Node to add a connection to</param>
 		/// <param name="cost">Cost of traversing the connection. A cost of 1000 corresponds approximately to the cost of moving 1 world unit.</param>
 		public override void AddConnection (GraphNode node, uint cost) {
-			AddConnection(node, cost, -1);
+			AddConnection(node, cost, Connection.NoSharedEdge);
 		}
 
 		/// <summary>
@@ -665,8 +667,8 @@ namespace Pathfinding {
 		/// </summary>
 		/// <param name="node">Node to add a connection to</param>
 		/// <param name="cost">Cost of traversing the connection. A cost of 1000 corresponds approximately to the cost of moving 1 world unit.</param>
-		/// <param name="shapeEdge">Which edge on the shape of this node to use or -1 if no edge is used.</param>
-		public void AddConnection (GraphNode node, uint cost, int shapeEdge) {
+		/// <param name="shapeEdge">Which edge on the shape of this node to use or #Connection.NoSharedEdge if no edge is used.</param>
+		public void AddConnection (GraphNode node, uint cost, byte shapeEdge) {
 			if (node == null) throw new System.ArgumentNullException();
 
 			// Check if we already have a connection to the node
@@ -678,7 +680,7 @@ namespace Pathfinding {
 						// Update edge only if it was a definite edge, otherwise reuse the existing one
 						// This makes it possible to use the AddConnection(node,cost) overload to only update the cost
 						// without changing the edge which is required for backwards compatibility.
-						connections[i].shapeEdge = shapeEdge >= 0 ? (byte)shapeEdge : connections[i].shapeEdge;
+						connections[i].shapeEdge = shapeEdge != Connection.NoSharedEdge ? shapeEdge : connections[i].shapeEdge;
 						return;
 					}
 				}

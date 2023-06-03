@@ -12,12 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a710bd3636b4e441b4a37087e23d2f3, type: 3}
   m_Name: DeerHybridCLRSettings
   m_EditorClassIdentifier: 
-  m_Enable: 0
+  m_Enable: 1
   m_Gitee: 1
+  HotUpdateAssemblies:
+  - AssetGroupName: BaseAssets
+    Assembly: HotfixCommon.dll
+  - AssetGroupName: BaseAssets
+    Assembly: HotfixFramework.Runtime.dll
+  - AssetGroupName: BaseAssets
+    Assembly: HotfixBusiness.dll
+  - AssetGroupName: ADeerExample
+    Assembly: HotfixADeerExample.dll
+  - AssetGroupName: AGameExample
+    Assembly: HotfixAGameExample.dll
   AOTMetaAssemblies: []
-  LogicMainDllName: HotfixMain.dll
-  AssemblyTextAssetExtension: .bytes
-  AssemblyTextAssetPath: Deer/AssetsHotfix/Assemblies
-  HybridCLRGlobalSettings: Settings/HybridCLRGlobalSettings
+  LogicMainDllName: HotfixFramework.Runtime.dll
+  AssemblyAssetExtension: .bytes
+  AssemblyAssetPath: Deer/AssetsHotfix
+  AssemblyAssetsRootName: Assemblies
   HybridCLRIosBuildPath: HybridCLRData/iOSBuild
   HybridCLRIosXCodePath: 

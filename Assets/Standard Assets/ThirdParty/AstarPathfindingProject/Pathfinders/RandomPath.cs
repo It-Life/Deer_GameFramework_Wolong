@@ -3,8 +3,8 @@ using UnityEngine;
 namespace Pathfinding {
 	/// <summary>
 	/// Finds a path in a random direction from the start node.
-	/// \ingroup paths
-	/// Terminates and returns when G \>= length (passed to the constructor) + RandomPath.spread or when there are no more nodes left to search.\n
+	///
+	/// Terminates and returns when G \>= length (passed to the constructor) + RandomPath.spread or when there are no more nodes left to search.
 	///
 	/// <code>
 	///

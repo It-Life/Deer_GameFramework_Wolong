@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 namespace Pathfinding.Examples {
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_example_mover.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_example_mover.php")]
 	public class ExampleMover : MonoBehaviour {
 		RVOExampleAgent agent;
 		public Transform target;

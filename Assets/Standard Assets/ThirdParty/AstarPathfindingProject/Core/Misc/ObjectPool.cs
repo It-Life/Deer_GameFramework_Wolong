@@ -22,7 +22,7 @@ namespace Pathfinding.Util {
 	///
 	/// After you have released a object, you should never use it again.
 	///
-	/// \since Version 3.2
+	/// Since: Version 3.2
 	/// Version: Since 3.7.6 this class is thread safe
 	/// See: Pathfinding.Util.ListPool
 	/// See: ObjectPoolSimple
@@ -49,7 +49,7 @@ namespace Pathfinding.Util {
 	///
 	/// After you have released a object, you should never use it again.
 	///
-	/// \since Version 3.2
+	/// Since: Version 3.2
 	/// Version: Since 3.7.6 this class is thread safe
 	/// See: Pathfinding.Util.ListPool
 	/// See: ObjectPool
@@ -90,7 +90,7 @@ namespace Pathfinding.Util {
 		/// After the object has been released it should not be used anymore.
 		/// The variable will be set to null to prevent silly mistakes.
 		///
-		/// \throws System.InvalidOperationException
+		/// Throws: System.InvalidOperationException
 		/// Releasing an object when it has already been released will cause an exception to be thrown.
 		/// However enabling ASTAR_OPTIMIZE_POOLING will prevent this check.
 		///

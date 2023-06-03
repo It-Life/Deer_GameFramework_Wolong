@@ -18,7 +18,7 @@ namespace Pathfinding {
 	/// See: RecastTileUpdateHandler
 	/// </summary>
 	[AddComponentMenu("Pathfinding/Navmesh/RecastTileUpdate")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_recast_tile_update.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_recast_tile_update.php")]
 	public class RecastTileUpdate : MonoBehaviour {
 		public static event System.Action<Bounds> OnNeedUpdates;
 

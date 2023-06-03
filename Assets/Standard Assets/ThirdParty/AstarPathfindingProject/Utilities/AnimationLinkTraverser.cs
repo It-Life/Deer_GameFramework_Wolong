@@ -12,7 +12,7 @@ namespace Pathfinding.Examples {
 	/// See: <see cref="Pathfinding.RichAI.onTraverseOffMeshLink"/>
 	/// See: <see cref="Pathfinding.AnimationLink"/>
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_animation_link_traverser.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_animation_link_traverser.php")]
 	public class AnimationLinkTraverser : VersionedMonoBehaviour {
 		public Animation anim;
 

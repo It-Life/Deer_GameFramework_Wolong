@@ -38,6 +38,7 @@ public static partial class Constant
     {
         
         public const string ProcedureMainMenu = "HotfixBusiness.Procedure.ProcedureMainMenu";
+        public const string ProcedureResetMain = "HotfixBusiness.Procedure.ProcedureResetMain";
         
         public const string ProcedureADeerExample = "HotfixADeerExample.Procedure.ProcedureADeerExample";
         public const string ProcedureDeerMain = "HotfixADeerExample.Procedure.ProcedureDeerMain";

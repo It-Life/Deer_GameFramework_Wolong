@@ -21,7 +21,7 @@ namespace Pathfinding {
 	/// See: The example scene RecastExample2 contains a few links which you can take a look at to see how they are used.
 	/// </summary>
 	[AddComponentMenu("Pathfinding/Link2")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_node_link2.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_node_link2.php")]
 	public class NodeLink2 : GraphModifier {
 		protected static Dictionary<GraphNode, NodeLink2> reference = new Dictionary<GraphNode, NodeLink2>();
 		public static NodeLink2 GetNodeLink (GraphNode node) {

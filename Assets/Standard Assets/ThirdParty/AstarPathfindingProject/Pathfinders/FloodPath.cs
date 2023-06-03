@@ -4,29 +4,29 @@ using System.Collections.Generic;
 
 namespace Pathfinding {
 	/// <summary>
-	/// Floods the area completely for easy computation of any path to a single point.
+	/// Calculates paths from everywhere to a single point.
 	/// This path is a bit special, because it does not do anything useful by itself. What it does is that it calculates paths to all nodes it can reach, it floods the graph.
-	/// This data will remain stored in the path. Then you can calculate a FloodPathTracer path, that path will trace the path from its starting point all the way to where this path started.
-	/// A FloodPathTracer search is extremely quick compared to a normal path request.
+	/// This data will remain stored in the path. Then you can calculate a FloodPathTracer path. That path will trace the path from its starting point all the way to where this path started.
+	/// A FloodPathTracer search is extremely fast to calculate compared to a normal path request.
 	///
-	/// It is very useful in for example TD (Tower Defence) games where all your AIs will walk to the same point but from different places, and you do not update the graph or change the target point very often.
+	/// It is very useful in for example tower defence games, where all your AIs will walk to the same point but from different places, and you do not update the graph or change the target point very often.
 	///
-	/// With this path type, it can all be handled easily.
-	/// - At start, you simply start ONE FloodPath and save the reference (it will be needed later).
+	/// Usage:
+	/// - At start, you calculate ONE FloodPath and save the reference (it will be needed later).
 	/// - Then when a unit is spawned or needs its path recalculated, start a FloodPathTracer path from the unit's position.
-	/// It will then find the shortest path to the point specified when you called the FloodPath extremely quickly.
-	/// - If you update the graph (for example place a tower in a TD game) or need to change the target point, you simply call a new FloodPath (and store it's reference).
+	/// It will then find the shortest path to the point specified when you calculated the FloodPath extremely quickly.
+	/// - If you update the graph (for example place a tower in a TD game) or need to change the target point, you calculate a new FloodPath and make all AIs calculate new FloodPathTracer paths.
 	///
-	/// Version: From 3.2 and up, path traversal data is now stored in the path class.
-	/// So you can now use other path types in parallel with this one.
+	/// Note: Since a FloodPathTracer path only uses precalculated information, it will always use the same penalties/tags as the FloodPath it references.
+	/// If you want to use different penalties/tags, you will have to calculate a new FloodPath.
 	///
 	/// Here follows some example code of the above list of steps:
 	/// <code>
 	/// public static FloodPath fpath;
 	///
 	/// public void Start () {
-	/// fpath = FloodPath.Construct (someTargetPosition, null);
-	/// AstarPath.StartPath (fpath);
+	///     fpath = FloodPath.Construct (someTargetPosition, null);
+	///     AstarPath.StartPath (fpath);
 	/// }
 	/// </code>
 	///
@@ -36,9 +36,9 @@ namespace Pathfinding {
 	/// seeker.StartPath (fpathTrace,OnPathComplete);
 	/// </code>
 	/// Where OnPathComplete is your callback function.
-	/// \n
-	/// Another thing to note is that if you are using NNConstraints on the FloodPathTracer, they must always inherit from Pathfinding.PathIDConstraint.\n
-	/// The easiest is to just modify the instance of PathIDConstraint which is created as the default one.
+	///
+	/// Another thing to note is that if you are using an NNConstraint on the FloodPathTracer, they must always inherit from <see cref="FloodPathConstraint"/>.
+	/// The easiest is to just modify the instance of FloodPathConstraint which is created as the default one.
 	///
 	/// \section flood-path-builtin-movement Integration with the built-in movement scripts
 	/// The built-in movement scripts cannot calculate a FloodPathTracer path themselves, but you can use the SetPath method to assign such a path to them:
@@ -50,8 +50,6 @@ namespace Pathfinding {
 	/// </code>
 	///
 	/// [Open online documentation to see images]
-	///
-	/// \ingroup paths
 	/// </summary>
 	public class FloodPath : Path {
 		public Vector3 originalStartPoint;
@@ -136,6 +134,9 @@ namespace Pathfinding {
 
 				startPoint = startNNInfo.position;
 				startNode = startNNInfo.node;
+			} else if (startNode.Destroyed) {
+				FailWithError("Start node has been destroyed");
+				return;
 			} else {
 				startPoint = (Vector3)startNode.position;
 			}

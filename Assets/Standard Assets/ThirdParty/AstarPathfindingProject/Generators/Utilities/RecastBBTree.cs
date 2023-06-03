@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Pathfinding {
 	/// <summary>
 	/// Axis Aligned Bounding Box Tree.
-	/// Holds a bounding box tree of RecastMeshObj components.\n
+	/// Holds a bounding box tree of RecastMeshObj components.
 	/// Note that it assumes that once an object has been added, it stays at the same
 	/// world position. If it is moved, then it might not be able to be found.
 	/// </summary>

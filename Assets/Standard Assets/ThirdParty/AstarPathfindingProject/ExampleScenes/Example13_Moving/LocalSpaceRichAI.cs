@@ -30,7 +30,7 @@ namespace Pathfinding.Examples {
 	/// script, however it should not be hard to
 	/// use the same approach for other movement scripts.
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_local_space_rich_a_i.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_local_space_rich_a_i.php")]
 	public class LocalSpaceRichAI : RichAI {
 		/// <summary>Root of the object we are moving on</summary>
 		public LocalSpaceGraph graph;

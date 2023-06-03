@@ -9,7 +9,6 @@ namespace Pathfinding {
 	/// See: <see cref="AstarPath.GetNearest"/>
 	/// See: <see cref="Pathfinding.GraphUpdateUtilities"/>
 	/// See: <see cref="Pathfinding.GraphUtilities"/>
-	/// \ingroup utils
 	/// </summary>
 	public static class PathUtilities {
 		/// <summary>
@@ -24,6 +23,8 @@ namespace Pathfinding {
 		///     // Yay, there is a path between those two nodes
 		/// }
 		/// </code>
+		///
+		/// Equivalent to calling <see cref="IsPathPossible(List<GraphNode>)"/> with a list containing node1 and node2.
 		///
 		/// See: graph-updates (view in online documentation for working links)
 		/// See: <see cref="AstarPath.GetNearest"/>
@@ -175,6 +176,14 @@ namespace Pathfinding {
 		///
 		/// The video below shows the BFS result with varying values of depth. Points are sampled on the nodes using <see cref="GetPointsOnNodes"/>.
 		/// [Open online documentation to see videos]
+		///
+		/// <code>
+		/// var seed = AstarPath.active.GetNearest(transform.position, NNConstraint.Default).node;
+		/// var nodes = PathUtilities.BFS(seed, 10);
+		/// foreach (var node in nodes) {
+		///     Debug.DrawRay((Vector3)node.position, Vector3.up, Color.red, 10);
+		/// }
+		/// </code>
 		/// </summary>
 		/// <param name="seed">The node to start the search from.</param>
 		/// <param name="depth">The maximum node-distance from the seed node.</param>
@@ -381,7 +390,7 @@ namespace Pathfinding {
 				while (true) {
 					Vector3 pt = center + dir;
 
-					if (g.Linecast(center, pt, nn.node, out hit)) {
+					if (g.Linecast(center, pt, out hit)) {
 						if (hit.point == Vector3.zero) {
 							// Oops, linecast actually failed completely
 							// try again unless we have tried lots of times

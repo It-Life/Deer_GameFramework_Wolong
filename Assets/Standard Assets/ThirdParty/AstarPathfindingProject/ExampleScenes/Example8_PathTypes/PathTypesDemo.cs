@@ -16,7 +16,7 @@ namespace Pathfinding.Examples {
 	/// See: Pathfinding.FloodPath
 	/// See: Pathfinding.FloodPathTracer
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_path_types_demo.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_path_types_demo.php")]
 	public class PathTypesDemo : MonoBehaviour {
 		public DemoMode activeDemo = DemoMode.ABPath;
 
@@ -111,7 +111,7 @@ namespace Pathfinding.Examples {
 
 			GUILayout.Space(5);
 
-			GUILayout.Label("Note that the paths are rendered without ANY post-processing applied, so they might look a bit edgy");
+			GUILayout.Label("Note that the paths are rendered without ANY post-processing applied, so they might look a bit jagged");
 
 			GUILayout.Space(5);
 
