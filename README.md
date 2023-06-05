@@ -1,5 +1,11 @@
 # Deer_GameFramework_Wolong
-- 基于GameFramework框架衍生的一个wolong热更框架（以由之前的huatuo升级为HybridCLR(wolong)），实现除GameFramework库底层代码以及更新流程逻辑层代码，其余流程及业务层代码全部热更。
+- 基于GameFramework框架衍生的一个wolong热更框架（以由之前的huatuo升级为HybridCLR；
+
+- 实现除GameFramework库底层代码以及更新流程逻辑层代码，其他流程及业务层代码全部热更；
+
+- 实现游戏AB资源和热更程序集分模块加载；
+
+- 包含多个自定义组件；
 
 - 游戏配表Config接入Luban,采用异步加载Config，实现热更资源和Config表分离Hotfix处理，方便配表人员频繁更新Config表。
 
@@ -8,34 +14,18 @@
 - Unity 2021.3.1f1c1
 - Microsoft Visual Studio Professional 2022 
 
-### 程序集引用图
+### 项目流程关系图
 
-![流程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/2021.3.1/DescDocu/%E6%B5%81%E7%A8%8B.png?raw=true)
+![流程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/2021.3.1f1New/DescDocu/%E6%B5%81%E7%A8%8B%E5%85%B3%E7%B3%BB%E5%9B%BE.png?raw=true)
 
-### 热更程序集
+### 项目包含组件
 
-目前热更程序集有四个，可在业务层扩展
+![框架包含组件](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/2021.3.1f1New/DescDocu/%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6.png?raw=true)
 
-- HotfixMain.dll  入口程序集
+### 框架使用帮助
 
-- HotfixCommon.dll 公共程序集
-
-- HotFixFramework.Runtime.dll 框架程序集
-
-- HotfixBusiness.dll 业务程序集
-
-  可扩展程序集
-
-- HotfixBusinessA.dll 业务程序集A
-
-- HotfixBusinessB.dll 业务程序集B
-
-程序集自动打AssetBundle（AB），遵循GameFramework（GF）资源管理
-
-### 使用教程
-
-* [Deer_GameFramework_Wolong/框架使用教程](https://github.com/It-Life/Deer_GameFramework_Wolong/blob/2021.3.1/DescDocu/%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B.md)
-* 博客地址 [AlanDu](https://www.cnblogs.com/AlanDu/)
+- [点击链接加入QQ群聊【Deer_Gf_CLR热更使用互助群】](https://jq.qq.com/?_wv=1027&k=18qNRFnH)
+- 博客地址 [AlanDu](https://www.cnblogs.com/AlanDu/)
 
 ### 项目声明
 
@@ -46,10 +36,6 @@
 - [Demigiant](https://assetstore.unity.com/packages/tools/visual-scripting/dotween-pro-32416)
 - [SuperScrollView](https://assetstore.unity.com/packages/tools/gui/ugui-super-scrollview-86572)
 - ...
-
-### 框架使用集合地
-
-- [点击链接加入群聊【Gf_Wolong热更集合】](https://jq.qq.com/?_wv=1027&k=18qNRFnH)
 
 ### 致谢仓库
 
