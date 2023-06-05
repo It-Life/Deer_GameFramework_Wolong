@@ -27,18 +27,25 @@ namespace Pb.Message {
             "ChVFeHRlcm5hbE1lc3NhZ2UucHJvdG8SCnBiLm1lc3NhZ2UihAEKD0V4dGVy",
             "bmFsTWVzc2FnZRIPCgdjbWRDb2RlGAEgASgFEhYKDnByb3RvY29sU3dpdGNo",
             "GAIgASgFEhAKCGNtZE1lcmdlGAMgASgFEhYKDnJlc3BvbnNlU3RhdHVzGAQg",
-            "ASgREhAKCHZhbGlkTXNnGAUgASgJEgwKBGRhdGEYBiABKAwiGQoFSW50UGIS",
-            "EAoIaW50VmFsdWUYASABKBEiHgoJSW50TGlzdFBiEhEKCWludFZhbHVlcxgB",
-            "IAMoESIbCgZMb25nUGISEQoJbG9uZ1ZhbHVlGAEgASgSIiAKCkxvbmdMaXN0",
-            "UGISEgoKbG9uZ1ZhbHVlcxgBIAMoEmIGcHJvdG8z"));
+            "ASgREhAKCHZhbGlkTXNnGAUgASgJEgwKBGRhdGEYBiABKAwiGQoISW50VmFs",
+            "dWUSDQoFdmFsdWUYASABKBEiHgoMSW50VmFsdWVMaXN0Eg4KBnZhbHVlcxgB",
+            "IAMoESIaCglMb25nVmFsdWUSDQoFdmFsdWUYASABKBIiHwoNTG9uZ1ZhbHVl",
+            "TGlzdBIOCgZ2YWx1ZXMYASADKBIiHAoLU3RyaW5nVmFsdWUSDQoFdmFsdWUY",
+            "ASABKAkiIQoPU3RyaW5nVmFsdWVMaXN0Eg4KBnZhbHVlcxgBIAMoCSIaCglC",
+            "b29sVmFsdWUSDQoFdmFsdWUYASABKAgiHwoNQm9vbFZhbHVlTGlzdBIOCgZ2",
+            "YWx1ZXMYASADKAhiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.ExternalMessage), global::Pb.Message.ExternalMessage.Parser, new[]{ "CmdCode", "ProtocolSwitch", "CmdMerge", "ResponseStatus", "ValidMsg", "Data" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.IntPb), global::Pb.Message.IntPb.Parser, new[]{ "IntValue" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.IntListPb), global::Pb.Message.IntListPb.Parser, new[]{ "IntValues" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.LongPb), global::Pb.Message.LongPb.Parser, new[]{ "LongValue" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.LongListPb), global::Pb.Message.LongListPb.Parser, new[]{ "LongValues" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.IntValue), global::Pb.Message.IntValue.Parser, new[]{ "Value" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.IntValueList), global::Pb.Message.IntValueList.Parser, new[]{ "Values" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.LongValue), global::Pb.Message.LongValue.Parser, new[]{ "Value" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.LongValueList), global::Pb.Message.LongValueList.Parser, new[]{ "Values" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.StringValue), global::Pb.Message.StringValue.Parser, new[]{ "Value" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.StringValueList), global::Pb.Message.StringValueList.Parser, new[]{ "Values" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.BoolValue), global::Pb.Message.BoolValue.Parser, new[]{ "Value" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Pb.Message.BoolValueList), global::Pb.Message.BoolValueList.Parser, new[]{ "Values" }, null, null, null)
           }));
     }
     #endregion
@@ -147,7 +154,7 @@ namespace Pb.Message {
     public const int ValidMsgFieldNumber = 5;
     private string validMsg_ = "";
     /// <summary>
-    /// 验证信息: 当 responseStatus == -1001 时， 会有值
+    /// 验证信息（错误消息、异常消息），通常情况下 responseStatus == -1001 时， 会有值
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ValidMsg {
@@ -338,11 +345,11 @@ namespace Pb.Message {
   /// <summary>
   /// int 包装类
   /// </summary>
-  public sealed partial class IntPb : pb::IMessage<IntPb> {
-    private static readonly pb::MessageParser<IntPb> _parser = new pb::MessageParser<IntPb>(() => new IntPb());
+  public sealed partial class IntValue : pb::IMessage<IntValue> {
+    private static readonly pb::MessageParser<IntValue> _parser = new pb::MessageParser<IntValue>(() => new IntValue());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<IntPb> Parser { get { return _parser; } }
+    public static pb::MessageParser<IntValue> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -355,58 +362,58 @@ namespace Pb.Message {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IntPb() {
+    public IntValue() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IntPb(IntPb other) : this() {
-      intValue_ = other.intValue_;
+    public IntValue(IntValue other) : this() {
+      value_ = other.value_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IntPb Clone() {
-      return new IntPb(this);
+    public IntValue Clone() {
+      return new IntValue(this);
     }
 
-    /// <summary>Field number for the "intValue" field.</summary>
-    public const int IntValueFieldNumber = 1;
-    private int intValue_;
+    /// <summary>Field number for the "value" field.</summary>
+    public const int ValueFieldNumber = 1;
+    private int value_;
     /// <summary>
     /// int 值
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int IntValue {
-      get { return intValue_; }
+    public int Value {
+      get { return value_; }
       set {
-        intValue_ = value;
+        value_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as IntPb);
+      return Equals(other as IntValue);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(IntPb other) {
+    public bool Equals(IntValue other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (IntValue != other.IntValue) return false;
+      if (Value != other.Value) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (IntValue != 0) hash ^= IntValue.GetHashCode();
+      if (Value != 0) hash ^= Value.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -420,9 +427,9 @@ namespace Pb.Message {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (IntValue != 0) {
+      if (Value != 0) {
         output.WriteRawTag(8);
-        output.WriteSInt32(IntValue);
+        output.WriteSInt32(Value);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -432,8 +439,8 @@ namespace Pb.Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (IntValue != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeSInt32Size(IntValue);
+      if (Value != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeSInt32Size(Value);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -442,12 +449,12 @@ namespace Pb.Message {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(IntPb other) {
+    public void MergeFrom(IntValue other) {
       if (other == null) {
         return;
       }
-      if (other.IntValue != 0) {
-        IntValue = other.IntValue;
+      if (other.Value != 0) {
+        Value = other.Value;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -461,7 +468,7 @@ namespace Pb.Message {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            IntValue = input.ReadSInt32();
+            Value = input.ReadSInt32();
             break;
           }
         }
@@ -473,11 +480,11 @@ namespace Pb.Message {
   /// <summary>
   /// int list 包装类
   /// </summary>
-  public sealed partial class IntListPb : pb::IMessage<IntListPb> {
-    private static readonly pb::MessageParser<IntListPb> _parser = new pb::MessageParser<IntListPb>(() => new IntListPb());
+  public sealed partial class IntValueList : pb::IMessage<IntValueList> {
+    private static readonly pb::MessageParser<IntValueList> _parser = new pb::MessageParser<IntValueList>(() => new IntValueList());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<IntListPb> Parser { get { return _parser; } }
+    public static pb::MessageParser<IntValueList> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -490,57 +497,57 @@ namespace Pb.Message {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IntListPb() {
+    public IntValueList() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IntListPb(IntListPb other) : this() {
-      intValues_ = other.intValues_.Clone();
+    public IntValueList(IntValueList other) : this() {
+      values_ = other.values_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public IntListPb Clone() {
-      return new IntListPb(this);
+    public IntValueList Clone() {
+      return new IntValueList(this);
     }
 
-    /// <summary>Field number for the "intValues" field.</summary>
-    public const int IntValuesFieldNumber = 1;
-    private static readonly pb::FieldCodec<int> _repeated_intValues_codec
+    /// <summary>Field number for the "values" field.</summary>
+    public const int ValuesFieldNumber = 1;
+    private static readonly pb::FieldCodec<int> _repeated_values_codec
         = pb::FieldCodec.ForSInt32(10);
-    private readonly pbc::RepeatedField<int> intValues_ = new pbc::RepeatedField<int>();
+    private readonly pbc::RepeatedField<int> values_ = new pbc::RepeatedField<int>();
     /// <summary>
-    /// intList
+    /// intList、intArray
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<int> IntValues {
-      get { return intValues_; }
+    public pbc::RepeatedField<int> Values {
+      get { return values_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as IntListPb);
+      return Equals(other as IntValueList);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(IntListPb other) {
+    public bool Equals(IntValueList other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!intValues_.Equals(other.intValues_)) return false;
+      if(!values_.Equals(other.values_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= intValues_.GetHashCode();
+      hash ^= values_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -554,7 +561,7 @@ namespace Pb.Message {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      intValues_.WriteTo(output, _repeated_intValues_codec);
+      values_.WriteTo(output, _repeated_values_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -563,7 +570,7 @@ namespace Pb.Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      size += intValues_.CalculateSize(_repeated_intValues_codec);
+      size += values_.CalculateSize(_repeated_values_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -571,11 +578,11 @@ namespace Pb.Message {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(IntListPb other) {
+    public void MergeFrom(IntValueList other) {
       if (other == null) {
         return;
       }
-      intValues_.Add(other.intValues_);
+      values_.Add(other.values_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -589,7 +596,7 @@ namespace Pb.Message {
             break;
           case 10:
           case 8: {
-            intValues_.AddEntriesFrom(input, _repeated_intValues_codec);
+            values_.AddEntriesFrom(input, _repeated_values_codec);
             break;
           }
         }
@@ -601,11 +608,11 @@ namespace Pb.Message {
   /// <summary>
   /// long 包装类
   /// </summary>
-  public sealed partial class LongPb : pb::IMessage<LongPb> {
-    private static readonly pb::MessageParser<LongPb> _parser = new pb::MessageParser<LongPb>(() => new LongPb());
+  public sealed partial class LongValue : pb::IMessage<LongValue> {
+    private static readonly pb::MessageParser<LongValue> _parser = new pb::MessageParser<LongValue>(() => new LongValue());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<LongPb> Parser { get { return _parser; } }
+    public static pb::MessageParser<LongValue> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -618,58 +625,58 @@ namespace Pb.Message {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public LongPb() {
+    public LongValue() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public LongPb(LongPb other) : this() {
-      longValue_ = other.longValue_;
+    public LongValue(LongValue other) : this() {
+      value_ = other.value_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public LongPb Clone() {
-      return new LongPb(this);
+    public LongValue Clone() {
+      return new LongValue(this);
     }
 
-    /// <summary>Field number for the "longValue" field.</summary>
-    public const int LongValueFieldNumber = 1;
-    private long longValue_;
+    /// <summary>Field number for the "value" field.</summary>
+    public const int ValueFieldNumber = 1;
+    private long value_;
     /// <summary>
     /// long 值
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long LongValue {
-      get { return longValue_; }
+    public long Value {
+      get { return value_; }
       set {
-        longValue_ = value;
+        value_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as LongPb);
+      return Equals(other as LongValue);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(LongPb other) {
+    public bool Equals(LongValue other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (LongValue != other.LongValue) return false;
+      if (Value != other.Value) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (LongValue != 0L) hash ^= LongValue.GetHashCode();
+      if (Value != 0L) hash ^= Value.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -683,9 +690,9 @@ namespace Pb.Message {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (LongValue != 0L) {
+      if (Value != 0L) {
         output.WriteRawTag(8);
-        output.WriteSInt64(LongValue);
+        output.WriteSInt64(Value);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -695,8 +702,8 @@ namespace Pb.Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (LongValue != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeSInt64Size(LongValue);
+      if (Value != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeSInt64Size(Value);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -705,12 +712,12 @@ namespace Pb.Message {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(LongPb other) {
+    public void MergeFrom(LongValue other) {
       if (other == null) {
         return;
       }
-      if (other.LongValue != 0L) {
-        LongValue = other.LongValue;
+      if (other.Value != 0L) {
+        Value = other.Value;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -724,7 +731,7 @@ namespace Pb.Message {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            LongValue = input.ReadSInt64();
+            Value = input.ReadSInt64();
             break;
           }
         }
@@ -736,11 +743,11 @@ namespace Pb.Message {
   /// <summary>
   /// long list 包装类
   /// </summary>
-  public sealed partial class LongListPb : pb::IMessage<LongListPb> {
-    private static readonly pb::MessageParser<LongListPb> _parser = new pb::MessageParser<LongListPb>(() => new LongListPb());
+  public sealed partial class LongValueList : pb::IMessage<LongValueList> {
+    private static readonly pb::MessageParser<LongValueList> _parser = new pb::MessageParser<LongValueList>(() => new LongValueList());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<LongListPb> Parser { get { return _parser; } }
+    public static pb::MessageParser<LongValueList> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -753,57 +760,57 @@ namespace Pb.Message {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public LongListPb() {
+    public LongValueList() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public LongListPb(LongListPb other) : this() {
-      longValues_ = other.longValues_.Clone();
+    public LongValueList(LongValueList other) : this() {
+      values_ = other.values_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public LongListPb Clone() {
-      return new LongListPb(this);
+    public LongValueList Clone() {
+      return new LongValueList(this);
     }
 
-    /// <summary>Field number for the "longValues" field.</summary>
-    public const int LongValuesFieldNumber = 1;
-    private static readonly pb::FieldCodec<long> _repeated_longValues_codec
+    /// <summary>Field number for the "values" field.</summary>
+    public const int ValuesFieldNumber = 1;
+    private static readonly pb::FieldCodec<long> _repeated_values_codec
         = pb::FieldCodec.ForSInt64(10);
-    private readonly pbc::RepeatedField<long> longValues_ = new pbc::RepeatedField<long>();
+    private readonly pbc::RepeatedField<long> values_ = new pbc::RepeatedField<long>();
     /// <summary>
-    /// longList
+    /// longList、longArray
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<long> LongValues {
-      get { return longValues_; }
+    public pbc::RepeatedField<long> Values {
+      get { return values_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as LongListPb);
+      return Equals(other as LongValueList);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(LongListPb other) {
+    public bool Equals(LongValueList other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!longValues_.Equals(other.longValues_)) return false;
+      if(!values_.Equals(other.values_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= longValues_.GetHashCode();
+      hash ^= values_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -817,7 +824,7 @@ namespace Pb.Message {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      longValues_.WriteTo(output, _repeated_longValues_codec);
+      values_.WriteTo(output, _repeated_values_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -826,7 +833,7 @@ namespace Pb.Message {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      size += longValues_.CalculateSize(_repeated_longValues_codec);
+      size += values_.CalculateSize(_repeated_values_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -834,11 +841,11 @@ namespace Pb.Message {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(LongListPb other) {
+    public void MergeFrom(LongValueList other) {
       if (other == null) {
         return;
       }
-      longValues_.Add(other.longValues_);
+      values_.Add(other.values_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -852,7 +859,532 @@ namespace Pb.Message {
             break;
           case 10:
           case 8: {
-            longValues_.AddEntriesFrom(input, _repeated_longValues_codec);
+            values_.AddEntriesFrom(input, _repeated_values_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// string 包装类
+  /// </summary>
+  public sealed partial class StringValue : pb::IMessage<StringValue> {
+    private static readonly pb::MessageParser<StringValue> _parser = new pb::MessageParser<StringValue>(() => new StringValue());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<StringValue> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Pb.Message.ExternalMessageReflection.Descriptor.MessageTypes[5]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StringValue() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StringValue(StringValue other) : this() {
+      value_ = other.value_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StringValue Clone() {
+      return new StringValue(this);
+    }
+
+    /// <summary>Field number for the "value" field.</summary>
+    public const int ValueFieldNumber = 1;
+    private string value_ = "";
+    /// <summary>
+    /// string 值
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Value {
+      get { return value_; }
+      set {
+        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as StringValue);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(StringValue other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Value != other.Value) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Value.Length != 0) hash ^= Value.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Value.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Value);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Value.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(StringValue other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Value.Length != 0) {
+        Value = other.Value;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Value = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// string list 包装类
+  /// </summary>
+  public sealed partial class StringValueList : pb::IMessage<StringValueList> {
+    private static readonly pb::MessageParser<StringValueList> _parser = new pb::MessageParser<StringValueList>(() => new StringValueList());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<StringValueList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Pb.Message.ExternalMessageReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StringValueList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StringValueList(StringValueList other) : this() {
+      values_ = other.values_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public StringValueList Clone() {
+      return new StringValueList(this);
+    }
+
+    /// <summary>Field number for the "values" field.</summary>
+    public const int ValuesFieldNumber = 1;
+    private static readonly pb::FieldCodec<string> _repeated_values_codec
+        = pb::FieldCodec.ForString(10);
+    private readonly pbc::RepeatedField<string> values_ = new pbc::RepeatedField<string>();
+    /// <summary>
+    /// stringList、stringArray
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<string> Values {
+      get { return values_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as StringValueList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(StringValueList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!values_.Equals(other.values_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= values_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      values_.WriteTo(output, _repeated_values_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += values_.CalculateSize(_repeated_values_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(StringValueList other) {
+      if (other == null) {
+        return;
+      }
+      values_.Add(other.values_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            values_.AddEntriesFrom(input, _repeated_values_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// bool 包装类
+  /// </summary>
+  public sealed partial class BoolValue : pb::IMessage<BoolValue> {
+    private static readonly pb::MessageParser<BoolValue> _parser = new pb::MessageParser<BoolValue>(() => new BoolValue());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<BoolValue> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Pb.Message.ExternalMessageReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BoolValue() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BoolValue(BoolValue other) : this() {
+      value_ = other.value_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BoolValue Clone() {
+      return new BoolValue(this);
+    }
+
+    /// <summary>Field number for the "value" field.</summary>
+    public const int ValueFieldNumber = 1;
+    private bool value_;
+    /// <summary>
+    /// bool 值
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Value {
+      get { return value_; }
+      set {
+        value_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as BoolValue);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(BoolValue other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Value != other.Value) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Value != false) hash ^= Value.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Value != false) {
+        output.WriteRawTag(8);
+        output.WriteBool(Value);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Value != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(BoolValue other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Value != false) {
+        Value = other.Value;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Value = input.ReadBool();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// bool list 包装类
+  /// </summary>
+  public sealed partial class BoolValueList : pb::IMessage<BoolValueList> {
+    private static readonly pb::MessageParser<BoolValueList> _parser = new pb::MessageParser<BoolValueList>(() => new BoolValueList());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<BoolValueList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Pb.Message.ExternalMessageReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BoolValueList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BoolValueList(BoolValueList other) : this() {
+      values_ = other.values_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public BoolValueList Clone() {
+      return new BoolValueList(this);
+    }
+
+    /// <summary>Field number for the "values" field.</summary>
+    public const int ValuesFieldNumber = 1;
+    private static readonly pb::FieldCodec<bool> _repeated_values_codec
+        = pb::FieldCodec.ForBool(10);
+    private readonly pbc::RepeatedField<bool> values_ = new pbc::RepeatedField<bool>();
+    /// <summary>
+    /// boolList、boolArray
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<bool> Values {
+      get { return values_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as BoolValueList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(BoolValueList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!values_.Equals(other.values_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= values_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      values_.WriteTo(output, _repeated_values_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += values_.CalculateSize(_repeated_values_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(BoolValueList other) {
+      if (other == null) {
+        return;
+      }
+      values_.Add(other.values_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10:
+          case 8: {
+            values_.AddEntriesFrom(input, _repeated_values_codec);
             break;
           }
         }

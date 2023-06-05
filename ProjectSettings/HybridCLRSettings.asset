@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enable: 1
   useGlobalIl2cpp: 0
-  hybridclrRepoURL: https://github.com/focus-creative-games/hybridclr
-  il2cppPlusRepoURL: https://github.com/focus-creative-games/il2cpp_plus
+  hybridclrRepoURL: https://gitee.com/focus-creative-games/hybridclr
+  il2cppPlusRepoURL: https://gitee.com/focus-creative-games/il2cpp_plus
   hotUpdateAssemblyDefinitions:
   - {fileID: 5897886265953266890, guid: 7ef7d012d9d92d341926d99b50cdde6a, type: 3}
   - {fileID: 5897886265953266890, guid: 1c284c47c5e6d27489e8e674b28561be, type: 3}

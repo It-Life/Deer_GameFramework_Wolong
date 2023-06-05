@@ -7,6 +7,7 @@
 //版 本 : 0.1 
 // ===============================================
 
+using System.Collections.Generic;
 using Pb.Message;
 using Deer;
 using GameFramework;
@@ -50,7 +51,21 @@ public class SCHeartBeatHandler : PacketHandlerBase
             MessengerInfo messengerInfo = ReferencePool.Acquire<MessengerInfo>();
             messengerInfo.param1 = externalMessage.CmdMerge;
             messengerInfo.param2 = externalMessage.Data.ToByteArray();
-            GameEntry.Messenger.SendEvent(EventName.EVENT_CS_NET_RECEIVE, messengerInfo);
+            object returnParam = GameEntry.Messenger.SendEvent(EventName.EVENT_CS_NET_RECEIVE, messengerInfo);
+            if (returnParam != null)
+            {
+                List<object> returnList = (List<object>)returnParam;
+                if (returnList.Count>0)
+                {
+                    foreach (var reItem in returnList)
+                    {
+                        if (reItem is MessengerInfo reMessengerInfo)
+                        {
+                            ReferencePool.Release(reMessengerInfo);
+                        }
+                    }
+                }
+            }
             Logger.ColorInfo(ColorType.violet, $"收到{ProtobufUtils.GetHighOrder(externalMessage.CmdMerge)}_{ProtobufUtils.GetLowOrder(externalMessage.CmdMerge)}消息Id:{externalMessage.CmdMerge}");
         }
     }

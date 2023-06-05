@@ -49,7 +49,7 @@ public partial class NetConnectorComponent : GameFrameworkComponent
         }
         else 
         {
-            Log.Error($"channelName:{0},is nono", channelName);
+            Logger.Error($"channelName:{channelName},is null");
         }
     }
 
@@ -91,23 +91,24 @@ public partial class NetConnectorComponent : GameFrameworkComponent
     }
     public void Send(string channelName, int cmdMerge, byte[] v)
     {
-        INetworkChannel networkChannel = null;
-        m_ListNetworkChannel.TryGetValue(channelName, out networkChannel);
+        m_ListNetworkChannel.TryGetValue(channelName, out var networkChannel);
         if (networkChannel != null)
         {
             CSProtoPacket csProtoPacket = ReferencePool.Acquire<CSProtoPacket>();
-            ExternalMessage external = new ExternalMessage();
-            external.CmdCode = 1;
-            external.CmdMerge = cmdMerge;
-            external.ProtocolSwitch = 0;
-            external.Data = Google.Protobuf.ByteString.CopyFrom(v);
+            ExternalMessage external = new ExternalMessage
+            {
+                CmdCode = 1,
+                CmdMerge = cmdMerge,
+                ProtocolSwitch = 0,
+                Data = Google.Protobuf.ByteString.CopyFrom(v)
+            };
             csProtoPacket.protoBody = ProtobufUtils.Serialize(external);
             networkChannel.Send(csProtoPacket);
             Logger.ColorInfo(ColorType.yellowgreen, $"发送{ProtobufUtils.GetHighOrder(cmdMerge)}_{ProtobufUtils.GetLowOrder(cmdMerge)}消息Id:{cmdMerge}");
         }
         else
         {
-            Log.Error($"channelName:{0},is nono", channelName);
+            Logger.Error($"channelName:{channelName},is null");
         }
     }
     public void Send(int cmdMerge, object message , string channelName = "Default")

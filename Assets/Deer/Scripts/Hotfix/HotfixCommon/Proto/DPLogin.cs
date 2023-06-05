@@ -95,8 +95,7 @@ namespace DPLogin {
             "QVlFUhANEh8KG0tJQ0tPVVRfUkVBU09OX1NXSVRDSFNFUlZFUhAOEhsKF0tJ",
             "Q0tPVVRfUkVBU09OX0VYSVRST0xFEA8SHgoaS0lDS09VVF9SRUFTT05fRElS",
             "RUNUTE9HSU4QEBIgChxLSUNLT1VUX1JFQVNPTl9CSVNIT1BLSUNLT1VUEBFC",
-            "JQojY29tLmdhbWUuanVoZS5zZXJ2ZXIucHJvdG9idWYucHJvdG9iBnByb3Rv",
-            "Mw=="));
+            "IAoeY29tLmdhbWUuc2VydmVyLnByb3RvYnVmLnByb3RvYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::DeerGameBase.DeerGameBaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::DPLogin.AccountLoginVerifyResult), typeof(global::DPLogin.BEGSLogicLoginRet), typeof(global::DPLogin.RoleCreateFailedResult), typeof(global::DPLogin.KickOutClientResult), }, new pbr::GeneratedClrTypeInfo[] {
@@ -342,8 +341,7 @@ namespace DPLogin {
 
   #region Messages
   /// <summary>
-  /// 客户端向服务端发送登录协议，发送账号和密码
-  /// PTC_C2G_LOGININFO
+  /// route:1-0 &amp;&amp; 请求账号信息
   /// </summary>
   public sealed partial class DPUserLoginInfoReq : pb::IMessage<DPUserLoginInfoReq> {
     private static readonly pb::MessageParser<DPUserLoginInfoReq> _parser = new pb::MessageParser<DPUserLoginInfoReq>(() => new DPUserLoginInfoReq());
@@ -633,8 +631,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 玩家登陆，身份验证的结果
-  /// PTC_G2C_ACC_VERIFY_RESULT
+  /// route:1-0 &amp;&amp; 玩家登陆，身份验证的结果
   /// </summary>
   public sealed partial class DPAccountVerifyResultResp : pb::IMessage<DPAccountVerifyResultResp> {
     private static readonly pb::MessageParser<DPAccountVerifyResultResp> _parser = new pb::MessageParser<DPAccountVerifyResultResp>(() => new DPAccountVerifyResultResp());
@@ -1017,8 +1014,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 客户端发起登陆协议
-  /// PTC_C2S_LOGICLOGIN
+  /// route:1-1 &amp;&amp; 客户端发起登陆协议
   /// </summary>
   public sealed partial class DPGSLogicLoginReq : pb::IMessage<DPGSLogicLoginReq> {
     private static readonly pb::MessageParser<DPGSLogicLoginReq> _parser = new pb::MessageParser<DPGSLogicLoginReq>(() => new DPGSLogicLoginReq());
@@ -1246,8 +1242,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 客户端登陆逻辑服失败返回错误码
-  /// PTC_S2C_LOGICLOIN_RET
+  /// route:1-1 &amp;&amp; 客户端登陆逻辑服失败返回错误码
   /// </summary>
   public sealed partial class DPGSLogicLoginRetResp : pb::IMessage<DPGSLogicLoginRetResp> {
     private static readonly pb::MessageParser<DPGSLogicLoginRetResp> _parser = new pb::MessageParser<DPGSLogicLoginRetResp>(() => new DPGSLogicLoginRetResp());
@@ -1644,8 +1639,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 网关服务端把角色列表发回到客户端，里面有账号，角色数和角色列表
-  /// PTC_G2C_ROLELIST_RESPONE
+  /// route:1-1 &amp;&amp; 网关服务端把角色列表发回到客户端，里面有账号，角色数和角色列表
   /// </summary>
   public sealed partial class DPRoleListResponeResp : pb::IMessage<DPRoleListResponeResp> {
     private static readonly pb::MessageParser<DPRoleListResponeResp> _parser = new pb::MessageParser<DPRoleListResponeResp>(() => new DPRoleListResponeResp());
@@ -1834,8 +1828,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 玩家确定选取角色登录游戏
-  /// PTC_C2G_GAMELOGIN_REQUEST
+  /// route:1-2 &amp;&amp; 玩家确定选取角色登录游戏
   /// </summary>
   public sealed partial class DPGameLoginRequestReq : pb::IMessage<DPGameLoginRequestReq> {
     private static readonly pb::MessageParser<DPGameLoginRequestReq> _parser = new pb::MessageParser<DPGameLoginRequestReq>(() => new DPGameLoginRequestReq());
@@ -2032,8 +2025,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 创建角色发送创建的角色名到网关服务器
-  /// PTC_C2G_CREATE_ROLE
+  /// route:1-3 &amp;&amp; 创建角色发送创建的角色名到网关服务器
   /// </summary>
   public sealed partial class DPCreateRoleReq : pb::IMessage<DPCreateRoleReq> {
     private static readonly pb::MessageParser<DPCreateRoleReq> _parser = new pb::MessageParser<DPCreateRoleReq>(() => new DPCreateRoleReq());
@@ -2323,8 +2315,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 创建角色返回结果给客户端
-  /// PTC_G2C_CREATEROLE_RESULT
+  /// route:1-3 &amp;&amp; 创建角色返回结果给客户端
   /// </summary>
   public sealed partial class DPCreateRoleResultResp : pb::IMessage<DPCreateRoleResultResp> {
     private static readonly pb::MessageParser<DPCreateRoleResultResp> _parser = new pb::MessageParser<DPCreateRoleResultResp>(() => new DPCreateRoleResultResp());
@@ -2583,8 +2574,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 踢掉客户端
-  /// PTC_G2C_KICKOUTCLIENT
+  /// route:1-4 &amp;&amp; 踢掉客户端
   /// </summary>
   public sealed partial class DPKickOutClientResp : pb::IMessage<DPKickOutClientResp> {
     private static readonly pb::MessageParser<DPKickOutClientResp> _parser = new pb::MessageParser<DPKickOutClientResp>(() => new DPKickOutClientResp());
@@ -2719,8 +2709,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 退出账号，到账号登录界面
-  /// PTC_C2S_EXITACCOUNT
+  /// route:1-5 &amp;&amp; 退出账号，到账号登录界面
   /// </summary>
   public sealed partial class DPGSExitAccountReq : pb::IMessage<DPGSExitAccountReq> {
     private static readonly pb::MessageParser<DPGSExitAccountReq> _parser = new pb::MessageParser<DPGSExitAccountReq>(() => new DPGSExitAccountReq());
@@ -2824,8 +2813,7 @@ namespace DPLogin {
   }
 
   /// <summary>
-  /// 退出角色，到选择角色界面
-  /// PTC_C2S_EXITROLE
+  /// route:1-6 &amp;&amp; 退出角色，到选择角色界面
   /// </summary>
   public sealed partial class DPGSExitRoleReq : pb::IMessage<DPGSExitRoleReq> {
     private static readonly pb::MessageParser<DPGSExitRoleReq> _parser = new pb::MessageParser<DPGSExitRoleReq>(() => new DPGSExitRoleReq());

@@ -63,6 +63,13 @@ public class ServerIpAndPort
     public string ServerName;
     public string Ip;
     public int Port;
+
+    public ServerIpAndPort(string serverName, string ip, int port)
+    {
+        ServerName = serverName;
+        Ip = ip;
+        Port = port;
+    }
 }
 //intranet 10100
 //192.168.29.51
@@ -74,6 +81,13 @@ public class ServerChannelInfo
     public string ChannelName;
     public string CurUseServerName;
     public List<ServerIpAndPort> ServerIpAndPorts;
+
+    public ServerChannelInfo(string channelName,string curUseServerName,List<ServerIpAndPort> serverIpAndPorts = null)
+    {
+        ChannelName = channelName;
+        curUseServerName = curUseServerName;
+        ServerIpAndPorts = serverIpAndPorts;
+    }
 }
 /// <summary>
 /// 框架设置
@@ -121,6 +135,7 @@ public class DeerGlobalSettings : ScriptableObject
     public string CurUseServerChannel
     {
         get => m_CurUseServerChannel;
+        set => m_CurUseServerChannel = value;
     }
     [SerializeField]
     private List<ServerChannelInfo> m_ServerChannelInfos;

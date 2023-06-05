@@ -175,6 +175,12 @@ public static class DeerSettingsUtils
         {
             channelName = DeerGlobalSettings.CurUseServerChannel;
         }
+
+        if (string.IsNullOrEmpty(channelName))
+        {
+            Logger.Error("当前网络频道名为null");
+            return null;
+        }
         foreach (var serverChannelInfo in DeerGlobalSettings.ServerChannelInfos)
         {
             if (serverChannelInfo.ChannelName.Equals(channelName))
@@ -208,6 +214,71 @@ public static class DeerSettingsUtils
         }
         return 0;
     }
+
+    public static void SetCurUseServerChannel(string channelName = "Default")
+    {
+        DeerGlobalSettings.CurUseServerChannel = channelName;
+    }
+
+    public static void AddServerChannel(string ip, int port, string serverName,bool isUse,string channelName = "Default")
+    {
+        if (!string.IsNullOrEmpty(channelName))
+        {
+            ServerChannelInfo findServerChannelInfo = null; 
+            foreach (var serverChannelInfo in DeerGlobalSettings.ServerChannelInfos)
+            {
+                if (serverChannelInfo.ChannelName.Equals(channelName))
+                {
+                    findServerChannelInfo = serverChannelInfo;
+                    break;
+                }
+            }
+            if (findServerChannelInfo != null)
+            {
+                if (findServerChannelInfo.ServerIpAndPorts != null)
+                {
+                    bool isFind = false;
+                    foreach (var serverIpAndPort in findServerChannelInfo.ServerIpAndPorts)
+                    {
+                        if (serverIpAndPort.ServerName == serverName)
+                        {
+                            isFind = true;
+                            if (isUse)
+                            {
+                                findServerChannelInfo.CurUseServerName = serverName;
+                            }
+                            serverIpAndPort.Ip = ip;
+                            serverIpAndPort.Port = port;
+                            break;
+                        }
+                    }
+                    if (!isFind)
+                    {
+                        if (isUse)
+                        {
+                            findServerChannelInfo.CurUseServerName = serverName;
+                        }
+                        findServerChannelInfo.ServerIpAndPorts.Add(new ServerIpAndPort(serverName,ip,port));
+                    }
+                }
+                else
+                {
+                    findServerChannelInfo.ChannelName = channelName;
+                    findServerChannelInfo.CurUseServerName = serverName;
+                    findServerChannelInfo.ServerIpAndPorts = new List<ServerIpAndPort>();
+                    findServerChannelInfo.ServerIpAndPorts.Add(new ServerIpAndPort(serverName,ip,port));
+                }
+            }
+            else
+            {
+                DeerGlobalSettings.ServerChannelInfos.Add(new ServerChannelInfo(channelName,serverName,new List<ServerIpAndPort>()
+                {
+                    new ServerIpAndPort(serverName,ip,port)
+                }));
+            }
+        }
+    }
+
     private static T GetSingletonAssetsByResources<T>(string assetsPath) where T : ScriptableObject, new()
     {
         string assetType = typeof(T).Name;
