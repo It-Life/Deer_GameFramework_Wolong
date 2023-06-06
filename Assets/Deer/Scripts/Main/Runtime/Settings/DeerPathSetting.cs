@@ -30,5 +30,12 @@ namespace Deer.Setting
         [SerializeField]
         private string m_AtlasFolder = "Assets/Deer/Atlas/";
         public string AtlasFolder => m_AtlasFolder;
+        
+        [Header("ResourceCollection Config Path")]
+        [SerializeField]
+        private string m_ResourceCollectionPath = "";
+        //Assets/Deer/GameConfigs/ResourceRuleEditor.asset
+        public string ResourceCollectionPath => m_ResourceCollectionPath;
+        
     }
 }

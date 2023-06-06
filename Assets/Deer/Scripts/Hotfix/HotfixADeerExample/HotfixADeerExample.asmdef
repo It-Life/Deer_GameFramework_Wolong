@@ -1,0 +1,22 @@
+{
+    "name": "HotfixADeerExample",
+    "rootNamespace": "",
+    "references": [
+        "GUID:43b47c7afe53ff144af0a914f0f30bb6",
+        "GUID:363c5eb08ff8e6a439b85e37b8c20d96",
+        "GUID:1fa870703d1928149882949ff9440a9a",
+        "GUID:7ef7d012d9d92d341926d99b50cdde6a",
+        "GUID:1c284c47c5e6d27489e8e674b28561be",
+        "GUID:efa45043feb7e4147a305b73b5cea642",
+        "GUID:bd498e322b5dd084db03718a83a1e3a4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

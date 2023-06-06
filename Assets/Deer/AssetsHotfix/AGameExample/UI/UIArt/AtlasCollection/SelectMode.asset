@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d326122dba59474fa04d550e63ada33b, type: 3}
+  m_Name: SelectMode
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: 136ae77db91351440b67adf32f4ec81c, type: 3}
+    - {fileID: 21300000, guid: 54c9da89f7a53e146b4ac2746bf85073, type: 3}
+    - {fileID: 21300000, guid: 36f43a39e69d84d4db813e498fb7de42, type: 3}
+    - {fileID: 21300000, guid: 710c2483be39e5b4599499ac74a92a96, type: 3}
+    - {fileID: 21300000, guid: 18c562febc6780b428cdf121c09416b8, type: 3}
+    - {fileID: 21300000, guid: dcd6f3fef2ae31f4a805d60341502399, type: 3}
+    - {fileID: 21300000, guid: 87fa4e8cd77907b4cb5d893ae2bfb945, type: 3}
+    - {fileID: 102900000, guid: 41d8113f7b20b274e804c51f74d25ffa, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: m_Sprites
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectMode/SelectModeIconBoard.png
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectMode/SelectModeIconCup.png
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectMode/SelectModeIconFlag.png
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectMode/SelectModeIconTimer.png
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectMode/SelectModeImage01.png
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectMode/SelectModeImage02.png
+    - Name: $v
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/SelectMode/SelectModeImage03.png
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_Objects
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[UnityEngine.Object, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  m_AtlasFolder: Assets/Deer/Atlas

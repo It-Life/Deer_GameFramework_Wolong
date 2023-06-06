@@ -23,7 +23,7 @@ namespace Pathfinding {
 	/// otherwise if a collider is attached, that will be used.
 	/// </summary>
 	[AddComponentMenu("Pathfinding/Navmesh/RecastMeshObj")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_recast_mesh_obj.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_recast_mesh_obj.php")]
 	public class RecastMeshObj : VersionedMonoBehaviour {
 		/// <summary>Static objects are stored in a tree for fast bounds lookups</summary>
 		protected static RecastBBTree tree = new RecastBBTree();

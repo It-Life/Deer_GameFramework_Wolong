@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d326122dba59474fa04d550e63ada33b, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 21300000, guid: ec707f5eab1dc8c46a3b85dd4bf73511, type: 3}
+    - {fileID: 21300000, guid: 4694e759cf995894d8187715e6298f1d, type: 3}
+    - {fileID: 21300000, guid: ec9b88b0e66f84947979122ac3946632, type: 3}
+    - {fileID: 21300000, guid: 8e1bca5868e2e8448b5f3e516e8569c5, type: 3}
+    - {fileID: 21300000, guid: 0a04f24070c254c4984db94c18bb2483, type: 3}
+    - {fileID: 21300000, guid: f43aad5f638ba5246a8af2294cc70099, type: 3}
+    - {fileID: 21300000, guid: ab645d36145d9f245925a95272fe06e6, type: 3}
+    - {fileID: 21300000, guid: b7c5b5f3a199ebd4a86bcb8d9f4f7a48, type: 3}
+    - {fileID: 21300000, guid: d535b0ee47587714d80719585fda5a52, type: 3}
+    - {fileID: 21300000, guid: 16f17c4cbd248ed4e8f63a3c24845fb5, type: 3}
+    - {fileID: 21300000, guid: 449fb521201c6d94280392e284f8ca5c, type: 3}
+    - {fileID: 21300000, guid: bf36aab813e90fe4c9bf7b64bb16ed99, type: 3}
+    - {fileID: 102900000, guid: 66097ae18bab5ec45ae77bddcc66a40b, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: m_Sprites
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.Sprite,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 12
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsAudio.png
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsGameOptions.png
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsGraphics.png
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsInputs.png
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsShadowAudio.png
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsShadowGameOptions.png
+    - Name: $v
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsShadowGraphics.png
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsShadowInputs.png
+    - Name: $v
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsTexteAudio.png
+    - Name: $v
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsTexteGameOptions.png
+    - Name: $v
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsTexteGraphics.png
+    - Name: $v
+      Entry: 10
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Assets/Deer/AssetsHotfix/AGameExample/UI/UIArt/UISprites/Settings/HubSettingsTexteInputs.png
+    - Name: $v
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: m_Objects
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[UnityEngine.Object, UnityEngine.CoreModule]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 12
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  m_AtlasFolder: Assets/Deer/Atlas

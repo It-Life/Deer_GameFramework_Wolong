@@ -70,7 +70,7 @@ namespace Main.Runtime.Procedure
 
             if (GameEntryMain.Base.EditorResourceMode)
             {
-                if (!DeerSettingsUtils.FrameworkGlobalSettings.ReadLocalConfigInEditor)
+                if (!DeerSettingsUtils.DeerGlobalSettings.ReadLocalConfigInEditor)
                 {
                     GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
                 }

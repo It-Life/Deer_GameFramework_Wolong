@@ -34,7 +34,7 @@ public static class AOTMetaAssembliesHelper
     public static void FindAllAOTMetaAssemblies(BuildTarget buildTarget)
     {
         string folder = $"{SettingsUtil.GetAssembliesPostIl2CppStripDir(buildTarget)}";
-        DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies.Clear();
+        DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies.Clear();
         if (!Directory.Exists(folder))
         {
 #if UNITY_EDITOR_WIN
@@ -48,7 +48,7 @@ public static class AOTMetaAssembliesHelper
         foreach (var fileInfo in root.GetFiles("*dll",SearchOption.AllDirectories))
         {
             string fileName = fileInfo.Name;
-            DeerSettingsUtils.HybridCLRCustomGlobalSettings.AOTMetaAssemblies.Add(fileName);
+            DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies.Add(fileName);
         }
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

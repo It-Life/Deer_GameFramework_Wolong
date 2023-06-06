@@ -13,7 +13,7 @@ namespace Pathfinding {
 	/// See: <see cref="Pathfinding.AILerp"/>
 	/// </summary>
 	[UniqueComponent(tag = "ai.destination")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_patrol.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_patrol.php")]
 	public class Patrol : VersionedMonoBehaviour {
 		/// <summary>Target points to move to in order</summary>
 		public Transform[] targets;

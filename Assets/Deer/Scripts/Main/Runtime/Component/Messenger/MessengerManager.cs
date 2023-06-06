@@ -8,6 +8,8 @@
 // ===============================================
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+
 public delegate object RegistFunction(object pSender);
 public class MessengerManager
 {
@@ -36,9 +38,26 @@ public class MessengerManager
     {
         if (m_dispathcerMap.ContainsKey(eventName) && m_dispathcerMap[eventName] != null)
         {
-            return m_dispathcerMap[eventName](pSender1);
+            Delegate[] arrayOfDelegates = m_dispathcerMap[eventName].GetInvocationList();
+            List<object> _list = new List<object>();
+            foreach (var @delegate in arrayOfDelegates)
+            {
+                var dDelegate = (RegistFunction)@delegate;
+                try
+                {
+                    if (dDelegate != null)
+                    {
+                        _list.Add(dDelegate.DynamicInvoke(pSender1));
+                    }
+                }
+                catch (InvalidOperationException e)
+                {
+                    Logger.Error($"Failed {dDelegate?.Method.Name}  Error : {e.Message}");                    
+                }
+            }
+            return _list;
+            //return m_dispathcerMap[eventName](pSender1);
         }
         return null;
     }
-
 }

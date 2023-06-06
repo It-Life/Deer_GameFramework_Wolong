@@ -12,23 +12,22 @@ namespace Pathfinding.Legacy {
 	/// This AI is the default movement script which comes with the A* Pathfinding Project.
 	/// It is in no way required by the rest of the system, so feel free to write your own. But I hope this script will make it easier
 	/// to set up movement for the characters in your game. This script is not written for high performance, so I do not recommend using it for large groups of units.
-	/// \n
-	/// \n
+	///
 	/// This script will try to follow a target transform, in regular intervals, the path to that target will be recalculated.
 	/// It will on FixedUpdate try to move towards the next point in the path.
 	/// However it will only move in the forward direction, but it will rotate around it's Y-axis
 	/// to make it reach the target.
 	///
 	/// \section variables Quick overview of the variables
-	/// In the inspector in Unity, you will see a bunch of variables. You can view detailed information further down, but here's a quick overview.\n
-	/// The <see cref="repathRate"/> determines how often it will search for new paths, if you have fast moving targets, you might want to set it to a lower value.\n
+	/// In the inspector in Unity, you will see a bunch of variables. You can view detailed information further down, but here's a quick overview.
+	/// The <see cref="repathRate"/> determines how often it will search for new paths, if you have fast moving targets, you might want to set it to a lower value.
 	/// The <see cref="target"/> variable is where the AI will try to move, it can be a point on the ground where the player has clicked in an RTS for example.
-	/// Or it can be the player object in a zombie game.\n
+	/// Or it can be the player object in a zombie game.
 	/// The speed is self-explanatory, so is turningSpeed, however <see cref="slowdownDistance"/> might require some explanation.
 	/// It is the approximate distance from the target where the AI will start to slow down. Note that this doesn't only affect the end point of the path
-	/// but also any intermediate points, so be sure to set <see cref="forwardLook"/> and <see cref="pickNextWaypointDist"/> to a higher value than this.\n
-	/// <see cref="pickNextWaypointDist"/> is simply determines within what range it will switch to target the next waypoint in the path.\n
-	/// <see cref="forwardLook"/> will try to calculate an interpolated target point on the current segment in the path so that it has a distance of <see cref="forwardLook"/> from the AI\n
+	/// but also any intermediate points, so be sure to set <see cref="forwardLook"/> and <see cref="pickNextWaypointDist"/> to a higher value than this.
+	/// <see cref="pickNextWaypointDist"/> is simply determines within what range it will switch to target the next waypoint in the path.
+	/// <see cref="forwardLook"/> will try to calculate an interpolated target point on the current segment in the path so that it has a distance of <see cref="forwardLook"/> from the AI
 	/// Below is an image illustrating several variables as well as some internal ones, but which are relevant for understanding how it works.
 	/// Note that the <see cref="forwardLook"/> range will not match up exactly with the target point practically, even though that's the goal.
 	/// [Open online documentation to see images]
@@ -40,7 +39,7 @@ namespace Pathfinding.Legacy {
 	/// </summary>
 	[RequireComponent(typeof(Seeker))]
 	[AddComponentMenu("Pathfinding/Legacy/AI/Legacy AIPath (3D)")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_legacy_1_1_legacy_a_i_path.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_legacy_1_1_legacy_a_i_path.php")]
 	public class LegacyAIPath : AIPath {
 		/// <summary>
 		/// Target point is Interpolated on the current segment in the path so that it has a distance of <see cref="forwardLook"/> from the AI.
@@ -77,7 +76,7 @@ namespace Pathfinding.Legacy {
 		/// <summary>
 		/// Called when a requested path has finished calculation.
 		/// A path is first requested by <see cref="SearchPath"/>, it is then calculated, probably in the same or the next frame.
-		/// Finally it is returned to the seeker which forwards it to this function.\n
+		/// Finally it is returned to the seeker which forwards it to this function.
 		/// </summary>
 		protected override void OnPathComplete (Path _p) {
 			ABPath p = _p as ABPath;

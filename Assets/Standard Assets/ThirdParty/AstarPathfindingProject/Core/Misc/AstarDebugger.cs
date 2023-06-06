@@ -12,7 +12,7 @@ namespace Pathfinding {
 	/// and the whole game as well to some extent.
 	///
 	/// Clarification of the labels shown when enabled.
-	/// All memory related things profiles <b>the whole game</b> not just the A* Pathfinding System.\n
+	/// All memory related things profiles <b>the whole game</b> not just the A* Pathfinding System.
 	/// - Currently allocated: memory the GC (garbage collector) says the application has allocated right now.
 	/// - Peak allocated: maximum measured value of the above.
 	/// - Last collect peak: the last peak of 'currently allocated'.
@@ -34,7 +34,7 @@ namespace Pathfinding {
 	///
 	/// TODO: Add field showing how many graph updates are being done right now
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_astar_debugger.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_astar_debugger.php")]
 	public class AstarDebugger : VersionedMonoBehaviour {
 		public int yOffset = 5;
 

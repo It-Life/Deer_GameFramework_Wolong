@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Pathfinding {
 	/// <summary>
 	/// Extended Path.
-	/// \ingroup paths
+	///
 	/// This is the same as a standard path but it is possible to customize when the target should be considered reached.
 	/// Can be used to for example signal a path as complete when it is within a specific distance from the target.
 	///
@@ -149,7 +149,7 @@ namespace Pathfinding {
 	/// One part at a time. We need to cast the node's position to a Vector3 since internally, it is stored as an integer coordinate (Int3).
 	/// Then we subtract the Pathfinding.Path.originalEndPoint from it to get their difference.
 	/// The original end point is always the exact point specified when calling the path.
-	/// As a last step we check the squared magnitude (squared distance, it is much faster than the non-squared distance) and check if it is lower or equal to our maxDistance squared.\n
+	/// As a last step we check the squared magnitude (squared distance, it is much faster than the non-squared distance) and check if it is lower or equal to our maxDistance squared.
 	/// There you have it, it is as simple as that.
 	/// Then you simply assign it to the endingCondition variable on, for example an XPath which uses the EndingCondition.
 	///
@@ -163,7 +163,7 @@ namespace Pathfinding {
 	/// seeker.StartPath (ec);
 	/// </code>
 	///
-	/// Where seeker is a <see cref="Seeker"/> component, and myXPath is an Pathfinding.XPath.\n
+	/// Where seeker is a <see cref="Seeker"/> component, and myXPath is an Pathfinding.XPath.
 	///
 	/// Note: The above was written without testing. I hope I haven't made any mistakes, if you try it out, and it doesn't seem to work. Please post a comment in the forums.
 	///

@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding.ClipperLib;
-#if UNITY_5_5_OR_NEWER
 using UnityEngine.Profiling;
-#endif
 
 namespace Pathfinding.Util {
 	using Pathfinding;
@@ -1069,8 +1067,8 @@ namespace Pathfinding.Util {
 				activeTileTypes[x + z*tileXCount] = null;
 
 				if (!isBatching) {
-				    // Trigger post update event
-				    // This can trigger for example recalculation of navmesh links
+					// Trigger post update event
+					// This can trigger for example recalculation of navmesh links
 					context.SetGraphDirty(graph);
 				}
 
@@ -1177,9 +1175,9 @@ namespace Pathfinding.Util {
 				Profiler.EndSample();
 
 				if (!isBatching) {
-				    // Trigger post update event
-				    // This can trigger for example recalculation of navmesh links
-				    // TODO: Does this need to be inside an if statement?
+					// Trigger post update event
+					// This can trigger for example recalculation of navmesh links
+					// TODO: Does this need to be inside an if statement?
 					context.SetGraphDirty(graph);
 				}
 

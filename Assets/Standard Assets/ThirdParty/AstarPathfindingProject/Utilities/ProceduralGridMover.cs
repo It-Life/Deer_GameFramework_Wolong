@@ -8,6 +8,8 @@ namespace Pathfinding {
 	/// Attach this to some object in the scene and assign the target to e.g the player.
 	/// Then the graph will follow that object around as it moves.
 	///
+	/// [Open online documentation to see videos]
+	///
 	/// This is useful if pathfinding is only necessary in a small region around an object (for example the player).
 	/// It makes it possible to have vast open worlds (maybe procedurally generated) and still be able to use pathfinding on them.
 	///
@@ -32,7 +34,7 @@ namespace Pathfinding {
 	/// Note: Using erosion on grid graphs can significantly lower the performance when updating graphs.
 	/// Each erosion iteration requires expanding the region that is updated by 1 node.
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_procedural_grid_mover.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_procedural_grid_mover.php")]
 	public class ProceduralGridMover : VersionedMonoBehaviour {
 		/// <summary>
 		/// Graph will be updated if the target is more than this number of nodes from the graph center.
@@ -152,9 +154,9 @@ namespace Pathfinding {
 				try {
 					done = !ie.MoveNext();
 				} catch (System.Exception e) {
-				    // The code MAY throw an exception in rare circumstances if for example the user
-				    // changes the width of the graph in the inspector while an update is being performed
-				    // at the same time. So lets just fail in that case and retry later.
+					// The code MAY throw an exception in rare circumstances if for example the user
+					// changes the width of the graph in the inspector while an update is being performed
+					// at the same time. So lets just fail in that case and retry later.
 					Debug.LogException(e, this);
 					done = true;
 				}

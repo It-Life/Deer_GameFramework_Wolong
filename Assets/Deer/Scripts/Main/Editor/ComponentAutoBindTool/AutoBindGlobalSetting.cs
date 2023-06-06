@@ -35,6 +35,9 @@ public class AutoBindGlobalSetting : ScriptableObject
     //[FolderPath]
     //[LabelText("默认挂载代码保存路径")]
     private string m_MountCodePath;
+    
+    [SerializeField] [LabelText("默认挂载代码搜寻程序集")]
+    private List<string> m_MountScriptListAssemblys;
 
     [SerializeField] [LabelText("组件的缩略名字映射")]
     private List<AutoBindRulePrefixe> m_RulePrefixes= new List<AutoBindRulePrefixe>()
@@ -100,6 +103,14 @@ public class AutoBindGlobalSetting : ScriptableObject
         }
     }
     
+    public List<string> MountScriptListAssemblys
+    {
+        get
+        {
+            return m_MountScriptListAssemblys;
+        }
+    }
+    
     public static bool IsValidBind( Transform target, List<string> filedNames, List<string> componentTypeNames)
     {
         string[] strArray = target.name.Split('_');
@@ -120,9 +131,10 @@ public class AutoBindGlobalSetting : ScriptableObject
             bool isFindComponent = false;
             foreach (var autoBindRulePrefix in _PrefixesDict)
             {
-                if (autoBindRulePrefix.Prefixe.Equals(str))
+                if (autoBindRulePrefix.Prefixe.ToLower().Equals(str.ToLower()))
                 {
                     comName = autoBindRulePrefix.FullName;
+                    str = char.ToUpper(str[0]) + str.Substring(1);
                     filedNames.Add($"{str}_{filedName}");
                     componentTypeNames.Add(comName);
                     isFind = true;

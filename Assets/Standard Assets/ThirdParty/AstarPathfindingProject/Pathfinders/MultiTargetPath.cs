@@ -18,8 +18,6 @@ namespace Pathfinding {
 	/// it can be slower if all target points are relatively far away because then it will have to search a much larger
 	/// region since it will not use any heuristics.
 	///
-	/// \ingroup paths
-	///
 	/// See: Seeker.StartMultiTargetPath
 	/// See: MultiTargetPathExample.cs (view in online documentation for working links) "Example of how to use multi-target-paths"
 	///
@@ -64,11 +62,11 @@ namespace Pathfinding {
 
 		/// <summary>
 		/// How to calculate the heuristic.
-		/// The \link <see cref="hTarget"/> heuristic target point \endlink can be calculated in different ways,
+		/// The <see cref="<see cref="hTarget"/> heuristic target"/> can be calculated in different ways,
 		/// by taking the Average position of all targets, or taking the mid point of them (i.e center of the AABB encapsulating all targets).
 		///
-		/// The one which works best seems to be Sequential, it sets <see cref="hTarget"/> to the target furthest away, and when that target is found, it moves on to the next one.\n
-		/// Some modes have the option to be 'moving' (e.g 'MovingAverage'), that means that it is updated every time a target is found.\n
+		/// The one which works best seems to be Sequential, it sets <see cref="hTarget"/> to the target furthest away, and when that target is found, it moves on to the next one.
+		/// Some modes have the option to be 'moving' (e.g 'MovingAverage'), that means that it is updated every time a target is found.
 		/// The H score is calculated according to AstarPath.heuristic
 		///
 		/// Note: If pathsForAll is false then this option is ignored and it is always treated as being set to None

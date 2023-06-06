@@ -814,7 +814,6 @@ namespace Pathfinding.RVO.Sampled {
 		Vector2 GradientDescent (VOBuffer vos, Vector2 sampleAround1, Vector2 sampleAround2) {
 			float score1;
 			var minima1 = Trace(vos, sampleAround1, out score1);
-
 			if (DebugDraw) Draw.Debug.CrossXZ(FromXZ(minima1 + position), Color.yellow, 0.5f);
 
 			// Can be uncommented for higher quality local avoidance

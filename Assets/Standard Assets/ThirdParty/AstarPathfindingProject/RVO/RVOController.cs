@@ -37,7 +37,7 @@ namespace Pathfinding.RVO {
 	/// See: local-avoidance (view in online documentation for working links)
 	/// </summary>
 	[AddComponentMenu("Pathfinding/Local Avoidance/RVO Controller")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_r_v_o_1_1_r_v_o_controller.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_r_v_o_1_1_r_v_o_controller.php")]
 	public class RVOController : VersionedMonoBehaviour {
 		[SerializeField][FormerlySerializedAs("radius")]
 		internal float radiusBackingField = 0.5f;

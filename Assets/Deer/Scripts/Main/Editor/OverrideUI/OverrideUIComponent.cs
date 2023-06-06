@@ -16,18 +16,18 @@ namespace Deer.Editor
 {
     public class OverrideUIComponent
     {
-        [MenuItem("GameObject/UI/Deer/Text - TextMeshPro", false, 11)]
+        [MenuItem("GameObject/UIDeer/Text - TextMeshPro", false, 21)]
         static TextMeshProUGUI CreateText()
         {
             var text = CreateComponent<TextMeshProUGUI>("Text");
             text.raycastTarget = false;
-            text.font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>($"Assets/Deer/AssetsPkg/Font/{DeerSettingsUtils.FrameworkGlobalSettings.DefaultFont}.asset"); // 默认字体  
+            text.font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>($"Assets/Deer/AssetsPkg/Font/{DeerSettingsUtils.DeerGlobalSettings.DefaultFont}.asset"); // 默认字体  
             text.color = Color.black;
             text.text = "New Text";
             return text;
         }
 
-        [MenuItem("GameObject/UI/Deer/Image", false, 10)]
+        [MenuItem("GameObject/UIDeer/Image", false, 20)]
         static Image CreateUImage()
         {
             string defaultName = "Image";
@@ -38,7 +38,7 @@ namespace Deer.Editor
             return image;
         }
 
-        [MenuItem("GameObject/UI/Deer/Raw Image", false, 12)]
+        [MenuItem("GameObject/UIDeer/Raw Image", false, 22)]
         static RawImage CreateRawImage()
         {
             var image = CreateComponent<RawImage>("Raw Image");

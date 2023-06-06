@@ -149,7 +149,7 @@ namespace GameFramework.Sound
             /// <param name="playSoundParams">播放声音参数。</param>
             /// <param name="errorCode">错误码。</param>
             /// <returns>用于播放的声音代理。</returns>
-            public ISoundAgent PlaySound(int serialId, object soundAsset, PlaySoundParams playSoundParams, out PlaySoundErrorCode? errorCode)
+            public ISoundAgent PlaySound(int serialId, object soundAsset, PlaySoundParams playSoundParams, out PlaySoundErrorCode? errorCode,bool isSetSoundAsset = true)
             {
                 errorCode = null;
                 SoundAgent candidateAgent = null;
@@ -183,7 +183,7 @@ namespace GameFramework.Sound
                     return null;
                 }
 
-                if (!candidateAgent.SetSoundAsset(soundAsset))
+                if (!candidateAgent.SetSoundAsset(soundAsset,isSetSoundAsset))
                 {
                     errorCode = PlaySoundErrorCode.SetSoundAssetFailure;
                     return null;

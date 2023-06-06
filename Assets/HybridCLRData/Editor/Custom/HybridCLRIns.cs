@@ -81,7 +81,7 @@ public static class HybridCLRIns
                 "You are missing a hybridclr_unity. Would you like to install one?",
                 "Yes", "No"))
         {
-            string installUrl = DeerSettingsUtils.HybridCLRCustomGlobalSettings.Gitee ? GiteeUrl : GithubUrl;
+            string installUrl = DeerSettingsUtils.DeerHybridCLRSettings.Gitee ? GiteeUrl : GithubUrl;
             var request = Client.Add(installUrl);
             EditorUtility.DisplayProgressBar("Installing","Install hybridclr_unity...",0);
             while (!request.IsCompleted)

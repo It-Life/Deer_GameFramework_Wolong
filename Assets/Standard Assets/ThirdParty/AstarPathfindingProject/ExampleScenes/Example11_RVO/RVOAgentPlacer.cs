@@ -6,7 +6,7 @@ namespace Pathfinding.Examples {
 	/// Places ROV agents in circles.
 	/// Used in a example scene
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_r_v_o_agent_placer.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_r_v_o_agent_placer.php")]
 	public class RVOAgentPlacer : MonoBehaviour {
 		public int agents = 100;
 

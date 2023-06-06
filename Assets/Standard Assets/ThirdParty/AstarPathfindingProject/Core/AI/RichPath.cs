@@ -300,8 +300,8 @@ namespace Pathfinding {
 			// Do a straight line of sight check to see if the path can be simplified to a single line
 			{
 				GraphHitInfo hit;
-				if (!graph.Linecast(startPoint, endPoint, nodes[start], out hit) && hit.node == nodes[end]) {
-					graph.Linecast(startPoint, endPoint, nodes[start], out hit, result);
+				if (!graph.Linecast(startPoint, endPoint, out hit) && hit.node == nodes[end]) {
+					graph.Linecast(startPoint, endPoint, out hit, result);
 
 					long penaltySum = 0;
 					long penaltySum2 = 0;
@@ -355,7 +355,7 @@ namespace Pathfinding {
 
 					// Check if there is an obstacle between these points, or if there is no obstacle, but we didn't end up at the right node.
 					// The second case can happen for example in buildings with multiple floors.
-					if (graph.Linecast(sp, ep, nodes[start], out hit) || hit.node != nodes[mid]) {
+					if (graph.Linecast(sp, ep, out hit) || hit.node != nodes[mid]) {
 						mx = mid;
 					} else {
 						anySucceded = true;
@@ -374,7 +374,7 @@ namespace Pathfinding {
 					GraphHitInfo hit;
 					Vector3 sp = start == ostart ? startPoint : (Vector3)nodes[start].position;
 					Vector3 ep = mn == end ? endPoint : (Vector3)nodes[mn].position;
-					graph.Linecast(sp, ep, nodes[start], out hit, result);
+					graph.Linecast(sp, ep, out hit, result);
 
 					long penaltySum = 0;
 					long penaltySum2 = 0;

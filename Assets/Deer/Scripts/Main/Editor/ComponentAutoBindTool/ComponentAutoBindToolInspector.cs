@@ -114,7 +114,7 @@ public class ComponentAutoBindToolInspector : Editor
             string className = !string.IsNullOrEmpty(m_Target.ClassName) ? m_Target.ClassName : m_Target.gameObject.name;
             if (!m_Target.gameObject.GetComponent(className))
             {
-                Type _type = GetTypeWithName(className);
+                Type _type = GetTypeWithName(className,m_Target.Namespace);
                 if (_type != null)
                 {
                     m_Target.gameObject.AddComponent(_type);
@@ -593,13 +593,13 @@ public class ComponentAutoBindToolInspector : Editor
             System.DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"));
         //把#Author# 替换
         annotationStr = annotationStr.Replace("#Author#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptAuthor);
         //把#ChangeAuthor# 替换
         annotationStr = annotationStr.Replace("#ChangeAuthor#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptAuthor);
         //把#Version# 替换
         annotationStr = annotationStr.Replace("#Version#",
-            DeerSettingsUtils.FrameworkGlobalSettings.ScriptVersion);
+            DeerSettingsUtils.DeerGlobalSettings.ScriptVersion);
         return annotationStr;
     }
     string strChangeAuthor = "//修改作者:";
@@ -610,7 +610,7 @@ public class ComponentAutoBindToolInspector : Editor
         {
             if (strList[i].Contains(strChangeAuthor))
             {
-                strList[i] = $"{strChangeAuthor}{DeerSettingsUtils.FrameworkGlobalSettings.ScriptAuthor}";
+                strList[i] = $"{strChangeAuthor}{DeerSettingsUtils.DeerGlobalSettings.ScriptAuthor}";
             }
             if (strList[i].Contains(strChangeTime))
             {
@@ -783,19 +783,30 @@ public class ComponentAutoBindToolInspector : Editor
     /// Get a type with name.
     /// 根据名字获取一个类型
     /// </summary>
-    public static Type GetTypeWithName(string typeName)
+    private Type GetTypeWithName(string typeName,string nameSpace)
     {
         Assembly[] assmblies = AppDomain.CurrentDomain.GetAssemblies();
 
         for (int i = assmblies.Length - 1; i >= 0; i--)
         {
-            if (assmblies[i].GetName().Name != "HotfixBusiness" && assmblies[i].GetName().Name != "Main.Runtime") continue;
-
+            bool isFind = false;
+            foreach (var assemblyName in m_Setting.MountScriptListAssemblys)
+            {
+                if (assemblyName == assmblies[i].GetName().Name)
+                {
+                    isFind = true;
+                }
+            }
+            if (!isFind)
+            {
+                continue;
+            }
             Type[] __types = assmblies[i].GetTypes();
 
             for (int j = __types.Length - 1; j >= 0; j--)
             {
                 if (__types[j].Name != typeName) continue;
+                if (__types[j].Namespace!= nameSpace) continue;
                 return __types[j];
             }
         }

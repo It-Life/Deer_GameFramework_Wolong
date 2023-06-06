@@ -1,9 +1,7 @@
 using Math = System.Math;
 using UnityEngine;
 using System.Collections.Generic;
-#if UNITY_5_5_OR_NEWER
 using UnityEngine.Profiling;
-#endif
 
 namespace Pathfinding {
 	using Pathfinding.Voxels;
@@ -14,8 +12,13 @@ namespace Pathfinding {
 
 	/// <summary>
 	/// Automatically generates navmesh graphs based on world geometry.
-	/// The recast graph is based on Recast (http://code.google.com/p/recastnavigation/).\n
+	///
+	/// [Open online documentation to see images]
+	///
+	/// The recast graph is based on Recast (http://code.google.com/p/recastnavigation/).
 	/// I have translated a good portion of it to C# to run it natively in Unity.
+	///
+	/// [Open online documentation to see images]
 	///
 	/// \section howitworks How a recast graph works
 	/// When generating a recast graph what happens is that the world is voxelized.
@@ -29,13 +32,10 @@ namespace Pathfinding {
 	/// - The walkable areas described by the mold are divided into simple overlayed 2D regions.
 	/// The resulting regions have only one non-overlapping contour, which simplifies the final step of the process tremendously.
 	/// - The navigation polygons are peeled off from the regions by first tracing the boundaries and then simplifying them.
-	/// The resulting polygons are finally converted to convex polygons which makes them perfect for pathfinding and spatial reasoning about the level.
+	/// The resulting polygons are finally converted to triangles which makes them perfect for pathfinding and spatial reasoning about the level.
 	///
-	/// It works exactly like that in the C# version as well, except that everything is triangulated to triangles instead of n-gons.
-	/// The recast generation process usually works directly on the visiable geometry in the world, this is usually a good thing, because world geometry is usually more detailed than the colliders.
-	/// You can however specify that colliders should be rasterized, if you have very detailed world geometry, this can speed up the scan.
-	///
-	/// Check out the second part of the Get Started Tutorial which discusses recast graphs.
+	/// The recast generation process usually works directly on the visiable geometry in the world. This is usually a good thing, because world geometry is usually more detailed than the colliders.
+	/// You can, however, specify that colliders should be rasterized instead. If you have very detailed world geometry, this can speed up scanning and updating the graph.
 	///
 	/// \section export Exporting for manual editing
 	/// In the editor there is a button for exporting the generated graph to a .obj file.
@@ -49,11 +49,6 @@ namespace Pathfinding {
 	/// If you transform it using the S (scale) hotkey, it seems to set both Z and Y to -1 for some reason.
 	/// Then make the edits you need and export it as an .obj file to somewhere in the Unity project.
 	/// But this time, edit the setting named "Forward" to "Z forward" (not -Z as it is per default).
-	///
-	/// [Open online documentation to see images]
-	/// [Open online documentation to see images]
-	///
-	/// \ingroup graphs
 	/// </summary>
 	[JsonOptIn]
 	[Pathfinding.Util.Preserve]
@@ -196,7 +191,19 @@ namespace Pathfinding {
 
 		/// <summary>
 		/// If true, divide the graph into tiles, otherwise use a single tile covering the whole graph.
-		/// \since Since 4.1 the default value is true.
+		///
+		/// Using tiles is useful for a number of things. But it also has some drawbacks.
+		/// - Using tiles allows you to update only a part of the graph at a time. When doing graph updates on a recast graph, it will always recalculate whole tiles (or the whole graph if there are no tiles).
+		///    <see cref="NavmeshCut"/> components also work on a tile-by-tile basis.
+		/// - Using tiles allows you to use <see cref="NavmeshPrefab"/>s.
+		/// - Using tiles can break up very large triangles, which can improve path quality in some cases, and make the navmesh more closely follow the y-coordinates of the ground.
+		/// - Using tiles can make it much faster to generate the navmesh, because each tile can be calculated in parallel.
+		///    But if the tiles are made too small, then the overhead of having many tiles can make it slower than having fewer tiles.
+		/// - Using small tiles can make the path quality worse in some cases, but setting the <see cref="FunnelModifier"/>s quality setting to high (or using <see cref="RichAI.funnelSimplification"/>) will mostly mitigate this.
+		///
+		/// See: <see cref="editorTileSize"/>
+		///
+		/// Since: Since 4.1 the default value is true.
 		/// </summary>
 		[JsonMember]
 		public bool useTiles = true;

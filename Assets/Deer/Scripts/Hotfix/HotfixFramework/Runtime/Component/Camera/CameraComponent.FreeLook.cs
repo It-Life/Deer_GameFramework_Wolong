@@ -5,7 +5,7 @@ public partial class CameraComponent
 {
     private CinemachineFreeLook m_FollowFreeCamera;
 
-    private void OnFreeLookAwark() 
+    private void OnFreeLookAwake() 
     {
         m_FollowFreeCamera = transform.Find("FollowFreeViewVirtual").GetComponent<CinemachineFreeLook>();
     }
@@ -16,11 +16,16 @@ public partial class CameraComponent
         {
             m_FollowFreeCamera.Follow = followTrans;
             m_FollowFreeCamera.LookAt = lookAtTrans;
-            m_FollowFreeCamera.gameObject.SetActive(true);
+            OpenVCamera(1);
         }
         else
         {
-            m_FollowFreeCamera.gameObject.SetActive(false);
+            OpenVCamera(0);
         }
+    }
+
+    private void FollowFreeIsShow(bool isShow)
+    {
+        m_FollowFreeCamera.gameObject.SetActive(isShow);
     }
 }

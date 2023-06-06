@@ -192,7 +192,7 @@ public class ShootText : MonoBehaviour
         {
             strPath = "Assets/Deer/AssetsHotfix/UI/UIShootText/Image_ShootText.prefab";
         }
-        GameEntry.AssetObject.LoadGameObject(GameEntry.AssetObject.GenSerialId(),strPath,"ShootText",
+        GameEntry.AssetObject.LoadGameObject(strPath,"ShootText",
             delegate(bool success, object obj, int serial)
             {
                 if (success)
@@ -211,7 +211,7 @@ public class ShootText : MonoBehaviour
             });
 
         strPath = "Assets/Deer/AssetsHotfix/UI/UIShootText/ShootText_Pure.prefab";
-        GameEntry.AssetObject.LoadGameObject(GameEntry.AssetObject.GenSerialId(),strPath,"ShootText",
+        GameEntry.AssetObject.LoadGameObject(strPath,"ShootText",
             delegate(bool success, object obj, int serial)
             {
                 if (success)
@@ -548,7 +548,8 @@ public class ShootText : MonoBehaviour
         else
         {
             GameObject obj = shootTextComponentPrefabs[TextShowComponentType.Image];
-            obj.GetComponent<Image>().SetSprite(AssetUtility.UI.GetSpriteCollectionPath("shoottext"),AssetUtility.UI.GetSpritePath($"a/{numberOperator}"));
+            string groupName = Constant.Procedure.FindAssetGroup(GameEntry.Procedure.CurrentProcedure.GetType().FullName);
+            obj.GetComponent<Image>().SetSprite(AssetUtility.UI.GetSpriteCollectionPath(groupName,"shoottext"),AssetUtility.UI.GetSpritePath(groupName,$"a/{numberOperator}"));
             numberDic.Add(numberKey,obj);
             operatorObj = Instantiate(obj);
         }
@@ -567,7 +568,8 @@ public class ShootText : MonoBehaviour
             else
             {
                 GameObject obj = shootTextComponentPrefabs[TextShowComponentType.Image];
-                obj.GetComponent<Image>().SetSprite(AssetUtility.UI.GetSpriteCollectionPath("shoottext"),AssetUtility.UI.GetSpritePath($"a/{numberOperator}"));
+                string groupName = Constant.Procedure.FindAssetGroup(GameEntry.Procedure.CurrentProcedure.GetType().FullName);
+                obj.GetComponent<Image>().SetSprite(AssetUtility.UI.GetSpriteCollectionPath(groupName, "shoottext"),AssetUtility.UI.GetSpritePath(groupName,$"a/{numberOperator}"));
                 numberDic.Add(numberKey,obj);
                 operatorObj = Instantiate(obj);
             }

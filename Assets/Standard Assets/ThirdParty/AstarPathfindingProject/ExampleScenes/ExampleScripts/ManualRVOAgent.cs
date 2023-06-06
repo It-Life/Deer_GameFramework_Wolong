@@ -12,7 +12,7 @@ namespace Pathfinding.Examples {
 	/// See: Pathfinding.RVO.RVOController
 	/// </summary>
 	[RequireComponent(typeof(RVOController))]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_manual_r_v_o_agent.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_manual_r_v_o_agent.php")]
 	public class ManualRVOAgent : MonoBehaviour {
 		RVOController rvo;
 

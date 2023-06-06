@@ -164,8 +164,8 @@ namespace Pathfinding {
 		/// This call will block if there are no items in the queue or if the queue is currently blocked.
 		///
 		/// Returns: A Path object, guaranteed to be not null.
-		/// \throws QueueTerminationException if <see cref="TerminateReceivers"/> has been called.
-		/// \throws System.InvalidOperationException if more receivers get blocked than the fixed count sent to the constructor
+		/// Throws: QueueTerminationException if <see cref="TerminateReceivers"/> has been called.
+		/// Throws: System.InvalidOperationException if more receivers get blocked than the fixed count sent to the constructor
 		/// </summary>
 		public Path Pop () {
 			Monitor.Enter(lockObj);
@@ -242,8 +242,8 @@ namespace Pathfinding {
 		/// 2. try again with PopNoBlock(true), if still null, wait for a bit
 		/// 3. Repeat from step 2.
 		///
-		/// \throws QueueTerminationException if <see cref="TerminateReceivers"/> has been called.
-		/// \throws System.InvalidOperationException if more receivers get blocked than the fixed count sent to the constructor
+		/// Throws: QueueTerminationException if <see cref="TerminateReceivers"/> has been called.
+		/// Throws: System.InvalidOperationException if more receivers get blocked than the fixed count sent to the constructor
 		/// </summary>
 		public Path PopNoBlock (bool blockedBefore) {
 			Monitor.Enter(lockObj);

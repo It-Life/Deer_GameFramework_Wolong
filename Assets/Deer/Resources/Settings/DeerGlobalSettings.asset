@@ -13,144 +13,33 @@ MonoBehaviour:
   m_Name: DeerGlobalSettings
   m_EditorClassIdentifier: 
   m_UseDeerExample: 0
-  m_FrameworkGlobalSettings:
-    m_ScriptAuthor: Xiaohei.Wang(Wenhao)
-    m_ScriptVersion: 0.1
-    m_AppStage: 1
-    m_DefaultFont: wryhSDF
-    m_ResourcesArea:
-      m_ResAdminType: Test
-      m_ResAdminCode: 100
-      m_WhetherCopyResToCommitPath: 0
-      m_CleanCommitPathRes: 1
-      m_ServerType: 1
-      m_InnerResourceSourceUrl: http://192.168.29.51:9091/frame
-      m_ExtraResourceSourceUrl: http://43.142.25.208:18786
-      m_FormalResourceSourceUrl: http://43.142.25.208:18786
-    m_AtlasFolder: Assets/Deer/Atlas
-    m_ResourceVersionFileName: ResourceVersion.txt
-    WindowsAppUrl: 
-    MacOSAppUrl: 
-    IOSAppUrl: 
-    AndroidAppUrl: 
-    m_CurUseServerChannel: Default
-    m_ServerChannelInfos:
-    - ChannelName: Default
-      CurUseServerName: extranet
-      ServerIpAndPorts:
-      - ServerName: intranet
-        Ip: 192.168.29.51
-        Port: 10100
-      - ServerName: extranet
-        Ip: 47.98.226.149
-        Port: 10100
-    m_IsReadLocalConfigInEditor: 1
-    m_ConfigVersionFileName: ConfigVersion.xml
-    m_ConfigFolderName: LubanConfig
-  m_BybridCLRCustomGlobalSettings:
-    m_Enable: 1
-    m_Gitee: 1
-    HotUpdateAssemblies:
-    - HotfixCommon.dll
-    - HotfixMain.dll
-    - HotfixFramework.Runtime.dll
-    - HotfixBusiness.dll
-    AOTMetaAssemblies:
-    - Assembly-CSharp-firstpass.dll
-    - Assembly-CSharp.dll
-    - AstarPathfindingProject.dll
-    - BrunoMikoski.AnimationSequencer.dll
-    - Cinemachine.dll
-    - DOTween.dll
-    - DOTween.Modules.dll
-    - DOTweenPro.dll
-    - GameFramework.dll
-    - Google.Protobuf.dll
-    - HybridCLR.Runtime.dll
-    - ICSharpCode.SharpZipLib.dll
-    - JoystickPack.dll
-    - LeanCommon.dll
-    - LeanCommonPlus.dll
-    - LeanTouch.dll
-    - LeanTouchPlus.dll
-    - Main.Runtime.dll
-    - MinimalistBarSystem.dll
-    - Mono.Security.dll
-    - mscorlib.dll
-    - Pathfinding.ClipperLib.dll
-    - Pathfinding.Ionic.Zip.Reduced.dll
-    - Pathfinding.Poly2Tri.dll
-    - PlayerPrefsEditor.dll
-    - QHierarchyNullable.dll
-    - QHierarchyRuntime.dll
-    - RaycastGizmosVisualizer.dll
-    - Sirenix.OdinInspector.Attributes.dll
-    - Sirenix.OdinInspector.CompatibilityLayer.dll
-    - Sirenix.Serialization.AOTGenerated.dll
-    - Sirenix.Serialization.Config.dll
-    - Sirenix.Serialization.dll
-    - Sirenix.Utilities.dll
-    - SuperScrollViewProject.dll
-    - System.Configuration.dll
-    - System.Core.dll
-    - System.dll
-    - System.Numerics.dll
-    - System.Runtime.CompilerServices.Unsafe.dll
-    - System.Xml.dll
-    - UIExtensions.dll
-    - UniTask.Addressables.dll
-    - UniTask.dll
-    - UniTask.DOTween.dll
-    - UniTask.Linq.dll
-    - UniTask.TextMeshPro.dll
-    - Unity.Burst.dll
-    - Unity.Burst.Unsafe.dll
-    - Unity.InputSystem.dll
-    - Unity.Mathematics.dll
-    - Unity.RenderPipeline.Universal.ShaderLibrary.dll
-    - Unity.RenderPipelines.Core.Runtime.dll
-    - Unity.RenderPipelines.Universal.Runtime.dll
-    - Unity.TextMeshPro.dll
-    - Unity.Timeline.dll
-    - UnityEngine.AIModule.dll
-    - UnityEngine.AndroidJNIModule.dll
-    - UnityEngine.AnimationModule.dll
-    - UnityEngine.AssetBundleModule.dll
-    - UnityEngine.AudioModule.dll
-    - UnityEngine.CoreModule.dll
-    - UnityEngine.DirectorModule.dll
-    - UnityEngine.dll
-    - UnityEngine.GridModule.dll
-    - UnityEngine.ImageConversionModule.dll
-    - UnityEngine.IMGUIModule.dll
-    - UnityEngine.InputLegacyModule.dll
-    - UnityEngine.InputModule.dll
-    - UnityEngine.JSONSerializeModule.dll
-    - UnityEngine.ParticleSystemModule.dll
-    - UnityEngine.Physics2DModule.dll
-    - UnityEngine.PhysicsModule.dll
-    - UnityEngine.SharedInternalsModule.dll
-    - UnityEngine.SpriteShapeModule.dll
-    - UnityEngine.SubsystemsModule.dll
-    - UnityEngine.TerrainModule.dll
-    - UnityEngine.TextCoreFontEngineModule.dll
-    - UnityEngine.TextCoreTextEngineModule.dll
-    - UnityEngine.TextRenderingModule.dll
-    - UnityEngine.TilemapModule.dll
-    - UnityEngine.UI.dll
-    - UnityEngine.UIElementsModule.dll
-    - UnityEngine.UIElementsNativeModule.dll
-    - UnityEngine.UIModule.dll
-    - UnityEngine.UnityAnalyticsModule.dll
-    - UnityEngine.UnityWebRequestModule.dll
-    - UnityEngine.VFXModule.dll
-    - UnityEngine.VideoModule.dll
-    - UnityEngine.VRModule.dll
-    - UnityEngine.XRModule.dll
-    - UnityGameFramework.Runtime.dll
-    LogicMainDllName: HotfixMain.dll
-    AssemblyTextAssetExtension: .bytes
-    AssemblyTextAssetPath: Deer/AssetsHotfix/Assemblies
-    HybridCLRGlobalSettings: Settings/HybridCLRGlobalSettings
-    HybridCLRIosBuildPath: HybridCLRData/iOSBuild
-    HybridCLRIosXCodePath: 
+  m_ScriptAuthor: AlanDu
+  m_ScriptVersion: 0.1
+  m_AppStage: 1
+  m_DefaultFont: wryhSDF
+  BaseAssetsRootName: BaseAssets
+  m_ResourcesArea:
+    m_ResAdminType: Default
+    m_ResAdminCode: 0
+    m_WhetherCopyResToCommitPath: 0
+    m_CleanCommitPathRes: 1
+    m_ServerType: 1
+    m_InnerResourceSourceUrl: http://121.4.195.168:8088
+    m_ExtraResourceSourceUrl: http://121.4.195.168:8088
+    m_FormalResourceSourceUrl: http://121.4.195.168:8088
+  m_ResourceVersionFileName: ResourceVersion.txt
+  WindowsAppUrl: 
+  MacOSAppUrl: 
+  IOSAppUrl: 
+  AndroidAppUrl: 
+  m_CurUseServerChannel: 
+  m_ServerChannelInfos:
+  - ChannelName: 
+    CurUseServerName: 
+    ServerIpAndPorts:
+    - ServerName: 
+      Ip: 
+      Port: 0
+  m_IsReadLocalConfigInEditor: 1
+  m_ConfigVersionFileName: ConfigVersion.xml
+  m_ConfigFolderName: LubanConfig

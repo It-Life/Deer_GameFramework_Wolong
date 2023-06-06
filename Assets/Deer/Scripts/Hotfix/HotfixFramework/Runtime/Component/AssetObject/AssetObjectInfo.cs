@@ -14,6 +14,10 @@ namespace HotfixFramework.Runtime
 	{
         private int m_SerialId;
         private string m_AssetObjectName;
+        /// <summary>
+        /// 是否加载其他bundle 非gf框架构建出来的资源
+        /// </summary>
+        private bool m_IsLoadOtherBundle;
 
         public AssetObjectInfo()
         {
@@ -47,14 +51,24 @@ namespace HotfixFramework.Runtime
                 return m_AssetObjectName;
             }
         }
+        /// <summary>
+        /// 是否加载其他bundle 非gf框架构建出来的资源
+        /// </summary>
+        public bool IsLoadOtherBundle
+        {
+            get
+            {
+                return m_IsLoadOtherBundle;
+            }
+        }
 
-
-        public static AssetObjectInfo Create(int serialId, string assetName, string showName)
+        public static AssetObjectInfo Create(int serialId, string assetName, string showName, bool isLoadOtherBundle = false)
         {
             AssetObjectInfo assetObjectInfo = ReferencePool.Acquire<AssetObjectInfo>();
             assetObjectInfo.m_SerialId = serialId;
             assetObjectInfo.m_AssetObjectName = assetName;
             assetObjectInfo.ShowAssetObjectName = showName;
+            assetObjectInfo.m_IsLoadOtherBundle = isLoadOtherBundle;
             return assetObjectInfo;
         }
 

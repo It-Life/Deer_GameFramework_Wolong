@@ -11,11 +11,12 @@ public static partial class AssetUtility
         /// <summary>
         /// 获取场景资源
         /// </summary>
+        /// <param name="groupName">场景组</param>
         /// <param name="sceneName">场景名称</param>
         /// <returns></returns>
-        public static string GetSceneAsset(string sceneName)
+        public static string GetSceneAsset(string groupName,string sceneName)
         {
-            return Utility.Text.Format("Assets/Deer/AssetsHotfix/Scenes/{0}.unity", sceneName);
+            return Utility.Text.Format("Assets/Deer/AssetsHotfix/{0}/Scenes/{1}.unity",groupName, sceneName);
         }
 
         /// <summary>

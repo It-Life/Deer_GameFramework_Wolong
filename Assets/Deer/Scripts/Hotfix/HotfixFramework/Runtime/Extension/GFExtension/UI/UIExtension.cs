@@ -6,6 +6,8 @@
 //修改时间:2022-06-16 19-26-59
 //版 本:0.1 
 // ===============================================
+
+using System;
 using cfg.Deer;
 using Deer;
 using GameFramework;
@@ -15,7 +17,7 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 
 /// <summary>
-/// Please modify the description.
+/// UI扩展
 /// </summary>
 public static class UIExtension
 {
@@ -23,7 +25,8 @@ public static class UIExtension
     private static IUIManager m_UIManager;
     private static string m_UIGroupHelperTypeName = "Main.Runtime.DeerUIGroupHelper";
     private static UIGroupHelperBase m_CustomUIGroupHelper = null;
-    private static int? UILoadingOneFormId;
+    private static int m_UILoadingFormId;
+    private static int m_UILoadingOneFormId;
     /// <summary>
     /// 血条节点
     /// </summary>
@@ -73,19 +76,16 @@ public static class UIExtension
     {
         return ShootTextRoot;
     }
-    public static bool HasUIForm(this UIComponent uiComponent, UIFormId uiFormId, string uiGroupName = null)
+
+    public static bool HasUIForm(this UIComponent uiComponent,  ConstantUI.EUIFormId euiFormId, string uiGroupName = null)
     {
-        return uiComponent.HasUIForm((int)uiFormId, uiGroupName);
-    }
-    public static bool HasUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
-    {
-        UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get(uiFormId);
-        if (uIForm_Config == null)
+        var uiFormInfo = ConstantUI.GetUIFormInfo(euiFormId);
+        if (uiFormInfo == null)
         {
             return false;
         }
 
-        string assetName = AssetUtility.UI.GetUIFormAsset(uIForm_Config.AssetName);
+        string assetName = AssetUtility.UI.GetUIFormAsset(uiFormInfo);
         if (string.IsNullOrEmpty(uiGroupName))
         {
             return uiComponent.HasUIForm(assetName);
@@ -100,20 +100,15 @@ public static class UIExtension
         return uiGroup.HasUIForm(assetName);
     }
 
-    public static UIBaseForm GetUIForm(this UIComponent uiComponent, UIFormId uiFormId, string uiGroupName = null)
+    public static UIBaseForm GetUIForm(this UIComponent uiComponent, ConstantUI.EUIFormId euiFormId, string uiGroupName = null)
     {
-        return uiComponent.GetUIForm((int)uiFormId, uiGroupName);
-    }
-
-    public static UIBaseForm GetUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
-    {
-        UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get(uiFormId);
-        if (uIForm_Config == null)
+        var uiFormInfo = ConstantUI.GetUIFormInfo(euiFormId);
+        if (uiFormInfo == null)
         {
             return null;
         }
-        string assetName = AssetUtility.UI.GetUIFormAsset(uIForm_Config.AssetName);
-        UIForm uiForm = null;
+        string assetName = AssetUtility.UI.GetUIFormAsset(uiFormInfo);
+        UnityGameFramework.Runtime.UIForm uiForm = null;
         if (string.IsNullOrEmpty(uiGroupName))
         {
             uiForm = uiComponent.GetUIForm(assetName);
@@ -130,7 +125,7 @@ public static class UIExtension
             return null;
         }
 
-        uiForm = (UIForm)uiGroup.GetUIForm(assetName);
+        uiForm = (UnityGameFramework.Runtime.UIForm)uiGroup.GetUIForm(assetName);
         if (uiForm != null)
         {
             return (UIBaseForm)uiForm.Logic;
@@ -148,63 +143,101 @@ public static class UIExtension
         uiComponent.CloseUIForm(uiForm.UIForm);
     }
 
-    public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
+    public static int OpenUIForm(this UIComponent uiComponent, ConstantUI.EUIFormId uiFormId, object userData = null)
     {
-        return uiComponent.OpenUIForm((int)uiFormId, userData);
+        return uiComponent.OpenUIForm(ConstantUI.GetUIFormInfo(uiFormId), userData);
     }
-
-    public static int? OpenUIForm(this UIComponent uiComponent, int uiFormId, object userData = null)
+    public static int OpenUIForm(this UIComponent uiComponent, ConstantUI.UIFormInfo uiFormInfo, object userData = null)
     {
-        UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get(uiFormId);
-        if (uIForm_Config == null)
+        if (uiFormInfo == null)
         {
-            Log.Warning("Can not load UI form '{0}' from data table.", uiFormId.ToString());
-            return null;
+            Log.Warning("Can not load UI from data table.");
+            return 0;
         }
 
         string assetName = string.Empty;
-        switch (uIForm_Config.FormType)
+        switch (uiFormInfo.FormType)
         {
-            case (int)Constant.UI.UIFormType.MainForm:
-                assetName = AssetUtility.UI.GetUIFormAsset(uIForm_Config.AssetName);
+            case ConstantUI.EUIFormType.MainForm:
+                assetName = AssetUtility.UI.GetUIFormAsset(uiFormInfo);
                 break;
-            case (int)Constant.UI.UIFormType.SubForm:
-                assetName = AssetUtility.UI.GetUISubFormAsset(uIForm_Config.AssetName);
+            case ConstantUI.EUIFormType.SubForm:
+                assetName = AssetUtility.UI.GetUISubFormAsset(uiFormInfo);
                 break;
-            case (int)Constant.UI.UIFormType.ComSubForm:
-                assetName = AssetUtility.UI.GetUIComSubFormAsset(uIForm_Config.AssetName);
+            case ConstantUI.EUIFormType.ComSubForm:
+                assetName = AssetUtility.UI.GetUIComSubFormAsset(uiFormInfo);
                 break;
         }
-        if (!uIForm_Config.AllowMultiInstance)
+        if (!uiFormInfo.AllowMultiInstance)
         {
             if (uiComponent.IsLoadingUIForm(assetName))
             {
-                return null;
+                return 0;
             }
 
             if (uiComponent.HasUIForm(assetName))
             {
-                return null;
+                return 0;
             }
         }
-
-        return uiComponent.OpenUIForm(assetName, uIForm_Config.UiGroupName, Constant.AssetPriority.UIFormAsset, uIForm_Config.PauseCoveredUIForm, userData);
+        Logger.Debug<UIComponent>("OpenUIForm: " + assetName);
+        return uiComponent.OpenUIForm(assetName, uiFormInfo.UIGroupName.ToString(), Constant.AssetPriority.UIFormAsset, uiFormInfo.PauseCoveredUIForm, userData);
     }
 
     public static void OpenDialog(this UIComponent uiComponent, DialogParams dialogParams)
     {
-        uiComponent.OpenUIForm(UIFormId.DialogForm, dialogParams);
+        uiComponent.OpenUIForm(ConstantUI.EUIFormId.DialogForm, dialogParams);
     }
 
-    public static void OpenUILoadingOneForm(this UIComponent uiComponent,object userData = null)
+    public static void OpenUILoadingForm(this UIComponent uiComponent)
     {
-        UIForm_Config uIForm_Config = GameEntry.Config.Tables.TbUIForm_Config.Get((int)UIFormId.UILoadingOneForm);
-        if (uIForm_Config == null)
+        var uiFormInfo = ConstantUI.GetUIFormInfo(ConstantUI.EUIFormId.UILoadingForm);
+        if (uiFormInfo == null)
         {
             return;
         }
-        string assetName = AssetUtility.UI.GetUIFormAsset(uIForm_Config.AssetName);
-
+        string assetName = AssetUtility.UI.GetUIFormAsset(uiFormInfo);
+        if (uiComponent.IsLoadingUIForm(assetName))
+        {
+            /*MessengerInfo __messengerInfo = ReferencePool.Acquire<MessengerInfo>();
+            __messengerInfo.param1 = sceneName;
+            GameEntry.Messenger.SendEvent(EventName.EVENT_CS_UI_REFRESH_LOADING_VIEW, __messengerInfo);*/
+            return;
+        }
+        if (uiComponent.HasUIForm(assetName))
+        {
+            if (uiComponent.GetUIForm(assetName).Logic.Available)
+            {
+                /*MessengerInfo _messengerInfo = ReferencePool.Acquire<MessengerInfo>();
+                _messengerInfo.param1 = sceneName;
+                GameEntry.Messenger.SendEvent(EventName.EVENT_CS_UI_REFRESH_LOADING_VIEW, _messengerInfo);*/
+                return;
+            }
+        }
+        MessengerInfo messengerInfo = ReferencePool.Acquire<MessengerInfo>();
+        //messengerInfo.param1 = sceneName;
+        m_UILoadingFormId = uiComponent.OpenUIForm(uiFormInfo, messengerInfo);
+    }
+    public static void CloseUILoadingForm(this UIComponent uiComponent)
+    {
+        Log.Info($"UILoadingFormId：{m_UILoadingFormId}    {uiComponent.HasUIForm(m_UILoadingFormId)}");
+        if (m_UILoadingFormId != 0 && (uiComponent.HasUIForm(m_UILoadingFormId) || uiComponent.IsLoadingUIForm(m_UILoadingFormId)))
+        {
+            uiComponent.CloseUIForm(m_UILoadingFormId);
+        }
+    }
+    public static void OpenUILoadingOneForm(this UIComponent uiComponent,int timeOut = 10,Action onTimeOut = null)
+    {
+        var uiFormInfo = ConstantUI.GetUIFormInfo(ConstantUI.EUIFormId.UILoadingOneForm);
+        if (uiFormInfo == null)
+        {
+            return;
+        }
+        string assetName = AssetUtility.UI.GetUIFormAsset(uiFormInfo);
+        if (uiComponent.IsLoadingUIForm(assetName))
+        {
+            return;
+        }
         if (uiComponent.HasUIForm(assetName))
         {
             if (uiComponent.GetUIForm(assetName).Logic.Available)
@@ -212,19 +245,17 @@ public static class UIExtension
                 return;
             }
         }
-        if (uiComponent.IsLoadingUIForm(assetName))
-        {
-            return;
-        }
-        UILoadingOneFormId = uiComponent.OpenUIForm(UIFormId.UILoadingOneForm, userData);
+        MessengerInfo messengerInfo = ReferencePool.Acquire<MessengerInfo>();
+        messengerInfo.param1 = timeOut;
+        messengerInfo.action1 = onTimeOut;
+        m_UILoadingOneFormId = uiComponent.OpenUIForm(uiFormInfo, messengerInfo);
     }
 
     public static void CloseUILoadingOneForm(this UIComponent uiComponent)
     {
-        Log.Info($"UILoadingOneFormId：{UILoadingOneFormId.Value}    {uiComponent.HasUIForm(UILoadingOneFormId.Value)}");
-        if (UILoadingOneFormId != null && (uiComponent.HasUIForm(UILoadingOneFormId.Value) || uiComponent.IsLoadingUIForm(UILoadingOneFormId.Value)))
+        if (m_UILoadingOneFormId != 0 && (uiComponent.HasUIForm(m_UILoadingOneFormId) || uiComponent.IsLoadingUIForm(m_UILoadingOneFormId)))
         {
-            uiComponent.CloseUIForm(UILoadingOneFormId.Value);
+            uiComponent.CloseUIForm(m_UILoadingOneFormId);
         }
     }
     /// <summary>
@@ -241,6 +272,6 @@ public static class UIExtension
         info.param2 = color ?? Color.white;
         info.param3 = openBg;
 
-        uIComponent.OpenUIForm(UIFormId.UITipsForm, info);
+        uIComponent.OpenUIForm(ConstantUI.EUIFormId.UITipsForm, info);
     }
 }

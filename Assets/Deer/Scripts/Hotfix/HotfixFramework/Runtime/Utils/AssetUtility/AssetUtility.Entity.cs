@@ -10,11 +10,12 @@ public static partial class AssetUtility
         /// <summary>
         /// 获取Entity路径
         /// </summary>
+        /// <param name="groupName">模型名</param>
         /// <param name="entityModelName">模型名</param>
         /// <returns></returns>
-        public static string GetEntityAsset(string entityModelName)
+        public static string GetEntityAsset(string groupName,string entityModelName)
         {
-            return Utility.Text.Format("Assets/Deer/AssetsHotfix/EntityPrefabs/{0}.prefab", entityModelName);
+            return $"Assets/Deer/AssetsHotfix/{groupName}/EntityPrefabs/{entityModelName}.prefab";
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace Pathfinding {
 	/// Deprecated: Use <see cref="AstarPath.navmeshUpdates"/> instead
 	/// </summary>
 	[System.Obsolete("Use AstarPath.navmeshUpdates instead. You can safely remove this component.")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_tile_handler_helper.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_tile_handler_helper.php")]
 	public class TileHandlerHelper : VersionedMonoBehaviour {
 		/// <summary>How often to check if an update needs to be done (real seconds between checks).</summary>
 		public float updateInterval {

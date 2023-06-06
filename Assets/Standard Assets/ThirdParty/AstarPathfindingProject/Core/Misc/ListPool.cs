@@ -20,7 +20,7 @@ namespace Pathfinding.Util {
 	/// After you have released a list, you should never use it again, if you do use it, you will
 	/// mess things up quite badly in the worst case.
 	///
-	/// \since Version 3.2
+	/// Since: Version 3.2
 	/// See: Pathfinding.Util.StackPool
 	/// </summary>
 	public static class ListPool<T> {
@@ -145,7 +145,7 @@ namespace Pathfinding.Util {
 		/// Releases a list and sets the variable to null.
 		/// After the list has been released it should not be used anymore.
 		///
-		/// \throws System.InvalidOperationException
+		/// Throws: System.InvalidOperationException
 		/// Releasing a list when it has already been released will cause an exception to be thrown.
 		///
 		/// See: <see cref="Claim"/>
@@ -159,7 +159,7 @@ namespace Pathfinding.Util {
 		/// Releases a list.
 		/// After the list has been released it should not be used anymore.
 		///
-		/// \throws System.InvalidOperationException
+		/// Throws: System.InvalidOperationException
 		/// Releasing a list when it has already been released will cause an exception to be thrown.
 		///
 		/// See: <see cref="Claim"/>

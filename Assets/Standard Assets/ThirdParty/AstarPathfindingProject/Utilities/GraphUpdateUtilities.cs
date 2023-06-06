@@ -9,15 +9,13 @@ namespace Pathfinding {
 	/// See: <see cref="AstarPath.GetNearest"/>
 	/// See: <see cref="Pathfinding.PathUtilities"/>
 	///
-	/// \since Added in 3.1
-	///
-	/// \ingroup utils
+	/// Since: Added in 3.1
 	/// </summary>
 	public static class GraphUpdateUtilities {
 		/// <summary>
 		/// Updates graphs and checks if all nodes are still reachable from each other.
 		/// Graphs are updated, then a check is made to see if the nodes are still reachable from each other.
-		/// If they are not, the graphs are reverted to before the update and false is returned.\n
+		/// If they are not, the graphs are reverted to before the update and false is returned.
 		/// This is slower than a normal graph update.
 		/// All queued graph updates and thread safe callbacks will be flushed during this function.
 		///

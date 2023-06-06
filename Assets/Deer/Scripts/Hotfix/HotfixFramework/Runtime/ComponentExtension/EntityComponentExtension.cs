@@ -44,7 +44,7 @@ public static class EntityComponentExtension
         {
             entityComponent.AddEntityGroup(entityGroup, 60, 60, 60,60);
         }
-        entityComponent.ShowEntity(data.Id, logicType, AssetUtility.Entity.GetEntityAsset(data.AssetName), entityGroup, priority, data);
+        entityComponent.ShowEntity(data.Id, logicType, AssetUtility.Entity.GetEntityAsset(data.GroupName,data.AssetName), entityGroup, priority, data);
     }
 
     public static int GenEntityId(this EntityComponent entityComponent)

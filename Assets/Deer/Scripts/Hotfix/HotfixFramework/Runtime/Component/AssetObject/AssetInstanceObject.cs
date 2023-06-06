@@ -46,7 +46,7 @@ namespace HotfixFramework.Runtime
         protected override void Release(bool isShutdown)
         {
             GameEntry.Resource.UnloadAsset(m_AssetObject);
-            UnityEngine.GameObject.Destroy((Object)Target);
+            UnityEngine.Object.Destroy((Object)Target);
         }
     }
 }

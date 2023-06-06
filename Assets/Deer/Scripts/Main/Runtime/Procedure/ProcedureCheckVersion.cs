@@ -88,7 +88,7 @@ namespace Main.Runtime.Procedure
         /// </summary>
         private void DownLoadConfigVersion()
         {
-            string configVersionFileName = DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName;
+            string configVersionFileName = DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName;
             string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, configVersionFileName);
             string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(configVersionFileName);
             GameEntryMain.Download.AddDownload(downLoadPath, downLoadUrl, new CheckData() { CheckType = ResourcesType.Config });
@@ -99,7 +99,7 @@ namespace Main.Runtime.Procedure
         /// </summary>
         private void DownLoadResourcesVersion()
         {
-            string resourceVersionFileName = DeerSettingsUtils.FrameworkGlobalSettings.ResourceVersionFileName;
+            string resourceVersionFileName = DeerSettingsUtils.DeerGlobalSettings.ResourceVersionFileName;
             string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, resourceVersionFileName);
             string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(resourceVersionFileName);
             if (Application.isEditor && GameEntryMain.Base.EditorResourceMode)

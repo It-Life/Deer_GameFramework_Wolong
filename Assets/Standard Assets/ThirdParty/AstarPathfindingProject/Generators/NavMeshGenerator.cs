@@ -11,16 +11,21 @@ namespace Pathfinding {
 
 	/// <summary>
 	/// Generates graphs based on navmeshes.
-	/// \ingroup graphs
-	/// Navmeshes are meshes where each triangle defines a walkable area.
+	/// [Open online documentation to see images]
+	///
+	/// Navmeshes are meshes in which each triangle defines a walkable area.
 	/// These are great because the AI can get so much more information on how it can walk.
-	/// Polygons instead of points mean that the funnel smoother can produce really nice looking paths and the graphs are also really fast to search
+	/// Polygons instead of points mean that the <see cref="FunnelModifier"/> can produce really nice looking paths, and the graphs are also really fast to search
 	/// and have a low memory footprint because fewer nodes are usually needed to describe the same area compared to grid graphs.
 	///
-	/// See: Pathfinding.RecastGraph
+	/// The navmesh graph requires that you create a navmesh manually. The package also has support for generating navmeshes automatically using the <see cref="RecastGraph"/>.
+	///
+	/// For a tutorial on how to configure a navmesh graph, take a look at getstarted2 (view in online documentation for working links).
 	///
 	/// [Open online documentation to see images]
 	/// [Open online documentation to see images]
+	///
+	/// See: Pathfinding.RecastGraph
 	/// </summary>
 	[JsonOptIn]
 	[Pathfinding.Util.Preserve]
@@ -199,22 +204,6 @@ namespace Pathfinding {
 				o.WillUpdateNode(node);
 				o.Apply(node);
 			});
-		}
-
-		/// <summary>Scans the graph using the path to an .obj mesh</summary>
-		[System.Obsolete("Set the mesh to ObjImporter.ImportFile(...) and scan the graph the normal way instead")]
-		public void ScanInternal (string objMeshPath) {
-			Mesh mesh = ObjImporter.ImportFile(objMeshPath);
-
-			if (mesh == null) {
-				Debug.LogError("Couldn't read .obj file at '"+objMeshPath+"'");
-				return;
-			}
-
-			sourceMesh = mesh;
-
-			var scan = ScanInternal().GetEnumerator();
-			while (scan.MoveNext()) {}
 		}
 
 		protected override IEnumerable<Progress> ScanInternal () {

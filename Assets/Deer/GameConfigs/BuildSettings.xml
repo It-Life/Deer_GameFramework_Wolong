@@ -6,7 +6,8 @@
     </DefaultScenes>
     <SearchScenePaths>
       <SearchScenePath Path="Assets/Deer/Scenes" />
-      <SearchScenePath Path="Assets/Deer/AssetsHotfix/Scenes" />
+      <SearchScenePath Path="Assets/Deer/AssetsHotfix/ADeerExample/Scenes" />
+	  <SearchScenePath Path="Assets/Deer/AssetsHotfix/AGameExample/Scenes" />
     </SearchScenePaths>
   </BuildSettings>
 </UnityGameFramework>

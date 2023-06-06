@@ -1077,10 +1077,10 @@ MonoBehaviour:
   orientation: 0
   enableRotation: 1
   autoRepath:
-    mode: 1
-    interval: 0.1
+    mode: 2
+    period: 0.1
     sensitivity: 10
-    maximumInterval: 0.5
+    maximumPeriod: 0.2
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5

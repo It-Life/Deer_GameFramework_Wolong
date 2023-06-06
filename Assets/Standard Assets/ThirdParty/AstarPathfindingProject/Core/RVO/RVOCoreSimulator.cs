@@ -75,7 +75,7 @@ namespace Pathfinding.RVO {
 		/// In the image the desiredSpeed is the length of the blue arrow and the target point
 		/// is the point where the black arrows point to.
 		/// In the upper case the agent does not avoid the red agent (you can assume that the red
-		/// agent has a very small velocity for simplicity) while in the lower case it does.\n
+		/// agent has a very small velocity for simplicity) while in the lower case it does.
 		/// If you are following a path a good way to pick the target point is to set it to
 		/// <code>
 		/// targetPoint = directionToNextWaypoint.normalized * remainingPathDistance
@@ -162,7 +162,7 @@ namespace Pathfinding.RVO {
 		/// Can be used to apply additional wall avoidance forces for example.
 		/// Segments are formed by the obstacle vertex and its .next property.
 		///
-		/// \bug Always returns null
+		/// Bug: Always returns null
 		/// </summary>
 		[System.Obsolete()]
 		List<ObstacleVertex> NeighbourObstacles { get; }
@@ -258,7 +258,7 @@ namespace Pathfinding.RVO {
 	}
 
 	/// <summary>
-	/// Local Avoidance %Simulator.
+	/// Local Avoidance Simulator.
 	/// This class handles local avoidance simulation for a number of agents using
 	/// Reciprocal Velocity Obstacles (RVO) and Optimal Reciprocal Collision Avoidance (ORCA).
 	///
@@ -375,13 +375,13 @@ namespace Pathfinding.RVO {
 		///
 		/// See: <see cref="Multithreading"/>
 		/// </summary>
-		/// <param name="workers">Use the specified number of worker threads.\n
+		/// <param name="workers">Use the specified number of worker threads.
 		/// When the number zero is specified, no multithreading will be used.
 		/// A good number is the number of cores on the machine.</param>
 		/// <param name="doubleBuffering">Use Double Buffering for calculations.
 		/// Testing done with 5000 agents and 0.1 desired delta time showed that with double buffering enabled
 		/// the game ran at 50 fps for most frames, dropping to 10 fps during calculation frames. But without double buffering
-		/// it ran at around 10 fps all the time.\n
+		/// it ran at around 10 fps all the time.
 		/// This will let threads calculate while the game progresses instead of waiting for the calculations
 		/// to finish.</param>
 		/// <param name="movementPlane">The plane that the movement happens in. XZ for 3D games, XY for 2D games.</param>
@@ -598,9 +598,9 @@ namespace Pathfinding.RVO {
 		///
 		/// The number of vertices in an obstacle cannot be changed, existing vertices can only be moved.
 		/// </summary>
-		/// <param name="obstacle">%Obstacle to update</param>
+		/// <param name="obstacle">Obstacle to update</param>
 		/// <param name="vertices">New vertices for the obstacle, must have at least the number of vertices in the original obstacle</param>
-		/// <param name="matrix">%Matrix to multiply vertices with before updating obstacle</param>
+		/// <param name="matrix">Matrix to multiply vertices with before updating obstacle</param>
 		public void UpdateObstacle (ObstacleVertex obstacle, Vector3[] vertices, Matrix4x4 matrix) {
 			if (vertices == null) throw new System.ArgumentNullException("Vertices must not be null");
 			if (obstacle == null) throw new System.ArgumentNullException("Obstacle must not be null");

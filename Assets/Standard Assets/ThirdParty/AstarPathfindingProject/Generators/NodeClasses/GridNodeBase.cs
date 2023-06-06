@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using Pathfinding.Serialization;
 
@@ -121,6 +122,31 @@ namespace Pathfinding {
 			return gg.transform.Transform(graphSpacePosition + new Vector3(Random.value - 0.5f, 0, Random.value - 0.5f));
 		}
 
+		/// <summary>
+		/// Transforms a world space point to a normalized point on this node's surface.
+		/// (0.5,0.5) represents the node's center. (0,0), (1,0), (1,1) and (0,1) each represent the corners of the node.
+		///
+		/// See: <see cref="UnNormalizePoint"/>
+		/// </summary>
+		public Vector2 NormalizePoint (Vector3 worldPoint) {
+			GridGraph gg = GridNode.GetGridGraph(GraphIndex);
+			var graphSpacePosition = gg.transform.InverseTransform(worldPoint);
+
+			return new Vector2(graphSpacePosition.x - this.XCoordinateInGrid, graphSpacePosition.z - this.ZCoordinateInGrid);
+		}
+
+		/// <summary>
+		/// Transforms a normalized point on this node's surface to a world space point.
+		/// (0.5,0.5) represents the node's center. (0,0), (1,0), (1,1) and (0,1) each represent the corners of the node.
+		///
+		/// See: <see cref="NormalizePoint"/>
+		/// </summary>
+		public Vector3 UnNormalizePoint (Vector2 normalizedPointOnSurface) {
+			GridGraph gg = GridNode.GetGridGraph(GraphIndex);
+
+			return (Vector3)this.position + gg.transform.TransformVector(new Vector3(normalizedPointOnSurface.x - 0.5f, 0, normalizedPointOnSurface.y - 0.5f));
+		}
+
 		public override int GetGizmoHashCode () {
 			var hash = base.GetGizmoHashCode();
 
@@ -157,8 +183,39 @@ namespace Pathfinding {
 		/// </code>
 		///
 		/// See: GetConnections
+		///
+		/// Note: This method only takes grid connections into account, not custom connections (i.e. those added using <see cref="AddConnection"/> or using node links).
 		/// </summary>
 		public abstract GridNodeBase GetNeighbourAlongDirection(int direction);
+
+		/// <summary>
+		/// True if the node has a connection to an adjecent node in the specified direction.
+		///
+		/// The dir parameter corresponds to directions in the grid as:
+		/// <code>
+		///         Z
+		///         |
+		///         |
+		///
+		///      6  2  5
+		///       \ | /
+		/// --  3 - X - 1  ----- X
+		///       / | \
+		///      7  0  4
+		///
+		///         |
+		///         |
+		/// </code>
+		///
+		/// See: <see cref="GetConnections"/>
+		/// See: <see cref="GetNeighbourAlongDirection"/>
+		///
+		/// Note: This method only takes grid connections into account, not custom connections (i.e. those added using <see cref="AddConnection"/> or using node links).
+		/// </summary>
+		public virtual bool HasConnectionInDirection (int direction) {
+			// TODO: Can be optimized if overriden in each subclass
+			return GetNeighbourAlongDirection(direction) != null;
+		}
 
 		public override bool ContainsConnection (GraphNode node) {
 #if !ASTAR_GRID_NO_CUSTOM_CONNECTIONS
@@ -271,6 +328,11 @@ namespace Pathfinding {
 		///
 		/// Note: Only adds a one-way connection. Consider calling the same function on the other node
 		/// to get a two-way connection.
+		///
+		/// Note that this will always add a custom connection which is a bit slower than the internal connection
+		/// list to adjacent grid nodes. If you only want to modify connections between grid nodes that are
+		/// adjacent to each other, and don't want custom costs, then using <see cref="SetConnectionInternal"/> might be
+		/// a better option.
 		/// </summary>
 		public override void AddConnection (GraphNode node, uint cost) {
 			if (node == null) throw new System.ArgumentNullException();
@@ -304,6 +366,10 @@ namespace Pathfinding {
 		/// Note: This only removes the connection from this node to the other node.
 		/// You may want to call the same function on the other node to remove its eventual connection
 		/// to this node.
+		///
+		/// Version: Before 4.3.48 This method only handled custom connections (those added using link components or the AddConnection method).
+		/// Regular grid connections had to be added or removed using <see cref="Pathfinding.GridNode.SetConnectionInternal"/>. Starting with 4.3.48 this method
+		/// can remove all types of connections.
 		/// </summary>
 		public override void RemoveConnection (GraphNode node) {
 			if (connections == null) return;

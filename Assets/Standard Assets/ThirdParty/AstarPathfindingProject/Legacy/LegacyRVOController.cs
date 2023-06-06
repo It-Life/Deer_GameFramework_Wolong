@@ -22,7 +22,7 @@ namespace Pathfinding.Legacy {
 	/// Deprecated: Use the RVOController class instead. This class only exists for compatibility reasons.
 	/// </summary>
 	[AddComponentMenu("Pathfinding/Legacy/Local Avoidance/Legacy RVO Controller")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_legacy_1_1_legacy_r_v_o_controller.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_legacy_1_1_legacy_r_v_o_controller.php")]
 	public class LegacyRVOController : RVOController {
 		/// <summary>
 		/// Layer mask for the ground.

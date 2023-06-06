@@ -6,6 +6,7 @@
 //修改时间:2023-03-17 17-23-53
 //版 本:0.1 
 // ===============================================
+#if ENABLE_HYBRID_CLR_UNITY
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -42,7 +43,7 @@ public class Copylibil2cppToIosProject : IPostprocessBuildWithReport
 		var srcPathFile = $"{DeerSettingsUtils.GetLibil2cppBuildPath()}/{fileName}";
 		if (!File.Exists(srcPathFile))
 		{
-			Debug.LogError($"[Copylibil2cppToIosProject] You need start call build_libil2cpp.sh file. path:{DeerSettingsUtils.HybridCLRCustomGlobalSettings.HybridCLRIosBuildPath}");
+			Debug.LogError($"[Copylibil2cppToIosProject] You need start call build_libil2cpp.sh file. path:{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRIosBuildPath}");
 			return;
 		}
 		var dstPath = DeerSettingsUtils.GetOutputXCodePath();
@@ -55,3 +56,4 @@ public class Copylibil2cppToIosProject : IPostprocessBuildWithReport
 		Debug.Log($"[Copylibil2cppToIosProject] Libil2cpp Copy success!");
 	}
 }
+#endif

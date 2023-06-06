@@ -6,12 +6,12 @@ namespace HotfixBusiness.DataUser
     {
         public void OnInit()
         {
-            Debug.Log("DataLevelInfoManager:OnInit");
+            Logger.Debug("DataLevelInfoManager:OnInit");
         }
 
         public void OnLeave()
         {
-            Debug.Log("DataLevelInfoManager:OnLeave");
+            Logger.Debug("DataLevelInfoManager:OnLeave");
         }
 
         public void OnUpdate()

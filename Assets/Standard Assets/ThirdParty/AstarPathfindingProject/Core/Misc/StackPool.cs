@@ -17,7 +17,7 @@ namespace Pathfinding.Util {
 	///
 	/// Warning: This class is not thread safe
 	///
-	/// \since Version 3.2
+	/// Since: Version 3.2
 	/// See: Pathfinding.Util.ListPool
 	/// </summary>
 	public static class StackPool<T> {

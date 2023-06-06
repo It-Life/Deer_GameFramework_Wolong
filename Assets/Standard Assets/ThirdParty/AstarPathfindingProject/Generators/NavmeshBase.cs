@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-#if UNITY_5_5_OR_NEWER
 using UnityEngine.Profiling;
-#endif
 
 namespace Pathfinding {
 	using System.IO;
@@ -11,7 +9,7 @@ namespace Pathfinding {
 	using Math = System.Math;
 	using System.Linq;
 
-	/// <summary>Base class for RecastGraph and NavMeshGraph</summary>
+	/// <summary>Base class for <see cref="RecastGraph"/> and <see cref="NavMeshGraph"/></summary>
 	public abstract class NavmeshBase : NavGraph, INavmesh, INavmeshHolder, ITransformedGraph
 		, IRaycastableGraph {
 #if ASTAR_RECAST_LARGER_TILES
@@ -158,8 +156,8 @@ namespace Pathfinding {
 		/// <summary>
 		/// Vertex coordinate for the specified vertex index.
 		///
-		/// \throws IndexOutOfRangeException if the vertex index is invalid.
-		/// \throws NullReferenceException if the tile the vertex is in is not calculated.
+		/// Throws: IndexOutOfRangeException if the vertex index is invalid.
+		/// Throws: NullReferenceException if the tile the vertex is in is not calculated.
 		///
 		/// See: NavmeshTile.GetVertex
 		/// </summary>
@@ -741,8 +739,8 @@ namespace Pathfinding {
 											VectorMath.SqrDistanceSegmentSegment((Vector3)aVertex1, (Vector3)aVertex2, (Vector3)bVertex1, (Vector3)bVertex2) < MaxTileConnectionEdgeDistance*MaxTileConnectionEdgeDistance) {
 											uint cost = (uint)(nodeA.position - nodeB.position).costMagnitude;
 
-											nodeA.AddConnection(nodeB, cost, a);
-											nodeB.AddConnection(nodeA, cost, b);
+											nodeA.AddConnection(nodeB, cost, (byte)a);
+											nodeB.AddConnection(nodeA, cost, (byte)b);
 										}
 									}
 								}

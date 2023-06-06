@@ -17,12 +17,12 @@ namespace HotfixBusiness.DataUser
         private DataLoginInfoManager() { }
         public void OnInit()
         {
-            Debug.Log("DataLoginInfoManager:OnInit");
+            Logger.Debug("DataLoginInfoManager:OnInit");
         }
 
         public void OnLeave()
         {
-            Debug.Log("DataLoginInfoManager:OnLeave");
+            Logger.Debug("DataLoginInfoManager:OnLeave");
         }
 
         public void OnUpdate()

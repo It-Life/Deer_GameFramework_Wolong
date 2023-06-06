@@ -24,7 +24,7 @@ namespace Pathfinding {
 	/// cut away the NavmeshAdd object.
 	/// Then you can add links between the added geometry and the rest of the world, preferably using NodeLink3.
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_navmesh_add.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_navmesh_add.php")]
 	public class NavmeshAdd : NavmeshClipper {
 		public enum MeshType {
 			Rectangle,
@@ -218,7 +218,7 @@ namespace Pathfinding {
 			}
 		}
 
-		public static readonly Color GizmoColor = new Color(94.0f/255, 239.0f/255, 37.0f/255);
+		public static readonly Color GizmoColor = new Color(154.0f/255, 35.0f/255, 239.0f/255);
 
 #if UNITY_EDITOR
 		public static Int3[] gizmoBuffer;

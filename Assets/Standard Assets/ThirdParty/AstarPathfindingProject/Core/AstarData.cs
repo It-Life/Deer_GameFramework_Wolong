@@ -12,9 +12,8 @@ namespace Pathfinding {
 	[System.Serializable]
 	/// <summary>
 	/// Stores the navigation graphs for the A* Pathfinding System.
-	/// \ingroup relevant
 	///
-	/// An instance of this class is assigned to AstarPath.data, from it you can access all graphs loaded through the <see cref="graphs"/> variable.\n
+	/// An instance of this class is assigned to AstarPath.data, from it you can access all graphs loaded through the <see cref="graphs"/> variable.
 	/// This class also handles a lot of the high level serialization.
 	/// </summary>
 	public class AstarData {
@@ -100,7 +99,7 @@ namespace Pathfinding {
 		///
 		/// This can be accessed as a byte array from the <see cref="data"/> property.
 		///
-		/// \since 3.6.1
+		/// Since: 3.6.1
 		/// </summary>
 		[SerializeField]
 		string dataString;
@@ -108,7 +107,7 @@ namespace Pathfinding {
 		/// <summary>
 		/// Data from versions from before 3.6.1.
 		/// Used for handling upgrades
-		/// \since 3.6.1
+		/// Since: 3.6.1
 		/// </summary>
 		[SerializeField]
 		[UnityEngine.Serialization.FormerlySerializedAs("data")]

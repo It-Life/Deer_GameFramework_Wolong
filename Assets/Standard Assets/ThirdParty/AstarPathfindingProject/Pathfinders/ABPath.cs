@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace Pathfinding {
 	/// <summary>
 	/// Basic path, finds the shortest path from A to B.
-	/// \ingroup paths
-	/// This is the most basic path object it will try to find the shortest path between two points.\n
+	///
+	/// This is the most basic path object it will try to find the shortest path between two points.
 	/// Many other path types inherit from this type.
 	/// See: Seeker.StartPath
 	/// See: calling-pathfinding (view in online documentation for working links)
@@ -39,7 +39,7 @@ namespace Pathfinding {
 		/// <summary>
 		/// Determines if a search for an end node should be done.
 		/// Set by different path types.
-		/// \since Added in 3.0.8.3
+		/// Since: Added in 3.0.8.3
 		/// </summary>
 		protected virtual bool hasEndPoint {
 			get {
@@ -58,6 +58,10 @@ namespace Pathfinding {
 		/// Note: It is not required by other path types to respect this setting
 		///
 		/// The <see cref="endNode"/> and <see cref="endPoint"/> will be modified and be set to the node which ends up being closest to the target.
+		///
+		/// Warning: Using this may make path calculations significantly slower if you have a big graph. The reason is that
+		/// when the target node cannot be reached, the path must search through every single other node that it can reach in order
+		/// to determine which one is closest. This may be expensive, and is why this option is disabled by default.
 		/// </summary>
 		public bool calculatePartial;
 

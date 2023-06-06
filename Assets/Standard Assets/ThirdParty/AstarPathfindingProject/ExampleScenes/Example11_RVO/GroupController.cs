@@ -8,7 +8,7 @@ namespace Pathfinding.Examples {
 	/// RVO Example Scene Unit Controller.
 	/// Controls AIs and camera in the RVO example scene.
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_group_controller.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_group_controller.php")]
 	public class GroupController : MonoBehaviour {
 		public GUIStyle selectionBox;
 		public bool adjustCamera = true;

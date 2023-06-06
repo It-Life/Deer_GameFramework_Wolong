@@ -23,7 +23,7 @@ namespace Pathfinding.Util {
 	/// your code may modify it at the same time as some other code is using it which
 	/// will likely lead to bad results.
 	///
-	/// \since Version 3.8.6
+	/// Since: Version 3.8.6
 	/// See: Pathfinding.Util.ListPool
 	/// </summary>
 	public static class ArrayPool<T> {
@@ -49,6 +49,8 @@ namespace Pathfinding.Util {
 		/// Returns an array with at least the specified length.
 		/// Warning: Returned arrays may contain arbitrary data.
 		/// You cannot rely on it being zeroed out.
+		///
+		/// The returned array will always be a power of two, or zero.
 		/// </summary>
 		public static T[] Claim (int minimumLength) {
 			if (minimumLength <= 0) {

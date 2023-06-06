@@ -7,7 +7,7 @@ namespace Pathfinding.Examples {
 	/// </summary>
 	[RequireComponent(typeof(Seeker))]
 	[System.Obsolete("This script has been replaced by Pathfinding.Examples.MineBotAnimation. Any uses of this script in the Unity editor will be automatically replaced by one AIPath component and one MineBotAnimation component.")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_examples_1_1_mine_bot_a_i.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_examples_1_1_mine_bot_a_i.php")]
 	public class MineBotAI : AIPath {
 		/// <summary>
 		/// Animation component.

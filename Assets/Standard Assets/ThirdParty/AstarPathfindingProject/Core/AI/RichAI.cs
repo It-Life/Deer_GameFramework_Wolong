@@ -7,7 +7,13 @@ namespace Pathfinding {
 	using Pathfinding.Util;
 
 	[AddComponentMenu("Pathfinding/AI/RichAI (3D, for navmesh)")]
-	/// <summary>Advanced AI for navmesh based graphs.</summary>
+	/// <summary>
+	/// Advanced AI for navmesh based graphs.
+	///
+	/// [Open online documentation to see images]
+	///
+	/// See: movementscripts (view in online documentation for working links)
+	/// </summary>
 	public partial class RichAI : AIBase, IAstarAI {
 		/// <summary>
 		/// Max acceleration of the agent.
@@ -265,6 +271,15 @@ namespace Pathfinding {
 			if (traversingOffMeshLink) {
 				delayUpdatePath = true;
 			} else {
+				// The RandomPath and MultiTargetPath do not have a well defined destination that could have been
+				// set before the paths were calculated. So we instead set the destination here so that some properties
+				// like #reachedDestination and #remainingDistance work correctly.
+				if (p is RandomPath rpath) {
+					destination = rpath.originalEndPoint;
+				} else if (p is MultiTargetPath mpath) {
+					destination = mpath.originalEndPoint;
+				}
+
 				richPath.Initialize(seeker, p, true, funnelSimplification);
 
 				// Check if we have already reached the end of the path

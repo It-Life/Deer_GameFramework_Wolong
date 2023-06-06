@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-#if UNITY_5_5_OR_NEWER
 using UnityEngine.Profiling;
-#endif
 
 namespace Pathfinding.RVO {
 	using Pathfinding.Util;
@@ -22,7 +20,7 @@ namespace Pathfinding.RVO {
 	/// [Open online documentation to see images]
 	/// </summary>
 	[AddComponentMenu("Pathfinding/Local Avoidance/RVO Navmesh")]
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_r_v_o_1_1_r_v_o_navmesh.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_r_v_o_1_1_r_v_o_navmesh.php")]
 	public class RVONavmesh : GraphModifier {
 		/// <summary>
 		/// Height of the walls added for each obstacle edge.

@@ -115,7 +115,7 @@ public static class OneKeyAddOrRemoveDeerExample
 	};
 	// 将"Assets/MyFolder"移动到“项目根路径/MyFolder”
 	private static string m_DestFolderPath = Application.dataPath + "/../DeerExample/";
-	[MenuItem("DeerTools/DeerExample/AddExample")]
+	//[MenuItem("DeerTools/DeerExample/AddExample")]
 	public static void AddDeerExample()
 	{
 		foreach (var dicExample in m_DicExamplePaths)
@@ -144,7 +144,7 @@ public static class OneKeyAddOrRemoveDeerExample
 		AssetDatabase.Refresh();
 		
 	}
-	[MenuItem("DeerTools/DeerExample/RemoveExample")]
+	//[MenuItem("DeerTools/DeerExample/RemoveExample")]
 	public static void RemoveDeerExample()
 	{
 		foreach (var dicExample in m_DicExamplePaths)

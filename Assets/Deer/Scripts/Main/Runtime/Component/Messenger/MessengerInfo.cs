@@ -7,6 +7,7 @@
 //版 本 : 0.1 
 // ===============================================
 
+using System;
 using GameFramework;
 
 public class MessengerInfo : IReference
@@ -21,6 +22,16 @@ public class MessengerInfo : IReference
     public object param8;
     public object param9;
     public object param10;
+    
+    public Action action1;
+    public Action action2;
+    public Action action3;
+    public Action<object> actionOneParam1;
+    public Action<object> actionOneParam2;
+    public Action<object> actionOneParam3;
+    public Action<object,object> actionTwoParam1;
+    public Action<object,object> actionTwoParam2;
+    public Action<object,object> actionTwoParam3;
 
     /*
     MessengerInfo()
@@ -124,5 +135,24 @@ public class MessengerInfo : IReference
 
     public void Clear()
     {
+        param1 = null;
+        param2 = null;
+        param3 = null;
+        param4 = null;
+        param5 = null;
+        param6 = null;
+        param7 = null;
+        param8 = null;
+        param9 = null;
+        param10 = null;
+        action1 = null;
+        action2 = null;
+        action3 = null;
+        actionOneParam1 = null;
+        actionOneParam2 = null;
+        actionOneParam3 = null;
+        actionTwoParam1 = null;
+        actionTwoParam2 = null;
+        actionTwoParam3 = null;
     }
 }

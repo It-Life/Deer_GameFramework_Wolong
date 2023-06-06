@@ -11,6 +11,7 @@ public class AutoBindGlobalSettingInspector : Editor
     private SerializedProperty m_ComCodePath;
     private SerializedProperty m_MountCodePath;
     private SerializedProperty m_RulePrefixes;
+    private SerializedProperty m_MountScriptListAssemblys;
     private Vector2 m_ScrollPosition = Vector2.zero;
 
     private void OnEnable()
@@ -19,6 +20,7 @@ public class AutoBindGlobalSettingInspector : Editor
         m_ComCodePath = serializedObject.FindProperty("m_ComCodePath");
         m_MountCodePath = serializedObject.FindProperty("m_MountCodePath");
         m_RulePrefixes = serializedObject.FindProperty("m_RulePrefixes");
+        m_MountScriptListAssemblys = serializedObject.FindProperty("m_MountScriptListAssemblys");
     }
 
     public override void OnInspectorGUI()
@@ -60,6 +62,9 @@ public class AutoBindGlobalSettingInspector : Editor
             }
         }
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.LabelField("默认挂载代码搜寻程序集：");
+        EditorGUILayout.PropertyField(m_MountScriptListAssemblys);
+        EditorGUILayout.LabelField("组件的缩略名字映射：");
         EditorGUILayout.PropertyField(m_RulePrefixes);
         serializedObject.ApplyModifiedProperties();
        

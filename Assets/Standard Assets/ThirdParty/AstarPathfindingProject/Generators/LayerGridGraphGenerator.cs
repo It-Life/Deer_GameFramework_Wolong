@@ -6,15 +6,15 @@ using Pathfinding.Serialization;
 namespace Pathfinding {
 	/// <summary>
 	/// Grid Graph, supports layered worlds.
+	/// [Open online documentation to see images]
 	/// The GridGraph is great in many ways, reliable, easily configured and updatable during runtime.
-	/// But it lacks support for worlds which have multiple layers, such as a building with multiple floors.\n
+	/// But it lacks support for worlds which have multiple layers, such as a building with multiple floors.
 	/// That's where this graph type comes in. It supports basically the same stuff as the grid graph, but also multiple layers.
-	/// It uses a more memory, and is probably a bit slower.
-	/// Note: Does not support 8 connections per node, only 4.
+	/// It uses a bit more memory than a regular grid graph, but is otherwise equivalent.
 	///
-	/// \ingroup graphs
 	/// [Open online documentation to see images]
-	/// [Open online documentation to see images]
+	///
+	/// See: <see cref="GridGraph"/>
 	/// </summary>
 	[Pathfinding.Util.Preserve]
 	public class LayerGridGraph : GridGraph, IUpdatableGraph {
@@ -47,20 +47,6 @@ namespace Pathfinding {
 
 		internal int lastScannedWidth;
 		internal int lastScannedDepth;
-
-		/// <summary>
-		/// All nodes in this graph.
-		/// <code>
-		/// var gg = AstarPath.active.data.layerGridGraph;
-		/// int x = 5;
-		/// int z = 8;
-		/// int y = 2; // Layer
-		/// LevelGridNode node = gg.nodes[y*gg.width*gg.depth + z*gg.width + x];
-		/// </code>
-		///
-		/// See: <see cref="GetNodes"/>
-		/// </summary>
-		public new LevelGridNode[] nodes;
 
 		public override bool uniformWidthDepthGrid {
 			get {
@@ -441,7 +427,7 @@ namespace Pathfinding {
 			yield return new Progress(0.95f, "Calculating Erosion");
 
 			for (int i = 0; i < nodes.Length; i++) {
-				var node = nodes[i];
+				var node = nodes[i] as LevelGridNode;
 				if (node == null) continue;
 
 				// Set the node to be unwalkable if it hasn't got any connections
@@ -564,7 +550,7 @@ namespace Pathfinding {
 				var sample = heightSamples[layerIndex];
 
 				var index = z*width+x + width*depth*layerIndex;
-				var node = nodes[index];
+				var node = nodes[index] as LevelGridNode;
 
 				bool isNewNode = node == null;
 				if (isNewNode) {
@@ -574,7 +560,8 @@ namespace Pathfinding {
 					}
 
 					// Create a new node
-					node = nodes[index] = new LevelGridNode(active);
+					node = new LevelGridNode(active);
+					nodes[index] = node;
 					node.NodeInGridIndex = z*width+x;
 					node.LayerCoordinateInGrid = layerIndex;
 					node.GraphIndex = graphIndex;
@@ -639,8 +626,8 @@ namespace Pathfinding {
 				return;
 			}
 
-			LevelGridNode[] tmp = nodes;
-			nodes = new LevelGridNode[width*depth*newLayerCount];
+			GridNodeBase[] tmp = nodes;
+			nodes = new GridNodeBase[width*depth*newLayerCount];
 			tmp.CopyTo(nodes, 0);
 			layerCount = newLayerCount;
 		}
@@ -651,14 +638,14 @@ namespace Pathfinding {
 			if (neighbours == NumNeighbours.Six) {
 				// Check the 6 hexagonal connections
 				for (int i = 0; i < 6; i++) {
-					if (!node.GetConnection(hexagonNeighbourIndices[i])) {
+					if (!node.HasConnectionInDirection(hexagonNeighbourIndices[i])) {
 						return true;
 					}
 				}
 			} else {
 				// Check the four axis aligned connections
 				for (int i = 0; i < 4; i++) {
-					if (!node.GetConnection(i)) {
+					if (!node.HasConnectionInDirection(i)) {
 						return true;
 					}
 				}
@@ -691,7 +678,7 @@ namespace Pathfinding {
 
 		/// <summary>Calculates the layered grid graph connections for a single node</summary>
 		public void CalculateConnections (int x, int z, int layerIndex) {
-			var node = nodes[z*width+x + width*depth*layerIndex];
+			var node = nodes[z*width+x + width*depth*layerIndex] as LevelGridNode;
 
 			if (node == null) return;
 
@@ -775,13 +762,26 @@ namespace Pathfinding {
 			return nn;
 		}
 
-		private LevelGridNode GetNearestNode (Vector3 position, int x, int z, NNConstraint constraint) {
+		protected override GridNodeBase GetNearestFromGraphSpace (Vector3 positionGraphSpace) {
+			if (nodes == null || depth*width*layerCount != nodes.Length) {
+				return null;
+			}
+
+			float xf = positionGraphSpace.x;
+			float zf = positionGraphSpace.z;
+			int x = Mathf.Clamp((int)xf, 0, width-1);
+			int z = Mathf.Clamp((int)zf, 0, depth-1);
+			var worldPos = transform.Transform(positionGraphSpace);
+			return GetNearestNode(worldPos, x, z, null);
+		}
+
+		private GridNodeBase GetNearestNode (Vector3 position, int x, int z, NNConstraint constraint) {
 			int index = width*z+x;
 			float minDist = float.PositiveInfinity;
-			LevelGridNode minNode = null;
+			GridNodeBase minNode = null;
 
 			for (int i = 0; i < layerCount; i++) {
-				LevelGridNode node = nodes[index + width*depth*i];
+				var node = nodes[index + width*depth*i];
 				if (node != null) {
 					float dist =  ((Vector3)node.position - position).sqrMagnitude;
 					if (dist < minDist && (constraint == null || constraint.Suitable(node))) {
@@ -793,111 +793,13 @@ namespace Pathfinding {
 			return minNode;
 		}
 
-		public override NNInfoInternal GetNearestForce (Vector3 position, NNConstraint constraint) {
-			if (nodes == null || depth*width*layerCount != nodes.Length || layerCount == 0) {
-				return new NNInfoInternal();
-			}
-
-			Vector3 globalPosition = position;
-
-			position = transform.InverseTransform(position);
-
-			float xf = position.x;
-			float zf = position.z;
-			int x = Mathf.Clamp((int)xf, 0, width-1);
-			int z = Mathf.Clamp((int)zf, 0, depth-1);
-
-			LevelGridNode minNode;
-			float minDist = float.PositiveInfinity;
-			int overlap = getNearestForceOverlap;
-
-			minNode = GetNearestNode(globalPosition, x, z, constraint);
-			if (minNode != null) {
-				minDist = ((Vector3)minNode.position-globalPosition).sqrMagnitude;
-			}
-
-			if (minNode != null && overlap > 0) {
-				overlap--;
-			}
-
-
-			float maxDist = constraint.constrainDistance ? AstarPath.active.maxNearestNodeDistance : float.PositiveInfinity;
-			float maxDistSqr = maxDist*maxDist;
-
-			for (int w = 1;; w++) {
-				int nx;
-				int nz = z+w;
-
-				// Check if the nodes are within distance limit
-				if (nodeSize*w > maxDist) {
-					break;
-				}
-
-				for (nx = x-w; nx <= x+w; nx++) {
-					if (nx < 0 || nz < 0 || nx >= width || nz >= depth) continue;
-					LevelGridNode node = GetNearestNode(globalPosition, nx, nz, constraint);
-					if (node != null) {
-						float dist = ((Vector3)node.position-globalPosition).sqrMagnitude;
-						if (dist < minDist && dist < maxDistSqr) { minDist = dist; minNode = node; }
-					}
-				}
-
-				nz = z-w;
-
-				for (nx = x-w; nx <= x+w; nx++) {
-					if (nx < 0 || nz < 0 || nx >= width || nz >= depth) continue;
-					LevelGridNode node = GetNearestNode(globalPosition, nx, nz, constraint);
-					if (node != null) {
-						float dist = ((Vector3)node.position-globalPosition).sqrMagnitude;
-						if (dist < minDist && dist < maxDistSqr) { minDist = dist; minNode = node; }
-					}
-				}
-
-				nx = x-w;
-
-				for (nz = z-w+1; nz <= z+w-1; nz++) {
-					if (nx < 0 || nz < 0 || nx >= width || nz >= depth) continue;
-					LevelGridNode node = GetNearestNode(globalPosition, nx, nz, constraint);
-					if (node != null) {
-						float dist = ((Vector3)node.position-globalPosition).sqrMagnitude;
-						if (dist < minDist && dist < maxDistSqr) { minDist = dist; minNode = node; }
-					}
-				}
-
-				nx = x+w;
-
-				for (nz = z-w+1; nz <= z+w-1; nz++) {
-					if (nx < 0 || nz < 0 || nx >= width || nz >= depth) continue;
-					LevelGridNode node = GetNearestNode(globalPosition, nx, nz, constraint);
-					if (node != null) {
-						float dist = ((Vector3)node.position-globalPosition).sqrMagnitude;
-						if (dist < minDist && dist < maxDistSqr) { minDist = dist; minNode = node; }
-					}
-				}
-
-				if (minNode != null) {
-					if (overlap == 0) break;
-					overlap--;
-				}
-			}
-
-			var nn = new NNInfoInternal(minNode);
-			if (minNode != null) {
-				// Closest point on the node if the node is treated as a square
-				var nx = minNode.XCoordinateInGrid;
-				var nz = minNode.ZCoordinateInGrid;
-				nn.clampedPosition = transform.Transform(new Vector3(Mathf.Clamp(xf, nx, nx+1f), transform.InverseTransform((Vector3)minNode.position).y, Mathf.Clamp(zf, nz, nz+1f)));
-			}
-			return nn;
-		}
-
 		/// <summary>
 		/// Returns if node is connected to it's neighbour in the specified direction.
-		/// Deprecated: Use node.GetConnection instead
+		/// Deprecated: Use node.HasConnectionInDirection instead
 		/// </summary>
-		[System.Obsolete("Use node.GetConnection instead")]
+		[System.Obsolete("Use node.HasConnectionInDirection instead")]
 		public static bool CheckConnection (LevelGridNode node, int dir) {
-			return node.GetConnection(dir);
+			return node.HasConnectionInDirection(dir);
 		}
 
 		protected override void SerializeExtraInfo (GraphSerializationContext ctx) {
@@ -955,7 +857,7 @@ namespace Pathfinding {
 			for (int i = 0; i < layerCount; i++) {
 				for (int z = 0; z < depth; z++) {
 					for (int x = 0; x < width; x++) {
-						LevelGridNode node = nodes[z*width+x + width*depth*i];
+						var node = nodes[z*width+x + width*depth*i] as LevelGridNode;
 
 						if (node == null) {
 							continue;
@@ -1070,9 +972,11 @@ namespace Pathfinding {
 		}
 
 		public override GridNodeBase GetNeighbourAlongDirection (int direction) {
-			if (GetConnection(direction)) {
+			int conn = GetConnectionValue(direction);
+
+			if (conn != NoConnection) {
 				LayerGridGraph graph = GetGridGraph(GraphIndex);
-				return graph.nodes[NodeInGridIndex+graph.neighbourOffsets[direction] + graph.lastScannedWidth*graph.lastScannedDepth*GetConnectionValue(direction)];
+				return graph.nodes[NodeInGridIndex+graph.neighbourOffsets[direction] + graph.lastScannedWidth*graph.lastScannedDepth*conn];
 			}
 			return null;
 		}
@@ -1081,12 +985,12 @@ namespace Pathfinding {
 			if (alsoReverse) {
 				LayerGridGraph graph = GetGridGraph(GraphIndex);
 				int[] neighbourOffsets = graph.neighbourOffsets;
-				LevelGridNode[] nodes = graph.nodes;
+				GridNodeBase[] nodes = graph.nodes;
 
 				for (int i = 0; i < 4; i++) {
 					int conn = GetConnectionValue(i);
 					if (conn != LevelGridNode.NoConnection) {
-						LevelGridNode other = nodes[NodeInGridIndex+neighbourOffsets[i] + graph.lastScannedWidth*graph.lastScannedDepth*conn];
+						LevelGridNode other = nodes[NodeInGridIndex+neighbourOffsets[i] + graph.lastScannedWidth*graph.lastScannedDepth*conn] as LevelGridNode;
 						if (other != null) {
 							// Remove reverse connection
 							other.SetConnectionValue((i + 2) % 4, NoConnection);
@@ -1106,13 +1010,13 @@ namespace Pathfinding {
 			LayerGridGraph graph = GetGridGraph(GraphIndex);
 
 			int[] neighbourOffsets = graph.neighbourOffsets;
-			LevelGridNode[] nodes = graph.nodes;
+			GridNodeBase[] nodes = graph.nodes;
 			int index = NodeInGridIndex;
 
 			for (int i = 0; i < 4; i++) {
 				int conn = GetConnectionValue(i);
 				if (conn != LevelGridNode.NoConnection) {
-					LevelGridNode other = nodes[index+neighbourOffsets[i] + graph.lastScannedWidth*graph.lastScannedDepth*conn];
+					GraphNode other = nodes[index+neighbourOffsets[i] + graph.lastScannedWidth*graph.lastScannedDepth*conn];
 					if (other != null) action(other);
 				}
 			}
@@ -1122,9 +1026,18 @@ namespace Pathfinding {
 #endif
 		}
 
-		/// <summary>Is there a grid connection in that direction</summary>
+		/// <summary>
+		/// Is there a grid connection in that direction.
+		///
+		/// Deprecated: Use <see cref="HasConnectionInDirection"/> instead
+		/// </summary>
+		[System.Obsolete("Use HasConnectionInDirection instead")]
 		public bool GetConnection (int i) {
 			return ((gridConnections >> i*ConnectionStride) & ConnectionMask) != NoConnection;
+		}
+
+		public override bool HasConnectionInDirection (int direction) {
+			return ((gridConnections >> direction*ConnectionStride) & ConnectionMask) != NoConnection;
 		}
 
 		/// <summary>Set which layer a grid connection goes to.</summary>
@@ -1148,12 +1061,46 @@ namespace Pathfinding {
 			return (int)((gridConnections >> dir*ConnectionStride) & ConnectionMask);
 		}
 
+		public override void AddConnection (GraphNode node, uint cost) {
+			// In case the node was already added as an internal grid connection,
+			// we need to remove that connection before we insert it as a custom connection.
+			// Using a custom connection is necessary because it has a custom cost.
+			if (node is LevelGridNode gn && gn.GraphIndex == GraphIndex) {
+				RemoveGridConnection(gn);
+			}
+			base.AddConnection(node, cost);
+		}
+
+		public override void RemoveConnection (GraphNode node) {
+			base.RemoveConnection(node);
+			// If the node is a grid node on the same graph, it might be added as an internal connection and not a custom one.
+			if (node is LevelGridNode gn && gn.GraphIndex == GraphIndex) {
+				RemoveGridConnection(gn);
+			}
+		}
+
+		/// <summary>
+		/// Removes a connection from the internal grid connections, not the list of custom connections.
+		/// See: SetConnectionValue
+		/// </summary>
+		protected void RemoveGridConnection (LevelGridNode node) {
+			var nodeIndex = NodeInGridIndex;
+			var gg = GetGridGraph(GraphIndex);
+
+			for (int i = 0; i < 8; i++) {
+				if (nodeIndex + gg.neighbourOffsets[i] == node.NodeInGridIndex && GetNeighbourAlongDirection(i) == node) {
+					SetConnectionValue(i, NoConnection);
+					break;
+				}
+			}
+		}
+
 		public override bool GetPortal (GraphNode other, List<Vector3> left, List<Vector3> right, bool backwards) {
 			if (backwards) return true;
 
 			LayerGridGraph graph = GetGridGraph(GraphIndex);
 			int[] neighbourOffsets = graph.neighbourOffsets;
-			LevelGridNode[] nodes = graph.nodes;
+			GridNodeBase[] nodes = graph.nodes;
 			int index = NodeInGridIndex;
 
 			for (int i = 0; i < 4; i++) {
@@ -1180,13 +1127,13 @@ namespace Pathfinding {
 
 			LayerGridGraph graph = GetGridGraph(GraphIndex);
 			int[] neighbourOffsets = graph.neighbourOffsets;
-			LevelGridNode[] nodes = graph.nodes;
+			GridNodeBase[] nodes = graph.nodes;
 			int index = NodeInGridIndex;
 
 			for (int i = 0; i < 4; i++) {
 				int conn = GetConnectionValue(i);
 				if (conn != LevelGridNode.NoConnection) {
-					LevelGridNode other = nodes[index+neighbourOffsets[i] + graph.lastScannedWidth*graph.lastScannedDepth*conn];
+					var other = nodes[index+neighbourOffsets[i] + graph.lastScannedWidth*graph.lastScannedDepth*conn];
 					PathNode otherPN = handler.GetPathNode(other);
 
 					if (otherPN != null && otherPN.parent == pathNode && otherPN.pathID == handler.PathID) {
@@ -1205,7 +1152,7 @@ namespace Pathfinding {
 
 			int[] neighbourOffsets = graph.neighbourOffsets;
 			uint[] neighbourCosts = graph.neighbourCosts;
-			LevelGridNode[] nodes = graph.nodes;
+			GridNodeBase[] nodes = graph.nodes;
 			int index = NodeInGridIndex;
 
 			for (int i = 0; i < 4; i++) {

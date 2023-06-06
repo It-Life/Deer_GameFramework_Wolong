@@ -202,7 +202,17 @@ namespace GameFramework.Sound
         /// <param name="userData">用户自定义数据。</param>
         /// <returns>声音的序列编号。</returns>
         int PlaySound(string soundAssetName, string soundGroupName, int priority, PlaySoundParams playSoundParams, object userData);
-
+        
+        /// <summary>
+        /// 播放声音。
+        /// </summary>
+        /// <param name="soundAssetName">声音资源名称。</param>
+        /// <param name="soundGroupName">声音组名称。</param>
+        /// <param name="playSoundParams">播放声音参数。</param>
+        /// <param name="userData">用户自定义数据。</param>
+        /// <param name="onLoadAudioClip">加载音乐回调。</param>
+        /// <returns>声音的序列编号。</returns>
+        int PlaySoundLocalFile(string soundAssetName, string soundGroupName, PlaySoundParams playSoundParams, object userData,OnLoadAudioClip onLoadAudioClip);
         /// <summary>
         /// 停止播放声音。
         /// </summary>

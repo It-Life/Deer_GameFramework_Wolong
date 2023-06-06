@@ -204,7 +204,7 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
     public void CheckConfigVersion(CheckConfigCompleteCallback configCompleteCallback)
     {
         m_CheckConfigCompleteCallback = configCompleteCallback;
-        string configXmlPath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigVersionFileName);
+        string configXmlPath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName);
         byte[] configBytes = File.ReadAllBytes(configXmlPath);
         string xml = FileUtils.BinToUtf8(configBytes);
         m_Configs = FileUtils.AnalyConfigXml(xml);
@@ -228,7 +228,7 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
         string curMD5 = string.Empty;
         foreach (KeyValuePair<string, ConfigInfo> config in m_Configs)
         {
-            filePath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName, config.Key);
+            filePath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, config.Key);
             if (File.Exists(filePath))
             {
                 curMD5 = Main.Runtime.FileUtils.Md5ByPathName(filePath);
@@ -273,8 +273,8 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
 
         foreach (var config in m_NeedUpdateConfigs)
         {
-            string downloadPath = Path.Combine(Resource.ReadWritePath,DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName,config.Value.Path);
-            string downloadUri = DeerSettingsUtils.GetResDownLoadPath(Path.Combine(DeerSettingsUtils.FrameworkGlobalSettings.ConfigFolderName, config.Value.Path));
+            string downloadPath = Path.Combine(Resource.ReadWritePath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,config.Value.Path);
+            string downloadUri = DeerSettingsUtils.GetResDownLoadPath(Path.Combine(DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, config.Value.Path));
             Download.AddDownload(downloadPath, downloadUri, config.Value);
         }
     }

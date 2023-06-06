@@ -5,7 +5,7 @@ namespace Pathfinding {
 	/// <summary>
 	/// Helper class for easily updating graphs.
 	///
-	/// The GraphUpdateScene component is really easy to use. Create a new empty GameObject and add the component to it, it can be found in Components-->Pathfinding-->GraphUpdateScene.\n
+	/// The GraphUpdateScene component is really easy to use. Create a new empty GameObject and add the component to it, it can be found in Components-->Pathfinding-->GraphUpdateScene.
 	/// When you have added the component, you should see something like the image below.
 	/// [Open online documentation to see images]
 	/// The region which the component will affect is defined by creating a polygon in the scene.
@@ -14,10 +14,10 @@ namespace Pathfinding {
 	/// By clicking on the points you can bring up a positioning tool. You can also open the "points" array in the inspector to set each point's coordinates manually.
 	/// [Open online documentation to see images]
 	/// In the inspector there are a number of variables. The first one is named "Convex", it sets if the convex hull of the points should be calculated or if the polygon should be used as-is.
-	/// Using the convex hull is faster when applying the changes to the graph, but with a non-convex polygon you can specify more complicated areas.\n
+	/// Using the convex hull is faster when applying the changes to the graph, but with a non-convex polygon you can specify more complicated areas.
 	/// The next two variables, called "Apply On Start" and "Apply On Scan" determine when to apply the changes. If the object is in the scene from the beginning, both can be left on, it doesn't
 	/// matter since the graph is also scanned at start. However if you instantiate it later in the game, you can make it apply it's setting directly, or wait until the next scan (if any).
-	/// If the graph is rescanned, all GraphUpdateScene components which have the Apply On Scan variable toggled will apply their settings again to the graph since rescanning clears all previous changes.\n
+	/// If the graph is rescanned, all GraphUpdateScene components which have the Apply On Scan variable toggled will apply their settings again to the graph since rescanning clears all previous changes.
 	/// You can also make it apply it's changes using scripting.
 	/// <code> GetComponent<GraphUpdateScene>().Apply (); </code>
 	/// The above code will make it apply its changes to the graph (assuming a GraphUpdateScene component is attached to the same GameObject).
@@ -32,7 +32,7 @@ namespace Pathfinding {
 	/// Note: The Y (up) axis of the transform that this component is attached to should be in the same direction as the up direction of the graph.
 	/// So if you for example have a grid in the XY plane then the transform should have the rotation (-90,0,0).
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_graph_update_scene.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_graph_update_scene.php")]
 	public class GraphUpdateScene : GraphModifier {
 		/// <summary>Points which define the region to update</summary>
 		public Vector3[] points;
@@ -150,8 +150,8 @@ namespace Pathfinding {
 		/// Inverts all invertable settings for this GUS.
 		/// Namely: penalty delta, walkability, tags.
 		///
-		/// Penalty delta will be changed to negative penalty delta.\n
-		/// <see cref="setWalkability"/> will be inverted.\n
+		/// Penalty delta will be changed to negative penalty delta.
+		/// <see cref="setWalkability"/> will be inverted.
 		/// <see cref="setTag"/> will be stored in a private variable, and the new value will be 0. When calling this function again, the saved
 		/// value will be the new value.
 		///

@@ -1,10 +1,10 @@
 ﻿// ================================================
 //描 述 :  
-//作 者 : 杜鑫 
-//创建时间 : 2021-08-05 23-29-41  
-//修改作者 : 杜鑫 
-//修改时间 : 2021-08-05 23-29-41  
-//版 本 : 0.1 
+//作 者 :AlanDu
+//创建时间 : 2021-08-05 23-29-41
+//修改作者 :AlanDu
+//修改时间 : 2021-08-05 23-29-41
+//版 本 :0.1 
 // ===============================================
 
 using System;
@@ -21,7 +21,7 @@ namespace Deer.Editor
             AudioImporter audioImporter = (AudioImporter)assetImporter;
             AudioImporterSampleSettings audioSetting = audioImporter.defaultSampleSettings;
             audioImporter.forceToMono = true;
-            audioImporter.preloadAudioData = true;
+            //audioImporter.preloadAudioData = true;
             if (assetPath.Contains("Assets/Deer/Asset/Sounds/MusicSounds"))
             {
                 //加载方式选择

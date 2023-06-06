@@ -15,10 +15,9 @@ namespace Pathfinding {
 	/// simplify the path as much as you would like it to. The <see cref="Pathfinding.RaycastModifier"/> can be a better fit for grid graphs.
 	/// [Open online documentation to see images]
 	///
-	/// \ingroup modifiers
 	/// See: http://digestingduck.blogspot.se/2010/03/simple-stupid-funnel-algorithm.html
 	/// </summary>
-	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_funnel_modifier.php")]
+	[HelpURL("http://arongranberg.com/astar/documentation/stable/class_pathfinding_1_1_funnel_modifier.php")]
 	public class FunnelModifier : MonoModifier {
 		/// <summary>
 		/// Determines if twists and bends should be straightened out before running the funnel algorithm.

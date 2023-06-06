@@ -268,6 +268,8 @@ namespace Pathfinding.Serialization {
 			zip = new ZipFile();
 			zip.AlternateEncoding = System.Text.Encoding.UTF8;
 			zip.AlternateEncodingUsage = ZipOption.Always;
+			// Don't use parallel defate
+			zip.ParallelDeflateThreshold = -1;
 #endif
 			meta = new GraphMeta();
 		}
@@ -505,6 +507,8 @@ namespace Pathfinding.Serialization {
 				zip = new ZipFile(zipStream);
 #else
 				zip = ZipFile.Read(zipStream);
+				// Don't use parallel defate
+				zip.ParallelDeflateThreshold = -1;
 #endif
 			} catch (Exception e) {
 				// Catches exceptions when an invalid zip file is found
@@ -738,7 +742,7 @@ namespace Pathfinding.Serialization {
 		/// Deserializes graph editor settings.
 		/// For future compatibility this method does not assume that the graphEditors array matches the <see cref="graphs"/> array in order and/or count.
 		/// It searches for a matching graph (matching if graphEditor.target == graph) for every graph editor.
-		/// Multiple graph editors should not refer to the same graph.\n
+		/// Multiple graph editors should not refer to the same graph.
 		/// Note: Stored in files named "graph<see cref="_editor.json"/>" where # is the graph number.
 		///
 		/// Note: This method is only used for compatibility, newer versions store everything in the graph.serializedEditorSettings field which is already serialized.
