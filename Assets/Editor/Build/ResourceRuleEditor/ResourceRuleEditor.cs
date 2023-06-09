@@ -242,16 +242,19 @@ namespace UGFExtensions.Editor.ResourceTools
             r.xMax = rect.xMax;
             rule.searchPatterns = EditorGUI.TextField(r, rule.searchPatterns);
         }
-
+        private string m_LastFolderPath = string.Empty;
         private string SelectFolder()
         {
-            string dataPath = Application.dataPath;
-            string selectedPath = EditorUtility.OpenFolderPanel("Path", dataPath, "");
+            if (string.IsNullOrEmpty(m_LastFolderPath))
+            {
+                m_LastFolderPath = Application.dataPath;
+            }
+            string selectedPath = EditorUtility.OpenFolderPanel("Path", m_LastFolderPath, "");
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                if (selectedPath.StartsWith(dataPath))
+                if (selectedPath.StartsWith(m_LastFolderPath))
                 {
-                    return "Assets/" + selectedPath.Substring(dataPath.Length + 1);
+                    return "Assets/" + selectedPath.Substring(m_LastFolderPath.Length + 1);
                 }
                 else
                 {

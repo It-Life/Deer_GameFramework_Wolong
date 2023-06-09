@@ -17,5 +17,6 @@ public enum ResourcesType
 {
     None = 0,
     Resources = 1,
-    Config = 2
+    Config = 2,
+    Assemblies = 3,
 }

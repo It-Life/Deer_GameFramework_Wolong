@@ -168,28 +168,28 @@ namespace DevLocker.Tools
 		private static void EditWithNotepadPlusPlus()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, false));
-			EditWithApp(DeerSettingsUtils.PathConfig.NotepadPath, args, _notepadPaths);
+			EditWithApp(DeerSettingsUtils.DeerPathConfig.NotepadPath, args, _notepadPaths);
 		}
 
 		[MenuItem("Assets/Deer/Notepad++ Metas", false, 31)]
 		private static void EditWithNotepadPlusPlusMetas()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, true));
-			EditWithApp(DeerSettingsUtils.PathConfig.NotepadPath, args, _notepadPaths);
+			EditWithApp(DeerSettingsUtils.DeerPathConfig.NotepadPath, args, _notepadPaths);
 		}
 #endif
 		[MenuItem("Assets/Deer/Sublime", false, 32)]
 		private static void EditWithSublime()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, false));
-			EditWithApp(DeerSettingsUtils.PathConfig.SublimePath, args, _sublimePaths);
+			EditWithApp(DeerSettingsUtils.DeerPathConfig.SublimePath, args, _sublimePaths);
 		}
 
 		[MenuItem("Assets/Deer/Sublime Metas", false, 33)]
 		private static void EditWithSublimeMetas()
 		{
 			var args = string.Join(" ", GetPathsOfAssets(Selection.objects, true));
-			EditWithApp(DeerSettingsUtils.PathConfig.SublimePath, args, _sublimePaths);
+			EditWithApp(DeerSettingsUtils.DeerPathConfig.SublimePath, args, _sublimePaths);
 		}
 
 		private static IEnumerable<string> GetPathsOfAssets(Object[] objects, bool metas) {

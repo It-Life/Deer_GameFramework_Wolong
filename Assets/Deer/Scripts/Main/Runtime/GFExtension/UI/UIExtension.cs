@@ -52,9 +52,13 @@ namespace Main.Runtime
         { 
             get
             {
-                if (m_UICamera == null)
+                if (m_UICamera == null && GameEntryMain.UI != null && GameEntryMain.UI.transform != null)
                 {
-                    m_UICamera = GameEntryMain.UI.transform.Find("UICamera").gameObject.GetComponent<Camera>();
+                    var transCamera = GameEntryMain.UI.transform.Find("UICamera");
+                    if (transCamera != null)
+                    {
+                        m_UICamera = transCamera.gameObject.GetComponent<Camera>();
+                    }
                 }
                 return m_UICamera;
             } 

@@ -9,8 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
-using Unity.Collections;
 using UnityEngine;
 /// <summary>
 /// 资源存放地
@@ -155,5 +153,4 @@ public class DeerGlobalSettings : ScriptableObject
     [SerializeField]
     private string m_ConfigFolderName = "LubanConfig";
     public string ConfigFolderName { get { return m_ConfigFolderName; } }
-    
 }

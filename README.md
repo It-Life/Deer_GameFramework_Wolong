@@ -9,10 +9,11 @@
 
 - 游戏配表Config接入Luban,采用异步加载Config，实现热更资源和Config表分离Hotfix处理，方便配表人员频繁更新Config表。
 
-### 版本
+### 环境
 
 - Unity 2021.3.1f1c1
 - Microsoft Visual Studio Professional 2022 
+- JetBrains Rider 2022.2.3 （推荐）
 
 ### 项目流程关系图
 

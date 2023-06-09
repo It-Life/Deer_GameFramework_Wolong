@@ -93,7 +93,16 @@ namespace Main.Runtime.Procedure
             string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(configVersionFileName);
             GameEntryMain.Download.AddDownload(downLoadPath, downLoadUrl, new CheckData() { CheckType = ResourcesType.Config });
         }
-
+        /// <summary>
+        /// 下载程序集版本文件
+        /// </summary>
+        private void DownLoadAssembliesVersion()
+        {
+            string configVersionFileName = DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath+"/"+DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName;
+            string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, configVersionFileName);
+            string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(configVersionFileName);
+            GameEntryMain.Download.AddDownload(downLoadPath, downLoadUrl, new CheckData() { CheckType = ResourcesType.Assemblies });
+        }
         /// <summary>
         /// 下载资源版本文件
         /// </summary>
@@ -150,6 +159,12 @@ namespace Main.Runtime.Procedure
                         return;
                     }*/
                     CheckVersionList();
+                }
+            }else if (checkData.CheckType == ResourcesType.Assemblies)
+            {
+                if (GameEntryMain.Assemblies.CheckVersionList() == CheckVersionListResult.Updated)
+                {
+                    
                 }
             }
         }
