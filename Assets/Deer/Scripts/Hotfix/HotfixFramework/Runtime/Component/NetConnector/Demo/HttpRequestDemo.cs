@@ -9,7 +9,7 @@ public class HttpRequestDemo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //如果请求需要请求头，可以把请求头保存到这里
+        //如果请求需要请求头，可以把请求头保存到这里 也可以自定义传参的方式添加进去
         GameEntry.NetConnector.SetRequestServerHeader("osType","deviceId","appId");
         
     }

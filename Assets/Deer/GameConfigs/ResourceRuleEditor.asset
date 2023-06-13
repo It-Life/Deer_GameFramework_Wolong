@@ -93,3 +93,93 @@ MonoBehaviour:
     packed: 0
     filterType: 1
     searchPatterns: '*.*'
+  - valid: 1
+    name: ADeerExample/EntityPrefabs
+    variant: 
+    fileSystem: 
+    groups: ADeerExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/ADeerExample/EntityPrefabs
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: ADeerExample/EntityResources
+    variant: 
+    fileSystem: 
+    groups: ADeerExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/ADeerExample/EntityResources
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: ADeerExample/Scenes
+    variant: 
+    fileSystem: 
+    groups: ADeerExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/ADeerExample/Scenes
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: ADeerExample/UI
+    variant: 
+    fileSystem: 
+    groups: ADeerExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/ADeerExample/UI
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: AGameExample/EntityPrefabs
+    variant: 
+    fileSystem: 
+    groups: AGameExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/AGameExample/EntityPrefabs
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: AGameExample/EntityResources
+    variant: 
+    fileSystem: 
+    groups: AGameExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/AGameExample/EntityResources
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: AGameExample/Scenes
+    variant: 
+    fileSystem: 
+    groups: AGameExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/AGameExample/Scenes
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: AGameExample/Sounds
+    variant: 
+    fileSystem: 
+    groups: AGameExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/AGameExample/Sounds
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: AGameExample/UI
+    variant: 
+    fileSystem: 
+    groups: AGameExample
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/AGameExample/UI
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'

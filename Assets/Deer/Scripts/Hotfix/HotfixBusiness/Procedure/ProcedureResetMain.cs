@@ -36,7 +36,7 @@ namespace HotfixBusiness.Procedure
             }
             else
             {
-                ChangeState(procedureOwner, Utility.Assembly.GetType(m_NextProcedure));
+                ChangeState(procedureOwner, GameEntry.GetProcedureByName(m_NextProcedure).GetType());
             }
         }
     }

@@ -38,17 +38,18 @@ public class DeerHybridCLRSettingsProvider : SettingsProvider
         {
 
             SynAssemblysContent.RefreshAssembly();
-            m_CustomSettings.ApplyModifiedProperties();
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            m_CustomSettings.ApplyModifiedPropertiesWithoutUndo();
+            m_CustomSettings = null;
+            m_CustomSettings = GetSerializedSettings();
         }
 #endif
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("HotUpdateAssemblies"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AOTMetaAssemblies"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("LogicMainDllName"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AssemblyAssetExtension"));
-        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AssemblyAssetPath"));
-        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AssemblyAssetsRootName"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("HybridCLRDataPath"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("HybridCLRAssemblyPath"));
+        EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AssembliesVersionTextFileName"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("HybridCLRIosBuildPath"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("HybridCLRIosXCodePath"));
         EditorGUILayout.Space(20);

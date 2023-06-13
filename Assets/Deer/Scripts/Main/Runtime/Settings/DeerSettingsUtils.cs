@@ -6,7 +6,6 @@
 //修改时间:2022-06-05 23-28-07
 //版 本:0.1 
 // ===============================================
-using Deer.Setting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +22,7 @@ public static class DeerSettingsUtils
     private static DeerHybridCLRSettings _mDeerHybridCLRSettings;
 
     static DeerPathSetting m_DeerPathSetting;
-    public static DeerPathSetting PathConfig
+    public static DeerPathSetting DeerPathConfig
     {
         get
         {
@@ -336,9 +335,9 @@ public static class DeerSettingsUtils
     /// <summary>
     /// 热更程序集文件资源地址
     /// </summary>
-    public static string HotfixAssemblyTextAssetPath(string groupName)
+    public static string HotfixAssemblyTextAssetPath()
     {
-        return Path.Combine(Application.dataPath, DeerHybridCLRSettings.AssemblyAssetPath,groupName,DeerHybridCLRSettings.AssemblyAssetsRootName, HotfixNode);
+        return Path.Combine(Application.dataPath,"..", DeerHybridCLRSettings.HybridCLRDataPath,DeerHybridCLRSettings.HybridCLRAssemblyPath,HotfixNode);
     }
 
     /// <summary>
@@ -346,9 +345,16 @@ public static class DeerSettingsUtils
     /// </summary>
     public static string AOTAssemblyTextAssetPath
     {
-        get { return Path.Combine(Application.dataPath, DeerHybridCLRSettings.AssemblyAssetPath,DeerGlobalSettings.BaseAssetsRootName,DeerHybridCLRSettings.AssemblyAssetsRootName, AotNode); }
+        get { return Path.Combine(Application.dataPath,"..", DeerHybridCLRSettings.HybridCLRDataPath,DeerHybridCLRSettings.HybridCLRAssemblyPath, AotNode); }
     }
-	    public static string GetLibil2cppBuildPath()
+    /// <summary>
+    /// AOT程序集文件资源地址
+    /// </summary>
+    public static string HybridCLRAssemblyPath
+    {
+        get { return Path.Combine(Application.dataPath,"..", DeerHybridCLRSettings.HybridCLRDataPath,DeerHybridCLRSettings.HybridCLRAssemblyPath); }
+    }
+    public static string GetLibil2cppBuildPath()
     {
         return $"{DeerHybridCLRSettings.HybridCLRIosBuildPath}/build";
     }

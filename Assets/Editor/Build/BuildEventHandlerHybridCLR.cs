@@ -52,12 +52,23 @@ public static class BuildEventHandlerWolong
         {
             if (IsPlatformSelected(platforms,item.Key))
             {
-                CompileDllCommand.CompileDll(item.Value);
-                CopyDllBuildFiles(item.Value);
+                //CopyDllBuildFiles(item.Value);
             }
         }
     }
     public static void OnPreprocessPlatform(Platform platform) 
+    {
+        if (Platform2BuildTargetDic.TryGetValue(platform, out BuildTarget buildTarget))
+        {
+            //CopyDllBuildFiles(buildTarget);
+        }
+        else 
+        {
+            Log.Warning($"Cannot be generated on the current platform:{platform}");
+        }
+    }    
+    public static void OnPostprocessPlatform(Platform platform,bool outputPackageSelected, 
+        bool outputFullSelected, bool outputPackedSelected,string commitResourcesPath) 
     {
         if (Platform2BuildTargetDic.TryGetValue(platform, out BuildTarget buildTarget))
         {
@@ -84,7 +95,7 @@ public static class BuildEventHandlerWolong
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
         CopyAssemblies.DoCopyAllAssemblies(buildTarget);
-        AddHotfixDllToResourceCollection();
+        //AddHotfixDllToResourceCollection();
         AssetDatabase.Refresh();
     }
 

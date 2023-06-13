@@ -1,10 +1,13 @@
 #if ENABLE_HYBRID_CLR_UNITY
 using System.Collections.Generic;
 using System.IO;
+using CatJson;
+using GameFramework;
 using UnityEngine;
 using UnityEditor;
 using HybridCLR.Editor;
 using HybridCLR.Editor.Commands;
+using Main.Runtime;
 
 /// <summary>
 /// 复制程序集文件
@@ -16,11 +19,15 @@ public static class CopyAssemblies
     /// </summary>
     public static void DoCopyHotfixAssemblies(BuildTarget buildTarget)
     {
-        // 编译dll
-        CompileDllCommand.CompileDll(buildTarget);
-
+        string targetPath = $"{DeerSettingsUtils.HotfixAssemblyTextAssetPath()}";
+        // 清空热更程序集文件夹
+        FolderUtils.ClearFolder(targetPath);
+        // 检查文件夹是否存在
+        if (!Directory.Exists(targetPath))
+        {
+            Directory.CreateDirectory(targetPath);
+        }
         // 复制热更程序集到资源文件夹
-        List<string> _groupName = new List<string>();
         foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesIncludePreserved)
         {
             foreach (var hotUpdateAssembly in DeerSettingsUtils.DeerHybridCLRSettings.HotUpdateAssemblies)
@@ -28,29 +35,11 @@ public static class CopyAssemblies
                 if (dll == hotUpdateAssembly.Assembly)
                 {
                     string dllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(buildTarget)}/{dll}";
-                    string targetPath = $"{DeerSettingsUtils.HotfixAssemblyTextAssetPath(hotUpdateAssembly.AssetGroupName)}";
-                    if (_groupName.Contains(hotUpdateAssembly.AssetGroupName))
-                    {
-                        // 检查文件夹是否存在
-                        if (!Directory.Exists(targetPath))
-                        {
-                            Directory.CreateDirectory(targetPath);
-                        }
-                    }
-                    else
-                    {
-                        _groupName.Add(hotUpdateAssembly.AssetGroupName);
-                        // 清空热更程序集文件夹
-                        FolderUtils.ClearFolder(targetPath);
-
-                        // 检查文件夹是否存在
-                        if (!Directory.Exists(targetPath))
-                        {
-                            Directory.CreateDirectory(targetPath);
-                        }
-                    }
-                    string dllBytesPath = Path.Combine(targetPath, $"{dll}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
+                    FileInfo fileInfo = new FileInfo(dllPath);
+                    int hashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead());
+                    string dllBytesPath = Path.Combine(targetPath, $"{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
                     File.Copy(dllPath, dllBytesPath, true);
+                    m_listAssemblies.Add(new AssemblyInfo(dll,hotUpdateAssembly.AssetGroupName,hashCode,fileInfo.Length));
                     break;  
                 }
             }
@@ -90,22 +79,34 @@ public static class CopyAssemblies
                 Debug.LogError($"ab中添加AOT补充元数据dll:{dllPath} 时发生错误,文件不存在。裁剪后的AOT dll在BuildPlayer时才能生成，因此需要你先构建一次游戏App后再打包。");
                 continue;
             }
-            string dllBytesPath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{dll}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
+            FileInfo fileInfo = new FileInfo(dllPath);
+            int hashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead());
+            string dllBytesPath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
             File.Copy(dllPath, dllBytesPath, true);
+            m_listAssemblies.Add(new AssemblyInfo(dll,DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,hashCode,fileInfo.Length));
         }
-
         // 刷新资源
         AssetDatabase.Refresh();
     }
-
+    private static List<AssemblyInfo> m_listAssemblies = new List<AssemblyInfo>();
     /// <summary>
     /// 复制所有程序集
     /// </summary>
     /// <param name="buildTarget"></param>
     public static void DoCopyAllAssemblies(BuildTarget buildTarget)
     {
+        m_listAssemblies.Clear();
+        CompileDllCommand.CompileDll(buildTarget);
         DoCopyAOTAssemblies(buildTarget);
         DoCopyHotfixAssemblies(buildTarget);
+        CreateAssembliesVersion();
+    }
+
+    private static void CreateAssembliesVersion()
+    {
+        string assembly = m_listAssemblies.ToJson();
+        string path = $"{DeerSettingsUtils.HybridCLRAssemblyPath}/{DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName}";
+        File.WriteAllText(path, assembly);
     }
 }
 #endif

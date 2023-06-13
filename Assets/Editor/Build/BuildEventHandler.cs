@@ -20,7 +20,7 @@ public class BuildEventHandler : IBuildEventHandler
 {
     public bool ContinueOnFailure => false;
 
-    private readonly string CommitResourcesPath = Application.dataPath + $"/../CommitResources/{DeerSettingsUtils.ResourcesArea.ResAdminType}_{DeerSettingsUtils.ResourcesArea.ResAdminCode}/";
+    private readonly string CommitResourcesPath = Application.dataPath + $"/../CommitResources/{DeerSettingsUtils.ResourcesArea.ResAdminType}{DeerSettingsUtils.ResourcesArea.ResAdminCode}/";
     private readonly List<string> StreamingAssetsPaths = new List<string>()
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "AssetsHotfix")),
@@ -80,20 +80,20 @@ public class BuildEventHandler : IBuildEventHandler
             }
         }
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
-        if (string.IsNullOrEmpty(DeerSettingsUtils.PathConfig.ResourceCollectionPath))
+        if (string.IsNullOrEmpty(DeerSettingsUtils.DeerPathConfig.ResourceCollectionPath))
         {
             ResourceRuleEditorUtility.RefreshResourceCollection();
         }
         else
         {
-            ResourceRuleEditorUtility.RefreshResourceCollection(DeerSettingsUtils.PathConfig.ResourceCollectionPath);
+            ResourceRuleEditorUtility.RefreshResourceCollection(DeerSettingsUtils.DeerPathConfig.ResourceCollectionPath);
         }
-
+        BuildEventHandlerLuban.OnPreprocessAllPlatforms(platforms, outputFullSelected);
 #if ENABLE_HYBRID_CLR_UNITY
         BuildEventHandlerWolong.OnPreprocessAllPlatforms(platforms);
 #endif
-        BuildEventHandlerLuban.OnPreprocessAllPlatforms(platforms, outputFullSelected);
     }
+
     /// <summary>
     /// 某个平台生成开始前的预处理事件。
     /// </summary>
@@ -106,7 +106,8 @@ public class BuildEventHandler : IBuildEventHandler
     /// <param name="outputPackedSelected">是否生成可更新模式所需的本地文件。</param>
     /// <param name="outputPackedPath">为可更新模式生成的本地文件存放于此路径。若游戏是网络游戏，生成结束后将此目录中对应平台的文件拷贝至 StreamingAssets 后打包 App 即可。</param>
 
-    public void OnPreprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath,
+    public void OnPreprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected,
+        string outputPackagePath,
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath)
     {
 #if ENABLE_HYBRID_CLR_UNITY
@@ -265,6 +266,9 @@ public class BuildEventHandler : IBuildEventHandler
                 Application.OpenURL("file://"+ outputFullPath);
             }
         }
+#if ENABLE_HYBRID_CLR_UNITY
+        BuildEventHandlerWolong.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
+#endif
         BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
     }
 }

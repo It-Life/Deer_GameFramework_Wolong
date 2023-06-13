@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class HotUpdateAssemblie
@@ -55,13 +54,10 @@ public class DeerHybridCLRSettings:ScriptableObject
     /// 程序集文本资产打包Asset后缀名
     /// </summary>
     public string AssemblyAssetExtension = ".bytes";
-    /// <summary>
-    /// 程序集文本资产资源目录
-    /// Deer/AssetsHotfix/BaseAssets/Assemblies   
-    /// </summary>
-    public string AssemblyAssetPath = "Deer/AssetsHotfix";
-    public string AssemblyAssetsRootName = "Assemblies";
+    public string HybridCLRDataPath = "HybridCLRData";
+    public string HybridCLRAssemblyPath = "HybridCLRAssemblies";
+    public string AssembliesVersionTextFileName = "AssembliesVersion.dat";
     public string HybridCLRIosBuildPath = "HybridCLRData/iOSBuild";
     public string HybridCLRIosXCodePath = "";
-    
+
 }

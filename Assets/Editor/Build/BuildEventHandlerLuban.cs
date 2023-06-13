@@ -34,7 +34,7 @@ public static class BuildEventHandlerLuban
     }
 
     public static void OnPostprocessPlatform(Platform platform,bool outputPackageSelected, 
-        bool outputFullSelected, bool outputPackedSelected,string CommitResourcesPath) 
+        bool outputFullSelected, bool outputPackedSelected,string commitResourcesPath) 
     {
         if (outputPackageSelected)
         {
@@ -46,7 +46,7 @@ public static class BuildEventHandlerLuban
         }
         if (outputFullSelected)
         {
-            string commitPath = CommitResourcesPath + "/" + platform;
+            string commitPath = commitResourcesPath + "/" + platform;
             if (FolderUtils.CopyFolder($"{Application.dataPath}/../LubanTools/GenerateDatas", commitPath))
             {
                 Debug.Log("拷贝表资源文件成功！");

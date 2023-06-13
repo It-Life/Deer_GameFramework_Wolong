@@ -104,11 +104,11 @@ public partial class GameEntry
             return null;
         }
         //创建新的流程 HotfixFramework.Runtime
-        string[] m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), GetHotfixAssemblys());
+        Type[] m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), GetHotfixAssemblys());
         ProcedureBase procedures;
         for (int i = 0; i < m_ProcedureTypeNames.Length; i++)
         {
-            Type procedureType = GameFramework.Utility.Assembly.GetType(m_ProcedureTypeNames[i]);
+            Type procedureType = m_ProcedureTypeNames[i];
             if (procedureType == null)
             {
                 Log.Error("Can not find procedure type '{0}'.", m_ProcedureTypeNames[i]);
@@ -120,7 +120,7 @@ public partial class GameEntry
                 Log.Error("Can not create procedure instance '{0}'.", m_ProcedureTypeNames[i]);
                 continue;
             }
-            if (procedureName == m_ProcedureTypeNames[i])
+            if (procedureName == m_ProcedureTypeNames[i].FullName)
             {
                 return procedures;
             }
@@ -134,11 +134,11 @@ public partial class GameEntry
             return null;
         }
         //创建新的流程 HotfixFramework.Runtime
-        string[] m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), GetHotfixAssemblys());
+        Type[] m_ProcedureTypeNames = TypeUtils.GetRuntimeTypeNames(typeof(ProcedureBase), GetHotfixAssemblys());
         ProcedureBase[] procedures = new ProcedureBase[m_ProcedureTypeNames.Length];
         for (int i = 0; i < m_ProcedureTypeNames.Length; i++)
         {
-            Type procedureType = GameFramework.Utility.Assembly.GetType(m_ProcedureTypeNames[i]);
+            Type procedureType = m_ProcedureTypeNames[i];
             if (procedureType == null)
             {
                 Log.Error("Can not find procedure type '{0}'.", m_ProcedureTypeNames[i]);
@@ -198,7 +198,7 @@ public partial class GameEntry
         GameEntryMain.UI.DeerUIInitRootForm().OnCloseLaunchView();
         GameEntryMain.UI.DeerUIInitRootForm().OnOpenLoadingForm(false);
     }
-    private static List<Assembly> m_HotfixAssemblys;
+    private static List<Assembly> m_HotfixAssemblys = new List<Assembly>();
     private static string m_EntranceProcedureTypeName = "HotfixBusiness.Procedure.ProcedurePreload";
     private static void ResetProcedure()
     {

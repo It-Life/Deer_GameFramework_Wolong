@@ -147,6 +147,18 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
     public static MessengerComponent Messenger => _messenger ??= GameEntry.GetComponent<MessengerComponent>();
     private static MessengerComponent _messenger;
 
+    /// <summary>
+    /// 程序集管理。
+    /// </summary>
+    public static AssembliesComponent Assemblies => _assemblies ??= GameEntry.GetComponent<AssembliesComponent>();
+    private static AssembliesComponent _assemblies;
+    
+    /// <summary>
+    /// 原生管理。
+    /// </summary>
+    public static CrossPlatformComponent CrossPlatform => _crossPlatform ??= GameEntry.GetComponent<CrossPlatformComponent>();
+    private static CrossPlatformComponent _crossPlatform;
+    
     private void Start()
     {
         Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);

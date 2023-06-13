@@ -88,7 +88,7 @@ public class CopyAssembliesEditorWindow : EditorWindow
 
             GUILayout.Space(10);
 
-            GUILayout.BeginHorizontal();
+            /*GUILayout.BeginHorizontal();
             {
                 if (GUILayout.Button("复制AOT程序集"))
                 {
@@ -99,7 +99,7 @@ public class CopyAssembliesEditorWindow : EditorWindow
                     CopyAssemblies.DoCopyHotfixAssemblies(BuildEventHandlerWolong.Platform2BuildTargetDic[m_SelectPlatform]);
                 }
             }
-            GUILayout.EndHorizontal();
+            GUILayout.EndHorizontal();*/
             if (GUILayout.Button("复制所有程序集"))
             {
                 CopyAssemblies.DoCopyAllAssemblies(BuildEventHandlerWolong.Platform2BuildTargetDic[m_SelectPlatform]);

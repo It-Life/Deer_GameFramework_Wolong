@@ -43,7 +43,7 @@ namespace UGFExtensions.SpriteCollection
             base.OnBeforeSerialize();
             if (string.IsNullOrEmpty(m_AtlasFolder))
             {
-                m_AtlasFolder = DeerSettingsUtils.PathConfig.AtlasFolder;
+                m_AtlasFolder = DeerSettingsUtils.DeerPathConfig.AtlasFolder;
             }
         }
         
@@ -95,7 +95,7 @@ namespace UGFExtensions.SpriteCollection
                 int index = m_AtlasFolder.IndexOf("Assets/", StringComparison.Ordinal);
                 if (index == -1)
                 {
-                    m_AtlasFolder = DeerSettingsUtils.PathConfig.AtlasFolder;
+                    m_AtlasFolder = DeerSettingsUtils.DeerPathConfig.AtlasFolder;
                     EditorUtility.DisplayDialog("提示", $"图集生成文件夹必须在Assets目录下", "确定");
                     return;
                 }
