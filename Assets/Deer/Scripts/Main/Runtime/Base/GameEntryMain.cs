@@ -1,13 +1,8 @@
 ﻿using GameFramework;
 using GameFramework.Event;
 using Main.Runtime;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
-using UnityEngine;
-using UnityEngine.Networking;
 using UnityGameFramework.Runtime;
 /// <summary>
 /// 游戏入口。
@@ -216,7 +211,7 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
     public void CheckConfigVersion(CheckConfigCompleteCallback configCompleteCallback)
     {
         m_CheckConfigCompleteCallback = configCompleteCallback;
-        string configXmlPath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName);
+        string configXmlPath = Path.Combine(Resource.ReadWritePath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName);
         byte[] configBytes = File.ReadAllBytes(configXmlPath);
         string xml = FileUtils.BinToUtf8(configBytes);
         m_Configs = FileUtils.AnalyConfigXml(xml);
@@ -237,14 +232,15 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
     {
         m_NeedUpdateConfigs.Clear();
         string filePath = string.Empty;
-        string curMD5 = string.Empty;
+        string curHashCode = string.Empty;
         foreach (KeyValuePair<string, ConfigInfo> config in m_Configs)
         {
-            filePath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, config.Key);
+            filePath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", config.Key);
             if (File.Exists(filePath))
             {
-                curMD5 = Main.Runtime.FileUtils.Md5ByPathName(filePath);
-                if (curMD5 != config.Value.MD5)
+                FileInfo fileInfo = new FileInfo(filePath);
+                curHashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead()).ToString();
+                if (curHashCode != config.Value.HashCode)
                 {
                     if (!m_NeedUpdateConfigs.ContainsKey(config.Key))
                     {
@@ -285,8 +281,11 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
 
         foreach (var config in m_NeedUpdateConfigs)
         {
-            string downloadPath = Path.Combine(Resource.ReadWritePath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,config.Value.Path);
-            string downloadUri = DeerSettingsUtils.GetResDownLoadPath(Path.Combine(DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, config.Value.Path));
+            
+            string fileUrlName = $"{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/Datas/{Path.GetFileNameWithoutExtension(config.Value.Name)}.{config.Value.HashCode}{config.Value.Extension}";
+            string fileLocalName = $"{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/Datas/{config.Value.Name}";
+            string downloadPath = Path.Combine(Resource.ReadWritePath,fileLocalName);
+            string downloadUri = DeerSettingsUtils.GetResDownLoadPath(fileUrlName);
             Download.AddDownload(downloadPath, downloadUri, config.Value);
         }
     }

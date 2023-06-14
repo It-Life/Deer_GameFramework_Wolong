@@ -1,487 +1,646 @@
 [
 	{
 		"Name":"Assembly-CSharp-firstpass.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-939621744
+		"HashCode":230820427,
+		"Size":95
 	},
 	{
 		"Name":"Assembly-CSharp.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-26186503
+		"HashCode":-1911381675,
+		"Size":3
 	},
 	{
 		"Name":"AstarPathfindingProject.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-372866063
+		"HashCode":16572686,
+		"Size":632
 	},
 	{
 		"Name":"BrunoMikoski.AnimationSequencer.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1845072555
+		"HashCode":-2001878940,
+		"Size":39
 	},
 	{
 		"Name":"Cinemachine.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1596932052
+		"HashCode":1756552627,
+		"Size":316
 	},
 	{
 		"Name":"DOTween.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1566199446
+		"HashCode":-1566199446,
+		"Size":168
 	},
 	{
 		"Name":"DOTween.Modules.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1780004510
+		"HashCode":691682728,
+		"Size":45
 	},
 	{
 		"Name":"DOTweenPro.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1103269132
+		"HashCode":1103269132,
+		"Size":15
 	},
 	{
 		"Name":"GameFramework.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1758207809
+		"HashCode":1615027962,
+		"Size":452
 	},
 	{
 		"Name":"Google.Protobuf.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":394433025
+		"HashCode":394433025,
+		"Size":382
 	},
 	{
 		"Name":"HybridCLR.Runtime.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":985650374
+		"HashCode":771525558,
+		"Size":5
 	},
 	{
 		"Name":"ICSharpCode.SharpZipLib.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1377141885
+		"HashCode":-1377141885,
+		"Size":186
 	},
 	{
 		"Name":"JoystickPack.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":480398038
+		"HashCode":2035533454,
+		"Size":9
 	},
 	{
 		"Name":"LeanCommon.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1802301936
+		"HashCode":-312171668,
+		"Size":69
 	},
 	{
 		"Name":"LeanCommonPlus.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1543970233
+		"HashCode":-521098461,
+		"Size":71
 	},
 	{
 		"Name":"LeanTouch.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1546157613
+		"HashCode":-1056011869,
+		"Size":73
 	},
 	{
 		"Name":"LeanTouchPlus.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":591028350
+		"HashCode":750777554,
+		"Size":98
 	},
 	{
 		"Name":"Main.Runtime.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":988535803
+		"HashCode":-1378384554,
+		"Size":103
 	},
 	{
 		"Name":"MinimalistBarSystem.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":470914815
+		"HashCode":1589145543,
+		"Size":39
 	},
 	{
 		"Name":"Mono.Security.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1447067465
+		"HashCode":952642378,
+		"Size":114
 	},
 	{
 		"Name":"mscorlib.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-797678106
+		"HashCode":-362503630,
+		"Size":2403
 	},
 	{
 		"Name":"Pathfinding.ClipperLib.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":78440874
+		"HashCode":78440874,
+		"Size":57
 	},
 	{
 		"Name":"Pathfinding.Ionic.Zip.Reduced.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1022262426
+		"HashCode":1022262426,
+		"Size":228
 	},
 	{
 		"Name":"Pathfinding.Poly2Tri.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1368610408
+		"HashCode":1368610408,
+		"Size":35
 	},
 	{
 		"Name":"PlayerPrefsEditor.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1235108573
+		"HashCode":-1571584627,
+		"Size":8
 	},
 	{
 		"Name":"QHierarchyNullable.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1610233610
+		"HashCode":899890477,
+		"Size":3
 	},
 	{
 		"Name":"QHierarchyRuntime.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1388849379
+		"HashCode":1661423212,
+		"Size":7
 	},
 	{
 		"Name":"RaycastGizmosVisualizer.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1681506641
+		"HashCode":-206856935,
+		"Size":46
 	},
 	{
 		"Name":"Sirenix.OdinInspector.Attributes.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":691594873
-	},
-	{
-		"Name":"Sirenix.OdinInspector.CompatibilityLayer.dll",
-		"GroupName":"BaseAssets",
-		"HashCode":1135603884
-	},
-	{
-		"Name":"Sirenix.Serialization.AOTGenerated.dll",
-		"GroupName":"BaseAssets",
-		"HashCode":-984986681
+		"HashCode":691594873,
+		"Size":86
 	},
 	{
 		"Name":"Sirenix.Serialization.Config.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-10425625
+		"HashCode":-10425625,
+		"Size":17
 	},
 	{
 		"Name":"Sirenix.Serialization.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":73200544
+		"HashCode":73200544,
+		"Size":337
 	},
 	{
 		"Name":"Sirenix.Utilities.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1030752075
+		"HashCode":1030752075,
+		"Size":143
 	},
 	{
 		"Name":"SuperScrollViewProject.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1313840283
+		"HashCode":721481602,
+		"Size":103
 	},
 	{
 		"Name":"System.Configuration.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":255770710
+		"HashCode":977357309,
+		"Size":5
 	},
 	{
 		"Name":"System.Core.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1649322550
+		"HashCode":-1262337421,
+		"Size":133
 	},
 	{
 		"Name":"System.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1767998102
+		"HashCode":-1059820570,
+		"Size":813
 	},
 	{
 		"Name":"System.Numerics.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":247040482
+		"HashCode":-1650466383,
+		"Size":30
 	},
 	{
 		"Name":"System.Runtime.CompilerServices.Unsafe.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1808213698
+		"HashCode":-1808213698,
+		"Size":5
 	},
 	{
 		"Name":"System.Xml.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1492984143
+		"HashCode":693009477,
+		"Size":408
 	},
 	{
 		"Name":"UIExtensions.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1121279979
+		"HashCode":-1580441766,
+		"Size":12
 	},
 	{
 		"Name":"UniTask.Addressables.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":464502089
+		"HashCode":-2111156070,
+		"Size":3
 	},
 	{
 		"Name":"UniTask.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1254664787
+		"HashCode":-1660711923,
+		"Size":523
 	},
 	{
 		"Name":"UniTask.DOTween.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1273152062
+		"HashCode":-1294966922,
+		"Size":3
 	},
 	{
 		"Name":"UniTask.Linq.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":2000864521
+		"HashCode":407670530,
+		"Size":743
 	},
 	{
 		"Name":"UniTask.TextMeshPro.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1747201308
+		"HashCode":1111815862,
+		"Size":13
 	},
 	{
 		"Name":"Unity.Burst.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1782672691
+		"HashCode":-1622757703,
+		"Size":312
 	},
 	{
 		"Name":"Unity.Burst.Unsafe.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1348802472
+		"HashCode":-1348802472,
+		"Size":6
 	},
 	{
 		"Name":"Unity.InputSystem.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1127458350
+		"HashCode":-481621632,
+		"Size":1094
 	},
 	{
 		"Name":"Unity.Mathematics.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1789031683
+		"HashCode":1693342109,
+		"Size":838
 	},
 	{
 		"Name":"Unity.RenderPipeline.Universal.ShaderLibrary.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1426806821
+		"HashCode":65500033,
+		"Size":7
 	},
 	{
 		"Name":"Unity.RenderPipelines.Core.Runtime.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1778571888
+		"HashCode":-947386432,
+		"Size":366
 	},
 	{
 		"Name":"Unity.RenderPipelines.Universal.Runtime.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-753414930
+		"HashCode":1738120279,
+		"Size":620
 	},
 	{
 		"Name":"Unity.TextMeshPro.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1780905988
+		"HashCode":-1482144895,
+		"Size":416
 	},
 	{
 		"Name":"Unity.Timeline.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1933828366
-	},
-	{
-		"Name":"UnityEngine.AIModule.dll",
-		"GroupName":"BaseAssets",
-		"HashCode":1578880525
+		"HashCode":1141301754,
+		"Size":126
 	},
 	{
 		"Name":"UnityEngine.AndroidJNIModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-361122216
+		"HashCode":-124227129,
+		"Size":62
 	},
 	{
 		"Name":"UnityEngine.AnimationModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1900633230
+		"HashCode":-1099660153,
+		"Size":56
 	},
 	{
 		"Name":"UnityEngine.AssetBundleModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1338623456
+		"HashCode":-1173589322,
+		"Size":12
 	},
 	{
 		"Name":"UnityEngine.AudioModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1816446618
+		"HashCode":801339490,
+		"Size":21
 	},
 	{
 		"Name":"UnityEngine.CoreModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":131454347
+		"HashCode":-548206379,
+		"Size":1201
 	},
 	{
 		"Name":"UnityEngine.DirectorModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1072277317
+		"HashCode":-2101752086,
+		"Size":12
 	},
 	{
 		"Name":"UnityEngine.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1809866254
+		"HashCode":-1779869357,
+		"Size":72
 	},
 	{
 		"Name":"UnityEngine.GridModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":340106314
+		"HashCode":1831613557,
+		"Size":10
 	},
 	{
 		"Name":"UnityEngine.ImageConversionModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1278079477
+		"HashCode":-1783081172,
+		"Size":13
 	},
 	{
 		"Name":"UnityEngine.IMGUIModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":271006781
+		"HashCode":1955843538,
+		"Size":128
 	},
 	{
 		"Name":"UnityEngine.InputLegacyModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-2077071736
+		"HashCode":-786365774,
+		"Size":26
 	},
 	{
 		"Name":"UnityEngine.InputModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":447131373
+		"HashCode":687306310,
+		"Size":12
 	},
 	{
 		"Name":"UnityEngine.JSONSerializeModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":359369003
+		"HashCode":629463273,
+		"Size":11
 	},
 	{
 		"Name":"UnityEngine.ParticleSystemModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1350522683
+		"HashCode":1067354093,
+		"Size":17
 	},
 	{
 		"Name":"UnityEngine.Physics2DModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1778998987
+		"HashCode":-1654655192,
+		"Size":23
 	},
 	{
 		"Name":"UnityEngine.PhysicsModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":125224669
+		"HashCode":-1567838391,
+		"Size":60
 	},
 	{
 		"Name":"UnityEngine.SharedInternalsModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":998347356
+		"HashCode":-740389099,
+		"Size":16
 	},
 	{
 		"Name":"UnityEngine.SpriteShapeModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1392659670
+		"HashCode":572600256,
+		"Size":9
 	},
 	{
 		"Name":"UnityEngine.SubsystemsModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":2048898445
+		"HashCode":-416507416,
+		"Size":14
 	},
 	{
 		"Name":"UnityEngine.TerrainModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-537523853
+		"HashCode":-677398655,
+		"Size":20
 	},
 	{
 		"Name":"UnityEngine.TextCoreFontEngineModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-850750734
+		"HashCode":-927344913,
+		"Size":26
 	},
 	{
 		"Name":"UnityEngine.TextCoreTextEngineModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1276095751
+		"HashCode":-290969968,
+		"Size":162
 	},
 	{
 		"Name":"UnityEngine.TextRenderingModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-1118363954
+		"HashCode":-798351467,
+		"Size":18
 	},
 	{
 		"Name":"UnityEngine.TilemapModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":817486203
+		"HashCode":2141282436,
+		"Size":10
 	},
 	{
 		"Name":"UnityEngine.UI.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":2017207286
+		"HashCode":1994629898,
+		"Size":269
 	},
 	{
 		"Name":"UnityEngine.UIElementsModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1032761875
+		"HashCode":1179258033,
+		"Size":893
 	},
 	{
 		"Name":"UnityEngine.UIElementsNativeModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-573256317
+		"HashCode":166149066,
+		"Size":34
 	},
 	{
 		"Name":"UnityEngine.UIModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1813044285
+		"HashCode":303058929,
+		"Size":22
 	},
 	{
 		"Name":"UnityEngine.UnityAnalyticsModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1725918125
+		"HashCode":1269875194,
+		"Size":12
 	},
 	{
 		"Name":"UnityEngine.UnityWebRequestModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-579495796
-	},
-	{
-		"Name":"UnityEngine.VFXModule.dll",
-		"GroupName":"BaseAssets",
-		"HashCode":-644625023
-	},
-	{
-		"Name":"UnityEngine.VideoModule.dll",
-		"GroupName":"BaseAssets",
-		"HashCode":-2060575669
+		"HashCode":-1949213599,
+		"Size":40
 	},
 	{
 		"Name":"UnityEngine.VRModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":-6707365
+		"HashCode":265273266,
+		"Size":11
 	},
 	{
 		"Name":"UnityEngine.XRModule.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":63742788
+		"HashCode":-251777687,
+		"Size":24
 	},
 	{
 		"Name":"UnityGameFramework.Runtime.dll",
+		"PathRoot":"AOT",
 		"GroupName":"BaseAssets",
-		"HashCode":1737433794
+		"HashCode":504330827,
+		"Size":340
 	},
 	{
 		"Name":"HotfixCommon.dll",
+		"PathRoot":"Hotfix",
 		"GroupName":"BaseAssets",
-		"HashCode":-409677992
+		"HashCode":-1932664820,
+		"Size":127
 	},
 	{
 		"Name":"HotfixFramework.Runtime.dll",
+		"PathRoot":"Hotfix",
 		"GroupName":"BaseAssets",
-		"HashCode":367783552
+		"HashCode":1196866164,
+		"Size":158
 	},
 	{
 		"Name":"HotfixBusiness.dll",
+		"PathRoot":"Hotfix",
 		"GroupName":"BaseAssets",
-		"HashCode":-1399899007
+		"HashCode":1063288178,
+		"Size":28
 	},
 	{
 		"Name":"HotfixADeerExample.dll",
+		"PathRoot":"Hotfix",
 		"GroupName":"ADeerExample",
-		"HashCode":1929791496
+		"HashCode":914724491,
+		"Size":34
 	},
 	{
 		"Name":"HotfixAGameExample.dll",
+		"PathRoot":"Hotfix",
 		"GroupName":"AGameExample",
-		"HashCode":618913449
+		"HashCode":-940270353,
+		"Size":55
 	}
 ]

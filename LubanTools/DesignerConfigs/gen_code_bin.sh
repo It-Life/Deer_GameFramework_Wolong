@@ -5,7 +5,7 @@ GEN_CLIENT=${WORKSPACE}/Tools/Luban.ClientServer/Luban.ClientServer.dll
 CONF_ROOT=${WORKSPACE}/DesignerConfigs
 
 OUTPUT_CODE_PATH=${WORKSPACE}/../Assets/Deer/Scripts/HotFix/HotFixCommon/LubanConfig
-OUTPUT_DATA_PATH=${WORKSPACE}/GenerateDatas/LubanConfig
+OUTPUT_DATA_PATH=${WORKSPACE}/GenerateDatas/LubanConfig/Datas
 
 #OUTPUT_DATA_PATH=/Users/admin/Documents/elfsland/LubanTools/GenerateDatas/LubanConfig
 #OUTPUT_CODE_PATH=/Users/admin/Documents/elfsland/Assets/Deer/Scripts/HotFix/HotFixCommon/LubanConfig

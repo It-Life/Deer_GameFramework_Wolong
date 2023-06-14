@@ -22,10 +22,12 @@ HybridCLRData/iOSBuild
 HybridCLRData/LocalIl2CppData-WindowsEditor
 HybridCLRData/AssembliesPostIl2CppStrip
 HybridCLRData/StrippedAOTDllsTempProj
+HybridCLRData/HybridCLRAssemblies
 CommitResources
 HotFixDlls
 Wolong_100
 Assets/Deer/AssetsHotfix/Assemblies
 CommitResources/setup/cwRsync4_client_jb51
 LubanTools/setup/proto
+LubanTools/GenerateDatas
 BuildPackageIOS

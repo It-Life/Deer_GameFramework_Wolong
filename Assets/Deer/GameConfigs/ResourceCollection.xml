@@ -5,52 +5,50 @@
       <Resource Name="ADeerExample/EntityPrefabs" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
       <Resource Name="ADeerExample/EntityResources" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
       <Resource Name="ADeerExample/Scenes" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
+      <Resource Name="ADeerExample/UI/UIArt/AtlasCollection/Icon" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
+      <Resource Name="ADeerExample/UI/UIArt/Texture/login_bg" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
+      <Resource Name="ADeerExample/UI/UIArt/UISprites/Icon/Icon" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
+      <Resource Name="ADeerExample/UI/UIForms/UIBag/UIBagForm" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
+      <Resource Name="ADeerExample/UI/UIForms/UIBag/UIBagForm_SubUI" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
+      <Resource Name="ADeerExample/UI/UIForms/UIDeerGamePlay/UIDeerGamePlayForm" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
+      <Resource Name="ADeerExample/UI/UIForms/UILogin/UILoginForm" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
       <Resource Name="AGameExample/EntityPrefabs" LoadType="0" Packed="False" ResourceGroups="AGameExample" />
       <Resource Name="AGameExample/EntityResources" LoadType="0" Packed="False" ResourceGroups="AGameExample" />
       <Resource Name="AGameExample/Scenes" LoadType="0" Packed="False" ResourceGroups="AGameExample" />
       <Resource Name="AGameExample/Sounds" LoadType="0" Packed="False" ResourceGroups="AGameExample" />
       <Resource Name="AGameExample/UI" LoadType="0" Packed="False" ResourceGroups="AGameExample" />
-      <Resource Name="AssetsHotfix/Assemblies/AOT" LoadType="0" Packed="False" />
-      <Resource Name="AssetsHotfix/Assemblies/Hotfix" LoadType="0" Packed="False" />
       <Resource Name="BaseAssets/GameConfigs" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/GF" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/ADeerExample/UI/UIArt/AtlasCollection/Icon" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
-      <Resource Name="Deer/AssetsHotfix/ADeerExample/UI/UIArt/Texture/login_bg" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
-      <Resource Name="Deer/AssetsHotfix/ADeerExample/UI/UIArt/UISprites/Icon/Icon" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
-      <Resource Name="Deer/AssetsHotfix/ADeerExample/UI/UIForms/UIBag/UIBagForm" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
-      <Resource Name="Deer/AssetsHotfix/ADeerExample/UI/UIForms/UIBag/UIBagForm_SubUI" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
-      <Resource Name="Deer/AssetsHotfix/ADeerExample/UI/UIForms/UIDeerGamePlay/UIDeerGamePlayForm" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
-      <Resource Name="Deer/AssetsHotfix/ADeerExample/UI/UIForms/UILogin/UILoginForm" LoadType="0" Packed="False" ResourceGroups="ADeerExample" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIArt/AtlasCollection/Common" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIArt/Texture/loading_bg" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIArt/UISprites/Common/loading" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIArt/UISprites/Common/loadingbg" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UIDialog/UIDialogForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UILoading/UILoadingForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UILoadingOne/UILoadingOneForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UILoadingScene/UILoadingSceneForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UIMainMenu/UIMainMenuForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UITips/UITipsForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIHealthBar/UIPlayerHealthBar" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIShootText/Image_ShootText" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIShootText/ShootText_Pure" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UI/UIShootText/Text_ShootText" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/Joystick/Joystick" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/HGridScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/HListScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/ScrollVItemPrefab" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/VGridScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/VListScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/UIButton" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/UIForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/UIHealthBar" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/UIInputField" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/UIModel" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/UISpriteAnimation" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="Deer/AssetsHotfix/BaseAssets/UITemplate/UIToggle" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIArt/AtlasCollection/Common" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIArt/Texture/loading_bg" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIArt/UISprites/Common/loading" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIArt/UISprites/Common/loadingbg" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIForms/UIDialog/UIDialogForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIForms/UILoading/UILoadingForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIForms/UILoadingOne/UILoadingOneForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIForms/UILoadingScene/UILoadingSceneForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIForms/UIMainMenu/UIMainMenuForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIForms/UITips/UITipsForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIHealthBar/UIPlayerHealthBar" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIShootText/Image_ShootText" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIShootText/ShootText_Pure" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIShootText/Text_ShootText" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/Joystick/Joystick" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/ScrollView/HGridScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/ScrollView/HListScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/ScrollView/ScrollVItemPrefab" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/ScrollView/VGridScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/ScrollView/VListScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/UIButton" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/UIForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/UIHealthBar" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/UIInputField" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/UIModel" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/UISpriteAnimation" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UITemplate/UIToggle" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
     </Resources>
     <Assets>
-      <Asset Guid="022e3a7a56dcd374b99c91524e195749" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/VGridScrollView" />
+      <Asset Guid="022e3a7a56dcd374b99c91524e195749" ResourceName="BaseAssets/UITemplate/ScrollView/VGridScrollView" />
       <Asset Guid="032c77bbc733b554dbdb01b54294e9e2" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="03cd95365a770834699b1ec0e42441b3" ResourceName="AGameExample/Scenes" />
       <Asset Guid="04480931fc7c46c45872d2d3d26dd4b4" ResourceName="AGameExample/EntityResources" />
@@ -67,7 +65,7 @@
       <Asset Guid="0dc3044ef8e0b01469abafef25bf5783" ResourceName="AGameExample/UI" />
       <Asset Guid="0e8bd0c923e544945b8739d634e12e83" ResourceName="AGameExample/UI" />
       <Asset Guid="0fb4b84e184f63c41a6b6c3cb62b0e24" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="102e820a7b9321d42b127d3104a7ca5a" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UILoading/UILoadingForm" />
+      <Asset Guid="102e820a7b9321d42b127d3104a7ca5a" ResourceName="BaseAssets/UI/UIForms/UILoading/UILoadingForm" />
       <Asset Guid="113d9c1831a604a4481c6b7d1553993b" ResourceName="AGameExample/UI" />
       <Asset Guid="11f2a592be5920842b8f65ed04d23b61" ResourceName="AGameExample/UI" />
       <Asset Guid="122b5d5ce082b9e4a977e593fa010c30" ResourceName="ADeerExample/EntityResources" />
@@ -77,21 +75,21 @@
       <Asset Guid="176e05bf53f9343498681bc82e960b91" ResourceName="AGameExample/UI" />
       <Asset Guid="17ec5b8f543c59345bc1257ec50c7228" ResourceName="ADeerExample/Scenes" />
       <Asset Guid="18c562febc6780b428cdf121c09416b8" ResourceName="AGameExample/UI" />
-      <Asset Guid="1933ea8013f08d644bac0beabf442d59" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/HListScrollView" />
+      <Asset Guid="1933ea8013f08d644bac0beabf442d59" ResourceName="BaseAssets/UITemplate/ScrollView/HListScrollView" />
       <Asset Guid="19d1f77867b631b4e8af112eb72e9daf" ResourceName="AGameExample/Sounds" />
       <Asset Guid="1aa33f099cc2369499170e91099c1324" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="1b2a19769225c464b97b444f22144a73" ResourceName="AGameExample/UI" />
       <Asset Guid="1b8727b32a423e64a8962b395bfecc15" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="1ba9fef6795f59644a661d051dee8f6c" ResourceName="AGameExample/UI" />
-      <Asset Guid="1cddfc3979dc2144098a87b4a2568741" ResourceName="Deer/AssetsHotfix/ADeerExample/UI/UIArt/AtlasCollection/Icon" />
+      <Asset Guid="1cddfc3979dc2144098a87b4a2568741" ResourceName="ADeerExample/UI/UIArt/AtlasCollection/Icon" />
       <Asset Guid="203729cadb1b806489e81f0d47ccb18d" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="227f8b54bf3f57b4392a62306a97b840" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIHealthBar/UIPlayerHealthBar" />
+      <Asset Guid="227f8b54bf3f57b4392a62306a97b840" ResourceName="BaseAssets/UI/UIHealthBar/UIPlayerHealthBar" />
       <Asset Guid="22f8dd74c70316046866d180dea83aed" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="24f9961372fb6c2439df9fbc7f4c0f79" ResourceName="ADeerExample/Scenes" />
       <Asset Guid="255195c037717bd479546418eff08f34" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="286e4df74e44d33448b6dd82f9a8ec62" ResourceName="AGameExample/UI" />
       <Asset Guid="29eab42364b975b418a947276f06e238" ResourceName="AGameExample/UI" />
-      <Asset Guid="2bf43712fc83976418ee9a19ce3b9dae" ResourceName="Deer/AssetsHotfix/ADeerExample/UI/UIForms/UIDeerGamePlay/UIDeerGamePlayForm" />
+      <Asset Guid="2bf43712fc83976418ee9a19ce3b9dae" ResourceName="ADeerExample/UI/UIForms/UIDeerGamePlay/UIDeerGamePlayForm" />
       <Asset Guid="2bfca9713ccd52c418bdeeb39cf737fb" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="2df7eec5b62d7fc48924adba00d11414" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="30a01dcc2faf5b14eb5dbcfe608e1356" ResourceName="AGameExample/UI" />
@@ -118,7 +116,7 @@
       <Asset Guid="454cb32e9bdd3444e97d1c0099d71310" ResourceName="AGameExample/UI" />
       <Asset Guid="4593cd7ae1ee77e459abf7d8a288ea6b" ResourceName="AGameExample/UI" />
       <Asset Guid="462b58a8e55b2204f9a023b6056cd410" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="466741b236a7df54fa016d0554d0d255" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIShootText/Image_ShootText" />
+      <Asset Guid="466741b236a7df54fa016d0554d0d255" ResourceName="BaseAssets/UI/UIShootText/Image_ShootText" />
       <Asset Guid="4694e759cf995894d8187715e6298f1d" ResourceName="AGameExample/UI" />
       <Asset Guid="47022650e9d7d4b43adc4a8597128d92" ResourceName="AGameExample/UI" />
       <Asset Guid="48591b2c571784a4aa2fed5bf35023e8" ResourceName="AGameExample/EntityPrefabs" />
@@ -137,8 +135,8 @@
       <Asset Guid="54b9c5c8dc8b17f4fbc0a2a09eb91f86" ResourceName="AGameExample/Scenes" />
       <Asset Guid="54c9da89f7a53e146b4ac2746bf85073" ResourceName="AGameExample/UI" />
       <Asset Guid="54e670bec28d8ec45932b61837750000" ResourceName="AGameExample/EntityResources" />
-      <Asset Guid="55132911c10aa8047bd0d678757f5794" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/UIHealthBar" />
-      <Asset Guid="56c3b222b5f9329408e788cb5f734add" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIArt/Texture/loading_bg" />
+      <Asset Guid="55132911c10aa8047bd0d678757f5794" ResourceName="BaseAssets/UITemplate/UIHealthBar" />
+      <Asset Guid="56c3b222b5f9329408e788cb5f734add" ResourceName="BaseAssets/UI/UIArt/Texture/loading_bg" />
       <Asset Guid="57a780f182fc7f9408d8f6231fac60aa" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="57dd586590103ce4a8641642560ee7a5" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="5901f05c0982e0e46a7e467a4fcb1351" ResourceName="ADeerExample/EntityResources" />
@@ -152,7 +150,7 @@
       <Asset Guid="622acad4fdaf61543a0bf02f50958256" ResourceName="AGameExample/UI" />
       <Asset Guid="62f31a47eade44b4da36f17771096948" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="6971f6b607ec36348875996ac5cb3f4d" ResourceName="AGameExample/EntityResources" />
-      <Asset Guid="6a059a129e1575d4fb9a6b8abce19c6e" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/UIButton" />
+      <Asset Guid="6a059a129e1575d4fb9a6b8abce19c6e" ResourceName="BaseAssets/UITemplate/UIButton" />
       <Asset Guid="6bc2544cd31342c4ba1bd16489883db1" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="6f3463be3069d5947bb2374ebb58529f" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="6f3bb198973abdf47835520d6046d6d8" ResourceName="AGameExample/UI" />
@@ -160,14 +158,14 @@
       <Asset Guid="6f972ee29a786604bbc01331ee8e8533" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="70f7a0bd607a9b54aa5112c636c695d2" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="710c2483be39e5b4599499ac74a92a96" ResourceName="AGameExample/UI" />
-      <Asset Guid="716a243830ee50249a909f893f37c5d4" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIArt/UISprites/Common/loadingbg" />
-      <Asset Guid="7247e1fea0760b54caa253020097fcdf" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/ScrollVItemPrefab" />
+      <Asset Guid="716a243830ee50249a909f893f37c5d4" ResourceName="BaseAssets/UI/UIArt/UISprites/Common/loadingbg" />
+      <Asset Guid="7247e1fea0760b54caa253020097fcdf" ResourceName="BaseAssets/UITemplate/ScrollView/ScrollVItemPrefab" />
       <Asset Guid="73e5cd8af6641ab4a851a0d30e1f8ac5" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="73ede691105c5e94abc1b4edb88bf2da" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="745e65d5ee916dd47944050290a22205" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/Joystick/Joystick" />
+      <Asset Guid="745e65d5ee916dd47944050290a22205" ResourceName="BaseAssets/UITemplate/Joystick/Joystick" />
       <Asset Guid="756cc686b2ac75c45b2ac4a3384a297b" ResourceName="AGameExample/EntityPrefabs" />
       <Asset Guid="794b4158949576248bdf4edbfc6bb7f4" ResourceName="AGameExample/UI" />
-      <Asset Guid="7a1da81cd6d4d6e41a36c6e26523dba8" ResourceName="Deer/AssetsHotfix/ADeerExample/UI/UIForms/UIBag/UIBagForm" />
+      <Asset Guid="7a1da81cd6d4d6e41a36c6e26523dba8" ResourceName="ADeerExample/UI/UIForms/UIBag/UIBagForm" />
       <Asset Guid="7bfcaa2401b79814abdcfcf8dd81b23e" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="7c6dd281b8aecc94f9311258f9c68c26" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="7cde59df6da47304bb92eeb070ecb061" ResourceName="AGameExample/UI" />
@@ -177,7 +175,7 @@
       <Asset Guid="7fe7fb69b72be3644bb88b9c03d0fbd2" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="7fec670294593b64e9dfac8731b13051" ResourceName="AGameExample/UI" />
       <Asset Guid="805ea66278d2b704c87c0f6acc996932" ResourceName="AGameExample/UI" />
-      <Asset Guid="80a9390956026d548935e7833d3257fa" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIShootText/ShootText_Pure" />
+      <Asset Guid="80a9390956026d548935e7833d3257fa" ResourceName="BaseAssets/UI/UIShootText/ShootText_Pure" />
       <Asset Guid="80e1697efc05da0459b589eaa8b0d834" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="824ce40d3721d434d98b9a3034771a0c" ResourceName="AGameExample/Sounds" />
       <Asset Guid="82511fec482182d419fa1d98dbc674d6" ResourceName="AGameExample/EntityResources" />
@@ -194,7 +192,7 @@
       <Asset Guid="8ac4f056005808a4197ddf2248638f3b" ResourceName="AGameExample/UI" />
       <Asset Guid="8af1a88e7adc0094a934e51de30fa37e" ResourceName="AGameExample/UI" />
       <Asset Guid="8cc4ca72a8284d94cb7bd97506f4faa5" ResourceName="AGameExample/UI" />
-      <Asset Guid="8d188b75d1db5bf4faa7c8cbdc4f5458" ResourceName="Deer/AssetsHotfix/ADeerExample/UI/UIArt/UISprites/Icon/Icon" />
+      <Asset Guid="8d188b75d1db5bf4faa7c8cbdc4f5458" ResourceName="ADeerExample/UI/UIArt/UISprites/Icon/Icon" />
       <Asset Guid="8e1bca5868e2e8448b5f3e516e8569c5" ResourceName="AGameExample/UI" />
       <Asset Guid="8e3a0e47c6a5b8c45b7b63c4a53a3cfd" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="8ea6b80ab872a7d4dbbfbcf1e78024aa" ResourceName="ADeerExample/EntityResources" />
@@ -217,19 +215,19 @@
       <Asset Guid="a2f6f824f65f32d4297a3ec90f714424" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="a39d2ec7b7569884cbc727bcaf4ce708" ResourceName="AGameExample/UI" />
       <Asset Guid="a4867808c62813f4d95ca64859149307" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="a493fd7876190a04b972bf7b3f90d962" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/HGridScrollView" />
+      <Asset Guid="a493fd7876190a04b972bf7b3f90d962" ResourceName="BaseAssets/UITemplate/ScrollView/HGridScrollView" />
       <Asset Guid="a4b19fcfadbfff74d93d622f055f4319" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="a4ecbc6afc651d94888a4b56e95f846f" ResourceName="Deer/AssetsHotfix/ADeerExample/UI/UIForms/UIBag/UIBagForm_SubUI" />
-      <Asset Guid="a5671ef5b26e98f48b513cadb9e87e2b" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIArt/UISprites/Common/loading" />
+      <Asset Guid="a4ecbc6afc651d94888a4b56e95f846f" ResourceName="ADeerExample/UI/UIForms/UIBag/UIBagForm_SubUI" />
+      <Asset Guid="a5671ef5b26e98f48b513cadb9e87e2b" ResourceName="BaseAssets/UI/UIArt/UISprites/Common/loading" />
       <Asset Guid="a6e77abe2bde05c4390375b3113e066d" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="a9bb0d5df7af0c840935b6ee51debd27" ResourceName="Deer/AssetsHotfix/ADeerExample/UI/UIArt/Texture/login_bg" />
+      <Asset Guid="a9bb0d5df7af0c840935b6ee51debd27" ResourceName="ADeerExample/UI/UIArt/Texture/login_bg" />
       <Asset Guid="ab645d36145d9f245925a95272fe06e6" ResourceName="AGameExample/UI" />
       <Asset Guid="ab6c81b76b089da418122483196d6d95" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="ac86faf861cadec4daaf35e774ad8513" ResourceName="AGameExample/UI" />
       <Asset Guid="ae040eae6ed923847a998012a56f9286" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="ae0baa29fe52f834998a68edb77c2690" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="b15222b24c580ba46aff91d5ce5e6d96" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="b171dbc43fa6a5243aaaa39a77b13dd6" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UIMainMenu/UIMainMenuForm" />
+      <Asset Guid="b171dbc43fa6a5243aaaa39a77b13dd6" ResourceName="BaseAssets/UI/UIForms/UIMainMenu/UIMainMenuForm" />
       <Asset Guid="b1a7365aac5c335459d9d4661f285ef7" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="b1ab36efd861cf949b8390e4d0d613af" ResourceName="AGameExample/UI" />
       <Asset Guid="b26ac10f2f1104049adae725a5e21d6e" ResourceName="AGameExample/UI" />
@@ -238,7 +236,7 @@
       <Asset Guid="b3df1ca8d687d2a489848dae1431ef25" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="b5a5fcbac4609454eadc4f266ccee0b9" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="b5a74c2b51c3caa4d9c4c7952c063747" ResourceName="AGameExample/EntityPrefabs" />
-      <Asset Guid="b5b6e5e5b63377b4e9b3556b6812194d" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UITips/UITipsForm" />
+      <Asset Guid="b5b6e5e5b63377b4e9b3556b6812194d" ResourceName="BaseAssets/UI/UIForms/UITips/UITipsForm" />
       <Asset Guid="b63d82571508e9140a6ff1a3b9c8d83a" ResourceName="AGameExample/Sounds" />
       <Asset Guid="b6b0a949c887efe48adaf6e3bfcd570f" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="b72b1111775d1844f98f41f3723b7bbd" ResourceName="AGameExample/UI" />
@@ -246,12 +244,12 @@
       <Asset Guid="b96c543deac74e444ae64f48924bc92f" ResourceName="AGameExample/UI" />
       <Asset Guid="bd736f612e072ca459149bd3b78decc2" ResourceName="AGameExample/UI" />
       <Asset Guid="bd8909369c0fb37429924ef4e06d22b2" ResourceName="AGameExample/UI" />
-      <Asset Guid="be2db0afaf364114488351f7201458b1" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIArt/AtlasCollection/Common" />
+      <Asset Guid="be2db0afaf364114488351f7201458b1" ResourceName="BaseAssets/UI/UIArt/AtlasCollection/Common" />
       <Asset Guid="be71bfeb1088e824abccf6559fd133ed" ResourceName="ADeerExample/EntityPrefabs" />
       <Asset Guid="bf36aab813e90fe4c9bf7b64bb16ed99" ResourceName="AGameExample/UI" />
       <Asset Guid="c024f83a935575c43bae2f966232ecbe" ResourceName="AGameExample/UI" />
       <Asset Guid="c2cb08dae240aad4e80bd7f35c339d8e" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="c3bacb295d4014847a8ef29520f9d1a2" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIShootText/Text_ShootText" />
+      <Asset Guid="c3bacb295d4014847a8ef29520f9d1a2" ResourceName="BaseAssets/UI/UIShootText/Text_ShootText" />
       <Asset Guid="c7779f6b5a9e50d4e9963aafb1bbfe53" ResourceName="AGameExample/EntityPrefabs" />
       <Asset Guid="c97dc18b880c9194e89f7f68d864b4bf" ResourceName="AGameExample/UI" />
       <Asset Guid="cd7fb0eac14f22048abac8bfd630ed07" ResourceName="AGameExample/UI" />
@@ -259,14 +257,14 @@
       <Asset Guid="cf8a1d17e8520a440a65cfd108d6a2c4" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="cfc414cf554e67c4ca9dc4e9e10dd128" ResourceName="AGameExample/UI" />
       <Asset Guid="d00823c9845880f47a0e21f7b110a3a1" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="d021a4349078f974ca8eb3f903f1fbd6" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/UIToggle" />
+      <Asset Guid="d021a4349078f974ca8eb3f903f1fbd6" ResourceName="BaseAssets/UITemplate/UIToggle" />
       <Asset Guid="d0344b2c5eaa51249892e06245810537" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="d535b0ee47587714d80719585fda5a52" ResourceName="AGameExample/UI" />
-      <Asset Guid="d5ac5cc365a9d7f469a91f84c485f9f2" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/UIModel" />
+      <Asset Guid="d5ac5cc365a9d7f469a91f84c485f9f2" ResourceName="BaseAssets/UITemplate/UIModel" />
       <Asset Guid="d64bc9831e9a3c44abd5731e44132c7a" ResourceName="AGameExample/Scenes" />
       <Asset Guid="d74ec626f1b3c9b4eaf7b3627e2678f1" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="d759832436236de43b79fe23de3f41e6" ResourceName="AGameExample/EntityPrefabs" />
-      <Asset Guid="d7c3d93930b9e334cb95e70cb6e62c3b" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UILoadingScene/UILoadingSceneForm" />
+      <Asset Guid="d7c3d93930b9e334cb95e70cb6e62c3b" ResourceName="BaseAssets/UI/UIForms/UILoadingScene/UILoadingSceneForm" />
       <Asset Guid="d901003b4546ace4f943b8211202b2aa" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="d9b36ed0d3415ec469b3f5e90d903fd9" ResourceName="AGameExample/EntityPrefabs" />
       <Asset Guid="da27e40db716bc04794c3c5ddc3a475c" ResourceName="AGameExample/UI" />
@@ -282,29 +280,29 @@
       <Asset Guid="e31789668d5b67a40b93a7c897091bfc" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="e319643f1c5a01c498501d61cc05328d" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="e37366b19f50c3d4ab38ee599d37b5c8" ResourceName="AGameExample/UI" />
-      <Asset Guid="e41de5d16c3cfa04da3d39b8aebad451" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UIDialog/UIDialogForm" />
-      <Asset Guid="e827f6256d45d1a4c8936370bebe2973" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/UISpriteAnimation" />
+      <Asset Guid="e41de5d16c3cfa04da3d39b8aebad451" ResourceName="BaseAssets/UI/UIForms/UIDialog/UIDialogForm" />
+      <Asset Guid="e827f6256d45d1a4c8936370bebe2973" ResourceName="BaseAssets/UITemplate/UISpriteAnimation" />
       <Asset Guid="e9957e6712c5de446a120dfeb75d425f" ResourceName="AGameExample/EntityResources" />
-      <Asset Guid="eb8a17d9eeaf7634084b3e278e3ef4b0" ResourceName="Deer/AssetsHotfix/ADeerExample/UI/UIForms/UILogin/UILoginForm" />
-      <Asset Guid="ec2ada8d5b3d0154a8edbefa51801e76" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/UIInputField" />
+      <Asset Guid="eb8a17d9eeaf7634084b3e278e3ef4b0" ResourceName="ADeerExample/UI/UIForms/UILogin/UILoginForm" />
+      <Asset Guid="ec2ada8d5b3d0154a8edbefa51801e76" ResourceName="BaseAssets/UITemplate/UIInputField" />
       <Asset Guid="ec707f5eab1dc8c46a3b85dd4bf73511" ResourceName="AGameExample/UI" />
       <Asset Guid="ec9b88b0e66f84947979122ac3946632" ResourceName="AGameExample/UI" />
       <Asset Guid="ed7dfbb703ef3a44c830907dba4e9c7d" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="edbd07c33c8b19d45a0ba538a4e6510d" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="ee434b8e75f92804ca01e3be759e7c7f" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/UIForm" />
+      <Asset Guid="ee434b8e75f92804ca01e3be759e7c7f" ResourceName="BaseAssets/UITemplate/UIForm" />
       <Asset Guid="f0e013032515858489650cc5be43ddf1" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="f23c5735361a78f4a85f0e4afe76a056" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="f29a796feeff1ca40ac39825c1460b0e" ResourceName="AGameExample/UI" />
       <Asset Guid="f3ab0d53e9c425d4da9724fab4bfd7d9" ResourceName="BaseAssets/GF" />
       <Asset Guid="f43aad5f638ba5246a8af2294cc70099" ResourceName="AGameExample/UI" />
-      <Asset Guid="f4fa68baee1efc34e801c1853c42e375" ResourceName="Deer/AssetsHotfix/BaseAssets/UITemplate/ScrollView/VListScrollView" />
+      <Asset Guid="f4fa68baee1efc34e801c1853c42e375" ResourceName="BaseAssets/UITemplate/ScrollView/VListScrollView" />
       <Asset Guid="f6c4890c8f316b54e99fe1ad0a90f53a" ResourceName="AGameExample/EntityPrefabs" />
       <Asset Guid="f75772bd848fcbd498a9ca7b1523539b" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="f8617ff9c2c7c1a49aab39a9945d90ad" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="f8e646084847add4ea6950ebbe2c994c" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="f948cddd52354284e9472f8d1707a4e1" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="fae6b955e4e25144095a805b0bcbf6c9" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="fb08855e4c34fc04891f62f0cf3225da" ResourceName="Deer/AssetsHotfix/BaseAssets/UI/UIForms/UILoadingOne/UILoadingOneForm" />
+      <Asset Guid="fb08855e4c34fc04891f62f0cf3225da" ResourceName="BaseAssets/UI/UIForms/UILoadingOne/UILoadingOneForm" />
       <Asset Guid="fbe47d3b359212d4bb0513aee5d4ffce" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="fbe5e6bcb29b66344955f82ee7173a7e" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="fc768f280184f1046b33cfa9a1222370" ResourceName="ADeerExample/EntityResources" />

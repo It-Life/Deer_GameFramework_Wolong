@@ -20,7 +20,16 @@ public class ConfigInfo
         get;
         set;
     }
-
+    public string NameWithoutExtension
+    {
+        get;
+        set;
+    }
+    public string Extension
+    {
+        get;
+        set;
+    }
     /// <summary>
     /// 路径
     /// </summary>
@@ -42,7 +51,7 @@ public class ConfigInfo
     /// <summary>
     /// 文件MD5
     /// </summary>
-    public string MD5
+    public string HashCode
     {
         get;
         set;

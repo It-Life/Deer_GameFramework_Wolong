@@ -73,6 +73,7 @@ public static class BuildEventHandlerWolong
         if (Platform2BuildTargetDic.TryGetValue(platform, out BuildTarget buildTarget))
         {
             CopyDllBuildFiles(buildTarget);
+            CopyAssembliesToCommitPath(platform,outputPackageSelected,outputFullSelected,outputPackedSelected,commitResourcesPath);
         }
         else 
         {
@@ -95,8 +96,29 @@ public static class BuildEventHandlerWolong
     private static void CopyDllBuildFiles(BuildTarget buildTarget) 
     {
         CopyAssemblies.DoCopyAllAssemblies(buildTarget);
+        
         //AddHotfixDllToResourceCollection();
         AssetDatabase.Refresh();
+    }
+
+    private static void CopyAssembliesToCommitPath(Platform platform,bool outputPackageSelected,bool outputFullSelected, bool outputPackedSelected,string commitResourcesPath)
+    {
+        if (outputPackageSelected)
+        {
+            if (FolderUtils.CopyFolder($"{Application.dataPath}/../{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRDataPath}/{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath}", Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath)))
+            {
+                Debug.Log("拷贝程序集资源文件成功！");
+                AssetDatabase.Refresh();
+            }
+        }
+        if (outputFullSelected)
+        {
+            string commitPath = commitResourcesPath + "/" + platform;
+            if (FolderUtils.CopyFolder($"{Application.dataPath}/../{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRDataPath}/{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath}", Path.Combine(commitPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath)))
+            {
+                Debug.Log("拷贝程序集资源文件成功！");
+            }
+        }
     }
 
     private static ResourceCollection resourceCollection;

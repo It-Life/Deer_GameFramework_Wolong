@@ -24,9 +24,11 @@ namespace Main.Runtime.Procedure
 
         private int m_CurrDownLoadResourceVersionCount = 0;
         private int m_CurrDownLoadConfigVersionCount = 0;
+        private int m_CurrDownLoadAssembliesCount = 0;
 
         private bool m_LatestResourceComplete = false;
         private bool m_LatestConfigComplete = false;
+        private bool m_LatestAssembliesComplete = false;
 
         private bool m_UpdateConfigVersionFlag = false;
         private bool m_UpdateResourceVersionFlag = false;
@@ -54,23 +56,28 @@ namespace Main.Runtime.Procedure
             m_UpdateVersionListCallbacks = new UpdateVersionListCallbacks(OnUpdateResourcesVersionListSuccess, OnUpdateResourcesVersionListFailure);
             m_CurrDownLoadResourceVersionCount = 0;
             m_CurrDownLoadConfigVersionCount = 0;
-
+            m_CurrDownLoadAssembliesCount = 0;
+            
+            
             m_LatestResourceComplete = false;
             m_LatestConfigComplete = false;
-
+            m_LatestAssembliesComplete = false;
+            
             m_UpdateConfigVersionFlag = false;
             m_UpdateResourceVersionFlag = false;
+            
             GameEntryMain.Resource.UpdatePrefixUri = DeerSettingsUtils.GetResDownLoadPath();
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
             DownLoadConfigVersion();
             DownLoadResourcesVersion();
+            DownLoadAssembliesVersion();
         }
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            if (!m_LatestConfigComplete || !m_LatestResourceComplete)
+            if (!m_LatestConfigComplete || !m_LatestResourceComplete || !m_LatestAssembliesComplete)
             {
                 return;
             }
@@ -88,9 +95,9 @@ namespace Main.Runtime.Procedure
         /// </summary>
         private void DownLoadConfigVersion()
         {
-            string configVersionFileName = DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName;
-            string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, configVersionFileName);
-            string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(configVersionFileName);
+            string fileName = $"{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/{DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName}";
+            string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, fileName);
+            string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(fileName);
             GameEntryMain.Download.AddDownload(downLoadPath, downLoadUrl, new CheckData() { CheckType = ResourcesType.Config });
         }
         /// <summary>
@@ -98,9 +105,9 @@ namespace Main.Runtime.Procedure
         /// </summary>
         private void DownLoadAssembliesVersion()
         {
-            string configVersionFileName = DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath+"/"+DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName;
-            string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, configVersionFileName);
-            string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(configVersionFileName);
+            string fileName = $"{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath}/{DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName}";
+            string downLoadPath = Path.Combine(GameEntryMain.Resource.ReadWritePath, fileName);
+            string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(fileName);
             GameEntryMain.Download.AddDownload(downLoadPath, downLoadUrl, new CheckData() { CheckType = ResourcesType.Assemblies });
         }
         /// <summary>
@@ -164,7 +171,11 @@ namespace Main.Runtime.Procedure
             {
                 if (GameEntryMain.Assemblies.CheckVersionList() == CheckVersionListResult.Updated)
                 {
-                    
+                    m_LatestAssembliesComplete = true;
+                }
+                else
+                {
+                    m_LatestAssembliesComplete =  GameEntryMain.Assemblies.UpdateVersionList();
                 }
             }
         }
@@ -202,7 +213,7 @@ namespace Main.Runtime.Procedure
 
             DownloadFailureEventArgs ne = (DownloadFailureEventArgs)e;
 
-            if (m_CurrDownLoadConfigVersionCount > m_DownLoadVersionRetryCount || m_CurrDownLoadResourceVersionCount > m_DownLoadVersionRetryCount)
+            if (m_CurrDownLoadConfigVersionCount > m_DownLoadVersionRetryCount || m_CurrDownLoadResourceVersionCount > m_DownLoadVersionRetryCount || m_CurrDownLoadAssembliesCount > m_DownLoadVersionRetryCount)
             {
                 CheckVersionError(ne);
                 return;
@@ -223,6 +234,10 @@ namespace Main.Runtime.Procedure
             {
                 m_CurrDownLoadResourceVersionCount++;
                 DownLoadResourcesVersion();
+            }else if (checkData.CheckType == ResourcesType.Assemblies)
+            {
+                m_CurrDownLoadAssembliesCount++;
+                DownLoadAssembliesVersion();
             }
         }
         private void OnUpdateResourcesVersionListSuccess(string downloadPath, string downloadUri)

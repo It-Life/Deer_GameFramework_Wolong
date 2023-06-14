@@ -14,26 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rules:
   - valid: 1
-    name: BaseAssets/Assemblies/AOT
-    variant: 
-    fileSystem: 
-    groups: BaseAssets
-    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Assemblies/AOT
-    loadType: 0
-    packed: 0
-    filterType: 0
-    searchPatterns: '*.*'
-  - valid: 1
-    name: BaseAssets/Assemblies/Hotfix
-    variant: 
-    fileSystem: 
-    groups: BaseAssets
-    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Assemblies/Hotfix
-    loadType: 0
-    packed: 0
-    filterType: 0
-    searchPatterns: '*.*'
-  - valid: 1
     name: BaseAssets/GameConfigs
     variant: 
     fileSystem: 

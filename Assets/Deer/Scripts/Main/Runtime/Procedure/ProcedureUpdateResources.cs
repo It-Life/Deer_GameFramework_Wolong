@@ -11,9 +11,14 @@ using GameFramework.Event;
 using Main.Runtime.UI;
 using System;
 using System.Collections.Generic;
+using GameFramework.Resource;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
+using ResourceUpdateChangedEventArgs = UnityGameFramework.Runtime.ResourceUpdateChangedEventArgs;
+using ResourceUpdateFailureEventArgs = UnityGameFramework.Runtime.ResourceUpdateFailureEventArgs;
+using ResourceUpdateStartEventArgs = UnityGameFramework.Runtime.ResourceUpdateStartEventArgs;
+using ResourceUpdateSuccessEventArgs = UnityGameFramework.Runtime.ResourceUpdateSuccessEventArgs;
 
 namespace Main.Runtime.Procedure
 {
@@ -33,14 +38,18 @@ namespace Main.Runtime.Procedure
         private bool m_NoticeUpdate = false;
         private bool m_CheckConfigComplete = false;
         private bool m_CheckResourcesComplete = false;
+        private bool m_CheckAssembliesComplete = false;
         private bool m_NeedUpdateConfig = false;
         private bool m_NeedUpdateResources = false;
+        private bool m_NeedUpdateAssemblies = false;
         private int m_UpdateConfigCount = 0;
         private int m_UpdateResourceCount = 0;
+        private int m_UpdateAssembliesCount = 0;
         private long m_UpdateTotalZipLength = 0;
         private int m_UpdateSuccessCount = 0;
         private bool m_UpdateConfigsComplete = false;
         private bool m_UpdateResourcesComplete = false;
+        private bool m_UpdateAssembliesComplete = false;
         private List<UpdateInfoData> m_UpdateInfoDatas = new List<UpdateInfoData>();
         private int m_NativeLoadingFormId = 0;
         protected override void OnEnter(ProcedureOwner procedureOwner)
@@ -67,7 +76,8 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Subscribe(DownloadStartEventArgs.EventId, OnDownloadStart);
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
-
+            
+            GameEntryMain.UI.DeerUIInitRootForm().OnOpenLoadingForm(true);
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 if (!DeerSettingsUtils.DeerGlobalSettings.ReadLocalConfigInEditor)
@@ -79,12 +89,18 @@ namespace Main.Runtime.Procedure
                 }
                 m_NeedUpdateResources = false;
                 m_UpdateResourcesComplete = true;
+
+                m_NeedUpdateAssemblies = false;
+                m_UpdateAssembliesComplete = true;                
+                
                 OnNoticeUpdate();
                 return;
             }
             GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
             GameEntryMain.Resource.CheckResources(OnCheckResourcesComplete);
+            GameEntryMain.Assemblies.CheckAssemblies(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,OnCheckAssembliesComplete);
         }
+
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
@@ -100,14 +116,14 @@ namespace Main.Runtime.Procedure
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            if (m_CheckResourcesComplete && m_CheckConfigComplete)
+            if (m_CheckResourcesComplete && m_CheckConfigComplete && m_CheckAssembliesComplete)
             {
                 if (!m_NoticeUpdate)
                 {
                     OnNoticeUpdate();
                 }
             }
-            if (!m_UpdateResourcesComplete || !m_UpdateConfigsComplete)
+            if (!m_UpdateResourcesComplete || !m_UpdateConfigsComplete || !m_UpdateAssembliesComplete)
             {
                 return;
             }
@@ -123,20 +139,33 @@ namespace Main.Runtime.Procedure
         }
         private void OnCheckResourcesComplete(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalZipLength)
         {
+            IResourceGroup resourceGroup = GameEntryMain.Resource.GetResourceGroup(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName);
+            if (resourceGroup == null)
+            {
+                Logger.Error($"has no resource group '{DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName}',");
+                return;
+            }
             m_CheckResourcesComplete = true;
-            m_NeedUpdateResources = updateCount > 0;
-            m_UpdateResourceCount = updateCount;
-            m_UpdateTotalZipLength += updateTotalZipLength;
-            GameEntryMain.UI.DeerUIInitRootForm().OnOpenLoadingForm(true);
+            m_NeedUpdateResources = !resourceGroup.Ready;
+            m_UpdateResourceCount = resourceGroup.TotalCount - resourceGroup.ReadyCount;
+            m_UpdateTotalZipLength += (resourceGroup.TotalCompressedLength - resourceGroup.ReadyCompressedLength);
         }
 
+        private void OnCheckAssembliesComplete(int updatecount, long updatetotallength)
+        {
+            m_CheckAssembliesComplete = true;
+            m_NeedUpdateAssemblies = updatecount > 0;
+            m_UpdateAssembliesCount = updatecount;
+            m_UpdateTotalZipLength += updatetotallength;
+        }
+        
         private void OnNoticeUpdate()
         {
             m_NoticeUpdate = true;
             if (m_UpdateTotalZipLength > 0)
             {
                 string conetnt = Utility.Text.Format("有{0}更新", FileUtils.GetLengthString(m_UpdateTotalZipLength));
-                UnityGameFramework.Runtime.Log.Info(conetnt);
+                Logger.Info(conetnt);
                 DialogParams dialogParams = new DialogParams();
                 dialogParams.Mode = 2;
                 dialogParams.Title = "提示";
@@ -172,19 +201,34 @@ namespace Main.Runtime.Procedure
             {
                 m_UpdateResourcesComplete = true;
             }
+
+            if (m_NeedUpdateAssemblies)
+            {
+                StartUpdateAssemblies(null);
+            }
+            else
+            {
+                m_UpdateAssembliesComplete = true;
+            }
         }
 
         private void StartUpdateConfigs(object userData)
         {
-            Log.Info("Start update config ");
+            Logger.Info("Start update config ");
             GameEntryMain.Instance.UpdateConfigs(OnUpdateConfigsComplete);
         }
 
         private void StartUpdateResources(object userData)
         {
-            Log.Info("Start update resource group ");
-            GameEntryMain.Resource.UpdateResources(OnUpdateResourcesComplete);
+            Logger.Info($"Start update resource group {DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName} ");
+            GameEntryMain.Resource.UpdateResources(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,OnUpdateResourcesComplete);
         }
+
+        private void StartUpdateAssemblies(object userData)
+        {
+            GameEntryMain.Assemblies.UpdateAssemblies(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,OnUpdateAssembliesComplete);
+        }
+
         private void RefreshProgress()
         {
             string updateProgress = string.Empty;
@@ -205,12 +249,12 @@ namespace Main.Runtime.Procedure
                 TimeSpan ts = new TimeSpan(0, 0, needTime);
                 string timeStr = ts.ToString(@"mm\:ss");
                 updateProgress = string.Format("剩余时间 {0}({1}/s)", timeStr, FileUtils.GetLengthString((int)GameEntryMain.Download.CurrentSpeed));
-                Log.Info(updateProgress);
+                Logger.Info(updateProgress);
             }
             float progressTotal = (float)currentTotalUpdateLength / m_UpdateTotalZipLength;
-/*            Log.Info($"更新成功数量:{m_UpdateSuccessCount} 总更新数量:{m_UpdateConfigCount + m_UpdateResourceCount} 资源数量:{m_UpdateResourceCount} Config数量:{m_UpdateConfigCount}");
-            Log.Info($"当前下载:{FileUtils.GetByteLengthString(currentTotalUpdateLength)} 总下载:{FileUtils.GetByteLengthString(m_UpdateTotalZipLength)} 下载进度:{progressTotal}");
-            Log.Info($"下载速度:{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}");*/
+/*            Logger.Info($"更新成功数量:{m_UpdateSuccessCount} 总更新数量:{m_UpdateConfigCount + m_UpdateResourceCount} 资源数量:{m_UpdateResourceCount} Config数量:{m_UpdateConfigCount}");
+            Logger.Info($"当前下载:{FileUtils.GetByteLengthString(currentTotalUpdateLength)} 总下载:{FileUtils.GetByteLengthString(m_UpdateTotalZipLength)} 下载进度:{progressTotal}");
+            Logger.Info($"下载速度:{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}");*/
             var tips = $"{FileUtils.GetByteLengthString(currentTotalUpdateLength)}/{FileUtils.GetByteLengthString(m_UpdateTotalZipLength)}  当前下载速度每秒{FileUtils.GetByteLengthString((int)GameEntryMain.Download.CurrentSpeed)}";
             GameEntryMain.UI.DeerUIInitRootForm().OnRefreshLoadingProgress(currentTotalUpdateLength, m_UpdateTotalZipLength, tips);
         }
@@ -219,25 +263,38 @@ namespace Main.Runtime.Procedure
             if (result)
             {
                 m_UpdateConfigsComplete = true;
-                Log.Info("Update config complete with no errors.");
+                Logger.Info("Update config complete with no errors.");
             }
             else
             {
-                Log.Error("Update config complete with errors.");
+                Logger.Error("Update config complete with errors.");
             }
         }
-        private void OnUpdateResourcesComplete(GameFramework.Resource.IResourceGroup resourceGroup, bool result)
+        private void OnUpdateResourcesComplete(IResourceGroup resourceGroup, bool result)
         {
             if (result)
             {
                 m_UpdateResourcesComplete = true;
-                Log.Info("Update resources complete with no errors.");
+                Logger.Info("Update resources complete with no errors.");
             }
             else
             {
-                Log.Error("Update resources complete with errors.");
+                Logger.Error("Update resources complete with errors.");
             }
         }
+        private void OnUpdateAssembliesComplete(string groupName,bool result)
+        {
+            if (result)
+            {
+                m_UpdateAssembliesComplete = true;
+                Logger.Info("Update Assemblies complete with no errors.");
+            }
+            else
+            {
+                Logger.Error("Update Assemblies complete with errors.");
+            }
+        }
+        
         private void OnUpdateCompleteOne(string name, int length, UpdateStateType type)
         {
             for (int i = 0; i < m_UpdateInfoDatas.Count; i++)
@@ -246,19 +303,19 @@ namespace Main.Runtime.Procedure
                 {
                     if (type == UpdateStateType.Failure)
                     {
-                        Log.Warning("Update '{0}' is failure.", name);
+                        Logger.Warning($"Update '{name}' is failure.");
                         m_UpdateInfoDatas.Remove(m_UpdateInfoDatas[i]);
                     }
                     else
                     {
                         if (type == UpdateStateType.Start)
                         {
-                            Log.Warning("Update '{0}' is invalid.", name);
+                            Logger.Warning($"Update '{name}' is invalid.");
                         }
 
                         if (type == UpdateStateType.Success)
                         {
-                            Log.Warning("Update '{0}' is success.", name);
+                            Logger.Warning($"Update '{name}' is success.");
                         }
                         m_UpdateInfoDatas[i].Length = length;
                     }
@@ -291,13 +348,13 @@ namespace Main.Runtime.Procedure
             ResourceUpdateFailureEventArgs ne = (ResourceUpdateFailureEventArgs)e;
             if (ne.RetryCount >= ne.TotalRetryCount)
             {
-                Log.Error("Update resource '{0}' failure from '{1}' with error message '{2}', retry count '{3}'.", ne.Name, ne.DownloadUri, ne.ErrorMessage, ne.RetryCount.ToString());
+                Logger.Error($"Update resource '{ne.Name}' failure from '{ne.DownloadUri}' with error message '{ne.ErrorMessage}', retry count '{ne.RetryCount.ToString()}'.");
                 OpenDisplay("当前网络不可用，请检查是否连接可用wifi或移动网络");
                 return;
             }
             else
             {
-                Log.Info("Update resource '{0}' failure from '{1}' with error message '{2}', retry count '{3}'.", ne.Name, ne.DownloadUri, ne.ErrorMessage, ne.RetryCount.ToString());
+                Logger.Info($"Update resource '{ne.Name}' failure from '{ne.DownloadUri}' with error message '{ne.ErrorMessage}', retry count '{ne.RetryCount.ToString()}'.");
             }
             OnUpdateCompleteOne(ne.Name, 0, UpdateStateType.Failure);
         }
@@ -305,47 +362,59 @@ namespace Main.Runtime.Procedure
         private void OnDownloadStart(object sender, GameEventArgs e)
         {
             DownloadStartEventArgs ne = (DownloadStartEventArgs)e;
-            if (!(ne.UserData is ConfigInfo configInfo))
+            if (ne.UserData is ConfigInfo configInfo)
             {
-                return;
+                OnUpdateCompleteOne(configInfo.Name, 0, UpdateStateType.Start);
+                m_UpdateInfoDatas.Add(new UpdateInfoData(configInfo.Name));
+            }else if (ne.UserData is AssemblyInfo assemblyInfo)
+            {
+                OnUpdateCompleteOne(assemblyInfo.Name, 0, UpdateStateType.Start);
+                m_UpdateInfoDatas.Add(new UpdateInfoData(assemblyInfo.Name));
             }
-            OnUpdateCompleteOne(configInfo.Name, 0, UpdateStateType.Start);
-            m_UpdateInfoDatas.Add(new UpdateInfoData(configInfo.Name));
         }
         private void OnDownloadSuccess(object sender, GameEventArgs e)
         {
             DownloadSuccessEventArgs ne = (DownloadSuccessEventArgs)e;
-            if (!(ne.UserData is ConfigInfo configInfo))
+
+            if (ne.UserData is ConfigInfo configInfo)
             {
-                return;
+                int size = int.Parse(configInfo.Size);
+                OnUpdateCompleteOne(configInfo.Name, (size > 0 ? size : 1) * 1024, UpdateStateType.Success);
+            }else if (ne.UserData is AssemblyInfo assemblyInfo)
+            {
+                int size = (int)assemblyInfo.Size;
+                OnUpdateCompleteOne(assemblyInfo.Name, (size > 0 ? size : 1) * 1024, UpdateStateType.Success);
             }
-            int size = int.Parse(configInfo.Size);
-            OnUpdateCompleteOne(configInfo.Name, (size > 0 ? size : 1) * 1024, UpdateStateType.Success);
         }
         private void OnDownloadFailure(object sender, GameEventArgs e)
         {
             DownloadFailureEventArgs ne = (DownloadFailureEventArgs)e;
-            if (!(ne.UserData is ConfigInfo configInfo))
+            if (ne.UserData is ConfigInfo || ne.UserData is AssemblyInfo)
             {
-                return;
-            }
-            if (ne.ErrorMessage == "Received no data in response")
-            {
-                OpenDisplay("当前网络不可用，请检查是否连接可用wifi或移动网络");
-                return;
-            }
+                if (ne.ErrorMessage == "Received no data in response")
+                {
+                    OpenDisplay("当前网络不可用，请检查是否连接可用wifi或移动网络");
+                    return;
+                }
 
-            if (ne.ErrorMessage.Contains("HTTP/1.1 404 Not Found"))
-            {
-                OpenDisplay("当前资源路径不存在，请联系技术人员检查后重新进入");
-                return;
+                if (ne.ErrorMessage.Contains("HTTP/1.1 404 Not Found"))
+                {
+                    OpenDisplay("当前资源路径不存在，请联系技术人员检查后重新进入");
+                    return;
+                }
             }
-            OnUpdateCompleteOne(configInfo.Name, 0, UpdateStateType.Failure);
+            if (ne.UserData is ConfigInfo configInfo)
+            {
+                OnUpdateCompleteOne(configInfo.Name, 0, UpdateStateType.Failure);
+            }else if (ne.UserData is AssemblyInfo assemblyInfo)
+            {
+                OnUpdateCompleteOne(assemblyInfo.Name, 0, UpdateStateType.Failure);
+            }
         }
         //弹出提示
         private void OpenDisplay(string content)
         {
-            DialogParams dialogParams = new DialogParams();
+            DialogParams dialogParams = ReferencePool.Acquire<DialogParams>();
             dialogParams.Mode = 1;
             dialogParams.Title = "";
             dialogParams.Message = content;

@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityGameFramework.Editor.ResourceTools;
 
 /// <summary>
-/// 复制程序集编辑窗口
+/// 构建程序集编辑窗口
 /// </summary>
 public class CopyAssembliesEditorWindow : EditorWindow
 {
@@ -12,10 +12,10 @@ public class CopyAssembliesEditorWindow : EditorWindow
 
     private float m_Width = 100f;
 
-    [MenuItem("HybridCLR/CopyAssemblies", priority = 101)]
+    [MenuItem("DeerTools/Builder/Assemblies Builder", priority = 101)]
     public static void OpenWindow()
     {
-        CopyAssembliesEditorWindow window = GetWindow<CopyAssembliesEditorWindow>("复制程序集");
+        CopyAssembliesEditorWindow window = GetWindow<CopyAssembliesEditorWindow>("构建程序集");
         window.minSize = new Vector2(300, 300);
     }
 
@@ -100,9 +100,10 @@ public class CopyAssembliesEditorWindow : EditorWindow
                 }
             }
             GUILayout.EndHorizontal();*/
-            if (GUILayout.Button("复制所有程序集"))
+            if (GUILayout.Button("构建所有程序集"))
             {
                 CopyAssemblies.DoCopyAllAssemblies(BuildEventHandlerWolong.Platform2BuildTargetDic[m_SelectPlatform]);
+                OpenFolder.OpenAssemblies();
             }
         }
         GUILayout.EndVertical();

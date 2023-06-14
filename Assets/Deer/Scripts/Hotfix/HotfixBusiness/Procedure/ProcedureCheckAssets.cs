@@ -50,7 +50,8 @@ namespace HotfixBusiness.Procedure
     {
         public override bool UseNativeDialog => false;
         private string m_NextProcedure;
-        private bool m_LoadAssetFinish;
+        private bool m_LoadResourcesFinish;
+        private bool m_LoadAssembliesFinish;
         private long m_UpdateTotalZipLength = 0;
         private bool m_NoticeUpdate = false;
         private float m_LastUpdateTime = 0;
@@ -59,18 +60,25 @@ namespace HotfixBusiness.Procedure
         private List<Assembly> m_HotfixAssemblys = new List<Assembly>();
         private LoadAssetCallbacks m_LoadAssetCallbacks;
         private int m_LoadAssetCount;
-        private bool m_LoadAssemblyWait;
         private int m_FailureAssetCount;
         private bool m_IsResetProcedure;
 
+        private bool m_NeedUpdateResources;
+        private bool m_NeedUpdateAssemblies;
+        
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             m_NextProcedure = procedureOwner.GetData<VarString>("nextProcedure");
             m_NoticeUpdate = false;
             m_UpdateTotalZipLength = 0;
-            m_LoadAssetFinish = false;
+            m_LoadResourcesFinish = false;
+            m_LoadAssembliesFinish = false;
             m_IsResetProcedure = false;
+
+            m_NeedUpdateResources = false;
+            m_NeedUpdateAssemblies = false;
+            
             OnStartLoadAsset();
             GameEntry.Event.Subscribe(ResourceUpdateStartEventArgs.EventId, OnResourceUpdateStart);
             GameEntry.Event.Subscribe(ResourceUpdateChangedEventArgs.EventId, OnResourceUpdateChanged);
@@ -81,7 +89,7 @@ namespace HotfixBusiness.Procedure
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (m_LoadAssetFinish)
+            if (m_LoadResourcesFinish)
             {
                 GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(false);
                 GameEntry.Setting.SetString("nextProcedure",m_NextProcedure);
@@ -112,9 +120,10 @@ namespace HotfixBusiness.Procedure
             m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies(groupName);
             if (GameEntryMain.Base.EditorResourceMode)
             {
+                m_LoadResourcesFinish = true;
                 if (AddHotAssemblyToArray())
                 {
-                    m_LoadAssetFinish = true;
+                    m_LoadAssembliesFinish = true;
                 }
             }
             else
@@ -141,8 +150,14 @@ namespace HotfixBusiness.Procedure
                 if (!isReady)
                 {
                     m_UpdateTotalZipLength = resourceGroup.TotalCompressedLength - resourceGroup.ReadyCompressedLength;
+                    m_NeedUpdateResources = true;
                 }
-                OnNoticeUpdate();
+                GameEntryMain.Assemblies.CheckAssemblies(groupName, delegate(int count, long length)
+                {
+                    m_UpdateTotalZipLength += length;
+                    m_NeedUpdateAssemblies = true;
+                    OnNoticeUpdate();
+                });
             }
         }
 
@@ -246,7 +261,14 @@ namespace HotfixBusiness.Procedure
 
         private void LoadHotUpdateAssembly()
         {
-            if (DeerSettingsUtils.DeerHybridCLRSettings.Enable)
+            if (Application.isEditor || !DeerSettingsUtils.DeerHybridCLRSettings.Enable)
+            {
+                if (AddHotAssemblyToArray())
+                {
+                    m_LoadAssembliesFinish = true;
+                }
+            }
+            else
             {
                 foreach (var hotUpdateDllName in m_HotUpdateAsm)
                 {
@@ -256,14 +278,6 @@ namespace HotfixBusiness.Procedure
                     m_LoadAssetCount++;
                     //GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
                     GameEntryMain.Download.StartCoroutine(LoadAsset(assetPath,hotUpdateDllName));
-                }
-                m_LoadAssemblyWait = true;
-            }
-            else
-            {
-                if (AddHotAssemblyToArray())
-                {
-                    m_LoadAssetFinish = true;
                 }
             }
         }
@@ -283,7 +297,7 @@ namespace HotfixBusiness.Procedure
                 }
                 if (m_LoadAssetCount == 0)
                 {
-                    m_LoadAssetFinish = true;
+                    m_LoadResourcesFinish = true;
                 }
             }
         }
@@ -291,23 +305,35 @@ namespace HotfixBusiness.Procedure
         {
             string groupName = Constant.Procedure.FindAssetGroup(m_NextProcedure);
             GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(true);
-            if (m_UpdateTotalZipLength > 0)
+            if (m_NeedUpdateResources)
             {
                 GameEntry.Resource.UpdateResources(groupName, OnUpdateResourcesComplete);
             }
-            else
+            if (m_NeedUpdateAssemblies)
             {
-                LoadHotUpdateAssembly();
+                GameEntryMain.Assemblies.UpdateAssemblies(groupName,OnUpdateAssembliesComplete);
             }
         }
-        
-        
+
+        private void OnUpdateAssembliesComplete(string groupName,bool result)
+        {
+            if (result)
+            {
+                LoadHotUpdateAssembly();
+            } 
+            else
+            {
+                Logger.Error("更新资源失败");
+            }
+        }
+
+
         //这个是下载成功之后的监听
         private void OnUpdateResourcesComplete(IResourceGroup resourceGroup, bool result)
         {
             if (result)
             {
-                LoadHotUpdateAssembly();
+                m_LoadResourcesFinish = true;
             }
             else
             {

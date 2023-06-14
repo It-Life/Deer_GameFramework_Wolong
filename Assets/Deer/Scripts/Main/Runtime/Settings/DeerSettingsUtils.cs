@@ -9,6 +9,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 /// <summary>
@@ -307,20 +310,39 @@ public static class DeerSettingsUtils
     /// <returns></returns>
     public static string GetPlatformName()
     {
+#if UNITY_EDITOR
+        switch (EditorUserBuildSettings.activeBuildTarget)
+        {
+            case BuildTarget.StandaloneWindows:
+                return "";
+            case BuildTarget.StandaloneWindows64:
+                return "";
+            case BuildTarget.StandaloneOSX:
+                return "";
+            case BuildTarget.Android:
+                return "Android";
+            case BuildTarget.iOS:
+                return "IOS";
+            case BuildTarget.WebGL:
+                return "";
+            case BuildTarget.WSAPlayer:
+                return "";
+            default:
+                throw new System.NotSupportedException(string.Format("Platform '{0}' is not supported.",
+                    Application.platform.ToString()));
+        }
+#endif
         switch (Application.platform)
         {
             case RuntimePlatform.WindowsEditor:
                 return "Windows64";
             case RuntimePlatform.WindowsPlayer:
                 return "Windows64";
-
             case RuntimePlatform.OSXEditor:
             case RuntimePlatform.OSXPlayer:
                 return "MacOS";
-
             case RuntimePlatform.IPhonePlayer:
                 return "IOS";
-
             case RuntimePlatform.Android:
                 return "Android";
 
