@@ -31,7 +31,7 @@ namespace Deer
         /// <summary>
         /// 全部配置表文件
         /// </summary>
-        private Dictionary<string, ConfigInfo> m_Configs;
+        private static Dictionary<string, ConfigInfo> m_Configs;
 
         private MoveConfigToReadWriteCallback m_MoveConfigToReadWriteCallback;
         public void ReadConfigWithStreamingAssets(string filePath,Action<bool,byte[]> results) 
@@ -83,8 +83,21 @@ namespace Deer
             string filePath = string.Empty;
             if (GameEntryMain.Base.EditorResourceMode)
             {
+                if (m_Configs == null)
+                {
+                    string configVersionPath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/{DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName}");
+                    string xml = File.ReadAllText(configVersionPath);
+                    m_Configs = FileUtils.AnalyConfigXml(xml);
+                }
+                string fileName = $"{file}.bytes";
+                if (m_Configs[fileName] == null)
+                {
+                    Logger.Error("filepath:" + filePath + " not exists");
+                    return null;
+                }
+                fileName = $"{file}.{m_Configs[fileName].HashCode}{m_Configs[fileName].Extension}";
                 //编辑器模式
-                filePath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/Datas",$"{file}.bytes");
+                filePath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/Datas",fileName);
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
