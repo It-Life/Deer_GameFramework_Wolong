@@ -42,6 +42,9 @@ public class AssembliesComponent : GameFrameworkComponent
     private List<AssemblyInfo> m_LastAssemblies;
     private List<AssemblyInfo> m_NowAssemblies;
     private Dictionary<string,AssemblyInfo> m_NeedUpdateAssemblies;
+    private List<AssemblyInfo> m_NeedDownloadAssemblies;
+    private List<AssemblyInfo> m_DownloadedAssemblies;
+
 
     private bool m_FailureFlag;
     
@@ -138,13 +141,15 @@ public class AssembliesComponent : GameFrameworkComponent
     public void UpdateAssemblies(string groupName,UpdateAssembliesCompleteCallback updateAssembliesCompleteCallback)
     {
         m_UpdateAssembliesCompleteCallback = updateAssembliesCompleteCallback;
-        List<AssemblyInfo> findList = FindUpdateAssembliesByGroupName(groupName);
-        if (findList.Count <= 0)
+        m_NeedDownloadAssemblies = FindUpdateAssembliesByGroupName(groupName);
+        if (m_NeedDownloadAssemblies.Count <= 0)
         {
             m_UpdateAssembliesCompleteCallback?.Invoke(groupName,true);
             return;
         }
-        foreach (var needUpdateAssembly in findList)
+
+        m_DownloadedAssemblies = new List<AssemblyInfo>();
+        foreach (var needUpdateAssembly in m_NeedDownloadAssemblies)
         {
             DownloadOne(needUpdateAssembly);
         }
@@ -281,10 +286,13 @@ public class AssembliesComponent : GameFrameworkComponent
         {
             m_NeedUpdateAssemblies.Remove(assemblyInfo.Name);
         }
+        m_DownloadedAssemblies.Add(assemblyInfo);
 
-        if (m_NeedUpdateAssemblies.Count <= 0)
+        if (m_DownloadedAssemblies.Count == m_NeedDownloadAssemblies.Count)
         {
             m_UpdateAssembliesCompleteCallback?.Invoke(assemblyInfo.GroupName,true);
+            m_DownloadedAssemblies.Clear();
+            m_NeedDownloadAssemblies.Clear();
         }
     }
 }
