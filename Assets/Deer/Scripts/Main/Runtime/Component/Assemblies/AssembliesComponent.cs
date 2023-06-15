@@ -158,7 +158,6 @@ public class AssembliesComponent : GameFrameworkComponent
             if (groupName == needUpdateAssembly.Value.GroupName)
             {
                 findList.Add(needUpdateAssembly.Value);
-                return findList;
             }
         }
         return findList;
