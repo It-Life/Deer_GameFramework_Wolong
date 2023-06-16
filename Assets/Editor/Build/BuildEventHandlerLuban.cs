@@ -32,17 +32,13 @@ public static class BuildEventHandlerLuban
     {
 
     }
-
+    
     public static void OnPostprocessPlatform(Platform platform,bool outputPackageSelected, 
         bool outputFullSelected, bool outputPackedSelected,string commitResourcesPath) 
     {
         if (outputPackageSelected)
         {
-            if (FolderUtils.CopyFolder($"{Application.dataPath}/../LubanTools/GenerateDatas", Application.streamingAssetsPath))
-            {
-                Debug.Log("拷贝表资源文件成功！");
-                AssetDatabase.Refresh();
-            }
+            CopyPackageFile();
         }
         if (outputFullSelected)
         {
@@ -53,4 +49,29 @@ public static class BuildEventHandlerLuban
             }
         }
     }
+    //[MenuItem("DeerTools/Test")]
+    private static void CopyPackageFile()
+    {
+        Dictionary<string, ConfigInfo> m_Configs ;
+        string configFolderPath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}");
+        string configVersionPath = Path.Combine(configFolderPath,DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName);
+        string xml = File.ReadAllText(configVersionPath);
+        m_Configs = FileUtils.AnalyConfigXml(xml);
+        string configDataPath = $"{configFolderPath}/Datas";
+        string destDataPath = Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas");
+        if (!Directory.Exists(destDataPath))
+        {
+            Directory.CreateDirectory(destDataPath);
+        }
+        foreach (var item in m_Configs)
+        {
+            File.Copy(Path.Combine(configDataPath,$"{item.Value.NameWithoutExtension}.{item.Value.HashCode}{item.Value.Extension}"),
+                Path.Combine(destDataPath,$"{item.Value.NameWithoutExtension}{item.Value.Extension}"));
+        }
+        File.Copy(configVersionPath,
+            Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName));
+        Debug.Log("拷贝表资源文件成功！");
+        AssetDatabase.Refresh();
+    }
+
 }
