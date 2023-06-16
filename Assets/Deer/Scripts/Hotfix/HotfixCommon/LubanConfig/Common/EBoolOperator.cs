@@ -6,11 +6,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace cfg.Common
-{
+{ 
     public enum EBoolOperator
     {
         AND = 0,
         OR = 1,
     }
-}
+
+} 

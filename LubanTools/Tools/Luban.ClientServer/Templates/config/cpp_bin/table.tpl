@@ -13,6 +13,7 @@
  * {{x.escape_comment}}
  */
 {{~end~}}
+
 class {{name}}
 {
     {{~if x.is_map_table ~}}
@@ -60,41 +61,77 @@ class {{name}}
 
     {{~else if x.is_list_table~}}
     private:
-    ::bright::Vector<{{cpp_define_type value_type}}> _dataList;
+        ::bright::Vector<{{cpp_define_type value_type}}> _dataList;
+    {{~if x.is_union_index~}}
+
+    {{~else if !x.index_list.empty?~}}
+        {{~for idx in x.index_list~}}
+        ::bright::HashMap<{{cpp_define_type idx.type}}, {{cpp_define_type value_type}}> _dataMap_{{idx.index_field.name}};
+        {{~end~}}
+    {{~else~}}
+    {{~end~}}    
     
-    public:
-    bool load(ByteBuf& _buf)
-    {        
-        int n;
-        if (!_buf.readSize(n)) return false;
-        for(; n > 0 ; --n)
-        {
-            {{cpp_define_type value_type}} _v;
-            {{cpp_deserialize '_buf' '_v' value_type}}
-            _dataList.push_back(_v);
+        public:
+        bool load(ByteBuf& _buf)
+        {        
+            int n;
+            if (!_buf.readSize(n)) return false;
+            for(; n > 0 ; --n)
+            {
+                {{cpp_define_type value_type}} _v;
+                {{cpp_deserialize '_buf' '_v' value_type}}
+                _dataList.push_back(_v);
+                {{~if x.is_union_index~}}
+
+                {{~else if !x.index_list.empty?~}}
+                {{~for idx in x.index_list~}}
+                _dataMap_{{idx.index_field.name}}[_v->{{idx.index_field.name}}] = _v;
+                {{~end~}}
+                {{~else~}}
+                {{~end~}}
+            }
+            return true;
         }
-        return true;
-    }
 
-    const ::bright::Vector<{{cpp_define_type value_type}}>& getDataList() const { return _dataList; }
+        const ::bright::Vector<{{cpp_define_type value_type}}>& getDataList() const { return _dataList; }
 
-    {{value_type.bean.cpp_full_name}}* getRaw(size_t index) const
-    { 
-        return _dataList[index].get();
-    }
+        {{~if x.is_union_index~}}
 
-    {{cpp_define_type value_type}} get(size_t index) const
-    { 
-        return _dataList[index];
-    }
-
-    void resolve(::bright::HashMap<::bright::String, void*>& _tables)
-    {
-        for(auto v : _dataList)
+        {{~else if !x.index_list.empty?~}}
+        {{~for idx in x.index_list~}}
+        ::bright::HashMap<{{cpp_define_type idx.type}}, {{cpp_define_type value_type}}>& getDataMapBy{{idx.index_field.name}}()
         {
-            v->resolve(_tables);
+            return _dataMap_{{idx.index_field.name}};
         }
-    }
+        {{value_type.bean.cpp_full_name}}* getRawBy{{idx.index_field.name}}({{cpp_define_type idx.type}} key)
+        {                    
+            auto it = _dataMap_{{idx.index_field.name}}.find(key);
+            return it != _dataMap_{{idx.index_field.name}}.end() ? it->second.get() : nullptr;
+        }
+        {{cpp_define_type value_type}} getBy{{idx.index_field.name}}({{cpp_define_type idx.type}} key)
+        {
+            auto it = _dataMap_{{idx.index_field.name}}.find(key);
+            return it != _dataMap_{{idx.index_field.name}}.end() ? it->second : nullptr;
+        }
+        {{~end~}}
+        {{~else~}}
+            {{value_type.bean.cpp_full_name}}* getRaw(size_t index) const
+            { 
+                return _dataList[index].get();
+            }
+
+            {{cpp_define_type value_type}} get(size_t index) const
+            { 
+                return _dataList[index];
+            }
+        {{~end~}}
+        void resolve(::bright::HashMap<::bright::String, void*>& _tables)
+        {
+            for(auto v : _dataList)
+            {
+                v->resolve(_tables);
+            }
+        }    
     {{~else~}}
      private:
     {{cpp_define_type value_type}} _data;

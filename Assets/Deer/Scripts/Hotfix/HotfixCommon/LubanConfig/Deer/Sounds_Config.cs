@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Deer
 {
-
 public sealed partial class Sounds_Config :  Bright.Config.BeanBase 
 {
     public Sounds_Config(ByteBuf _buf) 

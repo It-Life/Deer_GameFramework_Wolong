@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Deer
 {
-
 public sealed partial class UIData_GameMode :  Bright.Config.BeanBase 
 {
     public UIData_GameMode(ByteBuf _buf) 

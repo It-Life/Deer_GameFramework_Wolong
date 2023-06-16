@@ -6,8 +6,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace cfg.Deer.Enum
-{
+{ 
     [System.Flags]
     public enum AccessFlag
     {
@@ -17,4 +18,5 @@ namespace cfg.Deer.Enum
         NEW = 8,
         READ_WRITE = WRITE|READ,
     }
-}
+
+} 

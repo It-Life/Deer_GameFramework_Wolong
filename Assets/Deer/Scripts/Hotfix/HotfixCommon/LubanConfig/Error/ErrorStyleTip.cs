@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Error
 {
-
 public sealed partial class ErrorStyleTip :  Error.ErrorStyle 
 {
     public ErrorStyleTip(ByteBuf _buf)  : base(_buf) 

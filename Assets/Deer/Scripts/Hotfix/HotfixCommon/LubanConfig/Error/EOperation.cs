@@ -6,8 +6,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace cfg.Error
-{
+{ 
     public enum EOperation
     {
         /// <summary>
@@ -19,4 +20,5 @@ namespace cfg.Error
         /// </summary>
         RESTART = 1,
     }
-}
+
+} 

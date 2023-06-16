@@ -9,10 +9,10 @@ using Bright.Serialization;
 using Cysharp.Threading.Tasks;
 
 
+
 namespace cfg
-{
-   
-public sealed class Tables
+{ 
+public partial class Tables
 {
     public Common.TbGlobalConfig TbGlobalConfig {get; private set; }
     public Error.TbErrorInfo TbErrorInfo {get; private set; }
@@ -26,8 +26,6 @@ public sealed class Tables
     public Deer.TbEntityData TbEntityData {get; private set; }
     public Deer.TbLevelData TbLevelData {get; private set; }
 
-    public Tables() { }
-    
     public async UniTask LoadAsync(System.Func<string, UniTask<ByteBuf>> loader)
     {
         var tables = new System.Collections.Generic.Dictionary<string, object>();
@@ -54,6 +52,7 @@ public sealed class Tables
         TbLevelData = new Deer.TbLevelData(await loader("deer_tbleveldata")); 
         tables.Add("Deer.TbLevelData", TbLevelData);
 
+        PostInit();
         TbGlobalConfig.Resolve(tables); 
         TbErrorInfo.Resolve(tables); 
         TbCodeInfo.Resolve(tables); 
@@ -65,6 +64,7 @@ public sealed class Tables
         TbPlayerData_Character.Resolve(tables); 
         TbEntityData.Resolve(tables); 
         TbLevelData.Resolve(tables); 
+        PostResolve();
     }
 
     public void TranslateText(System.Func<string, string, string> translator)
@@ -81,6 +81,9 @@ public sealed class Tables
         TbEntityData.TranslateText(translator); 
         TbLevelData.TranslateText(translator); 
     }
+    
+    partial void PostInit();
+    partial void PostResolve();
 }
 
 }

@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Error
 {
-
 public sealed partial class ErrorStyleDlgOkCancel :  Error.ErrorStyle 
 {
     public ErrorStyleDlgOkCancel(ByteBuf _buf)  : base(_buf) 
