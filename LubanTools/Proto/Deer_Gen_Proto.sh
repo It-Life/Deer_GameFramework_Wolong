@@ -1,5 +1,4 @@
-#!/bin/bash
-cd "$(dirname "$0")"
+#!/bin/zsh
 ROOT_PATH=$(pwd)
 WORKSPACE=..
 echo =================start gen proto code=================
@@ -15,10 +14,10 @@ do
   fi
 done
 echo =================end gen proto code=================
-GEN_PROTOBUFRESOLVER=$WORKSPACE/Tools/ProtobufResolver/ProtobufResolver.exe
-INPUT_DATA_DIR=$ROOT_PATH/pb_message
-OUTEVENTPATH=$WORKSPACE/../Assets/Deer/Scripts/HotFix/HotFixCommon/Definition/Constant
-$GEN_PROTOBUFRESOLVER --input_data_dir $INPUT_DATA_DIR --output_proto_dir $OUTEVENTPATH
+GEN_PROTOBUFRESOLVER=${WORKSPACE}/Tools/ProtobufResolver/ProtobufResolver.dll
+INPUT_DATA_DIR=${ROOT_PATH}/pb_message
+OUTEVENTPATH=${WORKSPACE}/../Assets/Deer/Scripts/HotFix/HotFixCommon/Definition/Constant
+dotnet ${GEN_PROTOBUFRESOLVER} --input_data_dir ${INPUT_DATA_DIR} --output_proto_dir ${OUTEVENTPATH}
 echo =================end gen proto event=================
 read -p "Press any key to continue..."
 
