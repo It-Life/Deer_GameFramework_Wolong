@@ -13,18 +13,26 @@ using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// Please modify the description.
+/// 框架配套工具
 /// </summary>
-public static class FrameworkTools
+public static class GenerateTools
 {
     [MenuItem("DeerTools/IOControls/Generate/GenerateProtobuf")]
 	private static void GenProtoTools() 
 	{
-		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/Proto/gen_pb_code.bat"));
+#if UNITY_EDITOR_WIN
+		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/Proto/Deer_Gen_Proto.bat"));
+#else
+		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/Proto/Deer_Gen_Proto.sh"));
+#endif
 	}
 	[MenuItem("DeerTools/IOControls/Generate/GenerateConfig")]
 	private static void GenConfigToStreamingAssets()
 	{
-		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/BuildConfig_Wolong.bat"));
+#if UNITY_EDITOR_WIN
+		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/Deer_Build_Config.bat"));
+#else
+		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/Deer_Build_Config.sh"));
+#endif
 	}
 }

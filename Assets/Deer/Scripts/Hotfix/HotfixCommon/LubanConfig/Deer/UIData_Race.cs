@@ -21,7 +21,7 @@ public sealed partial class UIData_Race :  Bright.Config.BeanBase
         Bg = _buf.ReadString();
         Title = _buf.ReadString();
         RaceIndex = _buf.ReadInt();
-        PlayerPos = _buf.ReadVector3();
+        PlayerPos = _buf.ReadUnityVector3();
         UnlockStarNum = _buf.ReadInt();
         PostInit();
     }
@@ -50,7 +50,7 @@ public sealed partial class UIData_Race :  Bright.Config.BeanBase
     /// <summary>
     /// 角色初始位置
     /// </summary>
-    public System.Numerics.Vector3 PlayerPos { get; private set; }
+    public UnityEngine.Vector3 PlayerPos { get; private set; }
     /// <summary>
     /// 解锁的星星个数
     /// </summary>

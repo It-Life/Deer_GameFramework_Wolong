@@ -19,8 +19,8 @@ public sealed partial class UIData_Character :  Bright.Config.BeanBase
     {
         Id = _buf.ReadInt();
         Name = _buf.ReadString();
-        PlayerPos = _buf.ReadVector3();
-        PlayerScale = _buf.ReadVector3();
+        PlayerPos = _buf.ReadUnityVector3();
+        PlayerScale = _buf.ReadUnityVector3();
         Speed = _buf.ReadFloat();
         DamageResistance = _buf.ReadFloat();
         BoosterPower = _buf.ReadFloat();
@@ -45,11 +45,11 @@ public sealed partial class UIData_Character :  Bright.Config.BeanBase
     /// <summary>
     /// 模型位置
     /// </summary>
-    public System.Numerics.Vector3 PlayerPos { get; private set; }
+    public UnityEngine.Vector3 PlayerPos { get; private set; }
     /// <summary>
     /// 模型缩放
     /// </summary>
-    public System.Numerics.Vector3 PlayerScale { get; private set; }
+    public UnityEngine.Vector3 PlayerScale { get; private set; }
     /// <summary>
     /// 移动速度
     /// </summary>
