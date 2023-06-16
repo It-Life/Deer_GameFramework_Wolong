@@ -57,6 +57,7 @@ namespace HotfixBusiness.Procedure
         private float m_LastUpdateTime = 0;
         private List<UpdateInfoData> m_UpdateInfoDatas = new List<UpdateInfoData>();
         private List<string> m_HotUpdateAsm;
+        private Dictionary<string,byte[]> m_HotfixAssemblyBytes = new Dictionary<string, byte[]>();
         private List<Assembly> m_HotfixAssemblys = new List<Assembly>();
         private LoadAssetCallbacks m_LoadAssetCallbacks;
         private int m_LoadAssetCount;
@@ -89,7 +90,7 @@ namespace HotfixBusiness.Procedure
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (m_LoadResourcesFinish)
+            if (m_LoadResourcesFinish && m_LoadAssembliesFinish)
             {
                 GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(false);
                 GameEntry.Setting.SetString("nextProcedure",m_NextProcedure);
@@ -270,12 +271,12 @@ namespace HotfixBusiness.Procedure
             }
             else
             {
+                m_HotfixAssemblyBytes.Clear();
                 foreach (var hotUpdateDllName in m_HotUpdateAsm)
                 {
                     var assetPath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,
                         DeerSettingsUtils.HotfixNode, $"{hotUpdateDllName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
                     Logger.Debug<ProcedureCheckAssets>($"LoadAsset: [ {assetPath} ]");
-                    m_LoadAssetCount++;
                     //GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
                     GameEntryMain.Download.StartCoroutine(LoadAsset(assetPath,hotUpdateDllName));
                 }
@@ -288,16 +289,16 @@ namespace HotfixBusiness.Procedure
             yield return unityWebRequest.SendWebRequest();
             if (unityWebRequest.isDone)
             {
-                m_LoadAssetCount--;
+                m_HotfixAssemblyBytes.Add(asmName,unityWebRequest.downloadHandler.data);
                 if (!IsAddAllFinish(asmName))
                 {
                     Assembly asm = Assembly.Load(unityWebRequest.downloadHandler.data);
                     m_IsResetProcedure = true;
                     GameEntry.AddHotfixAssemblys(asm);
                 }
-                if (m_LoadAssetCount == 0)
+                if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
                 {
-                    m_LoadResourcesFinish = true;
+                    m_LoadAssembliesFinish = true;
                 }
             }
         }
@@ -309,9 +310,18 @@ namespace HotfixBusiness.Procedure
             {
                 GameEntry.Resource.UpdateResources(groupName, OnUpdateResourcesComplete);
             }
+            else
+            {
+                m_LoadResourcesFinish = true;
+            }
+
             if (m_NeedUpdateAssemblies)
             {
                 GameEntryMain.Assemblies.UpdateAssemblies(groupName,OnUpdateAssembliesComplete);
+            }
+            else
+            {
+                m_LoadAssembliesFinish = true;
             }
         }
 
