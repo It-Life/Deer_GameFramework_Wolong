@@ -19,8 +19,8 @@ public sealed partial class LevelData :  Bright.Config.BeanBase
     {
         Id = _buf.ReadInt();
         EntityId = _buf.ReadInt();
-        EntityPos = _buf.ReadUnityVector3();
-        EntityRot = _buf.ReadUnityVector3();
+        EntityPos = _buf.ReadVector3();
+        EntityRot = _buf.ReadVector3();
         LevelId = _buf.ReadInt();
         PostInit();
     }
@@ -41,11 +41,11 @@ public sealed partial class LevelData :  Bright.Config.BeanBase
     /// <summary>
     /// 实体的位置
     /// </summary>
-    public UnityEngine.Vector3 EntityPos { get; private set; }
+    public System.Numerics.Vector3 EntityPos { get; private set; }
     /// <summary>
     /// 实体的旋转
     /// </summary>
-    public UnityEngine.Vector3 EntityRot { get; private set; }
+    public System.Numerics.Vector3 EntityRot { get; private set; }
     /// <summary>
     /// 所属场景
     /// </summary>
