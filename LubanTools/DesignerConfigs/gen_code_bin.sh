@@ -14,5 +14,5 @@ dotnet ${GEN_CLIENT} -h 127.0.0.1 -j cfg --\
  --input_data_dir ${CONF_ROOT}/Datas \
  --output_code_dir ${OUTPUT_CODE_PATH} \
  --output_data_dir ${OUTPUT_DATA_PATH} \
- --gen_types code_cs_bin,data_bin \
+ --gen_types code_cs_unity_bin,data_bin \
  -s all 
