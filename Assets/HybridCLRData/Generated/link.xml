@@ -123,7 +123,6 @@
     <type fullname="Main.Runtime.DialogParams" preserve="all" />
     <type fullname="Main.Runtime.FileUtils" preserve="all" />
     <type fullname="Main.Runtime.Procedure.ProcedureBase" preserve="all" />
-    <type fullname="Main.Runtime.Procedure.ProcedureLoadAssembly" preserve="all" />
     <type fullname="Main.Runtime.Procedure.UpdateStateType" preserve="all" />
     <type fullname="Main.Runtime.UI.UIInitRootForm" preserve="all" />
     <type fullname="Main.Runtime.UIBaseForm" preserve="all" />
@@ -346,7 +345,6 @@
     <type fullname="UnityEngine.Screen" preserve="all" />
     <type fullname="UnityEngine.SerializeField" preserve="all" />
     <type fullname="UnityEngine.Sprite" preserve="all" />
-    <type fullname="UnityEngine.TextAsset" preserve="all" />
     <type fullname="UnityEngine.Texture" preserve="all" />
     <type fullname="UnityEngine.Texture2D" preserve="all" />
     <type fullname="UnityEngine.TextureFormat" preserve="all" />

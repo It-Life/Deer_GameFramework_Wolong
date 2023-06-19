@@ -341,14 +341,18 @@ namespace Main.Runtime
                 {
                     string fileName = elem.GetAttribute("name");
                     string filePath = elem.GetAttribute("file");
-                    string fileMd5 = elem.GetAttribute("md5");
+                    string fileHashCode = elem.GetAttribute("hashCode");
                     string fileSize = elem.GetAttribute("size");
+                    string nameWithoutExtension = elem.GetAttribute("nameWithoutExtension");
+                    string extension = elem.GetAttribute("extension");
                     ConfigInfo configInfo = new ConfigInfo()
                     {
                         Name = fileName,
                         Path = filePath,
-                        MD5 = fileMd5,
+                        HashCode = fileHashCode,
                         Size = fileSize,
+                        NameWithoutExtension = nameWithoutExtension,
+                        Extension = extension,                        
                     };
 
                     if (!_Configs.ContainsKey(filePath))

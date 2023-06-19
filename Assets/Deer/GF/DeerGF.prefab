@@ -207,7 +207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11497722, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_ResourceMode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11499388, guid: 237385d2c8c47c04b91b378ccf8a5957, type: 3}
       propertyPath: m_LogHelperTypeName

@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Deer
 {
-
 public sealed partial class Language_Config :  Bright.Config.BeanBase 
 {
     public Language_Config(ByteBuf _buf) 

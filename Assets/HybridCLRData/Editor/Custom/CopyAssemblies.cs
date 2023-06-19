@@ -1,4 +1,5 @@
 #if ENABLE_HYBRID_CLR_UNITY
+using System;
 using System.Collections.Generic;
 using System.IO;
 using CatJson;
@@ -39,7 +40,8 @@ public static class CopyAssemblies
                     int hashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead());
                     string dllBytesPath = Path.Combine(targetPath, $"{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
                     File.Copy(dllPath, dllBytesPath, true);
-                    m_listAssemblies.Add(new AssemblyInfo(dll,hotUpdateAssembly.AssetGroupName,hashCode,fileInfo.Length));
+                    long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
+                    m_listAssemblies.Add(new AssemblyInfo(dll,"Hotfix",hotUpdateAssembly.AssetGroupName,hashCode,size));
                     break;  
                 }
             }
@@ -83,7 +85,8 @@ public static class CopyAssemblies
             int hashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead());
             string dllBytesPath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
             File.Copy(dllPath, dllBytesPath, true);
-            m_listAssemblies.Add(new AssemblyInfo(dll,DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,hashCode,fileInfo.Length));
+            long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
+            m_listAssemblies.Add(new AssemblyInfo(dll,"AOT",DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,hashCode, size));
         }
         // 刷新资源
         AssetDatabase.Refresh();

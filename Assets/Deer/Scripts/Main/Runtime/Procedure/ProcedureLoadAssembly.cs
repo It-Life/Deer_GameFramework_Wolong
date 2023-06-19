@@ -12,6 +12,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Bright.Serialization;
 using Cysharp.Threading.Tasks;
@@ -53,13 +54,16 @@ namespace Main.Runtime.Procedure
         private Assembly m_MainLogicAssembly;
         private List<Assembly> m_HotfixAssemblys;
         private Dictionary<string,byte[]> m_HotfixAssemblyBytes;
+        private Dictionary<string,byte[]> m_AOTAssemblyBytes;
         private List<string> m_HotUpdateAsm;
+        // ReSharper disable Unity.PerformanceAnalysis
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             m_LoadAssemblyComplete = false;
             m_HotfixAssemblys = new List<Assembly>();
             m_HotfixAssemblyBytes = new Dictionary<string, byte[]>();
+            m_AOTAssemblyBytes = new Dictionary<string, byte[]>();
             m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName);
 
             if (GameEntryMain.Base.EditorResourceMode)
@@ -68,7 +72,11 @@ namespace Main.Runtime.Procedure
             }
             else
             {
-                if (DeerSettingsUtils.DeerHybridCLRSettings.Enable)
+                if (Application.isEditor || !DeerSettingsUtils.DeerHybridCLRSettings.Enable)
+                {
+                    m_MainLogicAssembly = GetMainLogicAssembly();
+                }
+                else
                 {
                     m_LoadAssetCallbacks ??= new LoadAssetCallbacks(LoadAssetSuccess, LoadAssetFailure);
                     foreach (var hotUpdateDllName in m_HotUpdateAsm)
@@ -78,23 +86,22 @@ namespace Main.Runtime.Procedure
                         Logger.Debug<ProcedureLoadAssembly>($"LoadAsset: [ {assetPath} ]");
                         m_LoadAssetCount++;
                         //GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
-                        GameEntryMain.Download.StartCoroutine(LoadAsset(assetPath,hotUpdateDllName));
+                        GameEntryMain.Download.StartCoroutine(LoadAsset(assetPath,hotUpdateDllName,1));
                     }
-                }
-                else
-                {
-                    m_MainLogicAssembly = GetMainLogicAssembly();
                 }
             }
 
             if (DeerSettingsUtils.DeerHybridCLRSettings.Enable)
             {
-#if !UNITY_EDITOR
-                m_LoadMetadataAssemblyComplete = false;
-                LoadMetadataForAOTAssembly();
-#else
-                m_LoadMetadataAssemblyComplete = true;
-#endif
+                if (!Application.isEditor)
+                {
+                    m_LoadMetadataAssemblyComplete = false;
+                    LoadMetadataForAOTAssembly();
+                }
+                else
+                {
+                    m_LoadMetadataAssemblyComplete = true;
+                }
             }
             else
             {
@@ -104,29 +111,66 @@ namespace Main.Runtime.Procedure
             if (0 == m_LoadAssetCount) m_LoadAssemblyComplete = true;
         }
 
-        IEnumerator LoadAsset(string filePath ,string asmName)
+        IEnumerator LoadAsset(string filePath ,string asmName,int dllType)
         {
             filePath = $"file://{filePath}";
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
             yield return unityWebRequest.SendWebRequest();
             if (unityWebRequest.isDone)
             {
-                m_HotfixAssemblyBytes.Add(asmName,unityWebRequest.downloadHandler.data);
-                if (!m_HotfixAssemblyBytes.ContainsKey(asmName))
+                if (dllType == 1)
                 {
+                    m_HotfixAssemblyBytes.Add(asmName,unityWebRequest.downloadHandler.data);
                     var asm = Assembly.Load(unityWebRequest.downloadHandler.data);
                     if (string.Compare(DeerSettingsUtils.DeerHybridCLRSettings.LogicMainDllName, asmName, StringComparison.Ordinal) == 0)
                         m_MainLogicAssembly = asm;
                     m_HotfixAssemblys.Add(asm);
                     Logger.Debug<ProcedureLoadAssembly>($"Assembly [ {asm.GetName().Name} ] loaded");
+                    if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
+                    {
+                        m_LoadAssemblyComplete = true;
+                    }
                 }
-                if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
+                else
                 {
-                    m_LoadAssemblyComplete = true;
+                    LoadMetadataAsset(unityWebRequest.downloadHandler.data,asmName);
                 }
             }
         }
-
+        private unsafe void LoadMetadataAsset(byte[] dllBytes ,string assetName)
+        {
+            Logger.Debug($"LoadMetadataAssetSuccess, assetName: [ {assetName} ]");
+            if (null == dllBytes)
+            {
+                Logger.Debug($"LoadMetadataAssetSuccess:Load text asset [ {assetName} ] failed.");
+                return;
+            }
+            m_AOTAssemblyBytes.Add(assetName,dllBytes);
+            try
+            {
+                fixed (byte* ptr = dllBytes)
+                {
+                    // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
+#if ENABLE_HYBRID_CLR_UNITY
+                    HomologousImageMode mode = HomologousImageMode.SuperSet;
+                    LoadImageErrorCode err = (LoadImageErrorCode)HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes,mode); 
+                    Debug.Log($"LoadMetadataForAOTAssembly:{assetName}. mode:{mode} ret:{err}");
+#endif
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Fatal(e.Message);
+                throw;
+            }
+            finally
+            {
+                if (m_AOTAssemblyBytes.Count == m_HotUpdateAsm.Count)
+                {
+                    m_LoadMetadataAssemblyComplete = true;
+                }
+            }
+        }
         private Assembly GetMainLogicAssembly()
         {
             Assembly mainLogicAssembly = null;
@@ -260,57 +304,17 @@ namespace Main.Runtime.Procedure
                 m_LoadMetadataAssemblyComplete = true;
                 return;
             }
-            m_LoadMetadataAssetCallbacks ??= new LoadAssetCallbacks(LoadMetadataAssetSuccess, LoadMetadataAssetFailure);
+            //m_LoadMetadataAssetCallbacks ??= new LoadAssetCallbacks(LoadMetadataAssetSuccess, LoadMetadataAssetFailure);
             foreach (var aotDllName in DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies)
             {
                 var assetPath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,
                     DeerSettingsUtils.AotNode, $"{aotDllName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
                 Logger.Debug<ProcedureLoadAssembly>($"LoadMetadataAsset: [ {assetPath} ]");
                 m_LoadMetadataAssetCount++;
-                GameEntryMain.Resource.LoadAsset(assetPath, m_LoadMetadataAssetCallbacks, aotDllName);
+                GameEntryMain.Download.StartCoroutine(LoadAsset(assetPath,aotDllName,2));
+                //GameEntryMain.Resource.LoadAsset(assetPath, m_LoadMetadataAssetCallbacks, aotDllName);
             }
             m_LoadMetadataAssemblyWait = true;
-        }
-        private unsafe void LoadMetadataAssetSuccess(string assetName, object asset, float duration, object userData)
-        {
-            m_LoadMetadataAssetCount--;
-            Logger.Debug($"LoadMetadataAssetSuccess, assetName: [ {assetName} ], duration: [ {duration} ], userData: [ {userData} ]");
-            var textAsset = asset as TextAsset;
-            if (null == textAsset)
-            {
-                Logger.Debug($"LoadMetadataAssetSuccess:Load text asset [ {assetName} ] failed.");
-                return;
-            }
-
-            try
-            {
-                byte[] dllBytes = textAsset.bytes;
-                fixed (byte* ptr = dllBytes)
-                {
-                    // 加载assembly对应的dll，会自动为它hook。一旦aot泛型函数的native函数不存在，用解释器版本代码
-#if ENABLE_HYBRID_CLR_UNITY
-                    HomologousImageMode mode = HomologousImageMode.SuperSet;
-                    LoadImageErrorCode err = (LoadImageErrorCode)HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes,mode); 
-                    Debug.Log($"LoadMetadataForAOTAssembly:{userData as string}. mode:{mode} ret:{err}");
-#endif
-                }
-            }
-            catch (Exception e)
-            {
-                m_FailureMetadataAssetCount++;
-                Logger.Fatal(e.Message);
-                throw;
-            }
-            finally
-            {
-                m_LoadMetadataAssemblyComplete = m_LoadMetadataAssemblyWait && 0 == m_LoadMetadataAssetCount;
-            }
-        }
-        private void LoadMetadataAssetFailure(string assetName, LoadResourceStatus status, string errorMessage, object userData)
-        {
-            Logger.Warning($"LoadAssetFailure, assetName: [ {assetName} ], status: [ {status} ], errorMessage: [ {errorMessage} ], userData: [ {userData} ]");
-            m_LoadMetadataAssetCount--;
-            m_FailureMetadataAssetCount++;
         }
     }
 }

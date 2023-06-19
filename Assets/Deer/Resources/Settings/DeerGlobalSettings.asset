@@ -19,13 +19,12 @@ MonoBehaviour:
   m_DefaultFont: wryhSDF
   BaseAssetsRootName: BaseAssets
   m_ResourcesArea:
-    m_ResAdminType: Default
-    m_ResAdminCode: 0
-    m_WhetherCopyResToCommitPath: 0
+    m_ResAdminType: 
+    m_ResAdminCode: 
+    m_WhetherCopyResToCommitPath: 1
     m_CleanCommitPathRes: 1
-    m_ServerType: 1
+    m_ServerType: 2
     m_InnerResourceSourceUrl: http://121.4.195.168:8088
-    m_ExtraResourceSourceUrl: http://121.4.195.168:8088
     m_FormalResourceSourceUrl: http://121.4.195.168:8088
   m_ResourceVersionFileName: ResourceVersion.txt
   WindowsAppUrl: 

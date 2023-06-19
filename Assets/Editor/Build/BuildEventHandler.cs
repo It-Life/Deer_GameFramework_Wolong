@@ -31,7 +31,6 @@ public class BuildEventHandler : IBuildEventHandler
     {
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkList.dat")),
         Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", "GameFrameworkVersion.dat")),
-        Utility.Path.GetRegularPath(Path.Combine(Application.dataPath, "StreamingAssets", DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName)),
     };
     private VersionInfo m_VersionInfo = new VersionInfo();
 
@@ -259,6 +258,10 @@ public class BuildEventHandler : IBuildEventHandler
                 {
                     Debug.Log("更新资源文件拷贝完毕！");
                 }
+#if ENABLE_HYBRID_CLR_UNITY
+                BuildEventHandlerWolong.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
+#endif
+                BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
                 Application.OpenURL("file://"+ CommitResourcesPath);
             }
             else
@@ -266,9 +269,5 @@ public class BuildEventHandler : IBuildEventHandler
                 Application.OpenURL("file://"+ outputFullPath);
             }
         }
-#if ENABLE_HYBRID_CLR_UNITY
-        BuildEventHandlerWolong.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
-#endif
-        BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
     }
 }

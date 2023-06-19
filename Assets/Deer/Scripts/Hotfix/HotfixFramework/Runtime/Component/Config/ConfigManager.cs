@@ -31,7 +31,7 @@ namespace Deer
         /// <summary>
         /// 全部配置表文件
         /// </summary>
-        private Dictionary<string, ConfigInfo> m_Configs;
+        private static Dictionary<string, ConfigInfo> m_Configs;
 
         private MoveConfigToReadWriteCallback m_MoveConfigToReadWriteCallback;
         public void ReadConfigWithStreamingAssets(string filePath,Action<bool,byte[]> results) 
@@ -83,8 +83,21 @@ namespace Deer
             string filePath = string.Empty;
             if (GameEntryMain.Base.EditorResourceMode)
             {
+                if (m_Configs == null)
+                {
+                    string configVersionPath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/{DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName}");
+                    string xml = File.ReadAllText(configVersionPath);
+                    m_Configs = FileUtils.AnalyConfigXml(xml);
+                }
+                string fileName = $"{file}.bytes";
+                if (m_Configs[fileName] == null)
+                {
+                    Logger.Error("filepath:" + filePath + " not exists");
+                    return null;
+                }
+                fileName = $"{file}.{m_Configs[fileName].HashCode}{m_Configs[fileName].Extension}";
                 //编辑器模式
-                filePath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}",$"{file}.bytes");
+                filePath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/Datas",fileName);
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
@@ -97,7 +110,7 @@ namespace Deer
             else
             {
                 //单机包模式和热更模式 读取沙盒目录
-                filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, $"{file}.bytes");
+                filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", $"{file}.bytes");
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
@@ -121,7 +134,7 @@ namespace Deer
         private IEnumerator IELoadOnlyReadPathConfigVersionFile()
         {
 
-            string filePath = Path.Combine(Application.streamingAssetsPath, DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName);
+            string filePath = Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName);
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
             filePath = filePath = $"file://{filePath}";
 #endif
@@ -156,15 +169,16 @@ namespace Deer
         {
             string filePath = string.Empty;
             int completeNum = 0;
+            string curHashCode = string.Empty;
             foreach (var config in m_Configs)
             {
-                filePath = Path.Combine(GameEntry.Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, config.Value.Name);
+                filePath = Path.Combine(GameEntry.Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", config.Value.Name);
                 bool canMove = false;
                 if (File.Exists(filePath))
                 {
-                    string readWritePathFileMd5 = Main.Runtime.FileUtils.Md5ByPathName(filePath);
-
-                    if (config.Value.MD5 != readWritePathFileMd5)
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    curHashCode = GameFramework.Utility.Verifier.GetCrc32(fileInfo.OpenRead()).ToString();
+                    if (config.Value.HashCode != curHashCode)
                     {
                         canMove = true;
                     }
@@ -175,7 +189,7 @@ namespace Deer
                 }
                 if (canMove)
                 {
-                    string fileOnlyReadPath = Path.Combine(Application.streamingAssetsPath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, config.Value.Name);
+                    string fileOnlyReadPath = Path.Combine(Application.streamingAssetsPath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", config.Value.Name);
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
                     fileOnlyReadPath = fileOnlyReadPath = $"file://{fileOnlyReadPath}";
 #endif

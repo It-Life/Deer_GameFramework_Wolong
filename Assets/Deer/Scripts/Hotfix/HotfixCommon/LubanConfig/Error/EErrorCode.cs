@@ -6,8 +6,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace cfg.Error
-{
+{ 
     public enum EErrorCode
     {
         OK = 0,
@@ -96,4 +97,5 @@ namespace cfg.Error
         SELFIE_LACK_STARTS = 1202,
         SELFIE_HAD_REWARD = 1203,
     }
-}
+
+} 

@@ -242,19 +242,16 @@ namespace UGFExtensions.Editor.ResourceTools
             r.xMax = rect.xMax;
             rule.searchPatterns = EditorGUI.TextField(r, rule.searchPatterns);
         }
-        private string m_LastFolderPath = string.Empty;
+
         private string SelectFolder()
         {
-            if (string.IsNullOrEmpty(m_LastFolderPath))
-            {
-                m_LastFolderPath = Application.dataPath;
-            }
-            string selectedPath = EditorUtility.OpenFolderPanel("Path", m_LastFolderPath, "");
+            string dataPath = Application.dataPath;
+            string selectedPath = EditorUtility.OpenFolderPanel("Path", dataPath, "");
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                if (selectedPath.StartsWith(m_LastFolderPath))
+                if (selectedPath.StartsWith(dataPath))
                 {
-                    return "Assets/" + selectedPath.Substring(m_LastFolderPath.Length + 1);
+                    return "Assets/" + selectedPath.Substring(dataPath.Length + 1);
                 }
                 else
                 {
@@ -432,7 +429,7 @@ namespace UGFExtensions.Editor.ResourceTools
 
             return false;
         }
-
+        private string m_Prefix = "Deer/AssetsHotfix/";
         private void AnalysisResourceFilters()
         {
             m_ResourceCollection = new ResourceCollection();
@@ -459,7 +456,7 @@ namespace UGFExtensions.Editor.ResourceTools
                             else
                             {
                                 ApplyResourceFilter(ref signedAssetBundleList, resourceRule,
-                                    resourceRule.name);
+                                    resourceRule.name.Replace(m_Prefix,""));
                             }
                         }
                             break;
@@ -488,7 +485,7 @@ namespace UGFExtensions.Editor.ResourceTools
                                     if (!m_SourceAssetExceptTypeFilterGUIDArray.Contains(assetGUID) && !m_SourceAssetExceptLabelFilterGUIDArray.Contains(assetGUID))
                                     {
                                         ApplyResourceFilter(ref signedAssetBundleList, resourceRule,
-                                            relativeAssetNameWithoutExtension, assetGUID);
+                                            relativeAssetNameWithoutExtension.Replace(m_Prefix,""), assetGUID);
                                     }
                                 }
                             }
@@ -505,7 +502,7 @@ namespace UGFExtensions.Editor.ResourceTools
                                     directory.FullName.Substring(Application.dataPath.Length + 1);
 
                                 ApplyResourceFilter(ref signedAssetBundleList, resourceRule,
-                                    Utility.Path.GetRegularPath(relativeDirectoryName), string.Empty,
+                                    Utility.Path.GetRegularPath(relativeDirectoryName).Replace(m_Prefix,""), string.Empty,
                                     directory.FullName);
                             }
                         }
@@ -540,7 +537,7 @@ namespace UGFExtensions.Editor.ResourceTools
                                         if (!m_SourceAssetExceptTypeFilterGUIDArray.Contains(assetGUID) && !m_SourceAssetExceptLabelFilterGUIDArray.Contains(assetGUID))
                                         {
                                             ApplyResourceFilter(ref signedAssetBundleList, resourceRule,
-                                                relativeAssetNameWithoutExtension, assetGUID);
+                                                relativeAssetNameWithoutExtension.Replace(m_Prefix,""), assetGUID);
                                         }
                                     }
                                 }

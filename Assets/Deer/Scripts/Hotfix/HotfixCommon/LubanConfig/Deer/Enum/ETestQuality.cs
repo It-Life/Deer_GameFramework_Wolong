@@ -6,8 +6,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+
 namespace cfg.Deer.Enum
-{
+{ 
     public enum ETestQuality
     {
         /// <summary>
@@ -27,4 +28,5 @@ namespace cfg.Deer.Enum
         /// </summary>
         D = 4,
     }
-}
+
+} 

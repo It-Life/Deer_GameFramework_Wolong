@@ -25,7 +25,7 @@
 
 ### 框架使用帮助
 
-- [点击链接加入QQ群聊【Deer_Gf_CLR热更使用互助群】](https://jq.qq.com/?_wv=1027&k=18qNRFnH)
+- [点击链接加入QQ群聊【171264184:Deer_Gf_CLR热更使用互助群】](https://jq.qq.com/?_wv=1027&k=18qNRFnH)
 - 博客地址 [AlanDu](https://www.cnblogs.com/AlanDu/)
 
 ### 项目声明

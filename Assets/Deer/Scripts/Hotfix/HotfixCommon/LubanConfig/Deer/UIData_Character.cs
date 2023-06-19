@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Deer
 {
-
 public sealed partial class UIData_Character :  Bright.Config.BeanBase 
 {
     public UIData_Character(ByteBuf _buf) 

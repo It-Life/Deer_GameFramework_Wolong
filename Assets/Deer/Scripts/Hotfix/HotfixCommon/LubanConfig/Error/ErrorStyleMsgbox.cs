@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Error
 {
-
 public sealed partial class ErrorStyleMsgbox :  Error.ErrorStyle 
 {
     public ErrorStyleMsgbox(ByteBuf _buf)  : base(_buf) 

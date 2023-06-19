@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Error
 {
-
 public abstract partial class ErrorStyle :  Bright.Config.BeanBase 
 {
     public ErrorStyle(ByteBuf _buf) 

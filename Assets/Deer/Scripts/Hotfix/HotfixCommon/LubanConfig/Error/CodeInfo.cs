@@ -9,10 +9,8 @@ using Bright.Serialization;
 using System.Collections.Generic;
 
 
-
 namespace cfg.Error
 {
-
 public sealed partial class CodeInfo :  Bright.Config.BeanBase 
 {
     public CodeInfo(ByteBuf _buf) 
