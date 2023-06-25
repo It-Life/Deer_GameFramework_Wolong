@@ -92,8 +92,6 @@ namespace HotfixBusiness.Procedure
         /// </summary>
         private void PreloadAfterLoadingConfig()
         {
-            //初始化所有角色信息管理器
-            DataUserManager.Instance.enabled = true;
             PreloadView();
         }
 

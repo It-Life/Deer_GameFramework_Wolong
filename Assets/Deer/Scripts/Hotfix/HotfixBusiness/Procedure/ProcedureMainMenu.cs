@@ -7,6 +7,7 @@
 //版 本:0.1 
 // ===============================================
 using GameFramework;
+using HotfixBusiness.DataUser;
 using HotfixBusiness.UI;
 using Main.Runtime.Procedure;
 using UnityGameFramework.Runtime;
@@ -21,12 +22,16 @@ namespace HotfixBusiness.Procedure
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
+            //初始化所有信息管理器
+            DataManagerEntry.Instance.OnInit();
             ShowUIEntranceMenuForm(true);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
+            //清理所有信息管理器
+            DataManagerEntry.GetInstance().OnClear();
             ShowUIEntranceMenuForm(false);            
         }
 
