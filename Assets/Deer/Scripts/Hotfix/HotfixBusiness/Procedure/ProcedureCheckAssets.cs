@@ -50,8 +50,6 @@ namespace HotfixBusiness.Procedure
     {
         public override bool UseNativeDialog => false;
         private string m_NextProcedure;
-        private bool m_LoadResourcesFinish;
-        private bool m_LoadAssembliesFinish;
         private long m_UpdateTotalZipLength = 0;
         private bool m_NoticeUpdate = false;
         private float m_LastUpdateTime = 0;
@@ -64,21 +62,20 @@ namespace HotfixBusiness.Procedure
         private int m_FailureAssetCount;
         private bool m_IsResetProcedure;
 
-        private bool m_NeedUpdateResources;
-        private bool m_NeedUpdateAssemblies;
-        
+        private Dictionary<ResourcesType, UpdateResourceInfo> m_UpdateResourceInfos = new();
+
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             m_NextProcedure = procedureOwner.GetData<VarString>("nextProcedure");
             m_NoticeUpdate = false;
+            
+            m_UpdateResourceInfos.Clear();
+            m_UpdateResourceInfos.Add(ResourcesType.Resources, new UpdateResourceInfo(ResourcesType.Resources, false, false,false,0,0));
+            m_UpdateResourceInfos.Add(ResourcesType.Assemblies, new UpdateResourceInfo(ResourcesType.Assemblies, false, false,false,0,0));
+            
             m_UpdateTotalZipLength = 0;
-            m_LoadResourcesFinish = false;
-            m_LoadAssembliesFinish = false;
             m_IsResetProcedure = false;
-
-            m_NeedUpdateResources = false;
-            m_NeedUpdateAssemblies = false;
             
             OnStartLoadAsset();
             GameEntry.Event.Subscribe(ResourceUpdateStartEventArgs.EventId, OnResourceUpdateStart);
@@ -90,18 +87,22 @@ namespace HotfixBusiness.Procedure
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (m_LoadResourcesFinish && m_LoadAssembliesFinish)
+            foreach (var item in m_UpdateResourceInfos)
             {
-                GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(false);
-                GameEntry.Setting.SetString("nextProcedure",m_NextProcedure);
-                if (m_IsResetProcedure)
+                if (!item.Value.UpdateComplete)
                 {
-                    GameEntry.ResetProcedure(Constant.Procedure.ProcedureResetMain);
+                    return;
                 }
-                else
-                {
-                    ChangeState<ProcedureResetMain>(m_ProcedureOwner);
-                }
+            }
+            GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(false);
+            GameEntry.Setting.SetString("nextProcedure",m_NextProcedure);
+            if (m_IsResetProcedure)
+            {
+                GameEntry.ResetProcedure(Constant.Procedure.ProcedureResetMain);
+            }
+            else
+            {
+                ChangeState<ProcedureResetMain>(m_ProcedureOwner);
             }
         }
 
@@ -113,7 +114,30 @@ namespace HotfixBusiness.Procedure
             GameEntry.Event.Unsubscribe(ResourceUpdateSuccessEventArgs.EventId, OnResourceUpdateSuccess);
             GameEntry.Event.Unsubscribe(ResourceUpdateFailureEventArgs.EventId, OnResourceUpdateFailure);
         }
+        private UpdateResourceInfo GetUpdateResourceInfo(ResourcesType resourcesType)
+        {
+            try
+            {
+                m_UpdateResourceInfos.TryGetValue(resourcesType, out UpdateResourceInfo cvi);
+                if (cvi != null) return cvi;
+                else throw new Exception("Can not find the UpdateResourceInfo for the specified ResourcesType");
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e.ToString());
+                throw;
+            }
+        }
+        private long GetUpdateTotalZipLength()
+        {
+            long len = 0;
+            foreach (var item in m_UpdateResourceInfos)
+            {
+                len += item.Value.UpdateLength;
+            }
 
+            return len;
+        }
         private void OnStartLoadAsset()
         {
             UnloadAllResources();
@@ -121,10 +145,20 @@ namespace HotfixBusiness.Procedure
             m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies(groupName);
             if (GameEntryMain.Base.EditorResourceMode)
             {
-                m_LoadResourcesFinish = true;
+                UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Resources);
+                if (updateResourceInfo != null)
+                {
+                    updateResourceInfo.NeedUpdate = false;
+                    updateResourceInfo.UpdateComplete = true;
+                }
                 if (AddHotAssemblyToArray())
                 {
-                    m_LoadAssembliesFinish = true;
+                    updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+                    if (updateResourceInfo != null)
+                    {
+                        updateResourceInfo.NeedUpdate = false;
+                        updateResourceInfo.UpdateComplete = true;
+                    }
                 }
             }
             else
@@ -150,13 +184,24 @@ namespace HotfixBusiness.Procedure
                 bool isReady = resourceGroup.Ready;
                 if (!isReady)
                 {
-                    m_UpdateTotalZipLength = resourceGroup.TotalCompressedLength - resourceGroup.ReadyCompressedLength;
-                    m_NeedUpdateResources = true;
+                    UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Resources);
+                    if (updateResourceInfo != null)
+                    {
+                        updateResourceInfo.NeedUpdate = true;
+                        updateResourceInfo.UpdateLength =
+                            resourceGroup.TotalCompressedLength - resourceGroup.ReadyCompressedLength;
+                        updateResourceInfo.UpdateCount = resourceGroup.TotalCount - resourceGroup.ReadyCount;
+                    }
                 }
                 GameEntryMain.Assemblies.CheckAssemblies(groupName, delegate(int count, long length)
                 {
-                    m_UpdateTotalZipLength += length;
-                    m_NeedUpdateAssemblies = true;
+                    UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+                    if (updateResourceInfo != null)
+                    {
+                        updateResourceInfo.NeedUpdate = true;
+                        updateResourceInfo.UpdateLength = length;   
+                        updateResourceInfo.UpdateCount = count;
+                    }
                     OnNoticeUpdate();
                 });
             }
@@ -239,6 +284,7 @@ namespace HotfixBusiness.Procedure
                 return;
             }
             m_NoticeUpdate = true;
+            m_UpdateTotalZipLength = GetUpdateTotalZipLength();
             /*if (m_UpdateTotalZipLength > 0)
             {
                 string conetnt = Utility.Text.Format("有{0}更新", FileUtils.GetLengthString(m_UpdateTotalZipLength));
@@ -249,15 +295,15 @@ namespace HotfixBusiness.Procedure
                 dialogParams.ConfirmText = "确定";
                 dialogParams.CancelText = "取消";
                 dialogParams.Message = Utility.Text.Format("更新文件大小{0}，建议你在WIFI环境下进行下载，是否现在更新？", FileUtils.GetLengthString(m_UpdateTotalZipLength));
-                dialogParams.OnClickConfirm = (object o) => { UpdateResources(); };
+                dialogParams.OnClickConfirm = (object o) => { StartUpdate(); };
                 dialogParams.OnClickCancel = (object o) => { Application.Quit(); };
                 GameEntryMain.UI.DeerUIInitRootForm().OnOpenUIDialogForm(dialogParams);
             }
             else
             {
-                UpdateResources();
+                StartUpdate();
             }*/
-            UpdateResources();
+            StartUpdate();
         }
 
         private void LoadHotUpdateAssembly()
@@ -266,7 +312,11 @@ namespace HotfixBusiness.Procedure
             {
                 if (AddHotAssemblyToArray())
                 {
-                    m_LoadAssembliesFinish = true;
+                    UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+                    if (updateResourceInfo != null)
+                    {
+                        updateResourceInfo.UpdateComplete = true;
+                    }
                 }
             }
             else
@@ -298,30 +348,34 @@ namespace HotfixBusiness.Procedure
                 }
                 if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
                 {
-                    m_LoadAssembliesFinish = true;
+                    UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+                    if (updateResourceInfo != null)
+                    {
+                        updateResourceInfo.UpdateComplete = true;
+                    }
                 }
             }
         }
-        private void UpdateResources()
+        private void StartUpdate()
         {
             string groupName = Constant.Procedure.FindAssetGroup(m_NextProcedure);
             GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(true);
-            if (m_NeedUpdateResources)
-            {
-                GameEntry.Resource.UpdateResources(groupName, OnUpdateResourcesComplete);
-            }
-            else
-            {
-                m_LoadResourcesFinish = true;
-            }
 
-            if (m_NeedUpdateAssemblies)
+            foreach (var item in m_UpdateResourceInfos)
             {
-                GameEntryMain.Assemblies.UpdateAssemblies(groupName,OnUpdateAssembliesComplete);
-            }
-            else
-            {
-                m_LoadAssembliesFinish = true;
+                UpdateResourceInfo updateResourceInfo = item.Value;
+                if (!updateResourceInfo.NeedUpdate)
+                {
+                    updateResourceInfo.UpdateComplete = true;
+                    continue;
+                }
+                if (item.Key == ResourcesType.Resources)
+                {
+                    GameEntry.Resource.UpdateResources(groupName, OnUpdateResourcesComplete);
+                }else if (item.Key == ResourcesType.Assemblies)
+                {
+                    GameEntryMain.Assemblies.UpdateAssemblies(groupName,OnUpdateAssembliesComplete);
+                }
             }
         }
 
@@ -343,7 +397,11 @@ namespace HotfixBusiness.Procedure
         {
             if (result)
             {
-                m_LoadResourcesFinish = true;
+                UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Resources);
+                if (updateResourceInfo != null)
+                {
+                    updateResourceInfo.UpdateComplete = true;
+                }
             }
             else
             {

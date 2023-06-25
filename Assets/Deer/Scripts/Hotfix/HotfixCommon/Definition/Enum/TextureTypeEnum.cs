@@ -1,21 +1,17 @@
 // ================================================
 //描 述:
 //作 者:AlanDu
-//创建时间:2023-05-29 17-06-20
+//创建时间:2023-06-18 17-56-05
 //修改作者:AlanDu
-//修改时间:2023-05-29 17-06-20
+//修改时间:2023-06-18 17-56-05
 //版 本:0.1 
 // ===============================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 调用原生接口
-/// </summary>
-public interface ICrossPlatformManager
+public enum TextureTypeEnum
 {
-    void handelCamera();
-    
-    
+    JPG,
+    PNG
 }

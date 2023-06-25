@@ -27,6 +27,9 @@ public static class UIExtension
     private static UIGroupHelperBase m_CustomUIGroupHelper = null;
     private static int m_UILoadingFormId;
     private static int m_UILoadingOneFormId;
+
+
+
     /// <summary>
     /// 血条节点
     /// </summary>
@@ -58,6 +61,10 @@ public static class UIExtension
             }
             return m_ShootTextRoot;
         }
+    }
+	public static Canvas GetCanvas(this UIComponent uiComponent)
+    {
+       return GameEntry.UI.GetInstanceRoot().GetComponent<Canvas>();
     }
     /// <summary>
     /// 获取血条节点

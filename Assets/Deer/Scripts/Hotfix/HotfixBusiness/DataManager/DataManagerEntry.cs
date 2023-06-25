@@ -3,19 +3,17 @@ using System.Collections.Generic;
 
 namespace HotfixBusiness.DataUser
 {
-    public class DataUserManager:SingletonMono<DataUserManager>
+    public class DataManagerEntry:SingletonMono<DataManagerEntry>
     {
         public static DataLoginInfoManager LoginInfo => _loginInfo ??= DataLoginInfoManager.Instance;
         private static DataLoginInfoManager _loginInfo;
         public static DataLevelInfoManager LevelInfo => _levelInfo ??= DataLevelInfoManager.Instance;
         private static DataLevelInfoManager _levelInfo;
         
-        private List<IUserInfoManager> m_AllUserInfoManagers;
-        public List<string> m_AllInitUserInfoManagers;
-        private void Awake()
+        private List<IUserInfoManager> m_AllUserInfoManagers = new();
+        protected override void Awake()
         {
-            m_AllUserInfoManagers = new List<IUserInfoManager>();
-            m_AllInitUserInfoManagers = new List<string>();
+            base.Awake();
             m_AllUserInfoManagers.Add(LoginInfo);
             m_AllUserInfoManagers.Add(LevelInfo);
         }
@@ -24,7 +22,6 @@ namespace HotfixBusiness.DataUser
         {
             foreach (var t in m_AllUserInfoManagers)
             {
-                m_AllInitUserInfoManagers.Add(t.GetType().Name);
                 t.OnInit();
             }
         }
@@ -43,6 +40,10 @@ namespace HotfixBusiness.DataUser
             {
                 t.OnLeave();
             }
+            if (GetInstance() != null)
+            {
+                OnClear();
+            } 
         }
     }
 }

@@ -6,6 +6,9 @@
 //修改时间:2022-06-05 18-49-04
 //版 本:0.1 
 // ===============================================
+
+using System;
+using System.Collections.Generic;
 using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
@@ -14,31 +17,37 @@ using System.IO;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
+using Version = GameFramework.Version;
 
 namespace Main.Runtime.Procedure
 {
+
+    public class CheckVersionInfo
+    {
+        public ResourcesType ResourcesType;
+        public int DownLoadCount;
+        public bool LatestComplete;
+        public bool UpdateVersionFlag;
+
+        public CheckVersionInfo(ResourcesType resourcesType, int downLoadCount, bool latestComplete, bool updateVersionFlag)
+        {
+            ResourcesType = resourcesType;
+            DownLoadCount = downLoadCount;
+            LatestComplete = latestComplete;
+            UpdateVersionFlag = updateVersionFlag;            
+        }
+    }
+
     public class ProcedureCheckVersion : ProcedureBase
     {
         public override bool UseNativeDialog => true;
         private int m_DownLoadVersionRetryCount = 5;
 
-        private int m_CurrDownLoadResourceVersionCount = 0;
-        private int m_CurrDownLoadConfigVersionCount = 0;
-        private int m_CurrDownLoadAssembliesCount = 0;
-
-        private bool m_LatestResourceComplete = false;
-        private bool m_LatestConfigComplete = false;
-        private bool m_LatestAssembliesComplete = false;
-
-        private bool m_UpdateConfigVersionFlag = false;
-        private bool m_UpdateResourceVersionFlag = false;
+        private Dictionary<ResourcesType, CheckVersionInfo> m_CheckVersionInfos = new Dictionary<ResourcesType, CheckVersionInfo>();
 
         private bool m_CheckVersionFailure = false;
-
-
         private VersionInfo m_VersionInfo = new VersionInfo();
         private UpdateVersionListCallbacks m_UpdateVersionListCallbacks;
-
         private int m_UINativeLoadingFormserialid;
 
         /// <summary>
@@ -54,18 +63,12 @@ namespace Main.Runtime.Procedure
                 return;
             }
             m_UpdateVersionListCallbacks = new UpdateVersionListCallbacks(OnUpdateResourcesVersionListSuccess, OnUpdateResourcesVersionListFailure);
-            m_CurrDownLoadResourceVersionCount = 0;
-            m_CurrDownLoadConfigVersionCount = 0;
-            m_CurrDownLoadAssembliesCount = 0;
+            m_CheckVersionInfos.Clear();
+            m_CheckVersionInfos.Add(ResourcesType.Resources,new CheckVersionInfo(ResourcesType.Resources,0,false,false));
+            m_CheckVersionInfos.Add(ResourcesType.Config,new CheckVersionInfo(ResourcesType.Config,0,false,false));
+            m_CheckVersionInfos.Add(ResourcesType.Assemblies,new CheckVersionInfo(ResourcesType.Assemblies,0,false,false));
             
-            
-            m_LatestResourceComplete = false;
-            m_LatestConfigComplete = false;
-            m_LatestAssembliesComplete = false;
-            
-            m_UpdateConfigVersionFlag = false;
-            m_UpdateResourceVersionFlag = false;
-            
+            GameEntryMain.Assemblies.InitAssembliesVersion();    
             GameEntryMain.Resource.UpdatePrefixUri = DeerSettingsUtils.GetResDownLoadPath();
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
@@ -76,20 +79,37 @@ namespace Main.Runtime.Procedure
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-
-            if (!m_LatestConfigComplete || !m_LatestResourceComplete || !m_LatestAssembliesComplete)
+            foreach (var item in m_CheckVersionInfos)
             {
-                return;
+                if (!item.Value.LatestComplete)
+                {
+                    return;
+                }
             }
             ChangeState<ProcedureUpdateResources>(procedureOwner);
         }
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
+            m_CheckVersionInfos.Clear();
             GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
         }
-
+        private CheckVersionInfo GetCheckVersionInfo(ResourcesType resourcesType)
+        {
+            try
+            {
+                m_CheckVersionInfos.TryGetValue(resourcesType, out CheckVersionInfo cvi);
+                if (cvi != null) return cvi;
+                else throw new Exception("Can not find the CheckVersionInfo for the specified ResourcesType");
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e.ToString());
+                throw;
+            }
+        }
+        
         /// <summary>
         /// 下载配置表版本文件
         /// </summary>
@@ -120,7 +140,11 @@ namespace Main.Runtime.Procedure
             string downLoadUrl = DeerSettingsUtils.GetResDownLoadPath(resourceVersionFileName);
             if (Application.isEditor && GameEntryMain.Base.EditorResourceMode)
             {
-                m_LatestResourceComplete = true;
+                CheckVersionInfo checkVersionInfo = GetCheckVersionInfo(ResourcesType.Resources);
+                if (checkVersionInfo != null)
+                {
+                    checkVersionInfo.LatestComplete = true;
+                }
                 return;
             }
             GameEntryMain.Download.AddDownload(downLoadPath, downLoadUrl, new CheckData() { CheckType = ResourcesType.Resources });
@@ -138,19 +162,15 @@ namespace Main.Runtime.Procedure
             {
                 return;
             }
-            if (checkData.CheckType == ResourcesType.Config)//下载的是配置表文件
+            CheckVersionInfo checkVersionInfo = GetCheckVersionInfo(checkData.CheckType);
+            if (checkVersionInfo is { UpdateVersionFlag: false })
             {
-                if (!m_UpdateConfigVersionFlag)
+                checkVersionInfo.UpdateVersionFlag = true;
+                if (checkData.CheckType == ResourcesType.Config)
                 {
-                    m_UpdateConfigVersionFlag = true;
-                    m_LatestConfigComplete = true;
-                }
-            }
-            else if (checkData.CheckType == ResourcesType.Resources)//下载的是资源文件
-            {
-                if (!m_UpdateResourceVersionFlag)
+                    checkVersionInfo.LatestComplete = true;
+                }else if (checkData.CheckType == ResourcesType.Resources)
                 {
-                    m_UpdateResourceVersionFlag = true;
                     string versionInfoBytes = File.ReadAllText(ne.DownloadPath);
                     m_VersionInfo = Utility.Json.ToObject<VersionInfo>(versionInfoBytes);
                     if (m_VersionInfo == null)
@@ -166,25 +186,25 @@ namespace Main.Runtime.Procedure
                         return;
                     }*/
                     CheckVersionList();
-                }
-            }else if (checkData.CheckType == ResourcesType.Assemblies)
-            {
-                if (GameEntryMain.Assemblies.CheckVersionList() == CheckVersionListResult.Updated)
+                }else if (checkData.CheckType == ResourcesType.Assemblies)
                 {
-                    m_LatestAssembliesComplete = true;
-                }
-                else
-                {
-                    m_LatestAssembliesComplete =  GameEntryMain.Assemblies.UpdateVersionList();
+                    GameEntryMain.Assemblies.CheckVersionList(delegate(CheckVersionListResult result)
+                    {
+                        checkVersionInfo.LatestComplete = result == CheckVersionListResult.Updated || GameEntryMain.Assemblies.UpdateVersionList();
+                    });
                 }
             }
         }
 
         private void CheckVersionList()
         {
+            CheckVersionInfo checkVersionInfo = GetCheckVersionInfo(ResourcesType.Resources);
             if (GameEntryMain.Resource.CheckVersionList(m_VersionInfo.InternalResourceVersion) == CheckVersionListResult.Updated)
             {
-                m_LatestResourceComplete = true;
+                if (checkVersionInfo != null)
+                {
+                    checkVersionInfo.LatestComplete = true;
+                }
             }
             else
             {
@@ -210,39 +230,41 @@ namespace Main.Runtime.Procedure
             {
                 return;
             }
-
             DownloadFailureEventArgs ne = (DownloadFailureEventArgs)e;
-
-            if (m_CurrDownLoadConfigVersionCount > m_DownLoadVersionRetryCount || m_CurrDownLoadResourceVersionCount > m_DownLoadVersionRetryCount || m_CurrDownLoadAssembliesCount > m_DownLoadVersionRetryCount)
-            {
-                CheckVersionError(ne);
-                return;
-            }
-
             CheckData checkData = ne.UserData as CheckData;
             if (checkData == null)
             {
                 return;
             }
-
+            CheckVersionInfo checkVersionInfo = GetCheckVersionInfo(checkData.CheckType);
+            if (checkVersionInfo != null)
+            {
+                if (checkVersionInfo.DownLoadCount > m_DownLoadVersionRetryCount)
+                {
+                    CheckVersionError(ne);
+                    return;
+                }
+                checkVersionInfo.DownLoadCount++;
+            }
             if (checkData.CheckType == ResourcesType.Config)//下载的是配置表文件
             {
-                m_CurrDownLoadConfigVersionCount++;
                 DownLoadConfigVersion();
             }
             else if (checkData.CheckType == ResourcesType.Resources)//下载的是资源文件
             {
-                m_CurrDownLoadResourceVersionCount++;
                 DownLoadResourcesVersion();
             }else if (checkData.CheckType == ResourcesType.Assemblies)
             {
-                m_CurrDownLoadAssembliesCount++;
                 DownLoadAssembliesVersion();
             }
         }
         private void OnUpdateResourcesVersionListSuccess(string downloadPath, string downloadUri)
         {
-            m_LatestResourceComplete = true;
+            CheckVersionInfo checkVersionInfo = GetCheckVersionInfo(ResourcesType.Resources);
+            if (checkVersionInfo != null)
+            {
+                checkVersionInfo.LatestComplete = true;
+            }
 /*            Log.ColorInfo(ColorType.skyblue, Utility.Text.Format("Update latest version list from '{0}' success.", downloadUri));
             Log.ColorInfo(new Color(0.4f, 1f, 0.8f), Utility.Text.Format("Update latest version list from '{0}' success.", downloadUri));*/
         }

@@ -11,8 +11,8 @@
 /// </summary>
 public partial class CrossPlatformManagerIOS:ICrossPlatformManager
 {
-    public void OpenAudio()
+    public void handelCamera()
     {
-        InitSDK();
+        HandelCamera();
     }
 }

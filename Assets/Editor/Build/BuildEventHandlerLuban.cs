@@ -38,12 +38,20 @@ public static class BuildEventHandlerLuban
     {
         if (outputPackageSelected)
         {
-            CopyPackageFile();
+            //CopyPackageFile();
+            if (FolderUtils.CopyFolder(
+                    $"{Application.dataPath}/../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}",
+                    Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName)))
+            {
+                Debug.Log("拷贝表资源文件成功！");
+                AssetDatabase.Refresh();
+            }
         }
         if (outputFullSelected)
         {
             string commitPath = commitResourcesPath + "/" + platform;
-            if (FolderUtils.CopyFolder($"{Application.dataPath}/../LubanTools/GenerateDatas", commitPath))
+            if (FolderUtils.CopyFolder($"{Application.dataPath}/../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}", 
+                    Path.Combine(commitPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName)))
             {
                 Debug.Log("拷贝表资源文件成功！");
             }

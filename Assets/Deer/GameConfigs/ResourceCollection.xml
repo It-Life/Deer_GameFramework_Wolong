@@ -17,22 +17,18 @@
       <Resource Name="AGameExample/Scenes" LoadType="0" Packed="False" ResourceGroups="AGameExample" />
       <Resource Name="AGameExample/Sounds" LoadType="0" Packed="False" ResourceGroups="AGameExample" />
       <Resource Name="AGameExample/UI" LoadType="0" Packed="False" ResourceGroups="AGameExample" />
+      <Resource Name="BaseAssets/Font" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/GameConfigs" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/GF" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UI/UIArt/AtlasCollection/Common" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UI/UIArt/Texture/loading_bg" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="BaseAssets/UI/UIArt/UISprites/Common/loading" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="BaseAssets/UI/UIArt/UISprites/Common/loadingbg" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIArt/UISprites/Common" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UI/UIForms/UIDialog/UIDialogForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UI/UIForms/UILoading/UILoadingForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UI/UIForms/UILoadingOne/UILoadingOneForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="BaseAssets/UI/UIForms/UILoadingScene/UILoadingSceneForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UI/UIForms/UIMainMenu/UIMainMenuForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UI/UIForms/UITips/UITipsForm" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="BaseAssets/UI/UIHealthBar/UIPlayerHealthBar" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="BaseAssets/UI/UIShootText/Image_ShootText" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="BaseAssets/UI/UIShootText/ShootText_Pure" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
-      <Resource Name="BaseAssets/UI/UIShootText/Text_ShootText" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
+      <Resource Name="BaseAssets/UI/UIPrefabs" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UITemplate/Joystick/Joystick" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UITemplate/ScrollView/HGridScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
       <Resource Name="BaseAssets/UITemplate/ScrollView/HListScrollView" LoadType="0" Packed="False" ResourceGroups="BaseAssets" />
@@ -83,7 +79,7 @@
       <Asset Guid="1ba9fef6795f59644a661d051dee8f6c" ResourceName="AGameExample/UI" />
       <Asset Guid="1cddfc3979dc2144098a87b4a2568741" ResourceName="ADeerExample/UI/UIArt/AtlasCollection/Icon" />
       <Asset Guid="203729cadb1b806489e81f0d47ccb18d" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="227f8b54bf3f57b4392a62306a97b840" ResourceName="BaseAssets/UI/UIHealthBar/UIPlayerHealthBar" />
+      <Asset Guid="227f8b54bf3f57b4392a62306a97b840" ResourceName="BaseAssets/UI/UIPrefabs" />
       <Asset Guid="22f8dd74c70316046866d180dea83aed" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="24f9961372fb6c2439df9fbc7f4c0f79" ResourceName="ADeerExample/Scenes" />
       <Asset Guid="255195c037717bd479546418eff08f34" ResourceName="AGameExample/EntityResources" />
@@ -103,6 +99,7 @@
       <Asset Guid="38ca611e1675ce84f828829596bba7c9" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="397b7bc6b9b47ed43b9a855c4e992dc5" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="3a311997e25dafd49b394538280309c0" ResourceName="AGameExample/UI" />
+      <Asset Guid="3c31266dd0ae57c468b36845e0397b6a" ResourceName="BaseAssets/Font" />
       <Asset Guid="3c781c240b425e048aebb2486eb9c2bb" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="3ca4a3018e19102449398f585286054f" ResourceName="AGameExample/UI" />
       <Asset Guid="3cdd48bbd933e204f974c7eef90332c5" ResourceName="ADeerExample/EntityResources" />
@@ -116,7 +113,7 @@
       <Asset Guid="454cb32e9bdd3444e97d1c0099d71310" ResourceName="AGameExample/UI" />
       <Asset Guid="4593cd7ae1ee77e459abf7d8a288ea6b" ResourceName="AGameExample/UI" />
       <Asset Guid="462b58a8e55b2204f9a023b6056cd410" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="466741b236a7df54fa016d0554d0d255" ResourceName="BaseAssets/UI/UIShootText/Image_ShootText" />
+      <Asset Guid="466741b236a7df54fa016d0554d0d255" ResourceName="BaseAssets/UI/UIPrefabs" />
       <Asset Guid="4694e759cf995894d8187715e6298f1d" ResourceName="AGameExample/UI" />
       <Asset Guid="47022650e9d7d4b43adc4a8597128d92" ResourceName="AGameExample/UI" />
       <Asset Guid="48591b2c571784a4aa2fed5bf35023e8" ResourceName="AGameExample/EntityPrefabs" />
@@ -158,7 +155,7 @@
       <Asset Guid="6f972ee29a786604bbc01331ee8e8533" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="70f7a0bd607a9b54aa5112c636c695d2" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="710c2483be39e5b4599499ac74a92a96" ResourceName="AGameExample/UI" />
-      <Asset Guid="716a243830ee50249a909f893f37c5d4" ResourceName="BaseAssets/UI/UIArt/UISprites/Common/loadingbg" />
+      <Asset Guid="716a243830ee50249a909f893f37c5d4" ResourceName="BaseAssets/UI/UIArt/UISprites/Common" />
       <Asset Guid="7247e1fea0760b54caa253020097fcdf" ResourceName="BaseAssets/UITemplate/ScrollView/ScrollVItemPrefab" />
       <Asset Guid="73e5cd8af6641ab4a851a0d30e1f8ac5" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="73ede691105c5e94abc1b4edb88bf2da" ResourceName="ADeerExample/EntityResources" />
@@ -175,7 +172,7 @@
       <Asset Guid="7fe7fb69b72be3644bb88b9c03d0fbd2" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="7fec670294593b64e9dfac8731b13051" ResourceName="AGameExample/UI" />
       <Asset Guid="805ea66278d2b704c87c0f6acc996932" ResourceName="AGameExample/UI" />
-      <Asset Guid="80a9390956026d548935e7833d3257fa" ResourceName="BaseAssets/UI/UIShootText/ShootText_Pure" />
+      <Asset Guid="80a9390956026d548935e7833d3257fa" ResourceName="BaseAssets/UI/UIPrefabs" />
       <Asset Guid="80e1697efc05da0459b589eaa8b0d834" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="824ce40d3721d434d98b9a3034771a0c" ResourceName="AGameExample/Sounds" />
       <Asset Guid="82511fec482182d419fa1d98dbc674d6" ResourceName="AGameExample/EntityResources" />
@@ -218,7 +215,7 @@
       <Asset Guid="a493fd7876190a04b972bf7b3f90d962" ResourceName="BaseAssets/UITemplate/ScrollView/HGridScrollView" />
       <Asset Guid="a4b19fcfadbfff74d93d622f055f4319" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="a4ecbc6afc651d94888a4b56e95f846f" ResourceName="ADeerExample/UI/UIForms/UIBag/UIBagForm_SubUI" />
-      <Asset Guid="a5671ef5b26e98f48b513cadb9e87e2b" ResourceName="BaseAssets/UI/UIArt/UISprites/Common/loading" />
+      <Asset Guid="a5671ef5b26e98f48b513cadb9e87e2b" ResourceName="BaseAssets/UI/UIArt/UISprites/Common" />
       <Asset Guid="a6e77abe2bde05c4390375b3113e066d" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="a9bb0d5df7af0c840935b6ee51debd27" ResourceName="ADeerExample/UI/UIArt/Texture/login_bg" />
       <Asset Guid="ab645d36145d9f245925a95272fe06e6" ResourceName="AGameExample/UI" />
@@ -249,7 +246,7 @@
       <Asset Guid="bf36aab813e90fe4c9bf7b64bb16ed99" ResourceName="AGameExample/UI" />
       <Asset Guid="c024f83a935575c43bae2f966232ecbe" ResourceName="AGameExample/UI" />
       <Asset Guid="c2cb08dae240aad4e80bd7f35c339d8e" ResourceName="ADeerExample/EntityResources" />
-      <Asset Guid="c3bacb295d4014847a8ef29520f9d1a2" ResourceName="BaseAssets/UI/UIShootText/Text_ShootText" />
+      <Asset Guid="c3bacb295d4014847a8ef29520f9d1a2" ResourceName="BaseAssets/UI/UIPrefabs" />
       <Asset Guid="c7779f6b5a9e50d4e9963aafb1bbfe53" ResourceName="AGameExample/EntityPrefabs" />
       <Asset Guid="c97dc18b880c9194e89f7f68d864b4bf" ResourceName="AGameExample/UI" />
       <Asset Guid="cd7fb0eac14f22048abac8bfd630ed07" ResourceName="AGameExample/UI" />
@@ -264,7 +261,6 @@
       <Asset Guid="d64bc9831e9a3c44abd5731e44132c7a" ResourceName="AGameExample/Scenes" />
       <Asset Guid="d74ec626f1b3c9b4eaf7b3627e2678f1" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="d759832436236de43b79fe23de3f41e6" ResourceName="AGameExample/EntityPrefabs" />
-      <Asset Guid="d7c3d93930b9e334cb95e70cb6e62c3b" ResourceName="BaseAssets/UI/UIForms/UILoadingScene/UILoadingSceneForm" />
       <Asset Guid="d901003b4546ace4f943b8211202b2aa" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="d9b36ed0d3415ec469b3f5e90d903fd9" ResourceName="AGameExample/EntityPrefabs" />
       <Asset Guid="da27e40db716bc04794c3c5ddc3a475c" ResourceName="AGameExample/UI" />
@@ -301,6 +297,7 @@
       <Asset Guid="f8617ff9c2c7c1a49aab39a9945d90ad" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="f8e646084847add4ea6950ebbe2c994c" ResourceName="AGameExample/EntityResources" />
       <Asset Guid="f948cddd52354284e9472f8d1707a4e1" ResourceName="AGameExample/EntityResources" />
+      <Asset Guid="f9612d2ea47890742846a458b552127a" ResourceName="BaseAssets/Font" />
       <Asset Guid="fae6b955e4e25144095a805b0bcbf6c9" ResourceName="ADeerExample/EntityResources" />
       <Asset Guid="fb08855e4c34fc04891f62f0cf3225da" ResourceName="BaseAssets/UI/UIForms/UILoadingOne/UILoadingOneForm" />
       <Asset Guid="fbe47d3b359212d4bb0513aee5d4ffce" ResourceName="ADeerExample/EntityResources" />

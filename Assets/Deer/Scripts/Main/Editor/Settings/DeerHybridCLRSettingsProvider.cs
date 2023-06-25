@@ -38,6 +38,7 @@ public class DeerHybridCLRSettingsProvider : SettingsProvider
         {
 
             SynAssemblysContent.RefreshAssembly();
+            
             m_CustomSettings.ApplyModifiedPropertiesWithoutUndo();
             m_CustomSettings = null;
             m_CustomSettings = GetSerializedSettings();
@@ -56,7 +57,6 @@ public class DeerHybridCLRSettingsProvider : SettingsProvider
         if ( !changeCheckScope.changed ) return;
         m_CustomSettings.ApplyModifiedPropertiesWithoutUndo();
     }
-
     public DeerHybridCLRSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords)
     {
     }

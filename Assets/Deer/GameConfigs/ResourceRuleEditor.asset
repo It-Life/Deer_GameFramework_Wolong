@@ -54,14 +54,64 @@ MonoBehaviour:
     filterType: 1
     searchPatterns: '*.*'
   - valid: 1
-    name: BaseAssets/UI
+    name: BaseAssets/Font
     variant: 
     fileSystem: 
     groups: BaseAssets
-    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UI
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/Font
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/UI/UIForms
+    variant: 
+    fileSystem: 
+    groups: BaseAssets
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UI/UIForms
     loadType: 0
     packed: 0
     filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/UI/UIPrefabs
+    variant: 
+    fileSystem: 
+    groups: BaseAssets
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UI/UIPrefabs
+    loadType: 0
+    packed: 0
+    filterType: 0
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/UI/UIArt/AtlasCollection
+    variant: 
+    fileSystem: 
+    groups: BaseAssets
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UI/UIArt/AtlasCollection
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/UI/UIArt/Texture
+    variant: 
+    fileSystem: 
+    groups: BaseAssets
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UI/UIArt/Texture
+    loadType: 0
+    packed: 0
+    filterType: 1
+    searchPatterns: '*.*'
+  - valid: 1
+    name: BaseAssets/UI/UIArt/UISprites
+    variant: 
+    fileSystem: 
+    groups: BaseAssets
+    assetsDirectoryPath: Assets/Deer/AssetsHotfix/BaseAssets/UI/UIArt/UISprites
+    loadType: 0
+    packed: 0
+    filterType: 2
     searchPatterns: '*.*'
   - valid: 1
     name: BaseAssets/UITemplate

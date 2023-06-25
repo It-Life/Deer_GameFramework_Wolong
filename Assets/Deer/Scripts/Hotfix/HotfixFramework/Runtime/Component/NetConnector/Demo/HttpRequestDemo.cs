@@ -2,40 +2,57 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DPLogin;
+using GameFramework.Event;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 public class HttpRequestDemo : MonoBehaviour
 {
+    private List<int> m_Requests;
     // Start is called before the first frame update
     void Start()
     {
+        m_Requests = new List<int>();
         //如果请求需要请求头，可以把请求头保存到这里 也可以自定义传参的方式添加进去
-        GameEntry.NetConnector.SetRequestServerHeader("osType","deviceId","appId");
-        
+        GameEntry.Event.Subscribe(WebRequestSuccessEventArgs.EventId, OnWebRequestSuccessFinishMethod);
+        GameEntry.Event.Subscribe(WebRequestFailureEventArgs.EventId, OnWebRequestFailureFinishMethod);
+    }
+
+    private void OnWebRequestFailureFinishMethod(object sender, GameEventArgs e)
+    {
+        if (e is WebRequestFailureEventArgs webRequestSuccessEvent)
+        {
+            if (m_Requests.Contains(webRequestSuccessEvent.SerialId))
+            {
+                Logger.Debug($"Request #{webRequestSuccessEvent.SerialId} failed: {webRequestSuccessEvent.ErrorMessage}");
+            }
+        }
+    }
+
+    private void OnWebRequestSuccessFinishMethod(object sender, GameEventArgs e)
+    {
+        if (e is WebRequestFailureEventArgs webRequestSuccessEvent)
+        {
+            if (m_Requests.Contains(webRequestSuccessEvent.SerialId))
+            {
+                Logger.Debug($"Request #{webRequestSuccessEvent.SerialId} success.");
+            }
+        }
     }
 
     void RequestGet()
     {
-        GameEntry.NetConnector.RequestGet("https://codegeex.cn", delegate(bool success, string data, string error)
-        {
-            
-        });
-        
-        GameEntry.NetConnector.RequestGetWithHeader("https://codegeex.cn", delegate(bool success, string data, string error)
-        {
-            
-        });
+        string url = "https://codegeex.cn";
+        int serialId = GameEntry.WebRequest.AddWebRequest(url);
+        m_Requests.Add(serialId);
+        Dictionary<string, string> header = new Dictionary<string, string>();
+        serialId = GameEntry.WebRequest.AddWebRequestWithHeader(url,header);
+        m_Requests.Add(serialId);
         Dictionary<string, string> param = new Dictionary<string, string>();
         param.Add("name", "CodeGeeX");  
         param.Add("value", "yes");        
-        GameEntry.NetConnector.RequestGet("https://codegeex.cn", param ,delegate(bool success, string data, string error)
-        {
-            
-        });
-        GameEntry.NetConnector.RequestGetWithHeader("https://codegeex.cn", param ,delegate(bool success, string data, string error)
-        {
-            
-        });
+        serialId = GameEntry.WebRequest.AddWebRequest(GameEntry.WebRequest.JointUrl(url,param));
+        m_Requests.Add(serialId);
     }
 
     void RequestPost()
@@ -43,37 +60,10 @@ public class HttpRequestDemo : MonoBehaviour
         WWWForm wwwForm = new WWWForm();
         wwwForm.AddField("name", "CodeGeeX");  
         wwwForm.AddField("value", "yes");
-        GameEntry.NetConnector.RequestPost("https://codegeex.cn", wwwForm,
-            delegate(bool success, string data, string error)
-            {
-
-            });
-        GameEntry.NetConnector.RequestPostWithHeader("https://codegeex.cn", wwwForm,
-            delegate(bool success, string data, string error)
-            {
-
-            });
-    }
-    /// <summary>
-    /// 异步请求
-    /// </summary>
-    async void RequestGetAsync()
-    {
-        SceneListDetailsRoot sceneList = await GameEntry.NetConnector.RequestGetAsync<SceneListDetailsRoot>("https://codegeex.cn");
-        SceneListDetailsRoot sceneList1 = await GameEntry.NetConnector.RequestGetAsyncWithHeader<SceneListDetailsRoot>("https://codegeex.cn");
-        Dictionary<string, string> param = new Dictionary<string, string>();
-        param.Add("name", "CodeGeeX");
-        param.Add("value", "yes");        
-        SceneListDetailsRoot sceneList2 = await GameEntry.NetConnector.RequestGetAsync<SceneListDetailsRoot>("https://codegeex.cn",param);
-        SceneListDetailsRoot sceneList3 = await GameEntry.NetConnector.RequestGetAsyncWithHeader<SceneListDetailsRoot>("https://codegeex.cn",param);
-    }
-
-    async void RequestPostAsync()
-    {
-        WWWForm wwwForm = new WWWForm();
-        wwwForm.AddField("name", "CodeGeeX");
-        wwwForm.AddField("value", "yes");        
-        SceneListDetailsRoot sceneList = await GameEntry.NetConnector.RequestPostAsync<SceneListDetailsRoot>("https://codegeex.cn",wwwForm);
-        SceneListDetailsRoot sceneList1 = await GameEntry.NetConnector.RequestPostAsyncWithHeader<SceneListDetailsRoot>("https://codegeex.cn",wwwForm);
+        int serialId = GameEntry.WebRequest.AddWebRequest("https://codegeex.cn", wwwForm);
+        m_Requests.Add(serialId);
+        Dictionary<string, string> header = new Dictionary<string, string>();
+        serialId = GameEntry.WebRequest.AddWebRequestWithHeader("https://codegeex.cn", wwwForm,header);
+        m_Requests.Add(serialId);
     }
 }

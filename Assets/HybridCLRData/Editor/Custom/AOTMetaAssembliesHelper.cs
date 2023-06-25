@@ -50,6 +50,7 @@ public static class AOTMetaAssembliesHelper
             string fileName = fileInfo.Name;
             DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies.Add(fileName);
         }
+        EditorUtility.SetDirty(DeerSettingsUtils.DeerHybridCLRSettings);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }

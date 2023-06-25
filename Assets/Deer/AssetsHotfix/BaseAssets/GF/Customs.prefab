@@ -303,7 +303,6 @@ Transform:
   - {fileID: 5541981490698295126}
   - {fileID: 7244883114676807449}
   - {fileID: 8608129270140538719}
-  - {fileID: 1286665781762295665}
   - {fileID: 1182350176038251641}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -334,8 +333,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2432979374888064313}
-  m_LocalRotation: {x: 0.21155074, y: 0.06442954, z: -0.013977586, w: 0.97514087}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -784,50 +783,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 940624229763724409}
---- !u!1 &4889092708306964665
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1286665781762295665}
-  - component: {fileID: 3287308947774750720}
-  m_Layer: 0
-  m_Name: Messaenger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1286665781762295665
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4889092708306964665}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 897906802030863421}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3287308947774750720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4889092708306964665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db8c87b2adebfb041bca595ff62d0dbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4999967319706736548
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,7 +816,7 @@ Transform:
   - {fileID: 3753875987259955745}
   - {fileID: 7043550359568221399}
   m_Father: {fileID: 897906802030863421}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6648081436348646732
 MonoBehaviour:
@@ -1314,7 +1269,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7043550359568221399}
   - component: {fileID: 6472829340342637723}
-  - component: {fileID: 7567808823985531458}
   m_Layer: 0
   m_Name: OrbitCameraVirtual
   m_TagString: Untagged
@@ -1376,38 +1330,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4071099138846659840}
---- !u!114 &7567808823985531458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7546986404825297630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e92424fd2609a4ca23d3370575b4ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Focus: {fileID: 0}
-  distance: 5
-  focusRadius: 5
-  focusCentering: 0.5
-  rotationSpeed: 90
-  minVerticalAngle: -45
-  maxVerticalAngle: 45
-  alignDelay: 5
-  alignSmoothRange: 45
-  upAlignmentSpeed: 360
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 5119
-  FocusPoint: {x: 0, y: 0, z: 0}
-  Use:
-    Filter: 0
-    IgnoreStartedOverGui: 1
-    RequiredFingerCount: 0
-    RequiredMouseButtons: 0
-    RequiredSelectable: {fileID: 0}
 --- !u!1 &7930007072135523353
 GameObject:
   m_ObjectHideFlags: 0

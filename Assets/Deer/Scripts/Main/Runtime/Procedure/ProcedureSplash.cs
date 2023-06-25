@@ -21,10 +21,9 @@ namespace Main.Runtime.Procedure
             base.OnEnter(procedureOwner);
             // TODO: 这里可以播放一个 Splash 动画
             // ...
-
             if (GameEntryMain.Base.EditorResourceMode)
             {
-                // 可更新模式
+                // 编辑器模式
                 Log.Info("Updatable resource mode detected.");
                 ChangeState<ProcedureLoadAssembly>(procedureOwner);
             }

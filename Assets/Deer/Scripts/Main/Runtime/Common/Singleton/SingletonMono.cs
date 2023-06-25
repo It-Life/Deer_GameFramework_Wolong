@@ -6,10 +6,6 @@
  * ChangeTime：2022-03-25 16-39-57
  * CreateVersion：0.1
  *  =============================================== */
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -35,6 +31,8 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    public static T GetInstance() => instance;
+
     protected virtual void Awake()
     {
         if (instance == null)
@@ -42,7 +40,13 @@ public class SingletonMono<T> : MonoBehaviour where T : MonoBehaviour
             instance = this as T;
         }
     }
-    public virtual void Clear()
+
+    public virtual void OnInit()
+    {
+        
+    }
+
+    public virtual void OnClear()
     {
         if (instance != null)
         {

@@ -1,11 +1,16 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Bright.Serialization;
 using CatJson;
-using GameFramework;
+using Cysharp.Threading.Tasks;
 using GameFramework.Event;
 using GameFramework.Resource;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityGameFramework.Runtime;
+using Utility = GameFramework.Utility;
 
 public class AssemblyInfo
 {
@@ -45,7 +50,7 @@ public class AssembliesComponent : GameFrameworkComponent
     private List<AssemblyInfo> m_NeedDownloadAssemblies;
     private List<AssemblyInfo> m_DownloadedAssemblies;
 
-
+    private Action<CheckVersionListResult> m_OnCheckVersionListResult;
     private bool m_FailureFlag;
     
     private int m_UpdateRetryCount;
@@ -74,42 +79,85 @@ public class AssembliesComponent : GameFrameworkComponent
 
     private void Start()
     {
-        InitAssembliesVersion();
         GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
         GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
     }
 
-    private void InitAssembliesVersion()
+    public void InitAssembliesVersion()
     {
-        ReadAssembliesVersion(out m_LastAssemblies);
+        ReadAssembliesVersion(true);
         Logger.Debug("InitAssembliesVersion");
     }
 
-    private void ReadAssembliesVersion(out List<AssemblyInfo> infos)
+    private void ReadAssembliesVersion(bool isLastVersion)
     {
-        infos = null;
         string fileName = DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath+"/"+DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName;
-        string downLoadPath = Path.Combine(Application.persistentDataPath, fileName);
-        if (File.Exists(downLoadPath))
+        if (!GameEntryMain.Base.EditorResourceMode)
         {
-            string versionInfoBytes = File.ReadAllText(downLoadPath);
-            infos = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+            string fileLoadPath;
+            if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
+            {
+                fileLoadPath = Path.Combine(Application.streamingAssetsPath, fileName);
+            }
+            else
+            {
+                fileLoadPath = Path.Combine(Application.persistentDataPath, fileName);
+            }
+            if (!File.Exists(fileLoadPath))
+            {
+                Logger.Warning<AssembliesComponent>(" " + fileLoadPath + " doesn't exist!");
+                return;
+            }
+#if UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+            fileLoadPath = $"file://{fileLoadPath}";
+#endif
+            StartCoroutine(StartReadAssemblies(fileLoadPath,isLastVersion));
         }
     }
 
-    public CheckVersionListResult CheckVersionList()
+    IEnumerator StartReadAssemblies(string filePath,bool isLastVersion)
     {
-        ReadAssembliesVersion(out m_NowAssemblies);
+        UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
+        yield return unityWebRequest.SendWebRequest();
+        if (unityWebRequest.isDone)
+        {
+            string versionInfoBytes = unityWebRequest.downloadHandler.text;
+            if (isLastVersion)
+            {
+                m_LastAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+            }
+            else
+            {
+                m_NowAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+                m_OnCheckVersionListResult?.Invoke(NeedUpdateAssemblies()
+                    ? CheckVersionListResult.NeedUpdate
+                    : CheckVersionListResult.Updated);
+            }
+        }
+        unityWebRequest.Dispose();
+    }
+
+    public AssemblyInfo FindAssemblyInfoByName(string name)
+    {
+        foreach (var assemblyInfo in m_LastAssemblies)
+        {
+            if (assemblyInfo.Name == name)
+            {
+                return assemblyInfo;
+            }
+        }
+        return null;
+    }
+
+    public void CheckVersionList(Action<CheckVersionListResult> oAction)
+    {
+        m_OnCheckVersionListResult = oAction;
         if (m_LastAssemblies == null)
         {
-            return CheckVersionListResult.NeedUpdate;
+            m_OnCheckVersionListResult?.Invoke(CheckVersionListResult.NeedUpdate);
+            return;
         }
-
-        if (NeedUpdateAssemblies())
-        {
-            return CheckVersionListResult.NeedUpdate;
-        }
-        return CheckVersionListResult.Updated;
+        ReadAssembliesVersion(false);
     }
     public bool UpdateVersionList()
     {

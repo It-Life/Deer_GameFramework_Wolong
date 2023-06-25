@@ -30,43 +30,50 @@ namespace Main.Runtime.Procedure
         Failure
     }
 
+    public class UpdateResourceInfo
+    {
+        public ResourcesType ResourcesType;
+        public bool CheckComplete;
+        public bool UpdateComplete;
+        public bool NeedUpdate;
+        public int UpdateCount;
+        public long UpdateLength;
+
+        public UpdateResourceInfo(ResourcesType  resourcesType, bool checkComplete,bool updateComplete, bool needUpdate, int updateCount, long updateLength)
+        {
+            ResourcesType = resourcesType;
+            CheckComplete = checkComplete;
+            UpdateComplete = updateComplete;
+            NeedUpdate = needUpdate;
+            UpdateCount = updateCount;
+            UpdateLength = updateLength;            
+        }
+    }
+
     public class ProcedureUpdateResources : ProcedureBase
     {
         public override bool UseNativeDialog => true;
 
         private float m_LastUpdateTime;
         private bool m_NoticeUpdate = false;
-        private bool m_CheckConfigComplete = false;
-        private bool m_CheckResourcesComplete = false;
-        private bool m_CheckAssembliesComplete = false;
-        private bool m_NeedUpdateConfig = false;
-        private bool m_NeedUpdateResources = false;
-        private bool m_NeedUpdateAssemblies = false;
-        private int m_UpdateConfigCount = 0;
-        private int m_UpdateResourceCount = 0;
-        private int m_UpdateAssembliesCount = 0;
-        private long m_UpdateTotalZipLength = 0;
+
+        private Dictionary<ResourcesType, UpdateResourceInfo> m_UpdateResourceInfos = new();
+
         private int m_UpdateSuccessCount = 0;
-        private bool m_UpdateConfigsComplete = false;
-        private bool m_UpdateResourcesComplete = false;
-        private bool m_UpdateAssembliesComplete = false;
+        private long m_UpdateTotalZipLength;
         private List<UpdateInfoData> m_UpdateInfoDatas = new List<UpdateInfoData>();
-        private int m_NativeLoadingFormId = 0;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
             m_NoticeUpdate = false;
-            m_CheckConfigComplete = false;
-            m_CheckResourcesComplete = false;
-            m_NeedUpdateConfig = false;
-            m_NeedUpdateResources = false;
-            m_UpdateConfigsComplete = false;
-            m_UpdateResourcesComplete = false;
-            m_UpdateTotalZipLength = 0;
+            m_UpdateResourceInfos.Clear();
+            m_UpdateResourceInfos.Add(ResourcesType.Resources,new UpdateResourceInfo(ResourcesType.Resources,false,false,false,0,0));
+            m_UpdateResourceInfos.Add(ResourcesType.Config,new UpdateResourceInfo(ResourcesType.Config,false,false,false,0,0));
+            m_UpdateResourceInfos.Add(ResourcesType.Assemblies,new UpdateResourceInfo(ResourcesType.Assemblies,false,false,false,0,0));
+
             m_UpdateSuccessCount = 0;
             m_LastUpdateTime = 0;
-            m_UpdateConfigCount = 0;
-            m_UpdateResourceCount = 0;
+
             m_UpdateInfoDatas.Clear();
 
             GameEntryMain.Event.Subscribe(ResourceUpdateStartEventArgs.EventId, OnResourceUpdateStart);
@@ -87,12 +94,19 @@ namespace Main.Runtime.Procedure
                 else {
                     OnCheckConfigComplete(0,0,0,0);
                 }
-                m_NeedUpdateResources = false;
-                m_UpdateResourcesComplete = true;
 
-                m_NeedUpdateAssemblies = false;
-                m_UpdateAssembliesComplete = true;                
-                
+                UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Resources);
+                if (updateResourceInfo != null)
+                {
+                    updateResourceInfo.NeedUpdate = false;
+                    updateResourceInfo.UpdateComplete = true;
+                }
+                updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+                if (updateResourceInfo != null)
+                {
+                    updateResourceInfo.NeedUpdate = false;
+                    updateResourceInfo.UpdateComplete = true;
+                }
                 OnNoticeUpdate();
                 return;
             }
@@ -115,27 +129,63 @@ namespace Main.Runtime.Procedure
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-
-            if (m_CheckResourcesComplete && m_CheckConfigComplete && m_CheckAssembliesComplete)
+            foreach (var item in m_UpdateResourceInfos)
             {
-                if (!m_NoticeUpdate)
+                if (!item.Value.CheckComplete)
                 {
-                    OnNoticeUpdate();
+                    return;
                 }
             }
-            if (!m_UpdateResourcesComplete || !m_UpdateConfigsComplete || !m_UpdateAssembliesComplete)
+            if (!m_NoticeUpdate)
             {
-                return;
+                OnNoticeUpdate();
             }
-
+            foreach (var item in m_UpdateResourceInfos)
+            {
+                if (!item.Value.UpdateComplete)
+                {
+                    return;
+                }
+            }
             ChangeState<ProcedureLoadAssembly>(procedureOwner);
         }
+        
+        private UpdateResourceInfo GetUpdateResourceInfo(ResourcesType resourcesType)
+        {
+            try
+            {
+                m_UpdateResourceInfos.TryGetValue(resourcesType, out UpdateResourceInfo cvi);
+                if (cvi != null) return cvi;
+                else throw new Exception("Can not find the UpdateResourceInfo for the specified ResourcesType");
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e.ToString());
+                throw;
+            }
+        }
+
+        private long GetUpdateTotalZipLength()
+        {
+            long len = 0;
+            foreach (var item in m_UpdateResourceInfos)
+            {
+                len += item.Value.UpdateLength;
+            }
+
+            return len;
+        }
+
         private void OnCheckConfigComplete(int movedCount, int removedCount, int updateCount, long updateTotalZipLength)
         {
-            m_CheckConfigComplete = true;
-            m_NeedUpdateConfig = updateCount > 0;
-            m_UpdateConfigCount = updateCount;
-            m_UpdateTotalZipLength += updateTotalZipLength;
+            UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Config);
+            if (updateResourceInfo != null)
+            {
+                updateResourceInfo.CheckComplete = true;
+                updateResourceInfo.NeedUpdate = updateCount > 0;
+                updateResourceInfo.UpdateCount = updateCount;
+                updateResourceInfo.UpdateLength = updateTotalZipLength;
+            }
         }
         private void OnCheckResourcesComplete(int movedCount, int removedCount, int updateCount, long updateTotalLength, long updateTotalZipLength)
         {
@@ -145,23 +195,32 @@ namespace Main.Runtime.Procedure
                 Logger.Error($"has no resource group '{DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName}',");
                 return;
             }
-            m_CheckResourcesComplete = true;
-            m_NeedUpdateResources = !resourceGroup.Ready;
-            m_UpdateResourceCount = resourceGroup.TotalCount - resourceGroup.ReadyCount;
-            m_UpdateTotalZipLength += (resourceGroup.TotalCompressedLength - resourceGroup.ReadyCompressedLength);
+            UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Resources);
+            if (updateResourceInfo != null)
+            {
+                updateResourceInfo.CheckComplete = true;
+                updateResourceInfo.NeedUpdate = !resourceGroup.Ready;
+                updateResourceInfo.UpdateCount = resourceGroup.TotalCount - resourceGroup.ReadyCount;
+                updateResourceInfo.UpdateLength = resourceGroup.TotalCompressedLength - resourceGroup.ReadyCompressedLength;
+            }
         }
 
         private void OnCheckAssembliesComplete(int updatecount, long updatetotallength)
         {
-            m_CheckAssembliesComplete = true;
-            m_NeedUpdateAssemblies = updatecount > 0;
-            m_UpdateAssembliesCount = updatecount;
-            m_UpdateTotalZipLength += updatetotallength;
+            UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+            if (updateResourceInfo != null)
+            {
+                updateResourceInfo.CheckComplete = true;
+                updateResourceInfo.NeedUpdate = updatecount > 0;
+                updateResourceInfo.UpdateCount = updatecount;
+                updateResourceInfo.UpdateLength =updatetotallength;
+            }
         }
         
         private void OnNoticeUpdate()
         {
             m_NoticeUpdate = true;
+            m_UpdateTotalZipLength = GetUpdateTotalZipLength();
             if (m_UpdateTotalZipLength > 0)
             {
                 string conetnt = Utility.Text.Format("有{0}更新", FileUtils.GetLengthString(m_UpdateTotalZipLength));
@@ -184,31 +243,24 @@ namespace Main.Runtime.Procedure
 
         private void StartUpdate()
         {
-            if (m_NeedUpdateConfig)
+            foreach (var item in m_UpdateResourceInfos)
             {
-                StartUpdateConfigs(null);
-            }
-            else
-            {
-                m_UpdateConfigsComplete = true;
-            }
-
-            if (m_NeedUpdateResources)
-            {
-                StartUpdateResources(null);
-            }
-            else
-            {
-                m_UpdateResourcesComplete = true;
-            }
-
-            if (m_NeedUpdateAssemblies)
-            {
-                StartUpdateAssemblies(null);
-            }
-            else
-            {
-                m_UpdateAssembliesComplete = true;
+                UpdateResourceInfo updateResourceInfo = item.Value;
+                if (!updateResourceInfo.NeedUpdate)
+                {
+                    updateResourceInfo.UpdateComplete = true;
+                    continue;
+                }
+                if (item.Key == ResourcesType.Resources)
+                {
+                    StartUpdateResources(null);
+                }else if (item.Key == ResourcesType.Config)
+                {
+                    StartUpdateConfigs(null);
+                }else if (item.Key == ResourcesType.Assemblies)
+                {
+                    StartUpdateAssemblies(null);
+                }
             }
         }
 
@@ -262,7 +314,11 @@ namespace Main.Runtime.Procedure
         {
             if (result)
             {
-                m_UpdateConfigsComplete = true;
+                UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Config);
+                if (updateResourceInfo != null)
+                {
+                    updateResourceInfo.UpdateComplete = true;
+                }
                 Logger.Info("Update config complete with no errors.");
             }
             else
@@ -274,7 +330,11 @@ namespace Main.Runtime.Procedure
         {
             if (result)
             {
-                m_UpdateResourcesComplete = true;
+                UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Resources);
+                if (updateResourceInfo != null)
+                {
+                    updateResourceInfo.UpdateComplete = true;
+                }
                 Logger.Info("Update resources complete with no errors.");
             }
             else
@@ -286,7 +346,11 @@ namespace Main.Runtime.Procedure
         {
             if (result)
             {
-                m_UpdateAssembliesComplete = true;
+                UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+                if (updateResourceInfo != null)
+                {
+                    updateResourceInfo.UpdateComplete = true;
+                }
                 Logger.Info("Update Assemblies complete with no errors.");
             }
             else

@@ -331,7 +331,7 @@ public static class DeerSettingsUtils
                 throw new System.NotSupportedException(string.Format("Platform '{0}' is not supported.",
                     Application.platform.ToString()));
         }
-#endif
+#else 
         switch (Application.platform)
         {
             case RuntimePlatform.WindowsEditor:
@@ -350,6 +350,7 @@ public static class DeerSettingsUtils
                 throw new System.NotSupportedException(string.Format("Platform '{0}' is not supported.",
                     Application.platform.ToString()));
         }
+#endif
     }
 
     public static string HotfixNode = "Hotfix";

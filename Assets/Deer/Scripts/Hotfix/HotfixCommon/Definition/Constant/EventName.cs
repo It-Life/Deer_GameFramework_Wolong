@@ -30,30 +30,29 @@ public static class EventName
     
     #endregion
 
-    #region UI 10000-19999
-    public const uint EVENT_CS_UI_START = 0x010000;
+    #region Common 20000-29999
+    public const uint EVENT_CS_UI_START = 0x020000;
     /// <summary>
     /// 显示UI
     /// </summary>
-    public const uint EVENT_CS_UI_SHOW_UI = 0x010001;
+    public const uint EVENT_CS_UI_SHOW_UI = 0x020001;
     /// <summary>
     /// 刷新进度条
     /// </summary>
-    public const uint EVENT_CS_UI_REFRESH_LOADING_UI = 0x010002;
+    public const uint EVENT_CS_UI_REFRESH_LOADING_UI = 0x020002;
     /// <summary>
     /// 打开Tips界面
     /// </summary>
-    public const uint EVENT_CS_UI_OPEN_TIPS_UI = 0x010003;
+    public const uint EVENT_CS_UI_OPEN_TIPS_UI = 0x020003;
     /// <summary>
     /// 打开initform界面
     /// </summary>
-    public const uint EVENT_CS_UI_OPEN_INITFORM_UI = 0x010004;
+    public const uint EVENT_CS_UI_OPEN_INITFORM_UI = 0x020004;
     /// <summary>
     /// Tips按钮回调界面
     /// </summary>
-    public const uint EVENT_CS_UI_TIPS_CALLBACK = 0x010005;
-    #endregion
-    #region Game 20000-29999
+    public const uint EVENT_CS_UI_TIPS_CALLBACK = 0x020005;
+
     public const uint EVENT_CS_GAME_START = 0x020000;
     /// <summary>
     /// 角色移动
@@ -83,12 +82,7 @@ public static class EventName
     public const uint EVENT_CS_GAME_START_JUMP = 0x020007;
     
     #endregion
-    #region AR 30000-39999
-    public const uint EVENT_CS_AR_START = 0x030000;
-    /// <summary>
-    /// Ar放置成功
-    /// </summary>
-    public const uint EVENT_CS_AR_PUT_SUCCESS = 0x030001;
 
-    #endregion
+    public const uint EVENT_EASYAR_SCAN = 0x030000;
+
 }

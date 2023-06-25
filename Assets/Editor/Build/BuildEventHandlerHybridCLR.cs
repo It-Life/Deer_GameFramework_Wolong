@@ -105,7 +105,9 @@ public static class BuildEventHandlerWolong
     {
         if (outputPackageSelected)
         {
-            if (FolderUtils.CopyFolder($"{Application.dataPath}/../{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRDataPath}/{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath}", Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath)))
+            if (FolderUtils.CopyFolder(
+                    $"{Application.dataPath}/../{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRDataPath}/{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath}",
+                    Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath)))
             {
                 Debug.Log("拷贝程序集资源文件成功！");
                 AssetDatabase.Refresh();
@@ -114,7 +116,9 @@ public static class BuildEventHandlerWolong
         if (outputFullSelected)
         {
             string commitPath = commitResourcesPath + "/" + platform;
-            if (FolderUtils.CopyFolder($"{Application.dataPath}/../{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRDataPath}/{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath}", Path.Combine(commitPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath)))
+            if (FolderUtils.CopyFolder(
+                    $"{Application.dataPath}/../{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRDataPath}/{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath}", 
+                    Path.Combine(commitPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath)))
             {
                 Debug.Log("拷贝程序集资源文件成功！");
             }

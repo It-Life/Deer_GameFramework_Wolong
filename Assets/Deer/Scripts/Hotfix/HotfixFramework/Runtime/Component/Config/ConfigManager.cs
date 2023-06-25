@@ -14,6 +14,7 @@ using System.IO;
 using Bright.Serialization;
 using cfg;
 using Cysharp.Threading.Tasks;
+using GameFramework.Resource;
 using Main.Runtime;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -81,6 +82,7 @@ namespace Deer
         private static async UniTask<ByteBuf> ConfigLoader(string file)
         {
             string filePath = string.Empty;
+            string fileName = $"{file}.bytes";
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 if (m_Configs == null)
@@ -89,7 +91,6 @@ namespace Deer
                     string xml = File.ReadAllText(configVersionPath);
                     m_Configs = FileUtils.AnalyConfigXml(xml);
                 }
-                string fileName = $"{file}.bytes";
                 if (m_Configs[fileName] == null)
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
@@ -97,28 +98,35 @@ namespace Deer
                 }
                 fileName = $"{file}.{m_Configs[fileName].HashCode}{m_Configs[fileName].Extension}";
                 //编辑器模式
-                filePath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/Datas",fileName);
+                filePath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}","Datas",fileName);
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
                     return null;
                 }
-#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
                 filePath = filePath = $"file://{filePath}";
-#endif
             }
             else
             {
+                string resourcePath = GameEntryMain.Resource.ReadWritePath;
                 //单机包模式和热更模式 读取沙盒目录
-                filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", $"{file}.bytes");
+                if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
+                {
+                    if (m_Configs[fileName] == null)
+                    {
+                        Logger.Error("filepath:" + filePath + " not exists");
+                        return null;
+                    }
+                    fileName = $"{file}.{m_Configs[fileName].HashCode}{m_Configs[fileName].Extension}";
+                    resourcePath = GameEntryMain.Resource.ReadOnlyPath;
+                }
+                filePath = Path.Combine(resourcePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", fileName);
                 if (!File.Exists(filePath))
                 {
                     Logger.Error("filepath:" + filePath + " not exists");
                     return null;
                 }
-#if UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
                 filePath = $"file://{filePath}";
-#endif
             }
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
             await unityWebRequest.SendWebRequest();
@@ -133,7 +141,6 @@ namespace Deer
         }
         private IEnumerator IELoadOnlyReadPathConfigVersionFile()
         {
-
             string filePath = Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName);
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
             filePath = filePath = $"file://{filePath}";

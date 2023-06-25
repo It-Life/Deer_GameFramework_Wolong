@@ -15,7 +15,7 @@ using UnityEngine;
 /// </summary>
 public partial class CrossPlatformManagerPC:ICrossPlatformManager
 {
-    public void OpenAudio()
+    public void handelCamera()
     {
         
     }

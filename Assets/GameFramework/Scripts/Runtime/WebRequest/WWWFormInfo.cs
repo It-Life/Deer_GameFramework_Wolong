@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace UnityGameFramework.Runtime
 {
-    internal sealed class WWWFormInfo : IReference
+    public sealed class WWWFormInfo : IReference
     {
         private WWWForm m_WWWForm;
         private object m_UserData;

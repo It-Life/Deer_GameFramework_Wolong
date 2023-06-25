@@ -7,7 +7,6 @@
 //版 本:0.1 
 // ===============================================
 using System;
-using Deer;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
 namespace Main.Runtime.Procedure

@@ -15,8 +15,8 @@ using UnityEngine;
 /// </summary>
 public partial class CrossPlatformManagerAndroid:ICrossPlatformManager
 {
-    public void OpenAudio()
+    public void handelCamera()
     {
-        Logger.Debug<CrossPlatformManagerAndroid>("OpenAudio:调用原生OpenAudio");
+        Logger.Debug<CrossPlatformManagerAndroid>("handelCamera:调用原生handelCamera");
     }
 }

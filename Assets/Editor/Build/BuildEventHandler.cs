@@ -206,6 +206,10 @@ public class BuildEventHandler : IBuildEventHandler
             {
                 Debug.Log("拷贝单机资源文件成功！");
             }
+#if ENABLE_HYBRID_CLR_UNITY
+            BuildEventHandlerWolong.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
+#endif
+            BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
         }
         if (!outputPackageSelected && outputPackedSelected)
         {

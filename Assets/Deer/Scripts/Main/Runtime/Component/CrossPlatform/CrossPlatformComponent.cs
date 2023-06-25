@@ -23,8 +23,14 @@ public partial class CrossPlatformComponent:GameFrameworkComponent
 #endif
     }
 
-    public void Openaaaa()
+    private void NativeCallUnity(string message)
     {
-        m_CrossPlatformManager.OpenAudio();
+        Logger.Debug<CrossPlatformComponent>(message);
+        GameEntryMain.Messenger.SendEvent(EventNameMain.EVENT_NATIVE_CALL_UNITY,message);
+    }
+
+    public void OpenCamera()
+    {
+        m_CrossPlatformManager.handelCamera();
     }
 }

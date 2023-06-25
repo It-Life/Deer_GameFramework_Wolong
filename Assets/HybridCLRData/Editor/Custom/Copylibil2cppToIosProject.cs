@@ -28,7 +28,7 @@ public class Copylibil2cppToIosProject : IPostprocessBuildWithReport
 	public void OnPostprocessBuild(BuildReport report)
 	{
 #if UNITY_IOS
-		CopyLibil2cpp();
+		//CopyLibil2cpp();
 #endif
 	}
 	public static void CopyLibil2cpp()
