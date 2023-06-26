@@ -23,7 +23,8 @@ public static class GenerateTools
 #if UNITY_EDITOR_WIN
 		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/Proto/Deer_Gen_Proto.bat"));
 #else
-		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/Proto/Deer_Gen_Proto.sh"));
+		string shellPath = Path.Combine(Application.dataPath, "../LubanTools/Proto/Deer_Gen_Proto.sh");
+		System.Diagnostics.Process.Start("/bin/bash", shellPath);
 #endif
 	}
 	[MenuItem("DeerTools/IOControls/Generate/GenerateConfig")]
@@ -32,7 +33,9 @@ public static class GenerateTools
 #if UNITY_EDITOR_WIN
 		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/Deer_Build_Config.bat"));
 #else
-		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/Deer_Build_Config.sh"));
+		string shellPath = Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/Deer_Build_Config.sh");
+		System.Diagnostics.Process.Start("/bin/bash", shellPath);
+
 #endif
 	}
 }
