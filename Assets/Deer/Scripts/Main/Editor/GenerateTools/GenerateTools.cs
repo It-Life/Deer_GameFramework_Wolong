@@ -6,8 +6,6 @@
 //修改时间:2022-09-15 18-33-13
 //版 本:0.1 
 // ===============================================
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -24,7 +22,18 @@ public static class GenerateTools
 		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/Proto/Deer_Gen_Proto.bat"));
 #else
 		string shellPath = Path.Combine(Application.dataPath, "../LubanTools/Proto/Deer_Gen_Proto.sh");
-		System.Diagnostics.Process.Start("/bin/bash", shellPath);
+
+		System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
+		psi.FileName = shellPath;
+		psi.UseShellExecute = false;
+		psi.StandardOutputEncoding = System.Text.Encoding.UTF8;
+		psi.RedirectStandardOutput = true;
+		System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
+		string strOutput = p.StandardOutput.ReadToEnd();
+		p.WaitForExit();
+		p.Close();
+		p.Dispose();
+		UnityEngine.Debug.Log(strOutput);
 #endif
 	}
 	[MenuItem("DeerTools/IOControls/Generate/GenerateConfig")]
@@ -34,8 +43,18 @@ public static class GenerateTools
 		Application.OpenURL(Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/Deer_Build_Config.bat"));
 #else
 		string shellPath = Path.Combine(Application.dataPath, "../LubanTools/DesignerConfigs/Deer_Build_Config.sh");
-		System.Diagnostics.Process.Start("/bin/bash", shellPath);
-
+		//string shellPath = Application.dataPath + "/../LubanTools/DesignerConfigs/Deer_Build_Config.sh";
+		System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
+		psi.FileName = shellPath;
+		psi.UseShellExecute = false;
+		psi.StandardOutputEncoding = System.Text.Encoding.UTF8;
+		psi.RedirectStandardOutput = true;
+		System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
+		string strOutput = p.StandardOutput.ReadToEnd();
+		p.WaitForExit();
+		p.Close();
+		p.Dispose();
+		UnityEngine.Debug.Log(strOutput);
 #endif
 	}
 }

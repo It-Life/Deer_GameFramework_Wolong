@@ -1,4 +1,6 @@
-#!/bin/zsh
+#!/bin/bash
+CURRENT_DIR=$(cd `dirname $0`; pwd)
+cd ${CURRENT_DIR}
 WORKSPACE=..
 WORK_NUMBER=StreamingAssets
 PLATFORM=IOS
