@@ -31,7 +31,7 @@ namespace HotfixBusiness.Procedure
         {
             base.OnLeave(procedureOwner, isShutdown);
             //清理所有信息管理器
-            DataManagerEntry.GetInstance().OnClear();
+            DataManagerEntry.GetInstance()?.OnClear();
             ShowUIEntranceMenuForm(false);            
         }
 
