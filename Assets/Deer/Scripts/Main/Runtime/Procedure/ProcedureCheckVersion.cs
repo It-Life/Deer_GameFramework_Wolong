@@ -49,7 +49,7 @@ namespace Main.Runtime.Procedure
         private VersionInfo m_VersionInfo = new VersionInfo();
         private UpdateVersionListCallbacks m_UpdateVersionListCallbacks;
         private int m_UINativeLoadingFormserialid;
-
+        private bool m_InitAssembliesComplete;
         /// <summary>
         /// 资源版本文件名
         /// </summary>
@@ -68,13 +68,12 @@ namespace Main.Runtime.Procedure
             m_CheckVersionInfos.Add(ResourcesType.Config,new CheckVersionInfo(ResourcesType.Config,0,false,false));
             m_CheckVersionInfos.Add(ResourcesType.Assemblies,new CheckVersionInfo(ResourcesType.Assemblies,0,false,false));
             
-            GameEntryMain.Assemblies.InitAssembliesVersion();    
+            GameEntryMain.Assemblies.InitAssembliesVersion(OnInitAssembliesComplete);    
             GameEntryMain.Resource.UpdatePrefixUri = DeerSettingsUtils.GetResDownLoadPath();
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
             DownLoadConfigVersion();
             DownLoadResourcesVersion();
-            DownLoadAssembliesVersion();
         }
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -94,6 +93,12 @@ namespace Main.Runtime.Procedure
             m_CheckVersionInfos.Clear();
             GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
+        }
+        private void OnInitAssembliesComplete()
+        {
+            m_InitAssembliesComplete = true;
+            DownLoadAssembliesVersion();
+            Log.Info("Init assemblies complete.");
         }
         private CheckVersionInfo GetCheckVersionInfo(ResourcesType resourcesType)
         {

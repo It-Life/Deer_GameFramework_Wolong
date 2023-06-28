@@ -30,6 +30,7 @@ MonoBehaviour:
   - Assembly-CSharp.dll
   - AstarPathfindingProject.dll
   - BrunoMikoski.AnimationSequencer.dll
+  - CatJson.dll
   - Cinemachine.dll
   - DOTween.dll
   - DOTween.Modules.dll
@@ -109,6 +110,7 @@ MonoBehaviour:
   - UnityEngine.UIElementsNativeModule.dll
   - UnityEngine.UIModule.dll
   - UnityEngine.UnityAnalyticsModule.dll
+  - UnityEngine.UnityWebRequestAudioModule.dll
   - UnityEngine.UnityWebRequestModule.dll
   - UnityEngine.VRModule.dll
   - UnityEngine.XRModule.dll

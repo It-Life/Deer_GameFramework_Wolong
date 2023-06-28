@@ -104,7 +104,7 @@ namespace Deer
                     Logger.Error("filepath:" + filePath + " not exists");
                     return null;
                 }
-                filePath = filePath = $"file://{filePath}";
+                filePath = $"file://{filePath}";
             }
             else
             {
@@ -119,14 +119,17 @@ namespace Deer
                     }
                     fileName = $"{file}.{m_Configs[fileName].HashCode}{m_Configs[fileName].Extension}";
                     resourcePath = GameEntryMain.Resource.ReadOnlyPath;
+                    filePath = Path.Combine(resourcePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", fileName);
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
+                    filePath = $"file://{filePath}";
+#endif
                 }
-                filePath = Path.Combine(resourcePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", fileName);
-                if (!File.Exists(filePath))
+                else
                 {
-                    Logger.Error("filepath:" + filePath + " not exists");
-                    return null;
+                    filePath = Path.Combine(resourcePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", fileName);
+                    filePath = $"file://{filePath}";
                 }
-                filePath = $"file://{filePath}";
+                Logger.Debug<ConfigManager>("fileLoadPath:"+filePath);
             }
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
             await unityWebRequest.SendWebRequest();

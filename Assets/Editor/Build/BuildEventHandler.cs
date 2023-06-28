@@ -67,7 +67,7 @@ public class BuildEventHandler : IBuildEventHandler
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, string buildReportPath)
     {
         m_VersionInfo.InternalResourceVersion = internalResourceVersion;
-        foreach (var item in StreamingAssetsPaths)
+        /*foreach (var item in StreamingAssetsPaths)
         {
             FolderUtils.ClearFolder(item);
         }
@@ -77,7 +77,8 @@ public class BuildEventHandler : IBuildEventHandler
             {
                 File.Delete(item);
             }
-        }
+        }*/
+        FolderUtils.ClearFolder(Application.streamingAssetsPath);
         UGFExtensions.SpriteCollection.SpriteCollectionUtility.RefreshSpriteCollection();
         if (string.IsNullOrEmpty(DeerSettingsUtils.DeerPathConfig.ResourceCollectionPath))
         {
@@ -193,13 +194,13 @@ public class BuildEventHandler : IBuildEventHandler
     public void OnPostprocessPlatform(Platform platform, string workingPath, bool outputPackageSelected, string outputPackagePath,
         bool outputFullSelected, string outputFullPath, bool outputPackedSelected, string outputPackedPath, bool isSuccess)
     {
-        foreach (var item in StreamingAssetsPaths)
+        /*foreach (var item in StreamingAssetsPaths)
         {
             if (!Directory.Exists(item))
             {
                 Directory.CreateDirectory(item);
             }
-        }
+        }*/
         if (outputPackageSelected)
         {
             if (FolderUtils.CopyFilesToRootPath(outputPackagePath, Application.streamingAssetsPath, SearchOption.AllDirectories))

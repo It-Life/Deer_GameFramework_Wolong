@@ -322,39 +322,68 @@ namespace HotfixBusiness.Procedure
             else
             {
                 m_HotfixAssemblyBytes.Clear();
-                foreach (var hotUpdateDllName in m_HotUpdateAsm)
+                foreach (var assemblyName in m_HotUpdateAsm)
                 {
-                    var assetPath = Utility.Path.GetRegularPath(Path.Combine(Application.persistentDataPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,
-                        DeerSettingsUtils.HotfixNode, $"{hotUpdateDllName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
-                    Logger.Debug<ProcedureCheckAssets>($"LoadAsset: [ {assetPath} ]");
-                    //GameEntryMain.Resource.LoadAsset(assetPath, m_LoadAssetCallbacks, hotUpdateDllName);
-                    GameEntryMain.Download.StartCoroutine(LoadAsset(assetPath,hotUpdateDllName));
+                    string fileLoadPath;
+                    if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
+                    {
+                        fileLoadPath = Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,DeerSettingsUtils.HotfixNode);
+                        AssemblyInfo assemblyInfo = GameEntryMain.Assemblies.FindAssemblyInfoByName(assemblyName);
+                        if (assemblyInfo != null)
+                        {
+                            fileLoadPath = Utility.Path.GetRegularPath(Path.Combine(fileLoadPath,$"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
+                        }
+                        else
+                        {
+                            Logger.Error<ProcedureCheckAssets>("本地没有资源：" + $"{assemblyName}");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        fileLoadPath = Path.Combine(Application.persistentDataPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,DeerSettingsUtils.HotfixNode);
+                        fileLoadPath = Utility.Path.GetRegularPath(Path.Combine(fileLoadPath,$"{assemblyName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
+                        if (!File.Exists(fileLoadPath))
+                        {
+                            Logger.Error<ProcedureCheckAssets>($"fileLoadPath:{fileLoadPath} is not find.");
+                        }
+                        fileLoadPath = $"file://{fileLoadPath}";
+                    }
+                    Logger.Debug<ProcedureCheckAssets>($"fileLoadPath: {fileLoadPath} ");
+                    GameEntryMain.Download.StartCoroutine(StartLoadAssemblyAsset(fileLoadPath,assemblyName));
                 }
             }
         }
-        IEnumerator LoadAsset(string filePath ,string asmName)
+        IEnumerator StartLoadAssemblyAsset(string filePath ,string asmName)
         {
-            filePath = $"file://{filePath}";
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
             yield return unityWebRequest.SendWebRequest();
             if (unityWebRequest.isDone)
             {
-                m_HotfixAssemblyBytes.Add(asmName,unityWebRequest.downloadHandler.data);
-                if (!IsAddAllFinish(asmName))
+                if (unityWebRequest.result == UnityWebRequest.Result.Success)
                 {
-                    Assembly asm = Assembly.Load(unityWebRequest.downloadHandler.data);
-                    m_IsResetProcedure = true;
-                    GameEntry.AddHotfixAssemblys(asm);
-                }
-                if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
-                {
-                    UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
-                    if (updateResourceInfo != null)
+                    m_HotfixAssemblyBytes.Add(asmName,unityWebRequest.downloadHandler.data);
+                    if (!IsAddAllFinish(asmName))
                     {
-                        updateResourceInfo.UpdateComplete = true;
+                        Assembly asm = Assembly.Load(unityWebRequest.downloadHandler.data);
+                        m_IsResetProcedure = true;
+                        GameEntry.AddHotfixAssemblys(asm);
+                    }
+                    if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
+                    {
+                        UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+                        if (updateResourceInfo != null)
+                        {
+                            updateResourceInfo.UpdateComplete = true;
+                        }
                     }
                 }
+                else
+                {
+                    Logger.Error<ProcedureCheckAssets>($"filePath:{filePath} load error:{unityWebRequest.error}");
+                }
             }
+            unityWebRequest.Dispose();
         }
         private void StartUpdate()
         {

@@ -114,40 +114,47 @@ namespace Main.Runtime.Procedure
         }
         IEnumerator StartLoadAssemblyAsset(string filePath ,string asmName,int dllType)
         {
-            filePath = $"file://{filePath}";
             UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
             yield return unityWebRequest.SendWebRequest();
             if (unityWebRequest.isDone)
             {
-                if (dllType == 1)
+                if (unityWebRequest.result == UnityWebRequest.Result.Success)
                 {
-                    m_HotfixAssemblyBytes.Add(asmName,unityWebRequest.downloadHandler.data);
-                    if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
+                    if (dllType == 1)
                     {
-                        m_LoadAssemblyComplete = true;
-                        foreach (var hotAsm in m_HotUpdateAsm)
+                        m_HotfixAssemblyBytes.Add(asmName,unityWebRequest.downloadHandler.data);
+                        if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
                         {
-                            if (m_HotfixAssemblyBytes.ContainsKey(hotAsm))
+                            m_LoadAssemblyComplete = true;
+                            foreach (var hotAsm in m_HotUpdateAsm)
                             {
-                                var asm = Assembly.Load(m_HotfixAssemblyBytes[hotAsm]);
-                                if (string.Compare(DeerSettingsUtils.DeerHybridCLRSettings.LogicMainDllName, hotAsm, StringComparison.Ordinal) == 0)
-                                    m_MainLogicAssembly = asm;
-                                m_HotfixAssemblys.Add(asm);
-                                Logger.Debug<ProcedureLoadAssembly>($"Assembly [ {asm.GetName().Name} ] loaded");
-                            }
-                            else
-                            {
-                                Logger.Error<ProcedureLoadAssembly>($"Assembly [ {hotAsm} ] load failed");
-                                m_LoadAssemblyComplete = false;
+                                if (m_HotfixAssemblyBytes.ContainsKey(hotAsm))
+                                {
+                                    var asm = Assembly.Load(m_HotfixAssemblyBytes[hotAsm]);
+                                    if (string.Compare(DeerSettingsUtils.DeerHybridCLRSettings.LogicMainDllName, hotAsm, StringComparison.Ordinal) == 0)
+                                        m_MainLogicAssembly = asm;
+                                    m_HotfixAssemblys.Add(asm);
+                                    Logger.Debug<ProcedureLoadAssembly>($"Assembly [ {asm.GetName().Name} ] loaded");
+                                }
+                                else
+                                {
+                                    Logger.Error<ProcedureLoadAssembly>($"Assembly [ {hotAsm} ] load failed");
+                                    m_LoadAssemblyComplete = false;
+                                }
                             }
                         }
+                    }
+                    else
+                    {
+                        LoadMetadataAsset(unityWebRequest.downloadHandler.data,asmName);
                     }
                 }
                 else
                 {
-                    LoadMetadataAsset(unityWebRequest.downloadHandler.data,asmName);
+                    Logger.Error<ProcedureLoadAssembly>($"filePath:{filePath} load error:{unityWebRequest.error}");
                 }
             }
+            unityWebRequest.Dispose();
         }
 
         /// <summary>
@@ -258,15 +265,14 @@ namespace Main.Runtime.Procedure
         
         private string GetAssemblyAssetPath(string node,string assemblyName)
         {
-            string assetPath;
+            string fileLoadPath;
             if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
             {
-                assetPath = Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,node);
-                AssemblyInfo assemblyInfo =
-                    GameEntryMain.Assemblies.FindAssemblyInfoByName(assemblyName);
+                fileLoadPath = Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,node);
+                AssemblyInfo assemblyInfo = GameEntryMain.Assemblies.FindAssemblyInfoByName(assemblyName);
                 if (assemblyInfo != null)
                 {
-                    assetPath = Utility.Path.GetRegularPath(Path.Combine(assetPath,$"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
+                    fileLoadPath = Utility.Path.GetRegularPath(Path.Combine(fileLoadPath,$"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
                 }
                 else
                 {
@@ -275,10 +281,15 @@ namespace Main.Runtime.Procedure
             }
             else
             {
-                assetPath = Path.Combine(Application.persistentDataPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,node);
-                assetPath = Utility.Path.GetRegularPath(Path.Combine(assetPath,$"{assemblyName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
+                fileLoadPath = Path.Combine(Application.persistentDataPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,node);
+                fileLoadPath = Utility.Path.GetRegularPath(Path.Combine(fileLoadPath,$"{assemblyName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
+                if (!File.Exists(fileLoadPath))
+                {
+                    Logger.Error<ProcedureLoadAssembly>($"fileLoadPath:{fileLoadPath} is not find.");
+                }
+                fileLoadPath = $"file://{fileLoadPath}";
             }
-            return assetPath;
+            return fileLoadPath;
         }
     }
 }

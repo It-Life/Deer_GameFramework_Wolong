@@ -54,7 +54,7 @@ public class AssembliesComponent : GameFrameworkComponent
     private bool m_FailureFlag;
     
     private int m_UpdateRetryCount;
-
+    private Action m_onInitAssembliesComplete;
     /// <summary>
     /// 获取或者设置配置表重试次数
     /// </summary>
@@ -83,34 +83,41 @@ public class AssembliesComponent : GameFrameworkComponent
         GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
     }
 
-    public void InitAssembliesVersion()
+    public void InitAssembliesVersion(Action onInitAssembliesComplete)
     {
-        ReadAssembliesVersion(true);
         Logger.Debug("InitAssembliesVersion");
+        m_onInitAssembliesComplete = onInitAssembliesComplete;
+        ReadAssembliesVersion(true);
     }
 
     private void ReadAssembliesVersion(bool isLastVersion)
     {
-        string fileName = DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath+"/"+DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName;
+        string fileLoadPath = DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath+"/"+DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName;
         if (!GameEntryMain.Base.EditorResourceMode)
         {
-            string fileLoadPath;
             if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
             {
-                fileLoadPath = Path.Combine(Application.streamingAssetsPath, fileName);
+                fileLoadPath = Path.Combine(Application.streamingAssetsPath, fileLoadPath);
             }
             else
             {
-                fileLoadPath = Path.Combine(Application.persistentDataPath, fileName);
+                fileLoadPath = Path.Combine(Application.persistentDataPath, fileLoadPath);
+                if (!File.Exists(fileLoadPath))
+                {
+                    if (isLastVersion)
+                    {
+                        Logger.Info<AssembliesComponent>($"fileLoadPath:{fileLoadPath} is not find.");
+                        m_onInitAssembliesComplete?.Invoke();
+                    }
+                    else
+                    {
+                        Logger.Error<AssembliesComponent>($"fileLoadPath:{fileLoadPath} is not find.");
+                    }
+                    return;
+                }
+                fileLoadPath = $"file://{fileLoadPath}";
             }
-            if (!File.Exists(fileLoadPath))
-            {
-                Logger.Warning<AssembliesComponent>(" " + fileLoadPath + " doesn't exist!");
-                return;
-            }
-#if UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-            fileLoadPath = $"file://{fileLoadPath}";
-#endif
+            Logger.Debug<AssembliesComponent>("fileLoadPath:"+fileLoadPath);
             StartCoroutine(StartReadAssemblies(fileLoadPath,isLastVersion));
         }
     }
@@ -121,17 +128,25 @@ public class AssembliesComponent : GameFrameworkComponent
         yield return unityWebRequest.SendWebRequest();
         if (unityWebRequest.isDone)
         {
-            string versionInfoBytes = unityWebRequest.downloadHandler.text;
-            if (isLastVersion)
+            if (unityWebRequest.result == UnityWebRequest.Result.Success)
             {
-                m_LastAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+                string versionInfoBytes = unityWebRequest.downloadHandler.text;
+                if (isLastVersion)
+                {
+                    m_LastAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+                    m_onInitAssembliesComplete?.Invoke();
+                }
+                else
+                {
+                    m_NowAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+                    m_OnCheckVersionListResult?.Invoke(NeedUpdateAssemblies()
+                        ? CheckVersionListResult.NeedUpdate
+                        : CheckVersionListResult.Updated);
+                }
             }
             else
             {
-                m_NowAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
-                m_OnCheckVersionListResult?.Invoke(NeedUpdateAssemblies()
-                    ? CheckVersionListResult.NeedUpdate
-                    : CheckVersionListResult.Updated);
+                Logger.Error<AssembliesComponent>($"filePath:{filePath} load error:{unityWebRequest.error}");
             }
         }
         unityWebRequest.Dispose();
@@ -152,11 +167,6 @@ public class AssembliesComponent : GameFrameworkComponent
     public void CheckVersionList(Action<CheckVersionListResult> oAction)
     {
         m_OnCheckVersionListResult = oAction;
-        if (m_LastAssemblies == null)
-        {
-            m_OnCheckVersionListResult?.Invoke(CheckVersionListResult.NeedUpdate);
-            return;
-        }
         ReadAssembliesVersion(false);
     }
     public bool UpdateVersionList()
