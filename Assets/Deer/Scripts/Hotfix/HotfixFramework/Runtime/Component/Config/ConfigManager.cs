@@ -43,7 +43,7 @@ namespace Deer
         private IEnumerator StartReadConfigWithStreamingAssets(string filePath) 
         {
 #if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
-            filePath = filePath = $"file://{filePath}";
+            filePath = $"file://{filePath}";
 #endif
             UnityWebRequest webRequest = UnityWebRequest.Get(filePath);
             yield return webRequest.SendWebRequest();

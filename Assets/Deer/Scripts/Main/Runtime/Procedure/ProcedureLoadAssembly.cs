@@ -273,6 +273,9 @@ namespace Main.Runtime.Procedure
                 if (assemblyInfo != null)
                 {
                     fileLoadPath = Utility.Path.GetRegularPath(Path.Combine(fileLoadPath,$"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
+                    fileLoadPath = $"file://{fileLoadPath}";
+#endif
                 }
                 else
                 {

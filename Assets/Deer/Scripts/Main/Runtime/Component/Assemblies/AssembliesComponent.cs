@@ -98,6 +98,9 @@ public class AssembliesComponent : GameFrameworkComponent
             if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
             {
                 fileLoadPath = Path.Combine(Application.streamingAssetsPath, fileLoadPath);
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
+                fileLoadPath = $"file://{fileLoadPath}";
+#endif
             }
             else
             {
