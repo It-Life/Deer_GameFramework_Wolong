@@ -36,10 +36,12 @@ public static class CopyAssemblies
                 if (dll == hotUpdateAssembly.Assembly)
                 {
                     string dllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(buildTarget)}/{dll}";
-                    FileInfo fileInfo = new FileInfo(dllPath);
-                    int hashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead());
+                    using FileStream fileStream = new FileStream(dllPath, FileMode.Open, FileAccess.Read);
+                    int hashCode = Utility.Verifier.GetCrc32(fileStream);
+                    
                     string dllBytesPath = Path.Combine(targetPath, $"{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
                     File.Copy(dllPath, dllBytesPath, true);
+                    FileInfo fileInfo = new FileInfo(dllPath);
                     long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
                     m_listAssemblies.Add(new AssemblyInfo(dll,"Hotfix",hotUpdateAssembly.AssetGroupName,hashCode,size));
                     break;  
@@ -81,10 +83,11 @@ public static class CopyAssemblies
                 Debug.LogError($"ab中添加AOT补充元数据dll:{dllPath} 时发生错误,文件不存在。裁剪后的AOT dll在BuildPlayer时才能生成，因此需要你先构建一次游戏App后再打包。");
                 continue;
             }
-            FileInfo fileInfo = new FileInfo(dllPath);
-            int hashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead());
+            using FileStream fileStream = new FileStream(dllPath, FileMode.Open, FileAccess.Read);
+            int hashCode = Utility.Verifier.GetCrc32(fileStream);
             string dllBytesPath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
             File.Copy(dllPath, dllBytesPath, true);
+            FileInfo fileInfo = new FileInfo(dllPath);
             long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
             m_listAssemblies.Add(new AssemblyInfo(dll,"AOT",DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,hashCode, size));
         }

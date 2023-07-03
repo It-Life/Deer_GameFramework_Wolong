@@ -186,8 +186,8 @@ namespace Deer
                 bool canMove = false;
                 if (File.Exists(filePath))
                 {
-                    FileInfo fileInfo = new FileInfo(filePath);
-                    curHashCode = GameFramework.Utility.Verifier.GetCrc32(fileInfo.OpenRead()).ToString();
+                    using FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                    curHashCode = GameFramework.Utility.Verifier.GetCrc32(fileStream).ToString();
                     if (config.Value.HashCode != curHashCode)
                     {
                         canMove = true;

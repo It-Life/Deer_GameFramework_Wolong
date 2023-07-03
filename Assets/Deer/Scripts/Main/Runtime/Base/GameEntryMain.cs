@@ -238,8 +238,8 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
             filePath = Path.Combine(Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", config.Key);
             if (File.Exists(filePath))
             {
-                FileInfo fileInfo = new FileInfo(filePath);
-                curHashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead()).ToString();
+                using FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                curHashCode = Utility.Verifier.GetCrc32(fileStream).ToString();
                 if (curHashCode != config.Value.HashCode)
                 {
                     if (!m_NeedUpdateConfigs.ContainsKey(config.Key))

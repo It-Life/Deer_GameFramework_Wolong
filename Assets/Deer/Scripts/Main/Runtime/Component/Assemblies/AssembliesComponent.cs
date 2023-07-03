@@ -265,8 +265,8 @@ public class AssembliesComponent : GameFrameworkComponent
                 {
                     return true;
                 }
-                FileInfo fileInfo = new FileInfo(filePath);
-                curHashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead());
+                using FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                curHashCode = Utility.Verifier.GetCrc32(fileStream);
                 if (curHashCode != assemblyInfo.HashCode)
                 {
                     return true;
@@ -285,8 +285,8 @@ public class AssembliesComponent : GameFrameworkComponent
             filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,assemblyInfo.PathRoot,$"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
             if (File.Exists(filePath))
             {
-                FileInfo fileInfo = new FileInfo(filePath);
-                curHashCode = Utility.Verifier.GetCrc32(fileInfo.OpenRead());
+                using FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                curHashCode = Utility.Verifier.GetCrc32(fileStream);
                 if (curHashCode != assemblyInfo.HashCode)
                 {
                     if (!m_NeedUpdateAssemblies.ContainsKey(assemblyInfo.Name))
