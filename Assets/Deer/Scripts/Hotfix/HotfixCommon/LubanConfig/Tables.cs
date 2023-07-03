@@ -7,12 +7,13 @@
 //------------------------------------------------------------------------------
 using Bright.Serialization;
 using Cysharp.Threading.Tasks;
-
+using System.Collections.Generic;
 
 
 namespace cfg
-{ 
-public partial class Tables
+{
+   
+public sealed class Tables
 {
     public Common.TbGlobalConfig TbGlobalConfig {get; private set; }
     public Error.TbErrorInfo TbErrorInfo {get; private set; }
@@ -26,33 +27,70 @@ public partial class Tables
     public Deer.TbEntityData TbEntityData {get; private set; }
     public Deer.TbLevelData TbLevelData {get; private set; }
 
+    public Tables() { }
+    
     public async UniTask LoadAsync(System.Func<string, UniTask<ByteBuf>> loader)
     {
         var tables = new System.Collections.Generic.Dictionary<string, object>();
-        TbGlobalConfig = new Common.TbGlobalConfig(await loader("common_tbglobalconfig")); 
-        tables.Add("Common.TbGlobalConfig", TbGlobalConfig);
-        TbErrorInfo = new Error.TbErrorInfo(await loader("error_tberrorinfo")); 
-        tables.Add("Error.TbErrorInfo", TbErrorInfo);
-        TbCodeInfo = new Error.TbCodeInfo(await loader("error_tbcodeinfo")); 
-        tables.Add("Error.TbCodeInfo", TbCodeInfo);
-        TbSounds_Config = new Deer.TbSounds_Config(await loader("deer_tbsounds_config")); 
-        tables.Add("Deer.TbSounds_Config", TbSounds_Config);
-        TbLanguage_Config = new Deer.TbLanguage_Config(await loader("deer_tblanguage_config")); 
-        tables.Add("Deer.TbLanguage_Config", TbLanguage_Config);
-        TbUIData_GameMode = new Deer.TbUIData_GameMode(await loader("deer_tbuidata_gamemode")); 
-        tables.Add("Deer.TbUIData_GameMode", TbUIData_GameMode);
-        TbUIData_Race = new Deer.TbUIData_Race(await loader("deer_tbuidata_race")); 
-        tables.Add("Deer.TbUIData_Race", TbUIData_Race);
-        TbUIData_Character = new Deer.TbUIData_Character(await loader("deer_tbuidata_character")); 
-        tables.Add("Deer.TbUIData_Character", TbUIData_Character);
-        TbPlayerData_Character = new Deer.TbPlayerData_Character(await loader("deer_tbplayerdata_character")); 
-        tables.Add("Deer.TbPlayerData_Character", TbPlayerData_Character);
-        TbEntityData = new Deer.TbEntityData(await loader("deer_tbentitydata")); 
-        tables.Add("Deer.TbEntityData", TbEntityData);
-        TbLevelData = new Deer.TbLevelData(await loader("deer_tbleveldata")); 
-        tables.Add("Deer.TbLevelData", TbLevelData);
+		List<UniTask> list = new List<UniTask>();
+		list.Add(UniTask.Create(async () =>
+		{
+			TbGlobalConfig = new Common.TbGlobalConfig(await loader("common_tbglobalconfig")); 
+			tables.Add("Common.TbGlobalConfig", TbGlobalConfig);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbErrorInfo = new Error.TbErrorInfo(await loader("error_tberrorinfo")); 
+			tables.Add("Error.TbErrorInfo", TbErrorInfo);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbCodeInfo = new Error.TbCodeInfo(await loader("error_tbcodeinfo")); 
+			tables.Add("Error.TbCodeInfo", TbCodeInfo);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbSounds_Config = new Deer.TbSounds_Config(await loader("deer_tbsounds_config")); 
+			tables.Add("Deer.TbSounds_Config", TbSounds_Config);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbLanguage_Config = new Deer.TbLanguage_Config(await loader("deer_tblanguage_config")); 
+			tables.Add("Deer.TbLanguage_Config", TbLanguage_Config);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbUIData_GameMode = new Deer.TbUIData_GameMode(await loader("deer_tbuidata_gamemode")); 
+			tables.Add("Deer.TbUIData_GameMode", TbUIData_GameMode);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbUIData_Race = new Deer.TbUIData_Race(await loader("deer_tbuidata_race")); 
+			tables.Add("Deer.TbUIData_Race", TbUIData_Race);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbUIData_Character = new Deer.TbUIData_Character(await loader("deer_tbuidata_character")); 
+			tables.Add("Deer.TbUIData_Character", TbUIData_Character);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbPlayerData_Character = new Deer.TbPlayerData_Character(await loader("deer_tbplayerdata_character")); 
+			tables.Add("Deer.TbPlayerData_Character", TbPlayerData_Character);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbEntityData = new Deer.TbEntityData(await loader("deer_tbentitydata")); 
+			tables.Add("Deer.TbEntityData", TbEntityData);
+		}));
+		list.Add(UniTask.Create(async () =>
+		{
+			TbLevelData = new Deer.TbLevelData(await loader("deer_tbleveldata")); 
+			tables.Add("Deer.TbLevelData", TbLevelData);
+		}));
 
-        PostInit();
+		await UniTask.WhenAll(list);
+
         TbGlobalConfig.Resolve(tables); 
         TbErrorInfo.Resolve(tables); 
         TbCodeInfo.Resolve(tables); 
@@ -64,7 +102,6 @@ public partial class Tables
         TbPlayerData_Character.Resolve(tables); 
         TbEntityData.Resolve(tables); 
         TbLevelData.Resolve(tables); 
-        PostResolve();
     }
 
     public void TranslateText(System.Func<string, string, string> translator)
@@ -81,9 +118,6 @@ public partial class Tables
         TbEntityData.TranslateText(translator); 
         TbLevelData.TranslateText(translator); 
     }
-    
-    partial void PostInit();
-    partial void PostResolve();
 }
 
 }
