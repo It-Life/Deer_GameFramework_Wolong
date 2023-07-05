@@ -218,6 +218,10 @@ public class BuildEventHandler : IBuildEventHandler
             {
                 Debug.Log("拷贝包体资源文件成功！");
             }
+#if ENABLE_HYBRID_CLR_UNITY
+            BuildEventHandlerWolong.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
+#endif
+            BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
         }
         //更新包文件
         if (outputFullSelected)
