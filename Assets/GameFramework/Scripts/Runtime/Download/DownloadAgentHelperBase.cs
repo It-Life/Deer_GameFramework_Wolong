@@ -41,6 +41,9 @@ namespace UnityGameFramework.Runtime
         /// </summary>
         public abstract event EventHandler<DownloadAgentHelperErrorEventArgs> DownloadAgentHelperError;
 
+        public abstract bool IsWebRequestRunning { get;}
+
+
         /// <summary>
         /// 通过下载代理辅助器下载指定地址的数据。
         /// </summary>

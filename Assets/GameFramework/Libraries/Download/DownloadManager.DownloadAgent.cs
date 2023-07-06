@@ -187,23 +187,26 @@ namespace GameFramework.Download
 
                 try
                 {
-                    if (File.Exists(downloadFile))
+                    if (m_Helper.IsWebRequestRunning)
                     {
-                        m_FileStream = File.OpenWrite(downloadFile);
-                        m_FileStream.Seek(0L, SeekOrigin.End);
-                        m_StartLength = m_SavedLength = m_FileStream.Length;
-                        m_DownloadedLength = 0L;
-                    }
-                    else
-                    {
-                        string directory = Path.GetDirectoryName(m_Task.DownloadPath);
-                        if (!Directory.Exists(directory))
+                        if (File.Exists(downloadFile))
                         {
-                            Directory.CreateDirectory(directory);
+                            m_FileStream = File.OpenWrite(downloadFile);
+                            m_FileStream.Seek(0L, SeekOrigin.End);
+                            m_StartLength = m_SavedLength = m_FileStream.Length;
+                            m_DownloadedLength = 0L;
                         }
+                        else
+                        {
+                            string directory = Path.GetDirectoryName(m_Task.DownloadPath);
+                            if (!Directory.Exists(directory))
+                            {
+                                Directory.CreateDirectory(directory);
+                            }
 
-                        m_FileStream = new FileStream(downloadFile, FileMode.Create, FileAccess.Write);
-                        m_StartLength = m_SavedLength = m_DownloadedLength = 0L;
+                            m_FileStream = new FileStream(downloadFile, FileMode.Create, FileAccess.Write);
+                            m_StartLength = m_SavedLength = m_DownloadedLength = 0L;
+                        } 
                     }
 
                     if (DownloadAgentStart != null)
@@ -321,29 +324,32 @@ namespace GameFramework.Download
             {
                 m_WaitTime = 0f;
                 m_DownloadedLength = e.Length;
-                if (m_SavedLength != CurrentLength)
-                {
-                    throw new GameFrameworkException("Internal download error.");
-                }
+                
 
                 m_Helper.Reset();
-                m_FileStream.Close();
-                m_FileStream = null;
-
-                if (File.Exists(m_Task.DownloadPath))
+                if (m_FileStream != null)
                 {
-                    File.Delete(m_Task.DownloadPath);
+                    m_FileStream.Close();
+                    m_FileStream = null;
                 }
+                if (m_Helper.IsWebRequestRunning)
+                {
+                    if (m_SavedLength != CurrentLength)
+                    {
+                        throw new GameFrameworkException("Internal download error.");
+                    }
+                    if (File.Exists(m_Task.DownloadPath))
+                    {
+                        File.Delete(m_Task.DownloadPath);
+                    }
+                    File.Move(Utility.Text.Format("{0}.download", m_Task.DownloadPath), m_Task.DownloadPath);
 
-                File.Move(Utility.Text.Format("{0}.download", m_Task.DownloadPath), m_Task.DownloadPath);
-
+                }
                 m_Task.Status = DownloadTaskStatus.Done;
-
                 if (DownloadAgentSuccess != null)
                 {
                     DownloadAgentSuccess(this, e.Length);
                 }
-
                 m_Task.Done = true;
             }
 
@@ -356,9 +362,12 @@ namespace GameFramework.Download
                     m_FileStream = null;
                 }
 
-                if (e.DeleteDownloading)
+                if (m_Helper.IsWebRequestRunning)
                 {
-                    File.Delete(Utility.Text.Format("{0}.download", m_Task.DownloadPath));
+                    if (e.DeleteDownloading)
+                    {
+                        File.Delete(Utility.Text.Format("{0}.download", m_Task.DownloadPath));
+                    }
                 }
 
                 m_Task.Status = DownloadTaskStatus.Error;

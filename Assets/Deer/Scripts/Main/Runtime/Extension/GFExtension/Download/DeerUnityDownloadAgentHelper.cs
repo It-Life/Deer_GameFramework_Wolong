@@ -22,19 +22,6 @@ using UnityEngine.Experimental.Networking;
 /// </summary>
 public partial class DeerUnityDownloadAgentHelper : DownloadAgentHelperBase, IDisposable
 {
-    private bool IsWebRequestRunning
-    {
-        get {
-            if (Application.isMobilePlatform)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-    }
     private EventHandler<DownloadAgentHelperErrorEventArgs> m_DownloadAgentHelperErrorEventHandler;
     private EventHandler<DownloadAgentHelperCompleteEventArgs> m_DownloadAgentHelperCompleteEventHandler;
     private EventHandler<DownloadAgentHelperUpdateBytesEventArgs> m_DownloadAgentHelperUpdateBytesEventHandler;
@@ -117,6 +104,20 @@ public partial class DeerUnityDownloadAgentHelper : DownloadAgentHelperBase, IDi
     {
         add => m_DownloadAgentHelperErrorEventHandler += value;
         remove => m_DownloadAgentHelperErrorEventHandler -= value;
+    }
+
+    public override bool IsWebRequestRunning {
+        get
+        {
+            if (Application.isMobilePlatform)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 
     /// <summary>

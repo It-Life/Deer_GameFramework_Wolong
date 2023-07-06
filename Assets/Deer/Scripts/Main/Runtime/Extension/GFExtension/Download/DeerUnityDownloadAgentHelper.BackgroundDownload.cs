@@ -37,19 +37,25 @@ public partial class DeerUnityDownloadAgentHelper : DownloadAgentHelperBase, IDi
         }
     }
 
+    private void MyFunction()
+    {
+        Logger.Debug($"正在下载的文件大小为：{m_BackgroundDownload.downloadedBytes}");    
+    }
+
     private void BgDownloadUpdate()
     {
         if (m_BackgroundDownload == null) return;
         if (m_BackgroundDownload.status == BackgroundDownloadStatus.Downloading)
-        {
+        {   
+            Logger.Info($"原生下载进度：{m_BackgroundDownload.progress}");
             //m_BackgroundDownload
             //DownloadAgentHelperUpdateBytesEventArgs downloadAgentHelperUpdateBytesEventArgs = DownloadAgentHelperUpdateBytesEventArgs.Create(data, 0, dataLength);
             //m_Owner.m_DownloadAgentHelperUpdateBytesEventHandler(this, downloadAgentHelperUpdateBytesEventArgs);
             //ReferencePool.Release(downloadAgentHelperUpdateBytesEventArgs);
-
-            //DownloadAgentHelperUpdateLengthEventArgs downloadAgentHelperUpdateLengthEventArgs = DownloadAgentHelperUpdateLengthEventArgs.Create(dataLength);
-            //m_Owner.m_DownloadAgentHelperUpdateLengthEventHandler(this, downloadAgentHelperUpdateLengthEventArgs);
-            //ReferencePool.Release(downloadAgentHelperUpdateLengthEventArgs);
+            /*DownloadAgentHelperUpdateLengthEventArgs downloadAgentHelperUpdateLengthEventArgs = DownloadAgentHelperUpdateLengthEventArgs.Create(m_BackgroundDownload.downloadedBytes);
+            m_DownloadAgentHelperUpdateLengthEventHandler(this, downloadAgentHelperUpdateLengthEventArgs);
+            ReferencePool.Release(downloadAgentHelperUpdateLengthEventArgs);*/
+            Invoke("MyFunction", 2.0f); 
             return;
         }
 
@@ -65,10 +71,10 @@ public partial class DeerUnityDownloadAgentHelper : DownloadAgentHelperBase, IDi
         }
         else
         {
-            /*var downloadAgentHelperCompleteEventArgs =
-                DownloadAgentHelperCompleteEventArgs.Create((long)m_BackgroundDownload.downloadedBytes);
+            var downloadAgentHelperCompleteEventArgs =
+                DownloadAgentHelperCompleteEventArgs.Create((long)m_BackgroundDownload.totalBytes);
             m_DownloadAgentHelperCompleteEventHandler(this, downloadAgentHelperCompleteEventArgs);
-            ReferencePool.Release(downloadAgentHelperCompleteEventArgs);*/
+            ReferencePool.Release(downloadAgentHelperCompleteEventArgs);
         }
     }
 

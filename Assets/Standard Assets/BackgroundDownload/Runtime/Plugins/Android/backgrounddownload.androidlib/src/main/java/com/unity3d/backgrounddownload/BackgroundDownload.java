@@ -123,6 +123,40 @@ public class BackgroundDownload {
         return 1.0f;
     }
 
+    public int getDownloadedBytes(){
+         if (error != null)
+             return 1;
+         Uri uri = manager.getUriForDownloadedFile(id);
+         if (uri != null)
+             return 1;
+         DownloadManager.Query query = new DownloadManager.Query();
+         query.setFilterById(id);
+         Cursor cursor = manager.query(query);
+         if (cursor.getCount() == 0) {
+             error = "Background download not found";
+             return 1;
+         }
+         cursor.moveToFirst();
+         int downloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+         return downloaded;
+    }
+    public int getTotalBytes(){
+         if (error != null)
+             return 1;
+         Uri uri = manager.getUriForDownloadedFile(id);
+         if (uri != null)
+             return 1;
+         DownloadManager.Query query = new DownloadManager.Query();
+         query.setFilterById(id);
+         Cursor cursor = manager.query(query);
+         if (cursor.getCount() == 0) {
+             error = "Background download not found";
+             return 1;
+         }
+         cursor.moveToFirst();
+         int total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+         return total;
+    }
     public String getDownloadUrl() {
         return downloadUri.toString();
     }

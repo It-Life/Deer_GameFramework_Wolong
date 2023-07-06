@@ -35,6 +35,12 @@ namespace GameFramework.Download
         event EventHandler<DownloadAgentHelperErrorEventArgs> DownloadAgentHelperError;
 
         /// <summary>
+        /// 是否使用WebRequest 请求下载 否的话在移动端启用后台下载
+        /// </summary>
+        /// <returns></returns>
+        bool IsWebRequestRunning { get;}
+
+        /// <summary>
         /// 通过下载代理辅助器下载指定地址的数据。
         /// </summary>
         /// <param name="downloadUri">下载地址。</param>

@@ -228,10 +228,13 @@ namespace Unity.Networking
         /// How far the request has progressed (0 to 1), negative value if unknown. Accessing this field can be very expensive (in particular on Android).
         /// </summary>
         public float progress { get { return GetProgress(); } }
+        public int downloadedBytes { get { return GetDownloadedBytes(); } }
+        public int totalBytes { get { return GetTotalBytes(); } }
 
         /// <summary>For internal use.</summary>
         protected abstract float GetProgress();
-
+        protected abstract int GetDownloadedBytes();
+        protected abstract int GetTotalBytes();
         /// <summary>
         /// Disposes of this download, aborts the download if still in progress.
         /// All background download instances have to be disposed when no longer required.

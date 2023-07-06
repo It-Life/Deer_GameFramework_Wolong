@@ -93,6 +93,8 @@ namespace UnityGameFramework.Runtime
             }
         }
 
+        public override bool IsWebRequestRunning { get; } = true;
+
         /// <summary>
         /// 通过下载代理辅助器下载指定地址的数据。
         /// </summary>

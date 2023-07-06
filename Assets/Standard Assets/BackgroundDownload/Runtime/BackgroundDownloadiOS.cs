@@ -85,7 +85,8 @@ namespace Unity.Networking
                 return 1.0f;
             return UnityBackgroundDownloadGetProgress(_backend);
         }
-
+        protected override int GetDownloadedBytes() {return 1; }
+        protected override int GetTotalBytes() {return 1;}
         public override void Dispose()
         {
             if (_backend != IntPtr.Zero)

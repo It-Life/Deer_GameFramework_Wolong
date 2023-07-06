@@ -11,7 +11,7 @@ namespace Unity.Networking
 
     class BackgroundDownloadAndroid : BackgroundDownload
     {
-        private const string TEMP_FILE_SUFFIX = ".part";
+        private const string TEMP_FILE_SUFFIX = ".download";
         static AndroidJavaClass _playerClass;
         static AndroidJavaClass _backgroundDownloadClass;
 
@@ -57,11 +57,7 @@ namespace Unity.Networking
             SetupBackendStatics();
             string filePath = Path.Combine(Application.persistentDataPath, config.filePath);
             _tempFilePath = filePath + TEMP_FILE_SUFFIX;
-            if (File.Exists(filePath))
-                File.Delete(filePath);
-            if (File.Exists(_tempFilePath))
-                File.Delete(_tempFilePath);
-            else
+            if (!File.Exists(_tempFilePath))
             {
                 var dir = Path.GetDirectoryName(filePath);
                 if (!Directory.Exists(dir))
@@ -190,6 +186,16 @@ namespace Unity.Networking
         protected override float GetProgress()
         {
             return _download.Call<float>("getProgress");
+        }
+
+        protected override int GetDownloadedBytes()
+        {
+            return _download.Call<int>("getDownloadedBytes");
+        }
+
+        protected override int GetTotalBytes()
+        {
+            return _download.Call<int>("getTotalBytes");
         }
 
         public override void Dispose()
