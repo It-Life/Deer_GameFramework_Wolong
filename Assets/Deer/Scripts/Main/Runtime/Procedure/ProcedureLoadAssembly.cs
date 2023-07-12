@@ -208,7 +208,7 @@ namespace Main.Runtime.Procedure
             }
             finally
             {
-                if (m_AOTAssemblyBytes.Count == m_HotUpdateAsm.Count)
+                if (m_AOTAssemblyBytes.Count == DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies.Count)
                 {
                     m_LoadMetadataAssemblyComplete = true;
                 }
