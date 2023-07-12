@@ -110,7 +110,15 @@ public static class BuildEventHandlerWolong
                     Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath)))
             {
                 Debug.Log("拷贝程序集资源文件成功！");
-                AssetDatabase.Refresh();
+            }
+        }
+        if (!outputPackageSelected && outputPackedSelected)
+        {
+            if (FolderUtils.CopyFolder(
+                    $"{Application.dataPath}/../{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRDataPath}/{DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath}",
+                    Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath)))
+            {
+                Debug.Log("拷贝程序集资源文件成功！");
             }
         }
         if (outputFullSelected)

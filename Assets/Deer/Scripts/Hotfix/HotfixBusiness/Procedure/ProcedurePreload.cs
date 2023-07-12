@@ -29,10 +29,6 @@ namespace HotfixBusiness.Procedure
             m_procedureOwner = procedureOwner;
             //初始化所有角色信息管理器
             PreloadConfig();
-            if (GameEntry.Base.EditorResourceMode)
-            {
-                return;
-            }
         }
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -60,19 +56,7 @@ namespace HotfixBusiness.Procedure
         {
             m_LoadConfigFlag.Clear();
             m_LoadConfigFlag.Add("Config");
-            //移动StreamingAssets 目录 LubanConfig 到沙盒目录
-            if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
-            {
-                //单机包模式
-                GameEntry.Config.MoveOnlyReadPathConfigVersionFile((bool result, int t, int c) => {
-                    if (result)
-                    {
-                        GameEntry.Config.LoadAllUserConfig(OnLoadConfigComplete);
-                    }
-                });
-            }
-            else
-                GameEntry.Config.LoadAllUserConfig(OnLoadConfigComplete);
+            GameEntry.Config.LoadAllUserConfig(OnLoadConfigComplete);
         }
         private void OnLoadConfigComplete(bool result, string resultMessage)
         {

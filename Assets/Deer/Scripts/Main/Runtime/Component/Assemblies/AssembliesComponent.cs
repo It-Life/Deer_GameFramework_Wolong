@@ -1,14 +1,19 @@
-using System;
-using System.Collections;
+// ================================================
+//描 述:
+//作 者:AlanDu
+//创建时间:2023-07-11 11-31-05
+//修改作者:AlanDu
+//修改时间:2023-07-11 11-31-05
+//版 本:0.1 
+// ===============================================
 using System.Collections.Generic;
 using System.IO;
-using Bright.Serialization;
+using System.Linq;
 using CatJson;
-using Cysharp.Threading.Tasks;
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
-using UnityEngine;
-using UnityEngine.Networking;
+using Main.Runtime;
 using UnityGameFramework.Runtime;
 using Utility = GameFramework.Utility;
 
@@ -29,53 +34,61 @@ public class AssemblyInfo
         Size = size;
     }
 }
-/// <summary>
-/// 使用可更新模式并检查资源程序集完成时的回调函数。
-/// </summary>
-/// <param name="updateCount">可更新的资源数量。</param>
-/// <param name="updateTotalLength">可更新的资源总大小。</param>
-public delegate void CheckAssembliesCompleteCallback(int updateCount, long updateTotalLength);
+
 
 /// <summary>
 /// 使用可更新模式并更资源程序集完成时的回调函数。
 /// </summary>
 /// <param name="result">更新资源结果，全部成功为 true，否则为 false。</param>
 public delegate void UpdateAssembliesCompleteCallback(string groupName,bool result);
+// 自定义比较器
+public class AssembliesComparer : IEqualityComparer<AssemblyInfo>
+{
+    public bool Equals(AssemblyInfo obj1, AssemblyInfo obj2)
+    {
+        // 在这里定义你对两个对象的比较逻辑
+        return obj1.Name == obj2.Name && obj1.HashCode == obj2.HashCode;  // 示例：根据名字比较
+    }
 
+    public int GetHashCode(AssemblyInfo obj)
+    {
+        return obj.GetHashCode();
+    }
+}
 public class AssembliesComponent : GameFrameworkComponent
 {
-    private List<AssemblyInfo> m_LastAssemblies;
-    private List<AssemblyInfo> m_NowAssemblies;
-    private Dictionary<string,AssemblyInfo> m_NeedUpdateAssemblies;
+    /// <summary>
+    /// 使用可更新模式并检查资源程序集完成时的回调函数。
+    /// </summary>
+    /// <param name="updateCount">可更新的资源数量。</param>
+    /// <param name="updateTotalLength">可更新的资源总大小。</param>
+    public delegate void CheckAssembliesCompleteCallback(int updateCount, long updateTotalLength);
+    public delegate void OnInitAssembliesCompleteCallback();
+    public delegate void CheckAssembliesVersionListCompleteCallback(CheckVersionListResult result);
+
+    private OnInitAssembliesCompleteCallback m_OnInitAssembliesCompleteCallback;
+    private CheckAssembliesVersionListCompleteCallback m_CheckVersionListCompleteCallback;
+    private CheckAssembliesCompleteCallback m_CheckCompleteCallback;
+
+    private List<AssemblyInfo> m_LocalAssemblies;
+    private List<AssemblyInfo> m_UpdateAssemblies;
+    
+    private Dictionary<string,AssemblyInfo> m_NeedUpdateAssemblies = new Dictionary<string, AssemblyInfo>();
     private List<AssemblyInfo> m_NeedDownloadAssemblies;
     private List<AssemblyInfo> m_DownloadedAssemblies;
-
-    private Action<CheckVersionListResult> m_OnCheckVersionListResult;
+    
     private bool m_FailureFlag;
     
     private int m_UpdateRetryCount;
-    private Action m_onInitAssembliesComplete;
-    /// <summary>
-    /// 获取或者设置配置表重试次数
-    /// </summary>
-    public int UpdateRetryCount
-    {
-        get
-        {
-            return m_UpdateRetryCount;
-        }
-        set
-        {
-            m_UpdateRetryCount = value;
-        }
-    }
+
+    private bool m_ReadOnlyVersionReady = false;
+    private bool m_ReadWriteVersionReady = false;
+    
+    private int m_MoveingCount;
+    private int m_MovedCount;
+
 
     private UpdateAssembliesCompleteCallback m_UpdateAssembliesCompleteCallback;
-    protected override void Awake()
-    {
-        base.Awake();
-        m_NeedUpdateAssemblies = new Dictionary<string,AssemblyInfo>();
-    }
 
     private void Start()
     {
@@ -83,81 +96,116 @@ public class AssembliesComponent : GameFrameworkComponent
         GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
     }
 
-    public void InitAssembliesVersion(Action onInitAssembliesComplete)
+    public void InitAssembliesVersion(OnInitAssembliesCompleteCallback onInitAssembliesCompleteCallback)
     {
         Logger.Debug("InitAssembliesVersion");
-        m_onInitAssembliesComplete = onInitAssembliesComplete;
-        ReadAssembliesVersion(true);
+        m_OnInitAssembliesCompleteCallback = onInitAssembliesCompleteCallback;
+        LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadOnlyPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadLocalAssembliesVersionSuccess, OnLoadLocalAssembliesVersionFailure), null);
     }
-
-    private void ReadAssembliesVersion(bool isLastVersion)
+    public void CheckVersionList(CheckAssembliesVersionListCompleteCallback checkAssembliesVersionListComplete)
     {
-        string fileLoadPath = DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath+"/"+DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName;
-        if (!GameEntryMain.Base.EditorResourceMode)
+        m_CheckVersionListCompleteCallback = checkAssembliesVersionListComplete;
+        LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadOnlyPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadLocalAssembliesVersionSuccess, OnLoadLocalAssembliesVersionFailure), null);
+        LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadUpdateAssembliesVersionSuccess, OnLoadUpdateAssembliesVersionFailure), null);
+    }
+    private void RefreshCheckInfoStatus()
+    {
+        if (!m_ReadOnlyVersionReady || !m_ReadWriteVersionReady)
         {
-            if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
+            return;
+        }
+        
+        if (m_LocalAssemblies.SequenceEqual(m_UpdateAssemblies, new AssembliesComparer()))
+        {
+            foreach (var item in m_LocalAssemblies)
             {
-                fileLoadPath = Path.Combine(Application.streamingAssetsPath, fileLoadPath);
-#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
-                fileLoadPath = $"file://{fileLoadPath}";
-#endif
-            }
-            else
-            {
-                fileLoadPath = Path.Combine(Application.persistentDataPath, fileLoadPath);
-                if (!File.Exists(fileLoadPath))
+                string filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,item.PathRoot, $"{item.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
+                if (!File.Exists(filePath))
                 {
-                    if (isLastVersion)
-                    {
-                        Logger.Info<AssembliesComponent>($"fileLoadPath:{fileLoadPath} is not find.");
-                        m_onInitAssembliesComplete?.Invoke();
-                    }
-                    else
-                    {
-                        Logger.Error<AssembliesComponent>($"fileLoadPath:{fileLoadPath} is not find.");
-                    }
-                    return;
+                    m_MoveingCount++;
+                    string fileName = $"{item.Name}.{item.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
+                    LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadOnlyPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, item.PathRoot, fileName)), new LoadBytesCallbacks(OnLoadLocalAssemblySuccess, OnLoadLocalAssemblyFailure), filePath);
                 }
-                fileLoadPath = $"file://{fileLoadPath}";
             }
-            Logger.Debug<AssembliesComponent>("fileLoadPath:"+fileLoadPath);
-            StartCoroutine(StartReadAssemblies(fileLoadPath,isLastVersion));
+            if (m_MoveingCount == 0)
+            {
+                m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.Updated);
+            }
+        }
+        else
+        {
+            m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.NeedUpdate);
         }
     }
 
-    IEnumerator StartReadAssemblies(string filePath,bool isLastVersion)
+    private void OnLoadLocalAssemblyFailure(string fileUri, string errorMessage, object userData)
     {
-        UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
-        yield return unityWebRequest.SendWebRequest();
-        if (unityWebRequest.isDone)
-        {
-            if (unityWebRequest.result == UnityWebRequest.Result.Success)
-            {
-                string versionInfoBytes = unityWebRequest.downloadHandler.text;
-                if (isLastVersion)
-                {
-                    m_LastAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
-                    m_onInitAssembliesComplete?.Invoke();
-                }
-                else
-                {
-                    m_NowAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
-                    m_OnCheckVersionListResult?.Invoke(NeedUpdateAssemblies()
-                        ? CheckVersionListResult.NeedUpdate
-                        : CheckVersionListResult.Updated);
-                }
-            }
-            else
-            {
-                Logger.Error<AssembliesComponent>($"filePath:{filePath} load error:{unityWebRequest.error}");
-            }
-        }
-        unityWebRequest.Dispose();
+        throw new GameFrameworkException(Utility.Text.Format("Load local assembly '{0}' is invalid, error message is '{1}'.", fileUri, string.IsNullOrEmpty(errorMessage) ? "<Empty>" : errorMessage));
     }
 
+    private void OnLoadLocalAssemblySuccess(string fileUri, byte[] bytes, float duration, object userData)
+    {
+        string filePath = userData.ToString();
+        string directory = Path.GetDirectoryName(filePath);
+        if (!Directory.Exists(directory))
+        {
+            if (directory != null) Directory.CreateDirectory(directory);
+        }
+        if (bytes != null)
+        {
+            FileStream nFile = new FileStream(filePath, FileMode.Create);
+            nFile.Write(bytes, 0, bytes.Length);
+            nFile.Flush();
+            nFile.Close();
+        }
+        m_MovedCount++;
+        if (m_MovedCount == m_MoveingCount)
+        {
+            m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.Updated);
+        }
+    }
+
+    private void OnLoadUpdateAssembliesVersionFailure(string fileUri, string errorMessage, object userData)
+    {
+        throw new GameFrameworkException(Utility.Text.Format("Updatable version list '{0}' is invalid, error message is '{1}'.", fileUri, string.IsNullOrEmpty(errorMessage) ? "<Empty>" : errorMessage));
+    }
+
+    private void OnLoadUpdateAssembliesVersionSuccess(string fileUri, byte[] bytes, float duration, object userData)
+    {
+        string versionInfoBytes = FileUtils.BinToUtf8(bytes);
+        m_UpdateAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+        m_ReadWriteVersionReady = true;
+        RefreshCheckInfoStatus();
+    }
+
+    private void OnLoadLocalAssembliesVersionFailure(string fileUri, string errorMessage, object userData)
+    {
+        if (m_ReadOnlyVersionReady)
+        {
+            throw new GameFrameworkException("Read-only version has been parsed.");
+        }
+        m_ReadOnlyVersionReady = true;
+        m_OnInitAssembliesCompleteCallback?.Invoke();
+        RefreshCheckInfoStatus();
+    }
+
+    private void OnLoadLocalAssembliesVersionSuccess(string fileUri, byte[] bytes, float duration, object userData)
+    {
+        string versionInfoBytes = FileUtils.BinToUtf8(bytes);
+        m_LocalAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+        m_ReadOnlyVersionReady = true;
+        m_OnInitAssembliesCompleteCallback?.Invoke();
+        RefreshCheckInfoStatus();
+    }
+
+    private void LoadBytes(string fileUri, LoadBytesCallbacks loadBytesCallbacks, object userData)
+    {
+        StartCoroutine(FileUtils.LoadBytesCo(fileUri, loadBytesCallbacks, userData));
+    }
+    
     public AssemblyInfo FindAssemblyInfoByName(string name)
     {
-        foreach (var assemblyInfo in m_LastAssemblies)
+        foreach (var assemblyInfo in m_LocalAssemblies)
         {
             if (assemblyInfo.Name == name)
             {
@@ -167,35 +215,34 @@ public class AssembliesComponent : GameFrameworkComponent
         return null;
     }
 
-    public void CheckVersionList(Action<CheckVersionListResult> oAction)
-    {
-        m_OnCheckVersionListResult = oAction;
-        ReadAssembliesVersion(false);
-    }
-    public bool UpdateVersionList()
-    {
-        FindUpdateAssemblies();
-        return true;
-    }
-
     public void CheckAssemblies(string groupName,CheckAssembliesCompleteCallback completeCallback)
     {
-        List<AssemblyInfo> findList = FindUpdateAssembliesByGroupName(groupName);
-        if (findList.Count > 0)
+        m_CheckCompleteCallback = completeCallback;
+
+        if (m_UpdateAssemblies.SequenceEqual(m_LocalAssemblies))
         {
-            long allSize = 0;
-            foreach (var assemblyInfo in findList)
-            {
-                if (assemblyInfo.GroupName == groupName)
-                {
-                    allSize += (assemblyInfo.Size > 0 ? assemblyInfo.Size : 1) * 1024;
-                }
-            }
-            completeCallback.Invoke(findList.Count,allSize);
+            m_CheckCompleteCallback?.Invoke(0,0); 
         }
         else
         {
-            completeCallback.Invoke(0,0);
+            FindUpdateAssemblies();
+            List<AssemblyInfo> findList = FindUpdateAssembliesByGroupName(groupName);
+            if (findList.Count > 0)
+            {
+                long allSize = 0;
+                foreach (var assemblyInfo in findList)
+                {
+                    if (assemblyInfo.GroupName == groupName)
+                    {
+                        allSize += (assemblyInfo.Size > 0 ? assemblyInfo.Size : 1) * 1024;
+                    }
+                }
+                m_CheckCompleteCallback.Invoke(findList.Count,allSize);
+            }
+            else
+            {
+                m_CheckCompleteCallback.Invoke(0,0);
+            }
         }
     }
 
@@ -236,51 +283,12 @@ public class AssembliesComponent : GameFrameworkComponent
         GameEntryMain.Download.AddDownload(downloadPath, downloadUri, needUpdateAssembly); 
     }
 
-    private bool NeedUpdateAssemblies(string groupName = "")
-    {
-        if (m_LastAssemblies == null)
-        {
-            return true;
-        }
-        string filePath = string.Empty;
-        int curHashCode = 0;
-        foreach (var assemblyInfo in m_NowAssemblies)
-        {
-            bool isFind = false;
-            if (!string.IsNullOrEmpty(groupName))
-            {
-                if (assemblyInfo.GroupName == groupName)
-                {
-                    isFind = true;
-                }
-            }
-            else
-            {
-                isFind = true;
-            }
-            if (isFind)
-            {
-                filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,assemblyInfo.PathRoot,$"{assemblyInfo.Name}.{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
-                if (!File.Exists(filePath))
-                {
-                    return true;
-                }
-                using FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                curHashCode = Utility.Verifier.GetCrc32(fileStream);
-                if (curHashCode != assemblyInfo.HashCode)
-                {
-                    return true;
-                } 
-            }
-        }
-        return false;
-    }
     private void FindUpdateAssemblies()
     {
         m_NeedUpdateAssemblies.Clear();
         string filePath = string.Empty;
         int curHashCode = 0;
-        foreach (var assemblyInfo in m_NowAssemblies)
+        foreach (var assemblyInfo in m_UpdateAssemblies)
         {
             filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,assemblyInfo.PathRoot,$"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
             if (File.Exists(filePath))

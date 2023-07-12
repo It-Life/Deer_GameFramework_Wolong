@@ -5,8 +5,11 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using GameFramework;
+using GameFramework.Resource;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
+using Utility = GameFramework.Utility;
 
 namespace Main.Runtime 
 {
@@ -314,9 +317,10 @@ namespace Main.Runtime
             string utf8string = System.Text.Encoding.UTF8.GetString(result);
             return utf8string;
         }
-        public static Dictionary<string, ConfigInfo> AnalyConfigXml(string xml)
+        public static Dictionary<string, ConfigInfo> AnalyConfigXml(string xml,out string version)
         {
-            Dictionary<string, ConfigInfo> _Configs = new Dictionary<string, ConfigInfo>();
+            version = string.Empty;
+            Dictionary<string, ConfigInfo> _configs = new Dictionary<string, ConfigInfo>();
             XmlDocument doc = new XmlDocument();
             try
             {
@@ -333,7 +337,12 @@ namespace Main.Runtime
             if (node == null)
             {
                 Logger.Error("Root node is null");
-                return _Configs;
+                return _configs;
+            }
+
+            if (node.Attributes != null && node.Attributes[0] != null)
+            {
+                version = node.Attributes[0].Value;
             }
             for (int i = 0; i < node.ChildNodes.Count; i++)
             {
@@ -355,9 +364,9 @@ namespace Main.Runtime
                         Extension = extension,                        
                     };
 
-                    if (!_Configs.ContainsKey(filePath))
+                    if (!_configs.ContainsKey(filePath))
                     {
-                        _Configs.Add(filePath, configInfo);
+                        _configs.Add(filePath, configInfo);
                     }
                     else
                     {
@@ -365,10 +374,54 @@ namespace Main.Runtime
                     }
                 }
             }
-            return _Configs;
-            //StartCoroutine(IEMoveConfigFileToReadWritePath(moveConfigToReadWriteCallback));
+            return _configs;
         }
+        public static IEnumerator LoadBytesCo(string fileUri, LoadBytesCallbacks loadBytesCallbacks, object userData)
+        {
+            bool isError = false;
+            byte[] bytes = null;
+            string errorMessage = null;
+            DateTime startTime = DateTime.UtcNow;
 
+#if UNITY_5_4_OR_NEWER
+            UnityWebRequest unityWebRequest = UnityWebRequest.Get(fileUri);
+#if UNITY_2017_2_OR_NEWER
+            yield return unityWebRequest.SendWebRequest();
+#else
+            yield return unityWebRequest.Send();
+#endif
+
+#if UNITY_2020_2_OR_NEWER
+            isError = unityWebRequest.result != UnityWebRequest.Result.Success;
+#elif UNITY_2017_1_OR_NEWER
+            isError = unityWebRequest.isNetworkError || unityWebRequest.isHttpError;
+#else
+            isError = unityWebRequest.isError;
+#endif
+            bytes = unityWebRequest.downloadHandler.data;
+            errorMessage = isError ? unityWebRequest.error : null;
+            unityWebRequest.Dispose();
+#else
+            WWW www = new WWW(fileUri);
+            yield return www;
+
+            isError = !string.IsNullOrEmpty(www.error);
+            bytes = www.bytes;
+            errorMessage = www.error;
+            www.Dispose();
+#endif
+
+            if (!isError)
+            {
+                float elapseSeconds = (float)(DateTime.UtcNow - startTime).TotalSeconds;
+                loadBytesCallbacks.LoadBytesSuccessCallback(fileUri, bytes, elapseSeconds, userData);
+            }
+            else if (loadBytesCallbacks.LoadBytesFailureCallback != null)
+            {
+                loadBytesCallbacks.LoadBytesFailureCallback(fileUri, errorMessage, userData);
+            }
+        }
+        
         public static string localFilePath = "/u3dres/xxx";
         public static string GetLocalPathByUri(string uri)
         {

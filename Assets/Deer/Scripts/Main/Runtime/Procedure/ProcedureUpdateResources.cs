@@ -89,7 +89,7 @@ namespace Main.Runtime.Procedure
             {
                 if (!DeerSettingsUtils.DeerGlobalSettings.ReadLocalConfigInEditor)
                 {
-                    GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
+                    GameEntryMain.ConfigMain.CheckConfigVersion(OnCheckConfigComplete);
                 }
                 else {
                     OnCheckConfigComplete(0,0,0,0);
@@ -110,7 +110,7 @@ namespace Main.Runtime.Procedure
                 OnNoticeUpdate();
                 return;
             }
-            GameEntryMain.Instance.CheckConfigVersion(OnCheckConfigComplete);
+            GameEntryMain.ConfigMain.CheckConfigVersion(OnCheckConfigComplete);
             GameEntryMain.Resource.CheckResources(OnCheckResourcesComplete);
             GameEntryMain.Assemblies.CheckAssemblies(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,OnCheckAssembliesComplete);
         }
@@ -267,7 +267,7 @@ namespace Main.Runtime.Procedure
         private void StartUpdateConfigs(object userData)
         {
             Logger.Info("Start update config ");
-            GameEntryMain.Instance.UpdateConfigs(OnUpdateConfigsComplete);
+            GameEntryMain.ConfigMain.UpdateConfigs(OnUpdateConfigsComplete);
         }
 
         private void StartUpdateResources(object userData)

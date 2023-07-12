@@ -44,7 +44,15 @@ public static class BuildEventHandlerLuban
                     Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName)))
             {
                 Debug.Log("拷贝表资源文件成功！");
-                AssetDatabase.Refresh();
+            }
+        }
+        if (!outputPackageSelected && outputPackedSelected)
+        {
+            if (FolderUtils.CopyFolder(
+                    $"{Application.dataPath}/../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}",
+                    Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName)))
+            {
+                Debug.Log("拷贝表资源文件成功！");
             }
         }
         if (outputFullSelected)
@@ -64,7 +72,7 @@ public static class BuildEventHandlerLuban
         string configFolderPath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}");
         string configVersionPath = Path.Combine(configFolderPath,DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName);
         string xml = File.ReadAllText(configVersionPath);
-        m_Configs = FileUtils.AnalyConfigXml(xml);
+        m_Configs = FileUtils.AnalyConfigXml(xml,out string version);
         string configDataPath = $"{configFolderPath}/Datas";
         string destDataPath = Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas");
         if (!Directory.Exists(destDataPath))

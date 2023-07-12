@@ -1,15 +1,13 @@
 ﻿// ================================================
-//描 述 :  
-//作 者 : 杜鑫 
-//创建时间 : 2021-07-09 08-18-03  
-//修改作者 : 杜鑫 
-//修改时间 : 2021-07-09 08-18-03  
-//版 本 : 0.1 
+//描 述:
+//作 者:AlanDu
+//创建时间:2023-07-11 11-31-05
+//修改作者:AlanDu
+//修改时间:2023-07-11 11-31-05
+//版 本:0.1 
 // ===============================================
 
 using cfg;
-using Deer;
-using System;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -29,10 +27,5 @@ public class ConfigComponent : GameFrameworkComponent
     {
         Tables = await m_ConfigManager.LoadAllUserConfig();
         loadConfigCompleteCallback(true);
-    }
-
-    public void MoveOnlyReadPathConfigVersionFile(MoveConfigToReadWriteCallback moveConfigToReadWriteCallback = null)
-    {
-        m_ConfigManager.AsynLoadOnlyReadPathConfigVersionFile(moveConfigToReadWriteCallback);
     }
 }

@@ -68,12 +68,12 @@ namespace Main.Runtime.Procedure
             m_CheckVersionInfos.Add(ResourcesType.Config,new CheckVersionInfo(ResourcesType.Config,0,false,false));
             m_CheckVersionInfos.Add(ResourcesType.Assemblies,new CheckVersionInfo(ResourcesType.Assemblies,0,false,false));
             
-            GameEntryMain.Assemblies.InitAssembliesVersion(OnInitAssembliesComplete);    
             GameEntryMain.Resource.UpdatePrefixUri = DeerSettingsUtils.GetResDownLoadPath();
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
             DownLoadConfigVersion();
             DownLoadResourcesVersion();
+            DownLoadAssembliesVersion();
         }
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -94,12 +94,7 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
             GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
         }
-        private void OnInitAssembliesComplete()
-        {
-            m_InitAssembliesComplete = true;
-            DownLoadAssembliesVersion();
-            Log.Info("Init assemblies complete.");
-        }
+
         private CheckVersionInfo GetCheckVersionInfo(ResourcesType resourcesType)
         {
             try
@@ -173,7 +168,10 @@ namespace Main.Runtime.Procedure
                 checkVersionInfo.UpdateVersionFlag = true;
                 if (checkData.CheckType == ResourcesType.Config)
                 {
-                    checkVersionInfo.LatestComplete = true;
+                    GameEntryMain.ConfigMain.CheckVersionList(delegate(CheckVersionListResult result)
+                    {
+                        checkVersionInfo.LatestComplete = true;
+                    });
                 }else if (checkData.CheckType == ResourcesType.Resources)
                 {
                     string versionInfoBytes = File.ReadAllText(ne.DownloadPath);
@@ -195,7 +193,7 @@ namespace Main.Runtime.Procedure
                 {
                     GameEntryMain.Assemblies.CheckVersionList(delegate(CheckVersionListResult result)
                     {
-                        checkVersionInfo.LatestComplete = result == CheckVersionListResult.Updated || GameEntryMain.Assemblies.UpdateVersionList();
+                        checkVersionInfo.LatestComplete = true;
                     });
                 }
             }

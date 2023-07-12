@@ -18,8 +18,6 @@ namespace Main.Runtime.Procedure
         public override bool UseNativeDialog => true;
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
-            //Debug.Log("tackor ProcedureLauncher OnEnter");
-
             base.OnEnter(procedureOwner);
             GameEntryMain.UI.OpenUIInitRootForm();
             ChangeState<ProcedureSplash>(procedureOwner);

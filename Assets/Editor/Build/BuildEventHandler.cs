@@ -201,16 +201,17 @@ public class BuildEventHandler : IBuildEventHandler
                 Directory.CreateDirectory(item);
             }
         }*/
+        bool isCopyOther = false;
+        bool isOpenCommitResourcesPath = false;
+        bool isOpenFullPath = false;
         if (outputPackageSelected)
         {
             if (FolderUtils.CopyFilesToRootPath(outputPackagePath, Application.streamingAssetsPath, SearchOption.AllDirectories))
             {
                 Debug.Log("拷贝单机资源文件成功！");
             }
-#if ENABLE_HYBRID_CLR_UNITY
-            BuildEventHandlerWolong.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
-#endif
-            BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
+
+            isCopyOther = true;
         }
         if (!outputPackageSelected && outputPackedSelected)
         {
@@ -218,6 +219,7 @@ public class BuildEventHandler : IBuildEventHandler
             {
                 Debug.Log("拷贝包体资源文件成功！");
             }
+            isCopyOther = true;
         }
         //更新包文件
         if (outputFullSelected)
@@ -263,16 +265,31 @@ public class BuildEventHandler : IBuildEventHandler
                 {
                     Debug.Log("更新资源文件拷贝完毕！");
                 }
-#if ENABLE_HYBRID_CLR_UNITY
-                BuildEventHandlerWolong.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
-#endif
-                BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
-                Application.OpenURL("file://"+ CommitResourcesPath);
+
+                isCopyOther = true;
+                isOpenCommitResourcesPath = true;
             }
             else
             {
-                Application.OpenURL("file://"+ outputFullPath);
+                isOpenFullPath = true;
             }
+
+        }
+        if (isCopyOther)
+        {
+#if ENABLE_HYBRID_CLR_UNITY
+            BuildEventHandlerWolong.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
+#endif
+            BuildEventHandlerLuban.OnPostprocessPlatform(platform, outputPackageSelected, outputFullSelected, outputPackedSelected, CommitResourcesPath);
+            AssetDatabase.Refresh();
+        }
+        if (isOpenCommitResourcesPath)
+        {
+            Application.OpenURL("file://"+ CommitResourcesPath);
+        }
+        if (isOpenFullPath)
+        {
+            Application.OpenURL("file://"+ outputFullPath);
         }
     }
 }
