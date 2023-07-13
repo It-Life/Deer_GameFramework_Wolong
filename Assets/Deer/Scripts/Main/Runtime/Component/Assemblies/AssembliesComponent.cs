@@ -115,7 +115,7 @@ public class AssembliesComponent : GameFrameworkComponent
             return;
         }
         
-        if (m_LocalAssemblies.SequenceEqual(m_UpdateAssemblies, new AssembliesComparer()))
+        if (m_LocalAssemblies != null && m_UpdateAssemblies.SequenceEqual(m_LocalAssemblies, new AssembliesComparer()))
         {
             foreach (var item in m_LocalAssemblies)
             {
@@ -205,7 +205,8 @@ public class AssembliesComponent : GameFrameworkComponent
     
     public AssemblyInfo FindAssemblyInfoByName(string name)
     {
-        foreach (var assemblyInfo in m_LocalAssemblies)
+        List<AssemblyInfo> assemblyInfos = m_LocalAssemblies ?? m_UpdateAssemblies;
+        foreach (var assemblyInfo in assemblyInfos)
         {
             if (assemblyInfo.Name == name)
             {
@@ -219,7 +220,7 @@ public class AssembliesComponent : GameFrameworkComponent
     {
         m_CheckCompleteCallback = completeCallback;
 
-        if (m_UpdateAssemblies.SequenceEqual(m_LocalAssemblies))
+        if (m_LocalAssemblies != null && m_UpdateAssemblies.SequenceEqual(m_LocalAssemblies, new AssembliesComparer()))
         {
             m_CheckCompleteCallback?.Invoke(0,0); 
         }
