@@ -12,89 +12,36 @@ public class CreateTemplateScript
     private const string TemplateMainUIFormScriptPath = "Assets/Deer/Scripts/Main/Editor/GenScriptTool/Template/MyTemplateMainUIFormScript.cs.txt";
     private const string TemplateBusinessUIFormScriptPath = "Assets/Deer/Scripts/Main/Editor/GenScriptTool/Template/MyTemplateBusinessUIFormScript.cs.txt";
     private const string TemplateProcedureScriptPath = "Assets/Deer/Scripts/Main/Editor/GenScriptTool/Template/MyTemplateProcedureScript.cs.txt";
-    
-    /*  
-    private const string TemplateLuaScriptPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLua.lua.txt";
-    private const string TemplateLuaDataConfigPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaDataConfig.lua.txt";
-    private const string TemplateLuaDataManagerPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaDataManager.lua.txt";
-    private const string TemplateLuaProcedurePath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaProcedure.lua.txt";
-    private const string TemplateLuaComponentPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaComponent.lua.txt";
-    private const string TemplateLuaSingletonManagerPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaSingletonManager.lua.txt";
-    private const string TemplateLuaSceneScriptPath = "Assets/Editor/Main/GenScriptTool/Template/MyTemplateLuaSceneScript.lua.txt";
-    */
-
     //菜单项
-     [MenuItem("Assets/Create/Deer/C# Script/FrameScript", false, 1)]
+    [MenuItem("Assets/Deer/C# Script", false, 1)]
     static void CreateScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewBehaviourScript.cs",
         null, TemplateScriptPath);
     }
-    [MenuItem("Assets/Create/Deer/C# Script/MainFrameUIScript", false, 2)]
+    [MenuItem("Assets/Deer/C# MainUIScript", false, 2)]
     static void CreateMainUIFormScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewUIFormScript.cs",
         null, TemplateMainUIFormScriptPath);
     }
-    [MenuItem("Assets/Create/Deer/C# Script/BusinessFrameUIScript", false, 3)]
+    [MenuItem("Assets/Deer/C# BusinessUIScript", false, 3)]
     static void CreateHotfixBusinessUIFormScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewUIFormScript.cs",
         null, TemplateBusinessUIFormScriptPath);
     }
-    [MenuItem("Assets/Create/Deer/C# Script/FrameProcedureScript", false, 4)]
+    [MenuItem("Assets/Deer/C# ProcedureScript", false, 4)]
     static void CreateProcedureScript()
     {
         ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
         GetSelectedPathOrFallback() + "/NewProcedureScript.cs",
         null, TemplateProcedureScriptPath);
     }
-
-/*    [MenuItem("Assets/Create/Lua Script/Lua Script", false, 3)]
-    public static void CreatNewLua()
-    {
-        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
-            GetSelectedPathOrFallback() + "/NewLua.lua", null, TemplateLuaScriptPath);
-    } 
-    [MenuItem("Assets/Create/Lua Script/Lua DataConfig Script", false, 4)]
-    public static void CreatNewDataConfigLua()
-    {
-        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
-            GetSelectedPathOrFallback() + "/NewDataConfigLua.lua", null, TemplateLuaDataConfigPath);
-    } 
-    [MenuItem("Assets/Create/Lua Script/Lua DataManager Script", false, 5)]
-    public static void CreatNewDataManagerLua()
-    {
-        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
-            GetSelectedPathOrFallback() + "/NewDataManagerLua.lua", null, TemplateLuaDataManagerPath);
-    } 
-    [MenuItem("Assets/Create/Lua Script/Lua Procedure Script", false, 6)]
-    public static void CreatNewProcedureLua()
-    {
-        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
-            GetSelectedPathOrFallback() + "/NewProcedureLua.lua", null, TemplateLuaProcedurePath);
-    }
-    [MenuItem("Assets/Create/Lua Script/Lua Component Script", false, 7)]
-    public static void CreatNewComponentLua()
-    {
-        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
-            GetSelectedPathOrFallback() + "/NewComponentLua.lua", null, TemplateLuaComponentPath);
-    } 
-    [MenuItem("Assets/Create/Lua Script/Lua SingletonManager Script", false, 8)]
-    public static void CreatNewSingletonManagerLua()
-    {
-        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
-            GetSelectedPathOrFallback() + "/NewSingletonManagerLua.lua", null, TemplateLuaSingletonManagerPath);
-    } 
-    [MenuItem("Assets/Create/Lua Script/Lua SceneScript Script", false, 9)]
-    public static void CreatNewSceneScriptLua()
-    {
-        ProjectWindowUtil.StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<CreateScriptAsset>(),
-            GetSelectedPathOrFallback() + "/NewSceneScriptLua.lua", null, TemplateLuaSceneScriptPath);
-    }*/
+    
     public static string GetSelectedPathOrFallback()
     {
         string path = "Assets";

@@ -17,13 +17,12 @@ public class ConfigComponent : GameFrameworkComponent
 {
     private ConfigManager m_ConfigManager;
     public Tables Tables { get; set; }
-
     protected override void Awake()
     {
         base.Awake();
         m_ConfigManager = gameObject.GetOrAddComponent<ConfigManager>();
     }
-    public async void LoadAllUserConfig(LoadConfigCompleteCallback loadConfigCompleteCallback)
+    public async void LoadAllUserConfig(OnLoadConfigCompleteCallback loadConfigCompleteCallback)
     {
         Tables = await m_ConfigManager.LoadAllUserConfig();
         loadConfigCompleteCallback(true);

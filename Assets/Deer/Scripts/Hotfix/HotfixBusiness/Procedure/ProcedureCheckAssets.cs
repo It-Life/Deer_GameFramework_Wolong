@@ -50,16 +50,12 @@ namespace HotfixBusiness.Procedure
     {
         public override bool UseNativeDialog => false;
         private string m_NextProcedure;
+        private string m_AssetGroupName;
         private long m_UpdateTotalZipLength = 0;
         private bool m_NoticeUpdate = false;
         private float m_LastUpdateTime = 0;
         private List<UpdateInfoData> m_UpdateInfoDatas = new List<UpdateInfoData>();
         private List<string> m_HotUpdateAsm;
-        private Dictionary<string,byte[]> m_HotfixAssemblyBytes = new Dictionary<string, byte[]>();
-        private List<Assembly> m_HotfixAssemblys = new List<Assembly>();
-        private LoadAssetCallbacks m_LoadAssetCallbacks;
-        private int m_LoadAssetCount;
-        private int m_FailureAssetCount;
         private bool m_IsResetProcedure;
 
         private Dictionary<ResourcesType, UpdateResourceInfo> m_UpdateResourceInfos = new();
@@ -68,6 +64,7 @@ namespace HotfixBusiness.Procedure
         {
             base.OnEnter(procedureOwner);
             m_NextProcedure = procedureOwner.GetData<VarString>("nextProcedure");
+            m_AssetGroupName = Constant.Procedure.FindAssetGroup(m_NextProcedure);
             m_NoticeUpdate = false;
             
             m_UpdateResourceInfos.Clear();
@@ -141,8 +138,7 @@ namespace HotfixBusiness.Procedure
         private void OnStartLoadAsset()
         {
             UnloadAllResources();
-            string groupName = Constant.Procedure.FindAssetGroup(m_NextProcedure);
-            m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies(groupName);
+            m_HotUpdateAsm = DeerSettingsUtils.GetHotUpdateAssemblies(m_AssetGroupName);
             if (GameEntryMain.Base.EditorResourceMode)
             {
                 UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Resources);
@@ -169,16 +165,16 @@ namespace HotfixBusiness.Procedure
                     OnNoticeUpdate();
                     return;
                 }
-                if (string.IsNullOrEmpty(groupName))
+                if (string.IsNullOrEmpty(m_AssetGroupName))
                 {
                     OnNoticeUpdate();
                     return;
                 }
-                IResourceGroup resourceGroup = GameEntryMain.Resource.GetResourceGroup(groupName);
+                IResourceGroup resourceGroup = GameEntryMain.Resource.GetResourceGroup(m_AssetGroupName);
                 if (resourceGroup == null)
                 {
                     OnNoticeUpdate();
-                    Logger.Error($"has no resource group {groupName}");
+                    Logger.Error($"has no resource group {m_AssetGroupName}");
                     return;
                 }
                 bool isReady = resourceGroup.Ready;
@@ -193,7 +189,7 @@ namespace HotfixBusiness.Procedure
                         updateResourceInfo.UpdateCount = resourceGroup.TotalCount - resourceGroup.ReadyCount;
                     }
                 }
-                GameEntryMain.Assemblies.CheckAssemblies(groupName, delegate(int count, long length)
+                GameEntryMain.Assemblies.CheckAssemblies(m_AssetGroupName, delegate(int count, long length)
                 {
                     UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
                     if (updateResourceInfo != null)
@@ -256,22 +252,21 @@ namespace HotfixBusiness.Procedure
             {
                 return true;
             }
-            m_HotfixAssemblys.Clear();
+            List<Assembly> hotfixAssemblies = new();
             foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
             {
                 foreach (var hotUpdateDllName in m_HotUpdateAsm)
                 {
                     if (hotUpdateDllName == $"{asm.GetName().Name}.dll")
                     {
-                        m_HotfixAssemblys.Add(asm);
+                        hotfixAssemblies.Add(asm);
                         m_IsResetProcedure = true;
                         GameEntry.AddHotfixAssemblys(asm);
+                        if (hotfixAssemblies.Count == m_HotUpdateAsm.Count)
+                        {
+                            return true;
+                        }
                     }
-                }
-                if (m_HotfixAssemblys.Count == m_HotUpdateAsm.Count)
-                {
-
-                    return true;
                 }
             }
             return false;
@@ -321,76 +316,26 @@ namespace HotfixBusiness.Procedure
             }
             else
             {
-                m_HotfixAssemblyBytes.Clear();
-                foreach (var assemblyName in m_HotUpdateAsm)
-                {
-                    string fileLoadPath;
-                    if (GameEntryMain.Resource.ResourceMode == ResourceMode.Package)
+                GameEntryMain.Assemblies.LoadHotUpdateAssembliesByGroupName(m_AssetGroupName,
+                    delegate(Dictionary<string, byte[]> assemblies)
                     {
-                        fileLoadPath = Path.Combine(Application.streamingAssetsPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,DeerSettingsUtils.HotfixNode);
-                        AssemblyInfo assemblyInfo = GameEntryMain.Assemblies.FindAssemblyInfoByName(assemblyName);
-                        if (assemblyInfo != null)
+                        foreach (var item in assemblies)
                         {
-                            fileLoadPath = Utility.Path.GetRegularPath(Path.Combine(fileLoadPath,$"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
-#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX || UNITY_IOS
-                            fileLoadPath = $"file://{fileLoadPath}";
-#endif
+                            var asm = Assembly.Load(item.Value);
+                            m_IsResetProcedure = true;
+                            GameEntry.AddHotfixAssemblys(asm);
                         }
-                        else
-                        {
-                            Logger.Error<ProcedureCheckAssets>("本地没有资源：" + $"{assemblyName}");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        fileLoadPath = Path.Combine(Application.persistentDataPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,DeerSettingsUtils.HotfixNode);
-                        fileLoadPath = Utility.Path.GetRegularPath(Path.Combine(fileLoadPath,$"{assemblyName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}"));
-                        if (!File.Exists(fileLoadPath))
-                        {
-                            Logger.Error<ProcedureCheckAssets>($"fileLoadPath:{fileLoadPath} is not find.");
-                        }
-                        fileLoadPath = $"file://{fileLoadPath}";
-                    }
-                    Logger.Debug<ProcedureCheckAssets>($"fileLoadPath: {fileLoadPath} ");
-                    GameEntryMain.Download.StartCoroutine(StartLoadAssemblyAsset(fileLoadPath,assemblyName));
-                }
-            }
-        }
-        IEnumerator StartLoadAssemblyAsset(string filePath ,string asmName)
-        {
-            UnityWebRequest unityWebRequest = UnityWebRequest.Get(filePath);
-            yield return unityWebRequest.SendWebRequest();
-            if (unityWebRequest.isDone)
-            {
-                if (unityWebRequest.result == UnityWebRequest.Result.Success)
-                {
-                    m_HotfixAssemblyBytes.Add(asmName,unityWebRequest.downloadHandler.data);
-                    if (!IsAddAllFinish(asmName))
-                    {
-                        Assembly asm = Assembly.Load(unityWebRequest.downloadHandler.data);
-                        m_IsResetProcedure = true;
-                        GameEntry.AddHotfixAssemblys(asm);
-                    }
-                    if (m_HotfixAssemblyBytes.Count == m_HotUpdateAsm.Count)
-                    {
                         UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
                         if (updateResourceInfo != null)
                         {
                             updateResourceInfo.UpdateComplete = true;
                         }
-                    }
-                }
-                else
-                {
-                    Logger.Error<ProcedureCheckAssets>($"filePath:{filePath} load error:{unityWebRequest.error}");
-                }
+                    });
             }
-            unityWebRequest.Dispose();
         }
+
         private void StartUpdate()
         {
-            string groupName = Constant.Procedure.FindAssetGroup(m_NextProcedure);
             GameEntry.UI.DeerUIInitRootForm().OnOpenLoadingForm(true);
 
             foreach (var item in m_UpdateResourceInfos)
@@ -403,10 +348,10 @@ namespace HotfixBusiness.Procedure
                 }
                 if (item.Key == ResourcesType.Resources)
                 {
-                    GameEntry.Resource.UpdateResources(groupName, OnUpdateResourcesComplete);
+                    GameEntry.Resource.UpdateResources(m_AssetGroupName, OnUpdateResourcesComplete);
                 }else if (item.Key == ResourcesType.Assemblies)
                 {
-                    GameEntryMain.Assemblies.UpdateAssemblies(groupName,OnUpdateAssembliesComplete);
+                    GameEntryMain.Assemblies.UpdateAssemblies(m_AssetGroupName,OnUpdateAssembliesComplete);
                 }
             }
         }

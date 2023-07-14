@@ -18,6 +18,7 @@ namespace Main.Runtime.Procedure
 
         private bool m_InitResourcesComplete = false;
         private bool m_InitAssembliesComplete = false;
+        private bool m_InitConfigComplete = false;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -25,6 +26,7 @@ namespace Main.Runtime.Procedure
 
             m_InitResourcesComplete = false;
             GameEntryMain.Assemblies.InitAssembliesVersion(OnInitAssembliesComplete);    
+            GameEntryMain.LubanConfig.InitConfigVersion(OnInitConfigComplete);    
             // 注意：使用单机模式并初始化资源前，需要先构建 AssetBundle 并复制到 StreamingAssets 中，否则会产生 HTTP 404 错误
             GameEntryMain.Resource.InitResources(OnInitResourcesComplete);
         }
@@ -39,10 +41,14 @@ namespace Main.Runtime.Procedure
                 // 初始化资源未完成则继续等待
                 return;
             }
-
             if (!m_InitAssembliesComplete)
             {
                 return;
+            }
+
+            if (!m_InitConfigComplete)
+            {
+                return;   
             }
             ChangeState<ProcedureLoadAssembly>(procedureOwner);
         }
@@ -56,6 +62,12 @@ namespace Main.Runtime.Procedure
         {
             m_InitAssembliesComplete = true;
             Log.Info("Init assemblies complete.");
+        }
+
+        private void OnInitConfigComplete()
+        {
+            m_InitConfigComplete = true;
+            Log.Info("Init config complete.");
         }
     }
 }

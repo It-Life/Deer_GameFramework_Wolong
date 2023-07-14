@@ -168,7 +168,7 @@ namespace Main.Runtime.Procedure
                 checkVersionInfo.UpdateVersionFlag = true;
                 if (checkData.CheckType == ResourcesType.Config)
                 {
-                    GameEntryMain.ConfigMain.CheckVersionList(delegate(CheckVersionListResult result)
+                    GameEntryMain.LubanConfig.CheckVersionList(delegate(CheckVersionListResult result)
                     {
                         checkVersionInfo.LatestComplete = true;
                     });

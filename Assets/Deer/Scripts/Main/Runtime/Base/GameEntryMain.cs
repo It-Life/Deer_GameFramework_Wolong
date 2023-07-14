@@ -148,8 +148,8 @@ public class GameEntryMain : SingletonMono<GameEntryMain>
     /// <summary>
     /// 表管理。
     /// </summary>
-    public static ConfigMainComponent ConfigMain => _configMain ??= GameEntry.GetComponent<ConfigMainComponent>();
-    private static ConfigMainComponent _configMain;
+    public static LubanConfigComponent LubanConfig => _lubanConfig ??= GameEntry.GetComponent<LubanConfigComponent>();
+    private static LubanConfigComponent _lubanConfig;
     
     /// <summary>
     /// 程序集管理。

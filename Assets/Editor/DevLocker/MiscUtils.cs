@@ -13,7 +13,7 @@ namespace DevLocker.Tools
 	/// </summary>
 	public static class MiscUtils
 	{
-		[MenuItem("Assets/Deer/Copy GUIDs", false, 10)]
+		[MenuItem("Assets/Deer/Copy GUIDs", false, 60)]
 		private static void CopySelectedGuid()
 		{
 			List<string> guids = new List<string>(Selection.objects.Length);
@@ -40,7 +40,7 @@ namespace DevLocker.Tools
 			te.Copy();
 		}
 
-		[MenuItem("Assets/Deer/Copy Asset Names", false, 11)]
+		[MenuItem("Assets/Deer/Copy Asset Names", false, 61)]
 		private static void CopySelectedAssetNames()
 		{
 			// Get by selected guids.
@@ -65,7 +65,7 @@ namespace DevLocker.Tools
 			te.Copy();
 		}
 
-		[MenuItem("Assets/Deer/Copy Relative Paths", false, 12)]
+		[MenuItem("Assets/Deer/Copy Relative Paths", false, 62)]
 		private static void CopySelectedAssetPaths()
 		{
 			// Get by selected guids.
@@ -84,7 +84,7 @@ namespace DevLocker.Tools
 			te.Copy();
 		}
 
-		[MenuItem("Assets/Deer/Copy Absolute Paths", false, 13)]
+		[MenuItem("Assets/Deer/Copy Absolute Paths", false, 63)]
 		private static void CopySelectedAbsolutePaths()
 		{
 			var projectRoot = Path.GetDirectoryName(Application.dataPath);

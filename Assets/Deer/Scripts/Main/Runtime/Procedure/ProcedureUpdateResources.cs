@@ -89,10 +89,10 @@ namespace Main.Runtime.Procedure
             {
                 if (!DeerSettingsUtils.DeerGlobalSettings.ReadLocalConfigInEditor)
                 {
-                    GameEntryMain.ConfigMain.CheckConfigVersion(OnCheckConfigComplete);
+                    GameEntryMain.LubanConfig.CheckConfigVersion(OnCheckConfigComplete);
                 }
                 else {
-                    OnCheckConfigComplete(0,0,0,0);
+                    OnCheckConfigComplete(0,0);
                 }
 
                 UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Resources);
@@ -110,7 +110,7 @@ namespace Main.Runtime.Procedure
                 OnNoticeUpdate();
                 return;
             }
-            GameEntryMain.ConfigMain.CheckConfigVersion(OnCheckConfigComplete);
+            GameEntryMain.LubanConfig.CheckConfigVersion(OnCheckConfigComplete);
             GameEntryMain.Resource.CheckResources(OnCheckResourcesComplete);
             GameEntryMain.Assemblies.CheckAssemblies(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,OnCheckAssembliesComplete);
         }
@@ -176,7 +176,7 @@ namespace Main.Runtime.Procedure
             return len;
         }
 
-        private void OnCheckConfigComplete(int movedCount, int removedCount, int updateCount, long updateTotalZipLength)
+        private void OnCheckConfigComplete(int updateCount, long updateTotalZipLength)
         {
             UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Config);
             if (updateResourceInfo != null)
@@ -267,7 +267,7 @@ namespace Main.Runtime.Procedure
         private void StartUpdateConfigs(object userData)
         {
             Logger.Info("Start update config ");
-            GameEntryMain.ConfigMain.UpdateConfigs(OnUpdateConfigsComplete);
+            GameEntryMain.LubanConfig.UpdateConfigs(OnUpdateConfigsComplete);
         }
 
         private void StartUpdateResources(object userData)
