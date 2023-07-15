@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -110,8 +111,9 @@ public static class DeerSettingsUtils
     public static List<string> GetHotUpdateAssemblies(string assetGroupName)
     {
         List<string> hotUpdateAssemblies = new List<string>();
-        foreach (var hotUpdateAssembly in DeerHybridCLRSettings.HotUpdateAssemblies)
+        for (int i = 0; i < DeerHybridCLRSettings.HotUpdateAssemblies.Count; i++)
         {
+            var hotUpdateAssembly = DeerHybridCLRSettings.HotUpdateAssemblies.ElementAt(i);
             if (hotUpdateAssembly.AssetGroupName == assetGroupName)
             {
                 hotUpdateAssemblies.Add(hotUpdateAssembly.Assembly);

@@ -66,6 +66,8 @@ public class AssembliesComparer : IEqualityComparer<AssemblyInfo>
 public partial class AssembliesManager
 {
 	private bool m_IsLoadReadOnlyPath;
+	public bool IsLoadReadOnlyPath => m_IsLoadReadOnlyPath;
+
 	public AssembliesManager()
 	{
 		OnEnterDownload();

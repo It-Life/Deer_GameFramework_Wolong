@@ -11,12 +11,10 @@ using UnityGameFramework.Runtime;
 public class AssembliesComponent : GameFrameworkComponent
 {
     private AssembliesManager m_AssembliesManager;
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
         m_AssembliesManager = new AssembliesManager();
     }
-
     public void InitAssembliesVersion(OnInitAssembliesCompleteCallback onInitAssembliesCompleteCallback)
     {
         m_AssembliesManager.InitAssembliesVersion(onInitAssembliesCompleteCallback);
@@ -49,5 +47,10 @@ public class AssembliesComponent : GameFrameworkComponent
     public AssemblyInfo FindAssemblyInfoByName(string assemblyName)
     {
         return m_AssembliesManager.FindAssemblyInfoByName(assemblyName);
+    }
+    
+    public bool GetIsLoadReadOnlyPath()
+    {
+        return m_AssembliesManager.IsLoadReadOnlyPath;
     }
 }

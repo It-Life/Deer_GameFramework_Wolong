@@ -36,7 +36,7 @@ public partial class LubanConfigManager
     {
         Logger.Debug("InitConfigVersion");
         m_OnInitConfigCompleteCallback = onInitConfigCompleteCallback;
-        LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, 
+        LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadOnlyPath,DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName, 
             DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName)), new LoadBytesCallbacks(OnLoadLocalConfigVersionSuccess, OnLoadLocalConfigVersionFailure), null);
     }
     

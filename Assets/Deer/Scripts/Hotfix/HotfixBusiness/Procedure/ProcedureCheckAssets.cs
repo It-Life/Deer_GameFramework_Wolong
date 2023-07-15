@@ -194,9 +194,13 @@ namespace HotfixBusiness.Procedure
                     UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
                     if (updateResourceInfo != null)
                     {
-                        updateResourceInfo.NeedUpdate = true;
+                        updateResourceInfo.NeedUpdate = count != 0;
                         updateResourceInfo.UpdateLength = length;   
                         updateResourceInfo.UpdateCount = count;
+                    }
+                    if (count == 0)
+                    {
+                        LoadHotUpdateAssembly();
                     }
                     OnNoticeUpdate();
                 });
@@ -316,6 +320,15 @@ namespace HotfixBusiness.Procedure
             }
             else
             {
+                if (IsAddAllFinish())
+                {
+                    UpdateResourceInfo updateResourceInfo = GetUpdateResourceInfo(ResourcesType.Assemblies);
+                    if (updateResourceInfo != null)
+                    {
+                        updateResourceInfo.UpdateComplete = true;
+                    }
+                    return;
+                }
                 GameEntryMain.Assemblies.LoadHotUpdateAssembliesByGroupName(m_AssetGroupName,
                     delegate(Dictionary<string, byte[]> assemblies)
                     {

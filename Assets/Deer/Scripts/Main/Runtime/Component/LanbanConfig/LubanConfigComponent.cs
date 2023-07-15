@@ -7,6 +7,7 @@
 //版 本:0.1 
 // ===============================================
 
+using System;
 using GameFramework.Resource;
 using UnityGameFramework.Runtime;
 
@@ -17,11 +18,10 @@ public class LubanConfigComponent : GameFrameworkComponent
 {
     private IResourceManager m_ResourceManager => GameEntryMain.Resource.GetResourceManager();
     private LubanConfigManager m_LubanConfigManager;
-    
 
-    protected override void Awake()
+
+    private void Start()
     {
-        base.Awake();
         m_LubanConfigManager = new LubanConfigManager();
     }
 

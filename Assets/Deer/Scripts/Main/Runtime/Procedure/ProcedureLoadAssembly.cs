@@ -70,8 +70,9 @@ namespace Main.Runtime.Procedure
                     GameEntryMain.Assemblies.LoadHotUpdateAssembliesByGroupName(DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,
                         delegate(Dictionary<string, byte[]> assemblies)
                         {
-                            foreach (var item in assemblies)
+                            for (int i = 0; i < assemblies.Count; i++)
                             {
+                                var item = assemblies.ElementAt(i);
                                 Logger.Debug<ProcedureLoadAssembly>($"LoadAsset: [ {item.Key} ]");
                                 var asm = Assembly.Load(item.Value);
                                 if (string.Compare(DeerSettingsUtils.DeerHybridCLRSettings.LogicMainDllName, item.Key, StringComparison.Ordinal) == 0)

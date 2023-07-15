@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using GameFramework;
 using GameFramework.Resource;
 using UnityEngine;
@@ -24,19 +25,19 @@ public partial class AssembliesManager
     private int m_LoadAotAssemblyCount = 0;
     private Dictionary<string,byte[]> m_LoadHotfixAssemblyBytes = new();
     private Dictionary<string,byte[]> m_LoadAotAssemblyBytes = new();
-
+    private List<string> m_LoadAssemblies;
     public void LoadHotUpdateAssembliesByGroupName(string groupName,OnLoadAssembliesCompleteCallback onLoadAssembliesComplete)
     {
         m_LoadHotfixAssemblyBytes.Clear();
         m_OnLoadHotfixAssembliesCompleteCallback = onLoadAssembliesComplete;
-        List<string> loadAssemblies = DeerSettingsUtils.GetHotUpdateAssemblies(groupName);
-        m_LoadHotfixAssemblyCount = loadAssemblies.Count;
+        m_LoadAssemblies = DeerSettingsUtils.GetHotUpdateAssemblies(groupName);
+        m_LoadHotfixAssemblyCount = m_LoadAssemblies.Count;
         if (m_LoadHotfixAssemblyCount == 0)
         {
             m_OnLoadHotfixAssembliesCompleteCallback?.Invoke(new());
             return;
         }
-        foreach (var assemblyName in loadAssemblies)
+        foreach (var assemblyName in m_LoadAssemblies)
         {
             AssemblyInfo assemblyInfo = FindAssemblyInfoByName(assemblyName);
             if (assemblyInfo !=null)
@@ -89,7 +90,18 @@ public partial class AssembliesManager
         if (assemblyInfo != null) m_LoadHotfixAssemblyBytes.Add(assemblyInfo.Name, bytes);
         if (m_LoadHotfixAssemblyCount == 0)
         {
+            Dictionary<string,byte[]> dic = new Dictionary<string,byte[]>(m_LoadHotfixAssemblyBytes);
+            m_LoadHotfixAssemblyBytes.Clear();
+            for (int i = 0; i < m_LoadAssemblies.Count; i++)
+            {
+                var item = m_LoadAssemblies.ElementAt(i);
+                if (dic.ContainsKey(item))
+                {
+                    m_LoadHotfixAssemblyBytes.Add(item,dic[item]);
+                }
+            }
             m_OnLoadHotfixAssembliesCompleteCallback?.Invoke(m_LoadHotfixAssemblyBytes);
+            m_OnLoadHotfixAssembliesCompleteCallback = null;
         }
     }
     private void OnLoadAotAssemblyFailure(string fileUri, string errorMessage, object userData)
@@ -104,7 +116,8 @@ public partial class AssembliesManager
         if (assemblyInfo != null) m_LoadAotAssemblyBytes.Add(assemblyInfo.Name, bytes);
         if (m_LoadAotAssemblyCount == 0)
         {
-            m_OnLoadHotfixAssembliesCompleteCallback?.Invoke(m_LoadAotAssemblyBytes);
+            m_OnLoadAotAssembliesCompleteCallback?.Invoke(m_LoadAotAssemblyBytes);
+            m_OnLoadAotAssembliesCompleteCallback = null;
         }
     }
 }

@@ -49,6 +49,12 @@ public partial class AssembliesManager
     {
         m_CheckCompleteCallback = completeCallback;
 
+        if (m_IsLoadReadOnlyPath)
+        {
+            m_CheckCompleteCallback?.Invoke(0,0); 
+            return;
+        }
+        
         if (m_LocalAssemblies != null && m_UpdateAssemblies.SequenceEqual(m_LocalAssemblies, new AssembliesComparer()))
         {
             m_CheckCompleteCallback?.Invoke(0,0); 
