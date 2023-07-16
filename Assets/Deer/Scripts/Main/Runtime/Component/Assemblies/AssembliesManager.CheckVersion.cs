@@ -23,8 +23,10 @@ public partial class AssembliesManager
     private CheckAssembliesVersionListCompleteCallback m_CheckVersionListCompleteCallback;
     private OnInitAssembliesCompleteCallback m_OnInitAssembliesCompleteCallback;
 
-    private List<AssemblyInfo> m_LocalAssemblies;
-    private List<AssemblyInfo> m_UpdateAssemblies;
+    private List<AssemblyInfo> m_ReadOnlyAssemblies;
+    private List<AssemblyInfo> m_ReadWriteAssemblies;
+    private List<AssemblyFileData> m_AotReadOnlyAssemblyFileDatas;
+    private List<AssemblyFileData> m_AotReadWriteAssemblyFileDatas;
     
     private bool m_ReadOnlyVersionReady = false;
     private bool m_ReadWriteVersionReady = false;
@@ -33,16 +35,16 @@ public partial class AssembliesManager
     {
         Logger.Debug("InitAssembliesVersion");
         m_OnInitAssembliesCompleteCallback = onInitAssembliesCompleteCallback;
-        LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadOnlyPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadLocalAssembliesVersionSuccess, OnLoadLocalAssembliesVersionFailure), null);
+        LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadOnlyPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadReadOnlyAssembliesVersionSuccess, OnLoadReadOnlyAssembliesVersionFailure), null);
     }
     
     public void CheckVersionList(CheckAssembliesVersionListCompleteCallback checkAssembliesVersionListComplete)
     {
         m_CheckVersionListCompleteCallback = checkAssembliesVersionListComplete;
         LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadOnlyPath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, 
-            DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadLocalAssembliesVersionSuccess, OnLoadLocalAssembliesVersionFailure), null);
+            DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadReadOnlyAssembliesVersionSuccess, OnLoadReadOnlyAssembliesVersionFailure), null);
         LoadBytes(Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, 
-            DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadUpdateAssembliesVersionSuccess, OnLoadUpdateAssembliesVersionFailure), null);
+            DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName)), new LoadBytesCallbacks(OnLoadReadWriteAssembliesVersionSuccess, OnLoadReadWriteAssembliesVersionFailure), null);
     }
 
     public void CheckAssemblies(string groupName,CheckAssembliesCompleteCallback completeCallback)
@@ -55,7 +57,7 @@ public partial class AssembliesManager
             return;
         }
         
-        if (m_LocalAssemblies != null && m_UpdateAssemblies.SequenceEqual(m_LocalAssemblies, new AssembliesComparer()))
+        if (m_ReadOnlyAssemblies != null && m_ReadWriteAssemblies.SequenceEqual(m_ReadOnlyAssemblies, new AssembliesComparer()))
         {
             m_CheckCompleteCallback?.Invoke(0,0); 
         }
@@ -84,7 +86,7 @@ public partial class AssembliesManager
 
     public List<AssemblyInfo> GetHotUpdateAssemblies(string groupName)
     {
-        List<AssemblyInfo> assemblyInfos = m_IsLoadReadOnlyPath ? m_LocalAssemblies : m_UpdateAssemblies;
+        List<AssemblyInfo> assemblyInfos = m_IsLoadReadOnlyPath ? m_ReadOnlyAssemblies : m_ReadWriteAssemblies;
         List<AssemblyInfo> hotUpdateAssemblies = new();
         foreach (var assemblyInfo in assemblyInfos)
         {
@@ -96,12 +98,24 @@ public partial class AssembliesManager
         return hotUpdateAssemblies;
     }
 
-    public AssemblyInfo FindAssemblyInfoByName(string name)
+    public AssemblyInfo FindAssemblyInfoByName(string fileName)
     {
-        List<AssemblyInfo> assemblyInfos = m_IsLoadReadOnlyPath ? m_LocalAssemblies : m_UpdateAssemblies;
+        List<AssemblyInfo> assemblyInfos = m_IsLoadReadOnlyPath ? m_ReadOnlyAssemblies : m_ReadWriteAssemblies;
         foreach (var assemblyInfo in assemblyInfos)
         {
-            if (assemblyInfo.Name == name)
+            if (assemblyInfo.Name == fileName)
+            {
+                return assemblyInfo;
+            }
+        }
+        return null;
+    }
+    public AssemblyFileData FindAssemblyFileDataByName(string fileName)
+    {
+        List<AssemblyFileData> assemblyInfos = m_IsLoadReadOnlyPath ? m_AotReadOnlyAssemblyFileDatas : m_AotReadWriteAssemblyFileDatas;
+        foreach (var assemblyInfo in m_AotReadOnlyAssemblyFileDatas)
+        {
+            if (assemblyInfo.Name == fileName)
             {
                 return assemblyInfo;
             }
@@ -126,7 +140,7 @@ public partial class AssembliesManager
         m_NeedUpdateAssemblies.Clear();
         string filePath = string.Empty;
         int curHashCode = 0;
-        foreach (var assemblyInfo in m_UpdateAssemblies)
+        foreach (var assemblyInfo in m_ReadWriteAssemblies)
         {
             filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,assemblyInfo.PathRoot,$"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
             if (File.Exists(filePath))
@@ -157,7 +171,7 @@ public partial class AssembliesManager
             return;
         }
         
-        if (m_LocalAssemblies != null && m_UpdateAssemblies.SequenceEqual(m_LocalAssemblies, new AssembliesComparer()))
+        if (m_ReadOnlyAssemblies != null && m_ReadWriteAssemblies.SequenceEqual(m_ReadOnlyAssemblies, new AssembliesComparer()))
         {
             m_IsLoadReadOnlyPath = true;
             m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.Updated);
@@ -168,16 +182,25 @@ public partial class AssembliesManager
             m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.NeedUpdate);
         }
     }
-    private void OnLoadLocalAssembliesVersionSuccess(string fileUri, byte[] bytes, float duration, object userData)
+    private void OnLoadReadOnlyAssembliesVersionSuccess(string fileUri, byte[] bytes, float duration, object userData)
     {
         string versionInfoBytes = FileUtils.BinToUtf8(bytes);
-        m_LocalAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+        string[] arrayStr = versionInfoBytes.Split(AssemblyFileData.GetSeparator());
+        if (arrayStr.Length>1)
+        {
+            m_ReadOnlyAssemblies = arrayStr[0].ParseJson<List<AssemblyInfo>>();
+            m_AotReadOnlyAssemblyFileDatas = arrayStr[1].ParseJson<List<AssemblyFileData>>();
+        }
+        else
+        {
+            throw new GameFrameworkException("The resolved format is not correct.");
+        }
         m_ReadOnlyVersionReady = true;
         m_IsLoadReadOnlyPath = true;
         m_OnInitAssembliesCompleteCallback?.Invoke();
         RefreshCheckInfoStatus();
     }
-    private void OnLoadLocalAssembliesVersionFailure(string fileUri, string errorMessage, object userData)
+    private void OnLoadReadOnlyAssembliesVersionFailure(string fileUri, string errorMessage, object userData)
     {
         if (m_ReadOnlyVersionReady)
         {
@@ -188,15 +211,25 @@ public partial class AssembliesManager
         RefreshCheckInfoStatus();
     }
     
-    private void OnLoadUpdateAssembliesVersionFailure(string fileUri, string errorMessage, object userData)
+    private void OnLoadReadWriteAssembliesVersionFailure(string fileUri, string errorMessage, object userData)
     {
         throw new GameFrameworkException(Utility.Text.Format("Updatable version list '{0}' is invalid, error message is '{1}'.", fileUri, string.IsNullOrEmpty(errorMessage) ? "<Empty>" : errorMessage));
     }
 
-    private void OnLoadUpdateAssembliesVersionSuccess(string fileUri, byte[] bytes, float duration, object userData)
+    private void OnLoadReadWriteAssembliesVersionSuccess(string fileUri, byte[] bytes, float duration, object userData)
     {
         string versionInfoBytes = FileUtils.BinToUtf8(bytes);
-        m_UpdateAssemblies = versionInfoBytes.ParseJson<List<AssemblyInfo>>();
+        string[] arrayStr = versionInfoBytes.Split(AssemblyFileData.GetSeparator());
+        if (arrayStr.Length>1)
+        {
+            m_ReadWriteAssemblies = arrayStr[0].ParseJson<List<AssemblyInfo>>();
+            m_AotReadWriteAssemblyFileDatas = arrayStr[1].ParseJson<List<AssemblyFileData>>();
+        }
+        else
+        {
+            throw new GameFrameworkException("The resolved format is not correct.");
+        }
+
         m_ReadWriteVersionReady = true;
         RefreshCheckInfoStatus();
     }

@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using GameFramework;
 using GameFramework.Resource;
 using UnityEngine;
@@ -22,7 +23,6 @@ public partial class AssembliesManager
     private OnLoadAssembliesCompleteCallback m_OnLoadHotfixAssembliesCompleteCallback;
     private OnLoadAssembliesCompleteCallback m_OnLoadAotAssembliesCompleteCallback;
     private int m_LoadHotfixAssemblyCount = 0;
-    private int m_LoadAotAssemblyCount = 0;
     private Dictionary<string,byte[]> m_LoadHotfixAssemblyBytes = new();
     private Dictionary<string,byte[]> m_LoadAotAssemblyBytes = new();
     private List<string> m_LoadAssemblies;
@@ -61,21 +61,18 @@ public partial class AssembliesManager
 
         // 注意，补充元数据是给AOT dll补充元数据，而不是给热更新dll补充元数据。
         // 热更新dll不缺元数据，不需要补充，如果调用LoadMetadataForAOTAssembly会返回错误
-        m_LoadAotAssemblyCount = DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies.Count;
-        if (m_LoadAotAssemblyCount == 0)
+        if (DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies.Count == 0)
         {
             m_OnLoadAotAssembliesCompleteCallback?.Invoke(new());
             return;
         }
-        foreach (var assemblyName in DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies)
+        string mergedFileName = AssemblyFileData.GetMergedFileName();
+        AssemblyInfo assemblyInfo = FindAssemblyInfoByName(mergedFileName);
+        if (assemblyInfo != null)
         {
-            AssemblyInfo assemblyInfo = FindAssemblyInfoByName(assemblyName);
-            if (assemblyInfo != null)
-            {
-                string fileName = m_IsLoadReadOnlyPath ? $"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}" : $"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
-                LoadBytes(Utility.Path.GetRemotePath(Path.Combine(m_IsLoadReadOnlyPath ? GameEntryMain.Resource.ReadOnlyPath : GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, assemblyInfo.PathRoot, fileName)), 
-                    new LoadBytesCallbacks(OnLoadAotAssemblySuccess, OnLoadAotAssemblyFailure), assemblyInfo);
-            }
+            string fileName = m_IsLoadReadOnlyPath ? $"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}" : $"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
+            LoadBytes(Utility.Path.GetRemotePath(Path.Combine(m_IsLoadReadOnlyPath ? GameEntryMain.Resource.ReadOnlyPath : GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, assemblyInfo.PathRoot, fileName)), 
+                new LoadBytesCallbacks(OnLoadAotAssemblySuccess, OnLoadAotAssemblyFailure), assemblyInfo);
         }
     }
 
@@ -112,12 +109,22 @@ public partial class AssembliesManager
     private void OnLoadAotAssemblySuccess(string fileUri, byte[] bytes, float duration, object userData)
     {
         AssemblyInfo assemblyInfo = userData as AssemblyInfo;
-        m_LoadAotAssemblyCount--;
-        if (assemblyInfo != null) m_LoadAotAssemblyBytes.Add(assemblyInfo.Name, bytes);
-        if (m_LoadAotAssemblyCount == 0)
+        using MemoryStream stream = new MemoryStream(bytes);
+        using BinaryReader binaryReader = new BinaryReader(stream);
+        foreach (var assemblyName in DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies)
         {
-            m_OnLoadAotAssembliesCompleteCallback?.Invoke(m_LoadAotAssemblyBytes);
-            m_OnLoadAotAssembliesCompleteCallback = null;
+            AssemblyFileData assemblyFileData = FindAssemblyFileDataByName(assemblyName);
+            if (assemblyFileData != null)
+            {
+                stream.Seek(assemblyFileData.StartPosition, SeekOrigin.Begin);
+                int length = (int)(assemblyFileData.EndPosition - assemblyFileData.StartPosition + 1);
+                byte[] byteArray = binaryReader.ReadBytes(length);
+                m_LoadAotAssemblyBytes.Add(assemblyFileData.Name, byteArray);
+            }
         }
+        stream.Close();
+        stream.Dispose();
+        m_OnLoadAotAssembliesCompleteCallback?.Invoke(m_LoadAotAssemblyBytes);
+        m_OnLoadAotAssembliesCompleteCallback = null;
     }
 }

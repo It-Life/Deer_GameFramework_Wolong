@@ -43,7 +43,7 @@ public static class CopyAssemblies
                     File.Copy(dllPath, dllBytesPath, true);
                     FileInfo fileInfo = new FileInfo(dllPath);
                     long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
-                    m_listAssemblies.Add(new AssemblyInfo(dll,"Hotfix",hotUpdateAssembly.AssetGroupName,hashCode,size));
+                    m_ListAssemblies.Add(new AssemblyInfo(dll,"Hotfix",hotUpdateAssembly.AssetGroupName,hashCode,size));
                     break;  
                 }
             }
@@ -74,6 +74,11 @@ public static class CopyAssemblies
             Directory.CreateDirectory(DeerSettingsUtils.AOTAssemblyTextAssetPath);
         }
 
+        string mergedFileName = AssemblyFileData.GetMergedFileName();
+        string mergedFilePath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{mergedFileName}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
+        using StreamWriter mergedFileWriter = new StreamWriter(mergedFilePath);
+        long currentPosition = 0;
+        m_ListAssemblyFileData.Clear();
         // 复制AOT程序集到资源文件夹
         foreach (var dll in DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies)
         {
@@ -83,25 +88,54 @@ public static class CopyAssemblies
                 Debug.LogError($"ab中添加AOT补充元数据dll:{dllPath} 时发生错误,文件不存在。裁剪后的AOT dll在BuildPlayer时才能生成，因此需要你先构建一次游戏App后再打包。");
                 continue;
             }
-            using FileStream fileStream = new FileStream(dllPath, FileMode.Open, FileAccess.Read);
-            int hashCode = Utility.Verifier.GetCrc32(fileStream);
-            string dllBytesPath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
-            File.Copy(dllPath, dllBytesPath, true);
-            FileInfo fileInfo = new FileInfo(dllPath);
-            long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
-            m_listAssemblies.Add(new AssemblyInfo(dll,"AOT",DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,hashCode, size));
+            using StreamReader fileReader = new StreamReader(dllPath);
+            long startPosition = currentPosition;
+            fileReader.BaseStream.CopyTo(mergedFileWriter.BaseStream);
+            long endPosition = currentPosition + fileReader.BaseStream.Length - 1;
+            currentPosition = endPosition + 1;
+            AssemblyFileData fileData = new AssemblyFileData(dll, startPosition, endPosition);
+            m_ListAssemblyFileData.Add(fileData);
         }
+        mergedFileWriter.Close();
+        mergedFileWriter.Dispose();
+        using FileStream fileStream = new FileStream(mergedFilePath, FileMode.Open, FileAccess.Read);
+        int hashCode = Utility.Verifier.GetCrc32(fileStream);
+        fileStream.Close();
+        fileStream.Dispose();
+        string mergedNewFilePath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{mergedFileName}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
+        File.Move(mergedFilePath, mergedNewFilePath);
+        FileInfo fileInfo = new FileInfo(mergedNewFilePath);
+        long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
+        m_ListAssemblies.Add(new AssemblyInfo(mergedFileName,"AOT",DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,hashCode, size));
         // 刷新资源
         AssetDatabase.Refresh();
     }
-    private static List<AssemblyInfo> m_listAssemblies = new List<AssemblyInfo>();
+    private static List<AssemblyInfo> m_ListAssemblies = new List<AssemblyInfo>();
+    private static List<AssemblyFileData> m_ListAssemblyFileData = new List<AssemblyFileData>();
+
+    private static byte[] m_test;
+    private static byte[] m_test1;
+    
+    static bool AreArraysEqual(byte[] array1, byte[] array2)
+    {
+        if (array1.Length != array2.Length)
+            return false;
+
+        for (int i = 0; i < array1.Length; i++)
+        {
+            if (array1[i] != array2[i])
+                return false;
+        }
+
+        return true;
+    }
     /// <summary>
     /// 复制所有程序集
     /// </summary>
     /// <param name="buildTarget"></param>
     public static void DoCopyAllAssemblies(BuildTarget buildTarget)
     {
-        m_listAssemblies.Clear();
+        m_ListAssemblies.Clear();
         CompileDllCommand.CompileDll(buildTarget);
         DoCopyAOTAssemblies(buildTarget);
         DoCopyHotfixAssemblies(buildTarget);
@@ -110,9 +144,15 @@ public static class CopyAssemblies
 
     private static void CreateAssembliesVersion()
     {
-        string assembly = m_listAssemblies.ToJson();
+        string assembly = m_ListAssemblies.ToJson();
+        string assemblyFileData = m_ListAssemblyFileData.ToJson();
+        assembly = $"{assembly}{AssemblyFileData.GetSeparator()}{assemblyFileData}";
         string path = $"{DeerSettingsUtils.HybridCLRAssemblyPath}/{DeerSettingsUtils.DeerHybridCLRSettings.AssembliesVersionTextFileName}";
         File.WriteAllText(path, assembly);
+        string[] ssss = assembly.Split(AssemblyFileData.GetSeparator());
+        var m_UpdateAssemblies = ssss[0].ParseJson<List<AssemblyInfo>>();
+        var m_UpdateAs = ssss[1].ParseJson<List<AssemblyFileData>>();
+        Debug.Log("111111");
     }
 }
 #endif
