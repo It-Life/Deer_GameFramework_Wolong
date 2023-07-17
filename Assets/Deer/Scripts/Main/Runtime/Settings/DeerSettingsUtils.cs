@@ -316,9 +316,9 @@ public static class DeerSettingsUtils
         switch (EditorUserBuildSettings.activeBuildTarget)
         {
             case BuildTarget.StandaloneWindows:
-                return "";
+                return "Windows64";
             case BuildTarget.StandaloneWindows64:
-                return "";
+                return "Windows64";
             case BuildTarget.StandaloneOSX:
                 return "";
             case BuildTarget.Android:

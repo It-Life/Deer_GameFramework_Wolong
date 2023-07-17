@@ -113,7 +113,7 @@ public partial class AssembliesManager
     public AssemblyFileData FindAssemblyFileDataByName(string fileName)
     {
         List<AssemblyFileData> assemblyInfos = m_IsLoadReadOnlyPath ? m_AotReadOnlyAssemblyFileDatas : m_AotReadWriteAssemblyFileDatas;
-        foreach (var assemblyInfo in m_AotReadOnlyAssemblyFileDatas)
+        foreach (var assemblyInfo in assemblyInfos)
         {
             if (assemblyInfo.Name == fileName)
             {
