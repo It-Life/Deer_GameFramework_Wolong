@@ -152,7 +152,6 @@ public static class CopyAssemblies
         string[] ssss = assembly.Split(AssemblyFileData.GetSeparator());
         var m_UpdateAssemblies = ssss[0].ParseJson<List<AssemblyInfo>>();
         var m_UpdateAs = ssss[1].ParseJson<List<AssemblyFileData>>();
-        Debug.Log("111111");
     }
 }
 #endif
