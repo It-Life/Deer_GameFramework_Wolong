@@ -84,6 +84,8 @@ public static class DeerSettingsUtils
                 DeerHybridCLRSettings.HotUpdateAssemblies.Add(new HotUpdateAssemblie("",hotUpdate));
             }
         }
+
+        List<HotUpdateAssemblie> listRemove = new();
         foreach (var hotUpdateAssembly in DeerHybridCLRSettings.HotUpdateAssemblies)
         {
             bool isFind = false;
@@ -96,11 +98,14 @@ public static class DeerSettingsUtils
             }
             if (!isFind)
             {
-                DeerHybridCLRSettings.HotUpdateAssemblies.Remove(hotUpdateAssembly);
+                listRemove.Add(hotUpdateAssembly);
             }
         }
-        
-        //HybridCLRCustomGlobalSettings.HotUpdateAssemblies = hotUpdateAssemblies;
+        foreach (var item in listRemove)
+        {
+            DeerHybridCLRSettings.HotUpdateAssemblies.Remove(item);
+        }
+        listRemove.Clear();
     }
 
     public static void SetHybridCLRAOTMetaAssemblies(List<string> aOTMetaAssemblies)

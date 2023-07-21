@@ -82,6 +82,7 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Subscribe(ResourceUpdateFailureEventArgs.EventId, OnResourceUpdateFailure);
             GameEntryMain.Event.Subscribe(DownloadStartEventArgs.EventId, OnDownloadStart);
             GameEntryMain.Event.Subscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
+            GameEntryMain.Event.Subscribe(DownloadUpdateEventArgs.EventId, OnDownloadUpdate);
             GameEntryMain.Event.Subscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
             
             GameEntryMain.UI.DeerUIInitRootForm().OnOpenLoadingForm(true);
@@ -124,8 +125,10 @@ namespace Main.Runtime.Procedure
             GameEntryMain.Event.Unsubscribe(ResourceUpdateFailureEventArgs.EventId, OnResourceUpdateFailure);
             GameEntryMain.Event.Unsubscribe(DownloadStartEventArgs.EventId, OnDownloadStart);
             GameEntryMain.Event.Unsubscribe(DownloadSuccessEventArgs.EventId, OnDownloadSuccess);
+            GameEntryMain.Event.Unsubscribe(DownloadUpdateEventArgs.EventId, OnDownloadUpdate);
             GameEntryMain.Event.Unsubscribe(DownloadFailureEventArgs.EventId, OnDownloadFailure);
         }
+
         protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
@@ -442,12 +445,22 @@ namespace Main.Runtime.Procedure
 
             if (ne.UserData is ConfigInfo configInfo)
             {
-                int size = int.Parse(configInfo.Size);
-                OnUpdateCompleteOne(configInfo.Name, (size > 0 ? size : 1) * 1024, UpdateStateType.Success);
+                OnUpdateCompleteOne(configInfo.Name, (int)ne.CurrentLength, UpdateStateType.Success);
+            }else if (ne.UserData is AssemblyInfo assemblyInfo)
+            {
+                OnUpdateCompleteOne(assemblyInfo.Name, (int)ne.CurrentLength, UpdateStateType.Success);
+            }
+        }
+        private void OnDownloadUpdate(object sender, GameEventArgs e)
+        {
+            DownloadUpdateEventArgs ne = (DownloadUpdateEventArgs)e;
+            if (ne.UserData is ConfigInfo configInfo)
+            {
+                OnUpdateCompleteOne(configInfo.Name, (int)ne.CurrentLength, UpdateStateType.Change);
             }else if (ne.UserData is AssemblyInfo assemblyInfo)
             {
                 int size = (int)assemblyInfo.Size;
-                OnUpdateCompleteOne(assemblyInfo.Name, (size > 0 ? size : 1) * 1024, UpdateStateType.Success);
+                OnUpdateCompleteOne(assemblyInfo.Name, (int)ne.CurrentLength, UpdateStateType.Change);
             }
         }
         private void OnDownloadFailure(object sender, GameEventArgs e)

@@ -193,7 +193,7 @@ public partial class AssembliesManager
         }
         else
         {
-            throw new GameFrameworkException("The resolved format is not correct.");
+            throw new GameFrameworkException("The resolved format is not correct. Please reset build assets.");
         }
         m_ReadOnlyVersionReady = true;
         m_IsLoadReadOnlyPath = true;
