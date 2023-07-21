@@ -1,5 +1,5 @@
 #!/bin/zsh
-WORKSPACE=..
+WORKSPACE=../../
 
 GEN_CLIENT=${WORKSPACE}/Tools/Luban.ClientServer/Luban.ClientServer.dll
 CONF_ROOT=${WORKSPACE}/DesignerConfigs

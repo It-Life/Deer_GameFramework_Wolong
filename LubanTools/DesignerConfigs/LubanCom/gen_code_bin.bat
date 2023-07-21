@@ -1,6 +1,7 @@
 set WORKSPACE=..
 
 set GEN_CLIENT=%WORKSPACE%\Tools\Luban.ClientServer\Luban.ClientServer.exe
+echo %GEN_CLIENT%
 set CONF_ROOT=%WORKSPACE%\DesignerConfigs
 set OUTPUT_CODE_PATH=%WORKSPACE%\..\Assets\Deer\Scripts\HotFix\HotFixCommon\LubanConfig
 set OUTPUT_DATA_PATH=%WORKSPACE%\GenerateDatas\LubanConfig\Datas
@@ -12,5 +13,3 @@ set OUTPUT_DATA_PATH=%WORKSPACE%\GenerateDatas\LubanConfig\Datas
  --output_data_dir %OUTPUT_DATA_PATH% ^
  --gen_types code_cs_unity_bin,data_bin ^
  -s all 
-
-pause

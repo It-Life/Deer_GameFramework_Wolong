@@ -14,6 +14,7 @@ using System.IO;
 using Bright.Serialization;
 using cfg;
 using Cysharp.Threading.Tasks;
+using GameFramework;
 using GameFramework.Resource;
 using Main.Runtime;
 using UnityEngine;
@@ -46,9 +47,16 @@ public class ConfigManager:MonoBehaviour
         {
             if (m_Configs == null)
             {
-                string configVersionPath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/{DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName}");
-                string xml = File.ReadAllText(configVersionPath);
-                m_Configs = FileUtils.AnalyConfigXml(xml,out string version);
+                try
+                {
+                    string configVersionPath = Path.Combine(Application.dataPath,$"../LubanTools/GenerateDatas/{DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName}/{DeerSettingsUtils.DeerGlobalSettings.ConfigVersionFileName}");
+                    string xml = await File.ReadAllTextAsync(configVersionPath);
+                    m_Configs = FileUtils.AnalyConfigXml(xml,out string version);
+                }
+                catch (Exception e)
+                {
+                    throw new GameFrameworkException($"请先执行菜单[DeerTools/IOControls/Generate/GenerateConfig]生成Config表版本文件！,error: {e}");
+                }
             }
             if (m_Configs[fileName] == null)
             {
