@@ -156,6 +156,10 @@ namespace HotfixBusiness.Procedure
                         updateResourceInfo.UpdateComplete = true;
                     }
                 }
+                else
+                {
+                    throw new GameFrameworkException($"{m_AssetGroupName}资源组程序集未找到！");
+                }
             }
             else
             {
@@ -316,6 +320,10 @@ namespace HotfixBusiness.Procedure
                     {
                         updateResourceInfo.UpdateComplete = true;
                     }
+                }
+                else
+                {
+                    throw new GameFrameworkException($"{m_AssetGroupName}资源组程序集未找到！");
                 }
             }
             else

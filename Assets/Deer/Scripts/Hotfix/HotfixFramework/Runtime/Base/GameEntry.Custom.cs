@@ -179,7 +179,7 @@ public partial class GameEntry
 
     private static void LoadAssetFailureCallback(string assetName, LoadResourceStatus status, string errorMessage, object userData)
     {
-        
+        throw new GameFrameworkException(errorMessage);
     }
 
     private static void LoadAssetSuccessCallback(string assetName, object asset, float duration, object userData)
