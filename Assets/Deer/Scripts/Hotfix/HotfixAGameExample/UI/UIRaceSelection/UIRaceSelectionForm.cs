@@ -117,8 +117,9 @@ namespace HotfixBusiness.UI
             Close();
         }
 		private void Btn_PlayEvent(){
-			ProcedureGameMenu procedure = (ProcedureGameMenu)GameEntry.Procedure.CurrentProcedure;
-            procedure.PlayGame(mRaceSelectionDataList[mSelectedItemIndex].raceId, mRaceSelectionDataList[mSelectedItemIndex].playerPos);
+			GameEntry.UI.OpenTips("别想了，游戏进不去，快去开发你自己得游戏吧！",color:Color.white,openBg:false);
+			/*ProcedureGameMenu procedure = (ProcedureGameMenu)GameEntry.Procedure.CurrentProcedure;
+            procedure.PlayGame(mRaceSelectionDataList[mSelectedItemIndex].raceId, mRaceSelectionDataList[mSelectedItemIndex].playerPos);*/
         }
 /*--------------------Auto generate footer.Do not add anything below the footer!------------*/
 	}
