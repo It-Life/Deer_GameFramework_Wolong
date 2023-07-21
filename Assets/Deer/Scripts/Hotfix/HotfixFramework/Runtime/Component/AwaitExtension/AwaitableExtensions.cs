@@ -114,6 +114,10 @@ namespace UGFExtensions.Await
 #if UNITY_EDITOR
             TipsSubscribeEvent();
 #endif
+            if (!entityComponent.HasEntityGroup(entityGroupName))
+            {
+                entityComponent.AddEntityGroup(entityGroupName, 60, 60, 60,60);
+            }
             var tcs = new TaskCompletionSource<Entity>();
             s_EntityTcs.Add(entityId, tcs);
             entityComponent.ShowEntity(entityId, entityLogicType, entityAssetName, entityGroupName, priority, userData);
@@ -124,13 +128,13 @@ namespace UGFExtensions.Await
         private static void OnShowEntitySuccess(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs ne = (ShowEntitySuccessEventArgs)e;
-/*            EntityData data = (EntityData)ne.UserData;
+            EntityData data = (EntityData)ne.UserData;
             s_EntityTcs.TryGetValue(data.Id, out var tcs);
             if (tcs != null)
             {
                 tcs.SetResult(ne.Entity);
                 s_EntityTcs.Remove(data.Id);
-            }*/
+            }
         }
 
         private static void OnShowEntityFailure(object sender, GameEventArgs e)
