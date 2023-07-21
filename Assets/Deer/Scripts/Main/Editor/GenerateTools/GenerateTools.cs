@@ -49,12 +49,26 @@ public static class GenerateTools
 		psi.UseShellExecute = false;
 		psi.StandardOutputEncoding = System.Text.Encoding.UTF8;
 		psi.RedirectStandardOutput = true;
-		System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
-		string strOutput = p.StandardOutput.ReadToEnd();
-		p.WaitForExit();
-		p.Close();
-		p.Dispose();
-		UnityEngine.Debug.Log(strOutput);
+        try
+        {
+			System.Diagnostics.Process p = System.Diagnostics.Process.Start(psi);
+			string strOutput = p.StandardOutput.ReadToEnd();
+			p.WaitForExit();
+			p.Close();
+			p.Dispose();
+			UnityEngine.Debug.Log(strOutput);
+		}
+        catch (System.Exception e)
+        {
+			if (e.ToString().Contains("0x80004005"))
+			{
+				throw new System.Exception($"请先修改文件权限，终端定位到[Deer_Build_Config.sh]目录，执行[chmod 777 Deer_Build_Config.sh]命令。 error: {e}");
+			}
+			else {
+				throw new System.Exception($"可能文件格式编码不对，请核查！ error: {e}");
+			}
+		}
+
 #endif
 	}
 }
