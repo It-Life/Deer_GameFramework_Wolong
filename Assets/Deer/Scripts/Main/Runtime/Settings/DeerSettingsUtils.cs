@@ -127,6 +127,35 @@ public static class DeerSettingsUtils
         return hotUpdateAssemblies;
     }
 
+    public static void AddOrRemoveHotUpdateAssemblies(bool isAdd, string assetGroupName,string assemblyName)
+    {
+        bool isFind = false;
+        HotUpdateAssemblie findHotUpdateAssembly = null;
+        foreach (var hotUpdateAssembly in DeerHybridCLRSettings.HotUpdateAssemblies)
+        {
+            if (assemblyName == hotUpdateAssembly.Assembly)
+            {
+                isFind = true;
+                findHotUpdateAssembly = hotUpdateAssembly;
+                break;
+            }
+        }
+        if (!isFind)
+        {
+            if (isAdd)
+            {
+                DeerHybridCLRSettings.HotUpdateAssemblies.Add(new HotUpdateAssemblie(assetGroupName,assemblyName));
+            }
+        }
+        else
+        {
+            if (!isAdd)
+            {
+                DeerHybridCLRSettings.HotUpdateAssemblies.Remove(findHotUpdateAssembly);
+            } 
+        }
+    }
+
     /// <summary>
     /// app 下载地址
     /// </summary>

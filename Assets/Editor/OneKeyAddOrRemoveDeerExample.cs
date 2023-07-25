@@ -6,6 +6,8 @@
 //修改时间:2023-04-21 15-54-19
 //版 本:0.1 
 // ===============================================
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -30,99 +32,26 @@ public static class OneKeyAddOrRemoveDeerExample
 	};
 	private static Dictionary<string,string> m_DicExamplePaths = new Dictionary<string, string>()
 	{
-		["Assets/Deer/AssetsHotfix/EntityPrefabs/DeerExample"] = "1",
-		["Assets/Deer/AssetsHotfix/EntityResources/DeerExample"] = "1",
-		["Assets/Deer/AssetsHotfix/Scenes/DeerExample"] = "1",
-		["Assets/Deer/AssetsHotfix/Sound/Music/Game_Music.mp3"] = "1",
-		["Assets/Deer/AssetsHotfix/Sound/Music/Menu_Music.mp3"] = "1",
-		["Assets/Deer/AssetsHotfix/Sound/UISound/Fx_01_V2.wav"] = "1",
-		["Assets/Deer/AssetsHotfix/Sound/UISound/Fx_02_V2.mp3"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/Menu.asset"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/Others.asset"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/Pause.asset"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/SelectCharacter.asset"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/SelectMode.asset"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/SelectRace.asset"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/Settings.asset"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/AtlasCollection/SettingSubMenu.asset"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/Texture/ChooseVehicle_Background.png"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/Texture/HubSettings_Background.png"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/Texture/MainMenu_Background.png"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/Texture/SelectRace_Background.png"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/Texture/Settings_SubMenu_Background.png"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Menu"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Others"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Pause"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectCharacter"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectMode"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SelectRace"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/Settings"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIArt/UISprites/SettingSubMenu"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UIBag"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UICharacterSelection"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UIGameMode"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UIGamePlay"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UIGameSettle"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UIGameStop"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UIMenu"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UIRaceSelection"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UISettingAudio"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UISettingGameOptions"] = "1",
-		["Assets/Deer/AssetsHotfix/UI/UIForms/UISettings"] = "1",
-		["Assets/Deer/Atlas/Menu.spriteatlas"] = "1",
-		["Assets/Deer/Atlas/Others.spriteatlas"] = "1",
-		["Assets/Deer/Atlas/Pause.spriteatlas"] = "1",
-		["Assets/Deer/Atlas/SelectCharacter.spriteatlas"] = "1",
-		["Assets/Deer/Atlas/SelectMode.spriteatlas"] = "1",
-		["Assets/Deer/Atlas/SelectRace.spriteatlas"] = "1",
-		["Assets/Deer/Atlas/Settings.spriteatlas"] = "1",
-		["Assets/Deer/Atlas/SettingSubMenu.spriteatlas"] = "1",
-		//界面脚本
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UIBag"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UIBagForm"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UICharacterSelection"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UIGameMode"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UIGamePlay"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UIGameSettle"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UIGameStop"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UIMenu"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UIRaceSelection"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UISettingAudio"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UISettingGameOptions"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/UISettings"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UIBagForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UIBagForm_SubUI.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UICharacterSelectionForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UIGameModeForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UIGamePlayForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UIGameSettleForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UIGameStopForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UIMenuForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UIRaceSelectionForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UISettingAudioForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UISettingGameOptionsForm.BindComponents.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/UI/BindComponents/UISettingsForm.BindComponents.cs"] = "1",
-		["Assets/Standard Assets/ThirdParty/DeerExample"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/Entity/NPC"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/Entity/Character/SphereCharacterPlayer.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/Entity/CharacterData/SphereCharacterPlayerData.cs"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/Entity/StateFSM"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/Entity/UI"] = "1",
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/GameLogic"] = "1",
-		
-		["Assets/Deer/Scripts/Hotfix/HotfixBusiness/Procedure/ProcedureGamePlay.cs"] = "1",
-
+		["Assets/Deer/AssetsHotfix/ADeerExample"] = "1",
+		["Assets/Deer/AssetsHotfix/AGameExample"] = "1",
+		["Assets/Deer/Scripts/Hotfix/HotfixADeerExample"] = "1",
+		["Assets/Deer/Scripts/Hotfix/HotfixAGameExample"] = "1",
 	};
 	// 将"Assets/MyFolder"移动到“项目根路径/MyFolder”
 	private static string m_DestFolderPath = Application.dataPath + "/../DeerExample/";
-	//[MenuItem("DeerTools/DeerExample/AddExample")]
+	[MenuItem("DeerTools/DeerExample/AddExample")]
 	public static void AddDeerExample()
 	{
+		if (!Directory.Exists(m_DestFolderPath))
+		{
+			Logger.Warning("Path is not find, If there are examples in the project, remove them first[DeerTools/DeerExample/RemoveExample]. Path:"+ m_DestFolderPath);
+			return;
+		}
 		foreach (var dicExample in m_DicExamplePaths)
 		{
 			string srcFolderPath = m_DestFolderPath + dicExample.Key;
 			string strAsset = "Assets";
-			string destFolderPath = Application.dataPath + dicExample.Key.Remove(dicExample.Key.IndexOf(strAsset),strAsset.Length);
+			string destFolderPath = Application.dataPath + dicExample.Key.Remove(dicExample.Key.IndexOf(strAsset, StringComparison.Ordinal),strAsset.Length);
 			if (Directory.Exists(srcFolderPath))
 			{
 				FolderUtils.CopyFolder(srcFolderPath,destFolderPath);
@@ -138,20 +67,25 @@ public static class OneKeyAddOrRemoveDeerExample
 				File.Copy(srcFolderPath, destFolderPath, true);
 			}
 		}
-		Enable();
+		//Enable();
+		AddOrRemoveAssembly(true);
 		DeerSettingsUtils.DeerGlobalSettings.m_UseDeerExample = true;
 		AssetDatabase.SaveAssets();
 		AssetDatabase.Refresh();
 		
 	}
-	//[MenuItem("DeerTools/DeerExample/RemoveExample")]
+	[MenuItem("DeerTools/DeerExample/RemoveExample")]
 	public static void RemoveDeerExample()
 	{
+		if (!Directory.Exists(m_DestFolderPath))
+		{
+			Directory.CreateDirectory(m_DestFolderPath);
+		}
 		foreach (var dicExample in m_DicExamplePaths)
 		{
 			string destFolderPath = m_DestFolderPath +dicExample.Key;
 			string strAsset = "Assets";
-			string srcFolderPath = Application.dataPath+dicExample.Key.Remove(dicExample.Key.IndexOf(strAsset),strAsset.Length);
+			string srcFolderPath = Application.dataPath+dicExample.Key.Remove(dicExample.Key.IndexOf(strAsset, StringComparison.Ordinal),strAsset.Length);
 			if (Directory.Exists(srcFolderPath))
 			{
 				FolderUtils.CopyFolder(srcFolderPath,destFolderPath);
@@ -171,7 +105,8 @@ public static class OneKeyAddOrRemoveDeerExample
 				File.Delete(srcFolderPath+".meta");
 			}
 		}
-		Disable();
+		//Disable();
+		AddOrRemoveAssembly(false);
 		DeerSettingsUtils.DeerGlobalSettings.m_UseDeerExample = false;
 		AssetDatabase.SaveAssets();
 		AssetDatabase.Refresh();
@@ -182,7 +117,33 @@ public static class OneKeyAddOrRemoveDeerExample
 		return DeerSettingsUtils.DeerGlobalSettings.m_UseDeerExample;
 	}
 
-	private static void Enable()
+	private static void AddOrRemoveAssembly(bool isAdd)
+	{
+		Dictionary<string, string> dicAssembly = new()
+		{
+			{ "ADeerExample", "HotfixADeerExample.dll" },
+			{ "AGameExample", "HotfixAGameExample.dll" }
+		};
+		foreach (var item in dicAssembly)
+		{
+			DeerSettingsUtils.AddOrRemoveHotUpdateAssemblies(isAdd,item.Key,item.Value);
+		}
+		//弹出提示框
+		string message;
+		if (isAdd)
+		{
+			message =
+				"DeerExample 添加成功，需要在[HybridCLR/Settings]中添加热更新程序集(HotfixADeerExample.dll,HotfixAGameExample.dll)才可以实现热更!";
+		}
+		else
+		{
+			message =
+				"DeerExample 移除成功，需要在[HybridCLR/Settings]中移除热更新程序集(HotfixADeerExample.dll,HotfixAGameExample.dll)才可以完全移除!";
+		}
+		EditorUtility.DisplayDialog("DeerExample",message,"已知晓");
+	}
+
+	/*private static void Enable()
 	{
 		AddScriptingDefineSymbol();
 		DeerSettingsUtils.DeerGlobalSettings.m_UseDeerExample = true;
@@ -213,5 +174,5 @@ public static class OneKeyAddOrRemoveDeerExample
 		{
 			ScriptingDefineSymbols.RemoveScriptingDefineSymbol(EnableEXAMPLE);
 		}
-	}
+	}*/
 }
