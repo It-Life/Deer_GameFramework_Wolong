@@ -14,7 +14,7 @@ namespace UnityGameFramework.Editor
     /// <summary>
     /// 类型相关的实用函数。
     /// </summary>
-    internal static class Type
+    public static class Type
     {
         private static readonly string[] RuntimeAssemblyNames =
         {
@@ -90,7 +90,7 @@ namespace UnityGameFramework.Editor
         /// </summary>
         /// <param name="typeBase">基类类型。</param>
         /// <returns>指定基类的所有子类的名称。</returns>
-        internal static string[] GetRuntimeOrEditorTypeNames(System.Type typeBase)
+        public static string[] GetRuntimeOrEditorTypeNames(System.Type typeBase)
         {
             return GetTypeNames(typeBase, RuntimeOrEditorAssemblyNames);
         }

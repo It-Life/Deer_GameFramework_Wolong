@@ -27,10 +27,6 @@ public delegate void UpdateConfigCompleteCallback(bool result);
 /// </summary>
 public partial class LubanConfigManager
 {
-    private bool m_IsLoadReadOnlyPath;
-
-    public bool IsLoadReadOnlyPath => m_IsLoadReadOnlyPath;
-
     public LubanConfigManager()
     {
         OnEnterDownload();

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using GameFramework;
 using UnityEditor;
 using UnityEditor.Graphs;
 using UnityEngine;
@@ -12,11 +13,17 @@ public class DeerHybridCLRSettingsProvider : SettingsProvider
     private const string headerName = "Deer/DeerHybridSettings";
     private SerializedObject m_CustomSettings;
     SerializedProperty m_UseDeerExampleField;
-    internal static SerializedObject GetSerializedSettings()
+    private SerializedProperty m_CompressionHelperTypeName;
+    private const string NoneOptionName = "<None>";
+    private string[] m_CompressionHelperTypeNames;
+    private int m_CompressionHelperTypeNameIndex = 0;
+
+    private static SerializedObject GetSerializedSettings()
     {
         return new SerializedObject(DeerSettingsUtils.DeerHybridCLRSettings);
     }
-    public static bool IsSettingsAvailable()
+
+    private static bool IsSettingsAvailable()
     {
         return File.Exists(k_DeerSettingsPath);
     }
@@ -25,6 +32,24 @@ public class DeerHybridCLRSettingsProvider : SettingsProvider
     {
         base.OnActivate(searchContext, rootElement);
         m_CustomSettings = GetSerializedSettings();
+        m_CompressionHelperTypeName = m_CustomSettings.FindProperty("CompressionHelperTypeName");
+        List<string> compressionHelperTypeNames = new List<string>
+        {
+            NoneOptionName
+        };
+
+        compressionHelperTypeNames.AddRange( UnityGameFramework.Editor.Type.GetRuntimeOrEditorTypeNames(typeof(Utility.Compression.ICompressionHelper)));
+        m_CompressionHelperTypeNames = compressionHelperTypeNames.ToArray();
+        m_CompressionHelperTypeNameIndex = 0;
+        if (!string.IsNullOrEmpty(m_CompressionHelperTypeName.stringValue))
+        {
+            m_CompressionHelperTypeNameIndex = compressionHelperTypeNames.IndexOf(m_CompressionHelperTypeName.stringValue);
+            if (m_CompressionHelperTypeNameIndex <= 0)
+            {
+                m_CompressionHelperTypeNameIndex = 0;
+                m_CompressionHelperTypeName = null;
+            }
+        }
     }
 
     public override void OnGUI(string searchContext)
@@ -46,6 +71,14 @@ public class DeerHybridCLRSettingsProvider : SettingsProvider
 #endif
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("HotUpdateAssemblies"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AOTMetaAssemblies"));
+        
+        int compressionHelperSelectedIndex = EditorGUILayout.Popup("Compression Helper", m_CompressionHelperTypeNameIndex, m_CompressionHelperTypeNames);
+        if (compressionHelperSelectedIndex != m_CompressionHelperTypeNameIndex)
+        {
+            m_CompressionHelperTypeNameIndex = compressionHelperSelectedIndex;
+            m_CompressionHelperTypeName.stringValue = compressionHelperSelectedIndex <= 0 ? null : m_CompressionHelperTypeNames[compressionHelperSelectedIndex];
+        }
+        
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("LogicMainDllName"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("AssemblyAssetExtension"));
         EditorGUILayout.PropertyField(m_CustomSettings.FindProperty("HybridCLRDataPath"));

@@ -1,8 +1,9 @@
 #if ENABLE_HYBRID_CLR_UNITY
+using System.Collections.Generic;
+using GameFramework;
 using UnityEngine;
 using UnityEditor;
 using UnityGameFramework.Editor.ResourceTools;
-
 /// <summary>
 /// 构建程序集编辑窗口
 /// </summary>
@@ -11,6 +12,7 @@ public class CopyAssembliesEditorWindow : EditorWindow
     private Platform m_SelectPlatform;
 
     private float m_Width = 100f;
+    
 
     [MenuItem("DeerTools/Builder/Assemblies Builder", priority = 101)]
     public static void OpenWindow()
@@ -87,6 +89,7 @@ public class CopyAssembliesEditorWindow : EditorWindow
             EditorGUILayout.EndHorizontal();
 
             GUILayout.Space(10);
+            GUILayout.Space(10);
 
             /*GUILayout.BeginHorizontal();
             {
@@ -100,6 +103,10 @@ public class CopyAssembliesEditorWindow : EditorWindow
                 }
             }
             GUILayout.EndHorizontal();*/
+            EditorGUILayout.LabelField("Compression Helper"+"[DeerTools/Settings/Deer HybridCLR Settings]:");
+            EditorGUILayout.LabelField(DeerSettingsUtils.DeerHybridCLRSettings.CompressionHelperTypeName);
+            GUILayout.Space(10);
+            GUILayout.Space(10);
             if (GUILayout.Button("构建所有程序集"))
             {
                 CopyAssemblies.DoCopyAllAssemblies(BuildEventHandlerWolong.Platform2BuildTargetDic[m_SelectPlatform]);

@@ -56,7 +56,11 @@ public class ConfigInfo
         get;
         set;
     }
+    
+    public bool IsLoadReadOnly = true;
 
+    
+    
     /// <summary>
     /// 重试次数
     /// </summary>

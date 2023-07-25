@@ -32,6 +32,8 @@ public partial class LubanConfigManager
     private Dictionary<string, ConfigInfo> m_ReadWriteConfigs;
     private Dictionary<string, ConfigInfo> m_OnlyReadConfigs;
     
+    private bool m_IsLoadReadOnlyVersion;
+
     public void InitConfigVersion(OnInitConfigCompleteCallback onInitConfigCompleteCallback)
     {
         Logger.Debug("InitConfigVersion");
@@ -64,11 +66,18 @@ public partial class LubanConfigManager
         else
         {
             CheckNeedUpdateConfig();
+            long size = 0;
+            foreach (var config in m_NeedUpdateConfigs)
+            {
+                int addSize = int.Parse(config.Value.Size);
+                size += (addSize > 0 ? addSize : 1) * 1024;
+            }
+            m_CheckCompleteCallback?.Invoke(m_NeedUpdateConfigs.Count, size);
         }
     }
     public ConfigInfo FindConfigInfoByName(string configName)
     {
-        Dictionary<string, ConfigInfo> configInfos = m_IsLoadReadOnlyPath ? m_OnlyReadConfigs : m_ReadWriteConfigs;
+        Dictionary<string, ConfigInfo> configInfos = m_IsLoadReadOnlyVersion ? m_OnlyReadConfigs : m_ReadWriteConfigs;
         foreach (var item in configInfos)
         {
             if (item.Key == configName)
@@ -86,8 +95,34 @@ public partial class LubanConfigManager
         m_NeedUpdateConfigs.Clear();
         string filePath = string.Empty;
         string curHashCode = string.Empty;
+        
+        List<ConfigInfo> noUpdateConfig = new();
+        if (m_OnlyReadConfigs != null)
+        {
+            foreach (var configInfo in m_ReadWriteConfigs)
+            {
+                foreach (var onlyConfigInfo in m_OnlyReadConfigs)
+                {
+                    if (configInfo.Key == onlyConfigInfo.Key && configInfo.Value.HashCode == onlyConfigInfo.Value.HashCode)
+                    {
+                        noUpdateConfig.Add(configInfo.Value);
+                        break;
+                    }
+                }
+            }
+        }
+
         foreach (KeyValuePair<string, ConfigInfo> config in m_ReadWriteConfigs)
         {
+            if (noUpdateConfig.Count != 0)
+            {
+                if (noUpdateConfig.Contains(config.Value))
+                {
+                    config.Value.IsLoadReadOnly = true;
+                    continue;
+                }
+            }
+            config.Value.IsLoadReadOnly = false;
             filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath, DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,"Datas", config.Value.Name);
             if (File.Exists(filePath))
             {
@@ -109,15 +144,6 @@ public partial class LubanConfigManager
                 }
             }
         }
-
-        long size = 0;
-        foreach (var config in m_NeedUpdateConfigs)
-        {
-            int addSize = int.Parse(config.Value.Size);
-            size += (addSize > 0 ? addSize : 1) * 1024;
-        }
-
-        m_CheckCompleteCallback?.Invoke(m_NeedUpdateConfigs.Count, size);
     }
     private void RefreshCheckInfoStatus()
     {
@@ -125,14 +151,13 @@ public partial class LubanConfigManager
         {
             return;
         }
+        m_IsLoadReadOnlyVersion = false;
         if (m_ReadWriteConfigVersion == m_OnlyReadConfigVersion)
         {
-            m_IsLoadReadOnlyPath = true;
             m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.Updated);
         }
         else
         {
-            m_IsLoadReadOnlyPath = false;
             m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.NeedUpdate);
         }
     }
@@ -153,7 +178,7 @@ public partial class LubanConfigManager
         string xml = FileUtils.BinToUtf8(bytes);
         m_OnlyReadConfigs = FileUtils.AnalyConfigXml(xml,out m_OnlyReadConfigVersion);
         m_ReadOnlyVersionReady = true;
-        m_IsLoadReadOnlyPath = true;
+        m_IsLoadReadOnlyVersion = true;
         m_OnInitConfigCompleteCallback?.Invoke();
         RefreshCheckInfoStatus();
     }
@@ -168,6 +193,7 @@ public partial class LubanConfigManager
         string xml = FileUtils.BinToUtf8(bytes);
         m_ReadWriteConfigs = FileUtils.AnalyConfigXml(xml,out m_ReadWriteConfigVersion);
         m_ReadWriteVersionReady = true;
+        m_IsLoadReadOnlyVersion = false;
         RefreshCheckInfoStatus();
     }
 }

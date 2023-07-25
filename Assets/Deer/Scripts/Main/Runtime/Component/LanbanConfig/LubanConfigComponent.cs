@@ -50,8 +50,4 @@ public class LubanConfigComponent : GameFrameworkComponent
         return m_LubanConfigManager.FindConfigInfoByName(configName);
     }
 
-    public bool GetIsLoadReadOnlyPath()
-    {
-        return m_LubanConfigManager.IsLoadReadOnlyPath;
-    }
 }

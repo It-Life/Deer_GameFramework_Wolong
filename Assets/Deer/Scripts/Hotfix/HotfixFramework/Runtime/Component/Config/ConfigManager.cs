@@ -72,9 +72,8 @@ public class ConfigManager:MonoBehaviour
         else
         {
             ConfigInfo configInfo = GameEntryMain.LubanConfig.FindConfigInfoByName(fileName);
-            fileName = GameEntryMain.LubanConfig.GetIsLoadReadOnlyPath() ? $"{configInfo.NameWithoutExtension}.{configInfo.HashCode}{configInfo.Extension}" : $"{configInfo.NameWithoutExtension}{configInfo.Extension}";
-
-            filePath = Utility.Path.GetRemotePath(Path.Combine(GameEntryMain.LubanConfig.GetIsLoadReadOnlyPath()? GameEntry.Resource.ReadOnlyPath:GameEntry.Resource.ReadWritePath,
+            fileName = configInfo.IsLoadReadOnly ? $"{configInfo.NameWithoutExtension}.{configInfo.HashCode}{configInfo.Extension}" : $"{configInfo.NameWithoutExtension}{configInfo.Extension}";
+            filePath = Utility.Path.GetRemotePath(Path.Combine( configInfo.IsLoadReadOnly ? GameEntry.Resource.ReadOnlyPath:GameEntry.Resource.ReadWritePath,
                 DeerSettingsUtils.DeerGlobalSettings.ConfigFolderName,
                 "Datas",fileName));
             Logger.Debug<ConfigManager>("fileLoadPath:"+filePath);

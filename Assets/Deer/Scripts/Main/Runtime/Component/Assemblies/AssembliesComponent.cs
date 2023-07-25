@@ -49,8 +49,4 @@ public class AssembliesComponent : GameFrameworkComponent
         return m_AssembliesManager.FindAssemblyInfoByName(assemblyName);
     }
     
-    public bool GetIsLoadReadOnlyPath()
-    {
-        return m_AssembliesManager.IsLoadReadOnlyPath;
-    }
 }

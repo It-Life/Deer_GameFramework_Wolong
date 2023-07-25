@@ -459,7 +459,6 @@ namespace Main.Runtime.Procedure
                 OnUpdateCompleteOne(configInfo.Name, (int)ne.CurrentLength, UpdateStateType.Change);
             }else if (ne.UserData is AssemblyInfo assemblyInfo)
             {
-                int size = (int)assemblyInfo.Size;
                 OnUpdateCompleteOne(assemblyInfo.Name, (int)ne.CurrentLength, UpdateStateType.Change);
             }
         }

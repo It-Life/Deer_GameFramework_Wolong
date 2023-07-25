@@ -16,15 +16,20 @@ public class AssemblyInfo
 	public string PathRoot;
 	public string GroupName;
 	public int HashCode;
-	public long Size;
+	public long Length;
+	public int CompressedHashCode;
+	public long CompressedLength;
+	public bool IsLoadReadOnly = true;
 	public int RetryCount;
-	public AssemblyInfo(string name,string pathRoot,string groupName, int hashCode,long size)
+	public AssemblyInfo(string name,string pathRoot,string groupName, int hashCode,long length,int compressedHashCode,long compressedLength)
 	{
 		Name = name;
 		PathRoot = pathRoot;
 		GroupName = groupName;
 		HashCode = hashCode;
-		Size = size;
+		Length = length;
+		CompressedHashCode = compressedHashCode;
+		CompressedLength = compressedLength;
 	}
 }
 
@@ -88,9 +93,6 @@ public class AssembliesComparer : IEqualityComparer<AssemblyInfo>
 /// </summary>
 public partial class AssembliesManager
 {
-	private bool m_IsLoadReadOnlyPath;
-	public bool IsLoadReadOnlyPath => m_IsLoadReadOnlyPath;
-
 	public AssembliesManager()
 	{
 		OnEnterDownload();

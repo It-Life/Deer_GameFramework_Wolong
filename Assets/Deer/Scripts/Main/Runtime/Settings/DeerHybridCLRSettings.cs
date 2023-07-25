@@ -45,6 +45,10 @@ public class DeerHybridCLRSettings:ScriptableObject
     [SerializeField] public List<HotUpdateAssemblie> HotUpdateAssemblies;
     //[Header("Need manual setting!")]
     [SerializeField] public List<string> AOTMetaAssemblies;
+    
+    [SerializeField]
+    public string CompressionHelperTypeName;
+    
     /// <summary>
     /// Dll of main business logic assembly
     /// </summary>

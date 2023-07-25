@@ -42,8 +42,8 @@ public partial class AssembliesManager
             AssemblyInfo assemblyInfo = FindAssemblyInfoByName(assemblyName);
             if (assemblyInfo !=null)
             {
-                string fileName = m_IsLoadReadOnlyPath ? $"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}" : $"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
-                LoadBytes(Utility.Path.GetRemotePath(Path.Combine(m_IsLoadReadOnlyPath ? GameEntryMain.Resource.ReadOnlyPath : GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, assemblyInfo.PathRoot, fileName)), 
+                string fileName = assemblyInfo.IsLoadReadOnly ? $"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}" : $"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
+                LoadBytes(Utility.Path.GetRemotePath(Path.Combine(assemblyInfo.IsLoadReadOnly ? GameEntryMain.Resource.ReadOnlyPath : GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, assemblyInfo.PathRoot, fileName)), 
                     new LoadBytesCallbacks(OnLoadHotfixAssemblySuccess, OnLoadHotfixAssemblyFailure), assemblyInfo);
             }
         }
@@ -70,8 +70,8 @@ public partial class AssembliesManager
         AssemblyInfo assemblyInfo = FindAssemblyInfoByName(mergedFileName);
         if (assemblyInfo != null)
         {
-            string fileName = m_IsLoadReadOnlyPath ? $"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}" : $"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
-            LoadBytes(Utility.Path.GetRemotePath(Path.Combine(m_IsLoadReadOnlyPath ? GameEntryMain.Resource.ReadOnlyPath : GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, assemblyInfo.PathRoot, fileName)), 
+            string fileName = assemblyInfo.IsLoadReadOnly ? $"{assemblyInfo.Name}.{assemblyInfo.HashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}" : $"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
+            LoadBytes(Utility.Path.GetRemotePath(Path.Combine(assemblyInfo.IsLoadReadOnly ? GameEntryMain.Resource.ReadOnlyPath : GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath, assemblyInfo.PathRoot, fileName)), 
                 new LoadBytesCallbacks(OnLoadAotAssemblySuccess, OnLoadAotAssemblyFailure), assemblyInfo);
         }
     }
@@ -84,7 +84,8 @@ public partial class AssembliesManager
     {
         AssemblyInfo assemblyInfo = userData as AssemblyInfo;
         m_LoadHotfixAssemblyCount--;
-        if (assemblyInfo != null) m_LoadHotfixAssemblyBytes.Add(assemblyInfo.Name, bytes);
+        byte[] newBytes = Utility.Compression.Decompress(bytes);
+        if (assemblyInfo != null) m_LoadHotfixAssemblyBytes.Add(assemblyInfo.Name, newBytes);
         if (m_LoadHotfixAssemblyCount == 0)
         {
             Dictionary<string,byte[]> dic = new Dictionary<string,byte[]>(m_LoadHotfixAssemblyBytes);
@@ -108,8 +109,8 @@ public partial class AssembliesManager
 
     private void OnLoadAotAssemblySuccess(string fileUri, byte[] bytes, float duration, object userData)
     {
-        AssemblyInfo assemblyInfo = userData as AssemblyInfo;
-        using MemoryStream stream = new MemoryStream(bytes);
+        byte[] newBytes = Utility.Compression.Decompress(bytes);
+        using MemoryStream stream = new MemoryStream(newBytes);
         using BinaryReader binaryReader = new BinaryReader(stream);
         foreach (var assemblyName in DeerSettingsUtils.DeerHybridCLRSettings.AOTMetaAssemblies)
         {

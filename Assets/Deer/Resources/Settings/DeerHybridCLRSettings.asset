@@ -32,8 +32,8 @@ MonoBehaviour:
   - BrunoMikoski.AnimationSequencer.dll
   - CatJson.dll
   - Cinemachine.dll
-  - DOTween.Modules.dll
   - DOTween.dll
+  - DOTween.Modules.dll
   - DOTweenPro.dll
   - GameFramework.dll
   - Google.Protobuf.dll
@@ -47,6 +47,7 @@ MonoBehaviour:
   - Main.Runtime.dll
   - MinimalistBarSystem.dll
   - Mono.Security.dll
+  - mscorlib.dll
   - Pathfinding.ClipperLib.dll
   - Pathfinding.Ionic.Zip.Reduced.dll
   - Pathfinding.Poly2Tri.dll
@@ -61,19 +62,21 @@ MonoBehaviour:
   - SuperScrollViewProject.dll
   - System.Configuration.dll
   - System.Core.dll
+  - System.dll
   - System.Numerics.dll
   - System.Runtime.CompilerServices.Unsafe.dll
   - System.Xml.dll
-  - System.dll
   - UIExtensions.dll
   - UniTask.Addressables.dll
+  - UniTask.dll
   - UniTask.DOTween.dll
   - UniTask.Linq.dll
   - UniTask.TextMeshPro.dll
-  - UniTask.dll
   - Unity.Burst.dll
+  - Unity.Burst.Unsafe.dll
   - Unity.InputSystem.dll
   - Unity.Mathematics.dll
+  - Unity.Networking.BackgroundDownload.dll
   - Unity.RenderPipeline.Universal.ShaderLibrary.dll
   - Unity.RenderPipelines.Core.Runtime.dll
   - Unity.RenderPipelines.Universal.Runtime.dll
@@ -85,10 +88,10 @@ MonoBehaviour:
   - UnityEngine.AudioModule.dll
   - UnityEngine.CoreModule.dll
   - UnityEngine.DirectorModule.dll
-  - UnityEngine.GameCenterModule.dll
+  - UnityEngine.dll
   - UnityEngine.GridModule.dll
-  - UnityEngine.IMGUIModule.dll
   - UnityEngine.ImageConversionModule.dll
+  - UnityEngine.IMGUIModule.dll
   - UnityEngine.InputLegacyModule.dll
   - UnityEngine.InputModule.dll
   - UnityEngine.JSONSerializeModule.dll
@@ -112,9 +115,8 @@ MonoBehaviour:
   - UnityEngine.UnityWebRequestModule.dll
   - UnityEngine.VRModule.dll
   - UnityEngine.XRModule.dll
-  - UnityEngine.dll
   - UnityGameFramework.Runtime.dll
-  - mscorlib.dll
+  CompressionHelperTypeName: UnityGameFramework.Runtime.DefaultCompressionHelper
   LogicMainDllName: HotfixFramework.Runtime.dll
   AssemblyAssetExtension: .bytes
   HybridCLRDataPath: HybridCLRData

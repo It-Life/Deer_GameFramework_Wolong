@@ -31,6 +31,8 @@ public partial class AssembliesManager
     private bool m_ReadOnlyVersionReady = false;
     private bool m_ReadWriteVersionReady = false;
     
+    private bool m_IsLoadReadOnlyVersion;
+
     public void InitAssembliesVersion(OnInitAssembliesCompleteCallback onInitAssembliesCompleteCallback)
     {
         Logger.Debug("InitAssembliesVersion");
@@ -50,15 +52,12 @@ public partial class AssembliesManager
     public void CheckAssemblies(string groupName,CheckAssembliesCompleteCallback completeCallback)
     {
         m_CheckCompleteCallback = completeCallback;
-
-        if (m_IsLoadReadOnlyPath)
-        {
-            m_CheckCompleteCallback?.Invoke(0,0); 
-            return;
-        }
-        
         if (m_ReadOnlyAssemblies != null && m_ReadWriteAssemblies.SequenceEqual(m_ReadOnlyAssemblies, new AssembliesComparer()))
         {
+            foreach (var item in m_ReadOnlyAssemblies)
+            {
+                item.IsLoadReadOnly = true;
+            }
             m_CheckCompleteCallback?.Invoke(0,0); 
         }
         else
@@ -72,7 +71,7 @@ public partial class AssembliesManager
                 {
                     if (assemblyInfo.GroupName == groupName)
                     {
-                        allSize += (assemblyInfo.Size > 0 ? assemblyInfo.Size : 1) * 1024;
+                        allSize += (assemblyInfo.CompressedLength > 0 ? assemblyInfo.CompressedLength : 1);
                     }
                 }
                 m_CheckCompleteCallback.Invoke(findList.Count,allSize);
@@ -86,7 +85,7 @@ public partial class AssembliesManager
 
     public List<AssemblyInfo> GetHotUpdateAssemblies(string groupName)
     {
-        List<AssemblyInfo> assemblyInfos = m_IsLoadReadOnlyPath ? m_ReadOnlyAssemblies : m_ReadWriteAssemblies;
+        List<AssemblyInfo> assemblyInfos = m_IsLoadReadOnlyVersion ? m_ReadOnlyAssemblies : m_ReadWriteAssemblies;
         List<AssemblyInfo> hotUpdateAssemblies = new();
         foreach (var assemblyInfo in assemblyInfos)
         {
@@ -100,7 +99,7 @@ public partial class AssembliesManager
 
     public AssemblyInfo FindAssemblyInfoByName(string fileName)
     {
-        List<AssemblyInfo> assemblyInfos = m_IsLoadReadOnlyPath ? m_ReadOnlyAssemblies : m_ReadWriteAssemblies;
+        List<AssemblyInfo> assemblyInfos = m_IsLoadReadOnlyVersion ? m_ReadOnlyAssemblies : m_ReadWriteAssemblies;
         foreach (var assemblyInfo in assemblyInfos)
         {
             if (assemblyInfo.Name == fileName)
@@ -112,16 +111,25 @@ public partial class AssembliesManager
     }
     public AssemblyFileData FindAssemblyFileDataByName(string fileName)
     {
-        List<AssemblyFileData> assemblyInfos = m_IsLoadReadOnlyPath ? m_AotReadOnlyAssemblyFileDatas : m_AotReadWriteAssemblyFileDatas;
-        foreach (var assemblyInfo in assemblyInfos)
+        AssemblyInfo mergedInfo = FindAssemblyInfoByName(AssemblyFileData.GetMergedFileName());
+        if (mergedInfo != null)
         {
-            if (assemblyInfo.Name == fileName)
+            List<AssemblyFileData> assemblyInfos = mergedInfo.IsLoadReadOnly ? m_AotReadOnlyAssemblyFileDatas : m_AotReadWriteAssemblyFileDatas;
+            foreach (var assemblyInfo in assemblyInfos)
             {
-                return assemblyInfo;
+                if (assemblyInfo.Name == fileName)
+                {
+                    return assemblyInfo;
+                }
             }
+        }
+        else
+        {
+            throw new GameFrameworkException($"File not find! 文件名为{AssemblyFileData.GetMergedFileName()}");
         }
         return null;
     }
+
     private List<AssemblyInfo> FindUpdateAssembliesByGroupName(string groupName)
     {
         List<AssemblyInfo> findList = new List<AssemblyInfo>();
@@ -140,17 +148,43 @@ public partial class AssembliesManager
         m_NeedUpdateAssemblies.Clear();
         string filePath = string.Empty;
         int curHashCode = 0;
+        
+        List<AssemblyInfo> noUpdateAsm = new();
+        if (m_ReadOnlyAssemblies != null)
+        {
+            foreach (var assemblyInfo in m_ReadWriteAssemblies)
+            {
+                foreach (var onlyAssembly in m_ReadOnlyAssemblies)
+                {
+                    if (assemblyInfo.Name == onlyAssembly.Name && assemblyInfo.CompressedHashCode == onlyAssembly.CompressedHashCode)
+                    {
+                        noUpdateAsm.Add(assemblyInfo);
+                        break;
+                    }
+                }
+            }
+        }
         foreach (var assemblyInfo in m_ReadWriteAssemblies)
         {
+            if (noUpdateAsm.Count != 0)
+            {
+                if (noUpdateAsm.Contains(assemblyInfo))
+                {
+                    assemblyInfo.IsLoadReadOnly = true;
+                    continue;
+                }
+            }
+            assemblyInfo.IsLoadReadOnly = false;
             filePath = Path.Combine(GameEntryMain.Resource.ReadWritePath,DeerSettingsUtils.DeerHybridCLRSettings.HybridCLRAssemblyPath,assemblyInfo.PathRoot,$"{assemblyInfo.Name}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
             if (File.Exists(filePath))
             {
                 using FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
                 curHashCode = Utility.Verifier.GetCrc32(fileStream);
-                if (curHashCode != assemblyInfo.HashCode)
+                if (curHashCode != assemblyInfo.CompressedHashCode)
                 {
                     if (!m_NeedUpdateAssemblies.ContainsKey(assemblyInfo.Name))
                     {
+                        assemblyInfo.IsLoadReadOnly = false;
                         m_NeedUpdateAssemblies.Add(assemblyInfo.Name, assemblyInfo);
                     }
                 }
@@ -159,10 +193,12 @@ public partial class AssembliesManager
             {
                 if (!m_NeedUpdateAssemblies.ContainsKey(assemblyInfo.Name))
                 {
+                    assemblyInfo.IsLoadReadOnly = false;
                     m_NeedUpdateAssemblies.Add(assemblyInfo.Name, assemblyInfo);
                 }
             }
         }
+        
     }
     private void RefreshCheckInfoStatus()
     {
@@ -170,15 +206,14 @@ public partial class AssembliesManager
         {
             return;
         }
-        
+
+        m_IsLoadReadOnlyVersion = false;
         if (m_ReadOnlyAssemblies != null && m_ReadWriteAssemblies.SequenceEqual(m_ReadOnlyAssemblies, new AssembliesComparer()))
         {
-            m_IsLoadReadOnlyPath = true;
             m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.Updated);
         }
         else
         {
-            m_IsLoadReadOnlyPath = false;
             m_CheckVersionListCompleteCallback?.Invoke(CheckVersionListResult.NeedUpdate);
         }
     }
@@ -195,8 +230,9 @@ public partial class AssembliesManager
         {
             throw new GameFrameworkException("The resolved format is not correct. Please reset build assets.");
         }
+
+        m_IsLoadReadOnlyVersion = true;
         m_ReadOnlyVersionReady = true;
-        m_IsLoadReadOnlyPath = true;
         m_OnInitAssembliesCompleteCallback?.Invoke();
         RefreshCheckInfoStatus();
     }
@@ -230,6 +266,7 @@ public partial class AssembliesManager
             throw new GameFrameworkException("The resolved format is not correct.");
         }
 
+        m_IsLoadReadOnlyVersion = false;
         m_ReadWriteVersionReady = true;
         RefreshCheckInfoStatus();
     }

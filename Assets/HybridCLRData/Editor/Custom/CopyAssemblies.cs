@@ -1,6 +1,7 @@
 #if ENABLE_HYBRID_CLR_UNITY
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.Protocols;
 using System.IO;
 using CatJson;
 using GameFramework;
@@ -36,14 +37,23 @@ public static class CopyAssemblies
                 if (dll == hotUpdateAssembly.Assembly)
                 {
                     string dllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(buildTarget)}/{dll}";
-                    using FileStream fileStream = new FileStream(dllPath, FileMode.Open, FileAccess.Read);
-                    int hashCode = Utility.Verifier.GetCrc32(fileStream);
-                    
-                    string dllBytesPath = Path.Combine(targetPath, $"{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
+                    /*using FileStream fileStream = new FileStream(dllPath, FileMode.Open, FileAccess.Read);
+                    int hashCode = Utility.Verifier.GetCrc32(fileStream);*/
+                    string dllBytesPath = Path.Combine(targetPath, $"{dll}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
                     File.Copy(dllPath, dllBytesPath, true);
-                    FileInfo fileInfo = new FileInfo(dllPath);
-                    long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
-                    m_ListAssemblies.Add(new AssemblyInfo(dll,"Hotfix",hotUpdateAssembly.AssetGroupName,hashCode,size));
+                    byte[] bytes = File.ReadAllBytes(dllBytesPath);
+                    int length = bytes.Length;
+                    int hashCode = Utility.Verifier.GetCrc32(bytes);
+                    bytes = Utility.Compression.Compress(bytes);
+                    File.WriteAllBytes(dllBytesPath, bytes);
+                    int compressedLength = bytes.Length;
+                    int compressedHashCode = Utility.Verifier.GetCrc32(bytes);
+                    string dllBytesNewPath = Path.Combine(targetPath, $"{dll}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}");
+                    File.Move(dllBytesPath, dllBytesNewPath);
+                    //FileInfo fileInfo = new FileInfo(dllPath);
+                    //long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
+                    m_ListAssemblies.Add(new AssemblyInfo(dll,"Hotfix",
+                        hotUpdateAssembly.AssetGroupName,hashCode, length,compressedHashCode, compressedLength));
                     break;  
                 }
             }
@@ -98,15 +108,23 @@ public static class CopyAssemblies
         }
         mergedFileWriter.Close();
         mergedFileWriter.Dispose();
-        using FileStream fileStream = new FileStream(mergedFilePath, FileMode.Open, FileAccess.Read);
-        int hashCode = Utility.Verifier.GetCrc32(fileStream);
-        fileStream.Close();
-        fileStream.Dispose();
+        //压缩
+        byte[] bytes = File.ReadAllBytes(mergedFilePath);
+        int length = bytes.Length;
+        //using FileStream fileStream = new FileStream(mergedFilePath, FileMode.Open, FileAccess.Read);
+        int hashCode = Utility.Verifier.GetCrc32(bytes);
+        bytes = Utility.Compression.Compress(bytes);
+        File.WriteAllBytes(mergedFilePath, bytes);
+        int compressedLength = bytes.Length;
+        int compressedHashCode = Utility.Verifier.GetCrc32(bytes);
+        //fileStream.Close();
+        //fileStream.Dispose();
         string mergedNewFilePath = $"{DeerSettingsUtils.AOTAssemblyTextAssetPath}/{mergedFileName}.{hashCode}{DeerSettingsUtils.DeerHybridCLRSettings.AssemblyAssetExtension}";
         File.Move(mergedFilePath, mergedNewFilePath);
-        FileInfo fileInfo = new FileInfo(mergedNewFilePath);
-        long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
-        m_ListAssemblies.Add(new AssemblyInfo(mergedFileName,"AOT",DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,hashCode, size));
+        //FileInfo fileInfo = new FileInfo(mergedNewFilePath);
+        //long size = (long)Math.Ceiling(fileInfo.Length / 1024f);
+        m_ListAssemblies.Add(new AssemblyInfo(mergedFileName,"AOT",
+            DeerSettingsUtils.DeerGlobalSettings.BaseAssetsRootName,hashCode, length,compressedHashCode, compressedLength));
         // 刷新资源
         AssetDatabase.Refresh();
     }
@@ -137,6 +155,7 @@ public static class CopyAssemblies
     {
         m_ListAssemblies.Clear();
         CompileDllCommand.CompileDll(buildTarget);
+        RefreshCompressionHelper();
         DoCopyAOTAssemblies(buildTarget);
         DoCopyHotfixAssemblies(buildTarget);
         CreateAssembliesVersion();
@@ -152,6 +171,29 @@ public static class CopyAssemblies
         string[] ssss = assembly.Split(AssemblyFileData.GetSeparator());
         var m_UpdateAssemblies = ssss[0].ParseJson<List<AssemblyInfo>>();
         var m_UpdateAs = ssss[1].ParseJson<List<AssemblyFileData>>();
+    }
+    private static bool RefreshCompressionHelper()
+    {
+        bool retVal = false;
+        if (!string.IsNullOrEmpty(DeerSettingsUtils.DeerHybridCLRSettings.CompressionHelperTypeName))
+        {
+            System.Type compressionHelperType = Utility.Assembly.GetType(DeerSettingsUtils.DeerHybridCLRSettings.CompressionHelperTypeName);
+            if (compressionHelperType != null)
+            {
+                Utility.Compression.ICompressionHelper compressionHelper = (Utility.Compression.ICompressionHelper)Activator.CreateInstance(compressionHelperType);
+                if (compressionHelper != null)
+                {
+                    Utility.Compression.SetCompressionHelper(compressionHelper);
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            retVal = true;
+        }
+        Utility.Compression.SetCompressionHelper(null);
+        return retVal;
     }
 }
 #endif
