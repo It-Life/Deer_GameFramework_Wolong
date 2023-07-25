@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
   m_OnCullStateChanged:
@@ -537,6 +537,7 @@ MonoBehaviour:
   - ButtonSoundAssetType: 0
     ButtonSoundType: 2
     ButtonUISoundName: ui_click_button
+    ButtonUISoundAssetGroup: BaseAssets
   m_CanClick: 1
   m_CanDoubleClick: 0
   m_DoubleClickIntervalTime: 0.1
@@ -547,6 +548,24 @@ MonoBehaviour:
   m_ResponseOnceByPress: 0
   m_LongPressDurationTime: 1
   onPress:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClickLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onDoubleClickRight:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressRight:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &833839935208513288
