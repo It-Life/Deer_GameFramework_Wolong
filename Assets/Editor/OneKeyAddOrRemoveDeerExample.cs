@@ -36,6 +36,7 @@ public static class OneKeyAddOrRemoveDeerExample
 		["Assets/Deer/AssetsHotfix/AGameExample"] = "1",
 		["Assets/Deer/Scripts/Hotfix/HotfixADeerExample"] = "1",
 		["Assets/Deer/Scripts/Hotfix/HotfixAGameExample"] = "1",
+		["Assets/Standard Assets/DeerExample"] = "1",
 	};
 	// 将"Assets/MyFolder"移动到“项目根路径/MyFolder”
 	private static string m_DestFolderPath = Application.dataPath + "/../DeerExample/";
