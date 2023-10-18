@@ -8,7 +8,7 @@ namespace UGFExtensions.SpriteCollection
     {
         static InitializeOnLoad()
         {
-            EditorApplication.playModeStateChanged += LogPlayModeState;
+            //EditorApplication.playModeStateChanged += LogPlayModeState;
         }
 
         private static void LogPlayModeState(PlayModeStateChange obj)
